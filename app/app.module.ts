@@ -7,13 +7,22 @@ import { LoginComponent } from "./component/login.component";
 import { LeftSidebarComponent } from "./component/leftSidebar.component";
 import { RightSidebarComponent } from "./component/rightSidebar.component";
 import { HomeComponent } from "./component/home.componet";
-import { Routing,AppRoutingProviders } from "./app.routes";
+import { SqldefineComponent } from "./component/sqldefine.component";
+import { Routing, AppRoutingProviders } from "./app.routes";
 
 @NgModule({
-    imports: [BrowserModule,Routing],
+    imports: [BrowserModule, Routing],
     exports: [],
-    declarations: [AppComponent,TopbarComponent,LoginComponent,LeftSidebarComponent,HomeComponent,RightSidebarComponent],
-    providers: [LoggerService,AppRoutingProviders],
-    bootstrap:[AppComponent] // 根组件
+    declarations: [
+        AppComponent,
+        TopbarComponent,
+        LoginComponent,
+        LeftSidebarComponent,
+        HomeComponent,
+        RightSidebarComponent,
+        SqldefineComponent
+    ],
+    providers: [LoggerService, AppRoutingProviders],
+    bootstrap: [AppComponent] // 根组件
 })
 export class AppModule { }

@@ -5,7 +5,7 @@
 */
 
 
-!function($) {
+var sidemenuInit = function() {
     "use strict";
 
     var Sidemenu = function() {
@@ -76,10 +76,10 @@
     //init Sidemenu
     $.Sidemenu = new Sidemenu, $.Sidemenu.Constructor = Sidemenu
     
-}(window.jQuery),
+}
 
 
-function($) {
+var fullScreenInit = function() {
     "use strict";
 
     var FullScreen = function() {
@@ -132,12 +132,12 @@ function($) {
      //init FullScreen
     $.FullScreen = new FullScreen, $.FullScreen.Constructor = FullScreen
     
-}(window.jQuery),
+}
 
 
 
 //main app module
- function($) {
+!function($) {
     "use strict";
     
     var App = function() {
@@ -176,22 +176,16 @@ function($) {
         //document load initialization
         $(document).ready($this.onDocReady);
         //init side bar - left
+        sidemenuInit();
         $.Sidemenu.init();
         //init fullscreen
+        fullScreenInit();
         $.FullScreen.init();
     },
 
     $.App = new App, $.App.Constructor = App
 
-}(window.jQuery),
-
-//initializing main application module
-function($) {
-    "use strict";
-    $.App.init();
 }(window.jQuery);
-
-
 
 /* ------------ some utility functions ----------------------- */
 //this full screen
