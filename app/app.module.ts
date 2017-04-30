@@ -8,6 +8,7 @@ import { LeftSidebarComponent } from "./component/leftSidebar.component";
 import { RightSidebarComponent } from "./component/rightSidebar.component";
 import { HomeComponent } from "./component/home.componet";
 import { SqldefineComponent } from "./component/sqldefine.component";
+import { MainComponent } from "./component/main.component";
 import { Routing, AppRoutingProviders } from "./app.routes";
 
 @NgModule({
@@ -20,7 +21,8 @@ import { Routing, AppRoutingProviders } from "./app.routes";
         LeftSidebarComponent,
         HomeComponent,
         RightSidebarComponent,
-        SqldefineComponent
+        SqldefineComponent,
+        MainComponent
     ],
     providers: [LoggerService, AppRoutingProviders],
     bootstrap: [AppComponent] // 根组件
