@@ -1,10 +1,10 @@
 import { Component, OnInit ,AfterViewInit,ElementRef,ViewChild,Input } from '@angular/core';
-import { LoggerService } from "../service/logger.service";
-import { InputParam } from "../metadata/ztree/inputParam.metadata";
+import { LoggerService } from "../../service/basic/logger.service";
+import { InputParam } from "../../metadata/ztree/inputParam.metadata";
 declare var $:any;
 @Component({
     selector: 'ui-tree',
-    templateUrl: './app/component/uiTree.component.html'
+    templateUrl: './app/component/basic/uiTree.component.html'
 })
 
 /**

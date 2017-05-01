@@ -6,5 +6,6 @@ export class Application {
         
     }
     static baseContext:string = "http://localhost:3000";
- 
+    
+    
 }

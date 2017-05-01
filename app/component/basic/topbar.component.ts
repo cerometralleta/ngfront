@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LoggerService } from "../service/logger.service";
+import { LoggerService } from "../../service/basic/logger.service";
 @Component({
     selector: 'home-topbar',
-    templateUrl: './app/component/topbar.component.html'
+    templateUrl: './app/component/basic/topbar.component.html'
 })
 export class TopbarComponent implements OnInit {
   

@@ -1,13 +1,13 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import { LoggerService } from "../service/logger.service";
-import { HttpService } from "../service/http.service";
-import { InputParam } from "../metadata/ztree/InputParam.metadata";
-import { Setting } from "../metadata/ztree/setting.metadata";
 import { URLSearchParams,Http,Jsonp } from "@angular/http";
-import { Application } from "../metadata/constant/application.constant";
+import { HttpService } from "../../service/basic/http.service";
+import { InputParam } from "../../metadata/ztree/InputParam.metadata";
+import { Setting } from "../../metadata/ztree/setting.metadata";
+import { Application } from "../../metadata/constant/application.constant";
+import { LoggerService } from "../../service/basic/logger.service";
 @Component({
     selector: 'sqldefine',
-    templateUrl: './app/component/sqldefine.component.html'
+    templateUrl: './app/component/basic/sqldefine.component.html'
 })
 
 export class SqldefineComponent implements OnInit {

@@ -1,9 +1,9 @@
 import { Component, OnInit,ModuleWithProviders } from '@angular/core';
 import { Router, RouterModule,Routes } from "@angular/router";
-import { HomeComponent } from "./component/home.componet";
-import { LoginComponent } from "./component/login.component";
-import { SqldefineComponent } from "./component/sqldefine.component";
-import { MainComponent } from "./component/main.component";
+import { HomeComponent } from "./component/basic/home.componet";
+import { LoginComponent } from "./component/basic/login.component";
+import { SqldefineComponent } from "./component/basic/sqldefine.component";
+import { MainComponent } from "./component/basic/main.component";
 
 const appRoutes: Routes = [
     { path: '',  

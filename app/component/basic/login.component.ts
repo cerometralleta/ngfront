@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 
 @Component({
     selector: 'login-app',
-    templateUrl: './app/component/login.component.html'
+    templateUrl: './app/component/basic/login.component.html'
 })
 
 export class LoginComponent implements OnInit {
