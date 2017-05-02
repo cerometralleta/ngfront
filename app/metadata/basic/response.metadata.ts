@@ -1,7 +1,7 @@
  /**
  * name
  */
-export class BaseResponse<T> {
+export class Response<T> {
     constructor() {
         
     }

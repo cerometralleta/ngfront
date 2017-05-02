@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SqlViewResult } from "../../metadata/basic/sqlViewResponse.metadata";
 import { HttpService } from "../../service/basic/http.service";
 import { LoggerService } from "../../service/basic/logger.service";
-import { BaseResponse } from "../../metadata/basic/response.metadata";
+import { Response } from "../../metadata/basic/response.metadata";
 import { Application } from "../../metadata/constant/application.constant";
 @Component({
     selector: 'sqlview-list',
@@ -21,7 +21,7 @@ export class SqlViewListComponent implements OnInit {
         // 传递过来的不是promise 所以要subscribe执行
         this.httpService.doPost(Application.baseContext, params).subscribe(res => {
             console.log(res);
-           let resp = res.data() as BaseResponse<SqlViewResult>;
+           let resp = res.data() as Response<SqlViewResult>;
         });
     }
 }
