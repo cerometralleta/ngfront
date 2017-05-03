@@ -1,16 +1,17 @@
 import { Component, OnInit ,AfterViewInit,ElementRef,ViewChild,Input } from '@angular/core';
 import { LoggerService } from "../../service/basic/logger.service";
-import { InputParam } from "../../metadata/ztree/inputParam.metadata";
+import { InputParam } from "../../metadata/ngbtree/inputParam.metadata";
+import { Setting } from "../../metadata/ngbtree/setting.metadata";
 declare var $:any;
 @Component({
-    selector: 'ui-tree',
-    templateUrl: './app/component/basic/uiTree.component.html'
+    selector: 'ngb-tree',
+    templateUrl: './app/component/ngb/ngbTree.component.html'
 })
 
 /**
  * 树组件
  */ 
-export class UiTreeComponent implements AfterViewInit {
+export class NgbTreeComponent implements AfterViewInit {
     private mytree:any;
 
     /**
@@ -18,10 +19,10 @@ export class UiTreeComponent implements AfterViewInit {
      *  http://m.blog.csdn.net/article/details?id=52452032
      *  http://www.open-open.com/lib/view/open1461113267205.html
      */
-    @ViewChild("ztree") ul: ElementRef;
+    @ViewChild("ngbtree") ul: ElementRef;
 
     //输入
-     @Input() inputParam: InputParam;
+     @Input() setting: Setting;
 
     constructor(private logger:LoggerService) {
      }
@@ -29,6 +30,6 @@ export class UiTreeComponent implements AfterViewInit {
     ngAfterViewInit() {
         //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
         //Add 'implements AfterViewInit' to the class.
-        this.mytree = $.fn.zTree.init($(this.ul.nativeElement), this.inputParam.setting, this.inputParam.nodes);
+        this.mytree = $.fn.zTree.init($(this.ul.nativeElement), this.setting, this.setting.znodes);
     }
 }

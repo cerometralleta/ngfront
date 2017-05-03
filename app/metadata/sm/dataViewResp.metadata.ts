@@ -1,12 +1,14 @@
 /**
  * sqlDefineView 公用查询对象
  */
-export class SqlViewResp {
+import { DataView } from "./dataView.metadata";
+
+export class DataViewResp {
     constructor() {
     }
     pageSize:number;
     pageNo:number;
     totalElements:number;
-    content:Array<SqlView>; 
+    content:Array<DataView>; 
 }
 

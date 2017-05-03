@@ -3,6 +3,7 @@
  */
 import { GUID } from "../../utils/guid.util";
 import { Async } from "./async.metadata";
+import { Data } from "./data.metadata";
 
 export class Setting {
     constructor() {
@@ -11,4 +12,6 @@ export class Setting {
     treeId:string;
     treeObj:any;
     async:Async;
+    data:Data;
+    znodes:any;//树数据
 }

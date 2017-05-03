@@ -2,7 +2,7 @@
  * Content
  */
 
-export class SqlView {
+export class DataView {
     constructor() {
         
     }
