@@ -13,5 +13,8 @@ import { Component, OnInit } from '@angular/core';
 export class NgbGridComponent implements OnInit {
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        
+
+     }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit ,AfterViewInit,ElementRef,ViewChild,Input } from '@angular/core';
 import { LoggerService } from "../../service/basic/logger.service";
-import { InputParam } from "../../metadata/ngbtree/inputParam.metadata";
-import { Setting } from "../../metadata/ngbtree/setting.metadata";
+import { Setting } from "../../metadata/ngb/ngbTree/setting.metadata";
 declare var $:any;
 @Component({
     selector: 'ngb-tree',

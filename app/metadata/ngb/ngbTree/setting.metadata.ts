@@ -1,9 +1,9 @@
 /**
  * ztree配置,详情见http://www.treejs.cn/v3/api.php
  */
-import { GUID } from "../../utils/guid.util";
 import { Async } from "./async.metadata";
 import { Data } from "./data.metadata";
+import { GUID } from "../../../utils/guid.util";
 
 export class Setting {
     constructor() {

@@ -6,6 +6,7 @@ import { Routing, AppRoutingProviders } from "../app.routes";
 import { LoggerService } from "../service/basic/logger.service";
 import { NgbTreeComponent } from "../component/ngb/ngbTree.component";
 import { HttpService } from "../service/basic/http.service";
+import { NgbGridComponent } from "../component/ngb/ngbGrid.component";
 
  
 /**
@@ -14,9 +15,9 @@ import { HttpService } from "../service/basic/http.service";
  */
 @NgModule({
     imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule],
-    exports: [NgbTreeComponent],
+    exports: [NgbTreeComponent,NgbGridComponent],
     declarations: [
-        NgbTreeComponent
+        NgbTreeComponent,NgbGridComponent
     ],
     providers: [LoggerService,AppRoutingProviders,HttpService]
 })
