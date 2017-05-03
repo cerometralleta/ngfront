@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { URLSearchParams, Http, Jsonp } from "@angular/http";
 import { HttpService } from "../../service/basic/http.service";
-import { Setting } from "../../metadata/ngbtree/setting.metadata";
 import { Application } from "../../metadata/constant/application.constant";
 import { LoggerService } from "../../service/basic/logger.service";
 import { ButtonType } from "../../metadata/constant/buttonType.constant";
 import { GUID } from "../../utils/guid.util";
 import { DataView } from "../../metadata/sm/dataView.metadata";
 import { Response } from "../../metadata/response.metadata";
+import { Setting } from "../../metadata/ngb/ngbTree/setting.metadata";
 
 /**
  * 统一dataView
