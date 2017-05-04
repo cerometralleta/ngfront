@@ -8,6 +8,7 @@ import { GUID } from "../../utils/guid.util";
 import { DataView } from "../../metadata/sm/dataView.metadata";
 import { Response } from "../../metadata/response.metadata";
 import { Setting } from "../../metadata/ngb/ngbTree/setting.metadata";
+import { Options } from "../../metadata/ngb/ngbGrid/options.metadata";
 
 /**
  * 统一dataView
@@ -17,17 +18,14 @@ import { Setting } from "../../metadata/ngb/ngbTree/setting.metadata";
     templateUrl: './app/component/sm/dataView.component.html'
 })
 export class DataViewComponent implements OnInit {
-        dataView: any;
+    dataView: any;
     private treeRange: number;
     private gridRange: number;
-    private isShowTree: boolean;
 
     //tree input
     private setting: Setting;
-
-    private nodes: any;
-    private buttonNavFlag:boolean;
-    private toolbarId:string;
+    private options:Options;
+    private isShowTree:boolean;
 
     constructor(private logger: LoggerService, private httpService: HttpService) {
 
@@ -35,20 +33,31 @@ export class DataViewComponent implements OnInit {
 
     ngOnInit() {
         this.treeRange = 3;
-        this.gridRange = 7;
+        this.gridRange = 9;
         this.isShowTree = true;
-        this.toolbarId = GUID.createGUIDString();
+        this.setting = new Setting();
+        this.setting.znodes = [
+            {
+                name: "父节点1", children: [
+                    { name: "子节点1" },
+                    { name: "子节点2" }
+                ]
+            }
 
-           //初始化数据
+        ];
+
+        this.options = new Options();
+
+        //初始化数据
         var params = new URLSearchParams();
         params.set("id", "1");
 
         // 传递过来的不是promise 所以要subscribe执行
         this.httpService.doPost(Application.baseContext, params).subscribe(res => {
             console.log(res);
-           let resp = res.data() as Response<DataView>;
+            let resp = res.data() as Response<DataView>;
         });
     }
 
-  
+
 }

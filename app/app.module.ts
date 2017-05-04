@@ -7,8 +7,9 @@ import { LoggerService } from "./service/basic/logger.service";
 import { HttpService } from "./service/basic/http.service";
 import { FrameModule } from "./module/frame.module";
 import { NgbModule } from "./module/ngb.module";
+import { SmModule } from "./module/sm.module";
 @NgModule({
-    imports: [FrameModule,Routing,NgbModule],
+    imports: [FrameModule,Routing,NgbModule,SmModule],
     exports: [],
     declarations: [
         AppComponent

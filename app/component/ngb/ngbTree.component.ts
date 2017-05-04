@@ -11,14 +11,14 @@ declare var $:any;
  * 树组件
  */ 
 export class NgbTreeComponent implements AfterViewInit {
-    private mytree:any;
+    private ngbTree:any;
 
     /**
      *  参考
      *  http://m.blog.csdn.net/article/details?id=52452032
      *  http://www.open-open.com/lib/view/open1461113267205.html
      */
-    @ViewChild("ngbtree") ul: ElementRef;
+    @ViewChild("ngbTree") erf: ElementRef;
 
     //输入
      @Input() setting: Setting;
@@ -29,6 +29,6 @@ export class NgbTreeComponent implements AfterViewInit {
     ngAfterViewInit() {
         //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
         //Add 'implements AfterViewInit' to the class.
-        this.mytree = $.fn.zTree.init($(this.ul.nativeElement), this.setting, this.setting.znodes);
+        this.ngbTree = $.fn.zTree.init($(this.erf.nativeElement), this.setting, this.setting.znodes);
     }
 }
