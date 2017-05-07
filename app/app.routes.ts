@@ -1,35 +1,44 @@
-import { Component, OnInit,ModuleWithProviders } from '@angular/core';
+import { Component, OnInit, ModuleWithProviders } from '@angular/core';
 import { Router, RouterModule, Routes } from "@angular/router";
 import { DataViewComponent } from "./component/sm/dataView.component";
 import { MainComponent } from "./component/frame/main.component";
 import { HomeComponent } from "./component/frame/home.componet";
 import { LoginComponent } from "./component/frame/login.component";
+import { DataViewEditComponent } from "./component/sm/dataViewEdit.component";
 
 
 const appRoutes: Routes = [
-    { path: '',  
-      redirectTo: "login",
-      pathMatch: "full"     
+    {
+        path: '',
+        redirectTo: "login",
+        pathMatch: "full"
     },
-    { path: 'home', component: HomeComponent ,
-      children:[
+    {
+        path: 'home', component: HomeComponent,
+        children: [
             {
-                path: ""  //如果没有设置一个空路由的话, "/home" 会报错, 一定要 "/home/detail" 才行. 
+                path: "",  //如果没有设置一个空路由的话, "/home" 会报错, 一定要 "/home/detail" 才行. 
+                redirectTo: "home",
+                pathMatch: "full"
             },
             {
                 path: "main",
-                component:MainComponent
+                component: MainComponent
             },
             {
                 path: "dataview/:sqlid",
                 component: DataViewComponent,
-                pathMatch: "prefix" 
-            } 
-      ]
+                pathMatch: "prefix"
+            },
+            {
+                path: "dataviewedit",
+                component: DataViewEditComponent
+            }
+        ]
     },
     { path: 'login', component: LoginComponent },
     // { path: 'detail/:id', component: CompanieDetailComponent },
-    {path: '**', component: LoginComponent }
+    { path: '**', component: LoginComponent }
 ];
 
 export const AppRoutingProviders: any[] = [];

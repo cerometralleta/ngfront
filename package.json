@@ -13,12 +13,12 @@
     "@angular/http": "^4.0.3",
     "@angular/platform-browser": "^4.0.3",
     "@angular/platform-browser-dynamic": "^4.0.3",
-    "@angular/router": "3.1.1",
-    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.25",
+    "@angular/animations": "^4.0.3",
+    "@angular/router": "4.1.1",
     "core-js": "2.4.1",
-    "ng-bootstrap": "1.6.3",
+    "rebirth-ng": "^0.0.8",
     "reflect-metadata": "0.1.8",
-    "rxjs": "5.0.0-rc.4",
+    "rxjs": "^5.0.1",
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
