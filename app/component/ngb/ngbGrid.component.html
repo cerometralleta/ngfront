@@ -1,31 +1,4 @@
 <table #ngbGrid
-    data-toggle="table"
-    data-show-refresh="true"
-    data-show-columns="true" 
-    data-sort-name="id" 
-    data-page-list="[5, 10, 20]" 
-    data-page-size="5" 
-    data-pagination="true"
-    data-show-pagination-switch="true" 
-    class="table-bordered ">
-    <thead>
-        <tr>
-            <th data-field="state" data-checkbox="true"></th>
-            <th data-field="id" data-sortable="true" data-formatter="invoiceFormatter">Order ID</th>
-            <th data-field="name" data-sortable="true">Name</th>
-            <th data-field="date" data-sortable="true" data-formatter="dateFormatter">Order Date</th>
-            <th data-field="amount" data-align="center" data-sortable="true" data-sorter="priceSorter">Price</th>
-            <th data-field="status" data-align="center" data-sortable="true" data-formatter="statusFormatter">Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td></td>
-            <td>UB-1609</td>
-            <td>Boudreaux</td>
-            <td>22 Jun 2015</td>
-            <td>$ 35.00</td>
-            <td>Unpaid</td>
-        </tr>
-    </tbody>
+    data-toolbar="#ngbToolbar" 
+    class="table-bordered">
 </table>

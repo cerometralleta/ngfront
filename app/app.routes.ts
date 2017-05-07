@@ -21,7 +21,7 @@ const appRoutes: Routes = [
                 component:MainComponent
             },
             {
-                path: "dataview",
+                path: "dataview/:sqlid",
                 component: DataViewComponent            
             } 
       ]

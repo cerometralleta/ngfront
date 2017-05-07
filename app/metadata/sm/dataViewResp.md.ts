@@ -1,7 +1,8 @@
 /**
  * sqlDefineView 公用查询对象
  */
-import { DataView } from "./dataView.metadata";
+
+import { DataViewModule } from "./dataViewModule.md";
 
 export class DataViewResp {
     constructor() {
@@ -9,6 +10,6 @@ export class DataViewResp {
     pageSize:number;
     pageNo:number;
     totalElements:number;
-    content:Array<DataView>; 
+    content:Array<DataViewModule>; 
 }
 
