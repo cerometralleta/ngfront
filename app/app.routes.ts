@@ -22,13 +22,14 @@ const appRoutes: Routes = [
             },
             {
                 path: "dataview/:sqlid",
-                component: DataViewComponent            
+                component: DataViewComponent,
+                pathMatch: "prefix" 
             } 
       ]
     },
     { path: 'login', component: LoginComponent },
     // { path: 'detail/:id', component: CompanieDetailComponent },
-    { path: '**', redirectTo: '' }
+    {path: '**', component: LoginComponent }
 ];
 
 export const AppRoutingProviders: any[] = [];

@@ -35,16 +35,16 @@ export class DataViewComponent implements OnInit {
 
     ngOnInit() {
 
-        
+
         //grid options
         let options: Options;
         //tree input
-    let treeModule: DataModule;
+        let treeModule: DataModule;
         //buttons
         let buttons: Array<Button>
         this.route.params.switchMap((parmes: Params) =>
-            
-            this.httpService.doPost(Application.baseContext+"/" + parmes["sqlid"],"")
+
+            this.httpService.doPost(Application.baseContext + "/" + parmes["sqlid"], "")
         ).subscribe(res => { // 传递过来的不是promise 所以要subscribe执行
             console.log(res);
             let resp = res.data() as Response<DataViewModule>;

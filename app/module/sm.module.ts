@@ -7,7 +7,8 @@ import { LoggerService } from "../service/basic/logger.service";
 import { NgbTreeComponent } from "../component/ngb/ngbTree.component";
 import { HttpService } from "../service/basic/http.service";
 import { DataViewComponent } from "../component/sm/dataView.component";
-import { NgbModule } from "./ngb.module";
+import { Ngb2Module } from "./ngb.module";
+import { DataViewEditComponent } from "../component/sm/dataViewEdit.component";
 
  
 /**
@@ -15,10 +16,11 @@ import { NgbModule } from "./ngb.module";
  * ningzk
  */
 @NgModule({
-    imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,NgbModule],
-    exports: [DataViewComponent],
+    imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,Ngb2Module],
+    exports: [DataViewComponent,DataViewEditComponent],
     declarations: [
         DataViewComponent
+        ,DataViewEditComponent
     ],
     providers: [LoggerService,AppRoutingProviders,HttpService]
 })
