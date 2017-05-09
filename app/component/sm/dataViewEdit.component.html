@@ -1,54 +1,98 @@
-<re-tabs>
-  <re-tab id="tab1" title="Home">
-    <ng-template reTabContent>
-      <p>
-        Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.
-        Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.
-        Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip
-        quis cardigan american apparel, butcher voluptate nisi qui.
-      </p>
-    </ng-template>
-  </re-tab>
-
-  <re-tab id="tab2" title="Profile">
-    <ng-template reTabContent>
-      <p>
-        Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog
-        sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress,
-        commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore
-        aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan
-        fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel.
-        Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
-      </p>
-    </ng-template>
-  </re-tab>
-
-  <re-tab id="tab3" title="Fat">
-    <ng-template reTabContent>
-      <!--<button class="btn btn-warning" (click)="alert('tab3')"> Alert</button>-->
-      <button class="btn btn-warning"> Alert</button>
-      <p>
-        Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table
-        readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy
-        hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi
-        whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't
-        heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
-
-      </p>
-    </ng-template>
-  </re-tab>
-</re-tabs>
-
-
-<div class="row">
-  <div class="col-sm-12">
-    <!--<div class="text-right p-20">-->
-      <div class="text-right">
-      <button type="button" class="btn w-sm btn-white waves-effect">Cancel</button>
-      <button type="button" class="btn w-sm btn-default waves-effect waves-light">Save</button>
+<form class="form-horizontal" role="form" [formGroup]="ngbForm" (ngSubmit)="onSubmit()">
+  <ul class="nav nav-tabs navtab-bg nav-justified">
+    <li class="active">
+      <a href="#home" data-toggle="tab" aria-expanded="false">
+        <span class="visible-xs"><i class="fa fa-home"></i></span>
+        <span class="hidden-xs">Home</span>
+      </a>
+      <li class="">
+        <a href="#profile" data-toggle="tab" aria-expanded="true">
+          <span class="visible-xs"><i class="fa fa-user"></i></span>
+          <span class="hidden-xs">Profile</span>
+        </a>
+        <li class="">
+          <a href="#messages" data-toggle="tab" aria-expanded="false">
+            <span class="visible-xs"><i class="fa fa-envelope-o"></i></span>
+            <span class="hidden-xs">Messages</span>
+          </a>
+          <li class="">
+            <a href="#settings" data-toggle="tab" aria-expanded="false">
+              <span class="visible-xs"><i class="fa fa-cog"></i></span>
+              <span class="hidden-xs">Settings</span>
+            </a>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="home">
+      <div class="form-group">
+        <label for="dataViewCode" class="col-sm-2 control-label">视图编号</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="dataViewCode" formControlName="dataViewCode" placeholder="视图编号" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dataViewName" class="col-sm-2 control-label">视图名称</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="dataViewName" formControlName="dataViewName" placeholder="视图名称" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sqlid" class="col-sm-2 control-label">SQLID</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="sqlid" placeholder="SQLID" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="remark" class="col-sm-2 control-label">备注</label>
+        <div class="col-sm-10">
+          <input type="textare" class="form-control" id="remark" formControlName="remark" placeholder="备注" />
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="profile">
+      <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis
+        vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper
+        nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
+        eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+    </div>
+    <div class="tab-pane" id="messages">
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
+        eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+      <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis
+        vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper
+        nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+    </div>
+    <div class="tab-pane" id="settings">
+      <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis
+        vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper
+        nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
+        eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
     </div>
   </div>
-</div>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <!--<div class="text-right p-20">-->
+      <div class="text-right">
+        <button type="button" class="btn w-sm btn-white waves-effect">Cancel</button>
+        <button type="button" class="btn w-sm btn-default waves-effect waves-light">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div *ngIf="formErrors.dataViewCode" class="alert alert-danger">
+        {{ formErrors.dataViewCode }}
+      </div>
+    </div>
+  </div>
+</form>
 
 <!--<div class="panel panel-default panel-border">-->
 <!--<div class="panel-heading">

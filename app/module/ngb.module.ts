@@ -7,15 +7,15 @@ import { LoggerService } from "../service/basic/logger.service";
 import { NgbTreeComponent } from "../component/ngb/ngbTree.component";
 import { HttpService } from "../service/basic/http.service";
 import { NgbGridComponent } from "../component/ngb/ngbGrid.component";
-import { RebirthNGModule } from 'rebirth-ng';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
  
 /**
  * 表单模块
  * ningzk
  */
 @NgModule({
-    imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,RebirthNGModule,RebirthNGModule.forRoot(),],
-    exports: [NgbTreeComponent,NgbGridComponent,RebirthNGModule],
+    imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,NgbModule,NgbModule.forRoot()],
+    exports: [NgbTreeComponent,NgbGridComponent,NgbModule],
     declarations: [
         NgbTreeComponent,NgbGridComponent
     ],

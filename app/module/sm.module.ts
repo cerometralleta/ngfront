@@ -9,14 +9,14 @@ import { HttpService } from "../service/basic/http.service";
 import { DataViewComponent } from "../component/sm/dataView.component";
 import { Ngb2Module } from "./ngb.module";
 import { DataViewEditComponent } from "../component/sm/dataViewEdit.component";
-
+import { ReactiveFormsModule } from '@angular/forms';
  
 /**
  * SQL MANAGE模块
  * ningzk
  */
 @NgModule({
-    imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,Ngb2Module],
+    imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,Ngb2Module,ReactiveFormsModule],
     exports: [DataViewComponent,DataViewEditComponent],
     declarations: [
         DataViewComponent

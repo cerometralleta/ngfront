@@ -15,8 +15,9 @@ export class DataViewModule {
     createTime:string;
     lastUpdateUser:string;
     lastUpdateTime:string;
-    code:string;
-    name:string;
+    dataViewCode:string;
+    dataViewName:string;
+    sqlid:string;
     remark:string;
     options:Options;
     treeModule:DataModule;
