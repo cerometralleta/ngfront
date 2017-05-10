@@ -24,27 +24,27 @@
   <div class="tab-content">
     <div class="tab-pane active" id="home">
       <div class="form-group">
-        <label for="dataViewCode" class="col-sm-2 control-label">视图编号</label>
+        <label class="col-sm-2 control-label">视图编号</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="dataViewCode" formControlName="dataViewCode" placeholder="视图编号" required />
+          <input type="text" class="form-control" placeholder="视图编号" formControlName="dataViewCode" />
         </div>
       </div>
       <div class="form-group">
-        <label for="dataViewName" class="col-sm-2 control-label">视图名称</label>
+        <label class="col-sm-2 control-label">视图名称</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="dataViewName" formControlName="dataViewName" placeholder="视图名称" required />
+          <input type="text" class="form-control" placeholder="视图名称" formControlName="dataViewName" />
         </div>
       </div>
       <div class="form-group">
-        <label for="sqlid" class="col-sm-2 control-label">SQLID</label>
+        <label class="col-sm-2 control-label">SQLID</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="sqlid" placeholder="SQLID" />
+          <input type="text" class="form-control" placeholder="SQLID" formControlName="sqlid" />
         </div>
       </div>
       <div class="form-group">
-        <label for="remark" class="col-sm-2 control-label">备注</label>
+        <label class="col-sm-2 control-label">备注</label>
         <div class="col-sm-10">
-          <input type="textare" class="form-control" id="remark" formControlName="remark" placeholder="备注" />
+          <input type="textare" class="form-control" placeholder="备注" formControlName="remark" />
         </div>
       </div>
     </div>
@@ -79,19 +79,22 @@
 
       <!--<div class="text-right p-20">-->
       <div class="text-right">
-        <button type="button" class="btn w-sm btn-white waves-effect">Cancel</button>
-        <button type="button" class="btn w-sm btn-default waves-effect waves-light">Save</button>
+        <dl>
+          <button type="button" class="btn w-sm btn-white waves-effect">Cancel</button>
+          <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">保存</button>
+        </dl>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-sm-12">
-      <div *ngIf="formErrors.dataViewCode" class="alert alert-danger">
-        {{ formErrors.dataViewCode }}
+      <div *ngIf="formErrors.length > 0" class="alert alert-danger">
+        <p *ngFor="let error of formErrors">{{ error }} <br></p>
       </div>
     </div>
   </div>
+
 </form>
 
 <!--<div class="panel panel-default panel-border">-->

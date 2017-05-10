@@ -6,79 +6,81 @@ import { DataViewModule } from "../../metadata/sm/dataViewModule.md";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
-    selector: 'sm-dataViewEdit',
-    templateUrl: './app/component/sm/dataViewEdit.component.html'
+  selector: 'sm-dataViewEdit',
+  templateUrl: './app/component/sm/dataViewEdit.component.html'
 })
 export class DataViewEditComponent implements OnInit {
 
-    //form group
-    ngbForm:FormGroup;
-    formData:DataViewModule;
+  //form group
+  ngbForm: FormGroup;
+  formData: DataViewModule;
+  formGroup: any;
+  // error info
+  formErrors: Array<string> = new Array<string>();
 
-    constructor(private logger: LoggerService, private httpService: HttpService,private fb: FormBuilder) { }
-    ngOnInit() { 
-        this.formData = new DataViewModule();
-        this.buildForm();
-    }
-    
-    //创建form
-    buildForm(): void {
-        let formGroup = {
-            "dataViewCode":[this.formData.dataViewCode,
-                [
-                    Validators.required,
-                    Validators.maxLength(50)
-                ]
-            ],
-            "dataViewName":[this.formData.dataViewName,
-                [  Validators.required,
-                    Validators.maxLength(50)]
-            ],
-            "sqlid":[this.formData.sqlid,[
-                    Validators.required,
-                    Validators.maxLength(50)
-            ]],
-            "remark":[this.formData.remark,Validators.maxLength(250)]
-        };
-        this.ngbForm = this.fb.group(formGroup);
+  constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder) { }
+  ngOnInit() {
+    this.formData = new DataViewModule();
+    this.buildForm();
+  }
 
-        this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
-    }
+  //创建form
+  buildForm(): void {
+    this.formGroup = {
+      "dataViewCode": [this.formData.dataViewCode,
+      [
+        Validators.required,
+        Validators.maxLength(5)
+      ]
+      ],
+      "dataViewName": [this.formData.dataViewName,
+      [
+        Validators.required,
+        Validators.maxLength(5)
+      ]
+      ],
+      "sqlid": [this.formData.sqlid, [
+        Validators.required,
+        Validators.maxLength(50)
+      ]],
+      "remark": [this.formData.remark, Validators.maxLength(250)]
+    };
+    this.ngbForm = this.fb.group(this.formGroup);
 
-    onValueChanged(data?: any) {
+    this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
+  }
+
+  onSubmit() {
+    this.formData = this.ngbForm.value;
+    alert(this.formData.dataViewCode);
+  }
+
+  onValueChanged(data?: any) {
     if (!this.ngbForm) { return; }
-    const form = this.ngbForm;
 
-    for (const field in this.formErrors) {
-      // clear previous error message (if any)
-      this.formErrors[field] = '';
-      const control = form.get(field);
+    let messages = {
+      'required': '为必填',
+      'minlength': '长度不足',
+      'maxlength': '长度超出范围'
+    };
 
+    //是否清空message ??
+    this.formErrors = new Array<string>();
+    //group data
+    for (const field in this.formGroup) {
+
+      //get control
+      const control = this.ngbForm.get(field);
       if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
+
+        //control.errors required,minlength
         for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
+
+          //错误信息..
+          this.formErrors.push( `${field}` + messages[key] );
+           
         }
       }
     }
   }
-
-  formErrors = {
-    'dataViewCode': '',
-    'power': ''
-  };
-
-  validationMessages = {
-    'dataViewCode': {
-      'required':      'dataViewCode is required.',
-      'minlength':     'dataViewCode must be at least 4 characters long.',
-      'maxlength':     'dataViewCode cannot be more than 24 characters long.'
-    },
-    'power': {
-      'required': 'Power is required.'
-    }
-  };
-
-
-
 }
