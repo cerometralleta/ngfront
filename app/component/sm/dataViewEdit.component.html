@@ -3,22 +3,22 @@
     <li class="active">
       <a href="#home" data-toggle="tab" aria-expanded="false">
         <span class="visible-xs"><i class="fa fa-home"></i></span>
-        <span class="hidden-xs">Home</span>
+        <span class="hidden-xs">VIEW</span>
       </a>
       <li class="">
         <a href="#profile" data-toggle="tab" aria-expanded="true">
           <span class="visible-xs"><i class="fa fa-user"></i></span>
-          <span class="hidden-xs">Profile</span>
+          <span class="hidden-xs">GRID</span>
         </a>
         <li class="">
-          <a href="#messages" data-toggle="tab" aria-expanded="false">
+          <a href="#columns" data-toggle="tab" aria-expanded="false">
             <span class="visible-xs"><i class="fa fa-envelope-o"></i></span>
-            <span class="hidden-xs">Messages</span>
+            <span class="hidden-xs">columns</span>
           </a>
           <li class="">
             <a href="#settings" data-toggle="tab" aria-expanded="false">
               <span class="visible-xs"><i class="fa fa-cog"></i></span>
-              <span class="hidden-xs">Settings</span>
+              <span class="hidden-xs">tree</span>
             </a>
   </ul>
   <div class="tab-content">
@@ -56,13 +56,47 @@
         natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
         eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
     </div>
-    <div class="tab-pane" id="messages">
-      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-        eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
-      <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis
-        vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper
-        nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+
+    <!--设置列-->
+    <div class="tab-pane" id="columns">
+      <button id="columns-table-toolbar" class="btn w-sm btn-default waves-effect waves-light" type="button">获取表列</button>
+									<table #columnGrid  data-toggle="table"
+										   data-toolbar="#columns-table-toolbar"
+										   data-search="true"
+										   data-show-refresh="true"
+										   data-show-toggle="true"
+										   data-show-columns="true"
+										   data-sort-name="id"
+										   class="table-bordered ">
+										<thead>
+											<tr>
+												<th data-field="id" data-sortable="true" data-align="center">ID</th>
+												<th data-field="title" data-sortable="true" data-align="center">别名</th>
+												<th data-field="field" data-sortable="true" data-align="center">字段</th>
+                        <th data-field="dataType"data-sortable="true" data-align="center" >数据类型</th>
+                        <th data-field="maxlength"data-sortable="true" data-align="center" >长度</th>
+												<th data-field="updateType" data-sortable="true" data-align="center">修改设置</th>
+												<th data-field="isView"data-sortable="true" data-align="center" >详情显示</th>
+                        <th data-field="isInsert"data-sortable="true" data-align="center">是否新增</th>
+                        <th data-field="fieldType"data-sortable="true" data-align="center" >控件类型</th>
+                        <th data-field="visible"data-sortable="true" data-align="center">列表显示</th>
+                        <th data-field="align"data-sortable="true" data-align="center" data-visible="false">排列</th>
+                        <th data-field="halign"data-sortable="true" data-align="center" data-visible="false">表头排列</th>
+                        <th data-field="falign"data-sortable="true" data-align="center" data-visible="false">页脚排列</th>
+                        <th data-field="idx"data-sortable="true" data-align="center" >序号</th>
+											</tr>
+										</thead>
+										
+										<tbody>
+											<tr>
+												<td>2222</td>
+												<td>UB-1609</td>
+												<td>Boudreaux</td>
+												<td>22 Jun 2015</td>
+												<td>$ 35.00</td>
+												<td>Unpaid</td>
+											</tr>
+										</tbody></table>
     </div>
     <div class="tab-pane" id="settings">
       <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis

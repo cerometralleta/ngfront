@@ -2,7 +2,11 @@
  * grid Options
  * ningzk
  */
-import { Columns } from "./columns.md";
+
+/**
+ * table options
+ */
+import { Columns, ColumOptions } from "./columnOptions.md";
 
 export class Options {
     constructor() {
@@ -81,6 +85,6 @@ export class Options {
     customSort:any;
     locale:string;
     footerStyle:any;
-    columns:Columns;
+    columns:ColumOptions;
     showExport:boolean;
 }

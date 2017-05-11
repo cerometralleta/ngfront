@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpService } from "../../service/basic/http.service";
 import { LoggerService } from "../../service/basic/logger.service";
 import { Application } from "../../metadata/constant/application.constant";
 import { DataViewModule } from "../../metadata/sm/dataViewModule.md";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+declare var $: any;
 
 @Component({
   selector: 'sm-dataViewEdit',
   templateUrl: './app/component/sm/dataViewEdit.component.html'
 })
-export class DataViewEditComponent implements OnInit {
+export class DataViewEditComponent implements OnInit,AfterViewInit {
 
   //form group
   ngbForm: FormGroup;
@@ -24,6 +25,31 @@ export class DataViewEditComponent implements OnInit {
     this.buildForm();
   }
 
+  //columnGrid
+  columnGrid:any;
+  @ViewChild("columnGrid") erf: ElementRef;
+  ngAfterViewInit(): void {
+
+        //jquery调用ng
+        // let that = this;
+        // that.alertValue('')
+
+        this.columnGrid = $(this.erf.nativeElement);
+        this.columnGrid.bootstrapTable(
+          //  {onClickRow: function (row, $element, field) {
+          //       that.alertValue(row.id);   
+          //  }}
+      );
+
+      //箭头函数
+      this.columnGrid.on('click-row.bs.table',($event, row, $element) => {
+              this.alertValue(row.id);   
+        });
+  }
+
+ alertValue(value:string){
+    alert(value);
+ }
   //创建form
   buildForm(): void {
     this.formGroup = {

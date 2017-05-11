@@ -1,50 +1,53 @@
 /**
- * Columns @zkning
+ * Column base @zkning
  */
 export class Columns {
     constructor() {
     }
 
     id:string;
+    dataViewId:string;
     field:string;
     title:string;
-    titleTooltip:string;
-    viewId:string;
     updateType:number;
     isView:boolean;
     isInsert:boolean;
+    visible:boolean;
     dataType:string;
-    componentType:string;
-    idx:string;
+    fieldType:string;
     rule:Array<string>;
-    length:number;
+    maxlength:number;
+    align:string;
+    halign:string;
+    falign:string;
+    idx:string;
     lastUpdateTime:string;
     lastUpdateUser:string;
     version:number;
     createUser:string;
     createTime:string;
-    options:Options;
 }
 
-export class Options {
-    constructor() {
-    }
+/**
+ * bootstrap table ftr
+ */
+export class ColumOptions extends Columns{
     radio:boolean;
     checkbox:boolean;
-    field:string;
-    title:string;
+    // field:string;
+    // title:string;
     titleTooltip:string;
     class:string;
     rowspan:number;
     colspan:number;
-    align:string;
-    halign:string;
-    falign:string;
+    // align:string;
+    // halign:string;
+    // falign:string;
     valign:string;
     width:number;
     sortable:boolean;
     order:string;
-    visible:boolean;
+    // visible:boolean;
     cardVisible:boolean;
     switchable:boolean;
     clickToSelect:boolean;
