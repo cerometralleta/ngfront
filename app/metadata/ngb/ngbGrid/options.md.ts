@@ -85,6 +85,6 @@ export class Options {
     customSort:any;
     locale:string;
     footerStyle:any;
-    columns:ColumOptions;
+    columns:Array<ColumOptions>;
     showExport:boolean;
 }

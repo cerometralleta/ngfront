@@ -60,37 +60,36 @@
     <!--设置列-->
     <div class="tab-pane" id="columns">
       <button id="columns-table-toolbar" class="btn w-sm btn-default waves-effect waves-light" type="button">获取表列</button>
-									<table #columnGrid  data-toggle="table"
+									<table #columnGrid  
 										   data-toolbar="#columns-table-toolbar"
-										   data-search="true"
 										   data-show-refresh="true"
 										   data-show-toggle="true"
 										   data-show-columns="true"
 										   data-sort-name="id"
-										   class="table-bordered ">
+										   class="table-bordered " formGroupName="options">  <!--formGroupName 作用域-->
 										<thead>
 											<tr>
-												<th data-field="id" data-sortable="true" data-align="center">ID</th>
-												<th data-field="title" data-sortable="true" data-align="center">别名</th>
-												<th data-field="field" data-sortable="true" data-align="center">字段</th>
-                        <th data-field="dataType"data-sortable="true" data-align="center" >数据类型</th>
-                        <th data-field="maxlength"data-sortable="true" data-align="center" >长度</th>
-												<th data-field="updateType" data-sortable="true" data-align="center">修改设置</th>
-												<th data-field="isView"data-sortable="true" data-align="center" >详情显示</th>
-                        <th data-field="isInsert"data-sortable="true" data-align="center">是否新增</th>
-                        <th data-field="fieldType"data-sortable="true" data-align="center" >控件类型</th>
-                        <th data-field="visible"data-sortable="true" data-align="center">列表显示</th>
-                        <th data-field="align"data-sortable="true" data-align="center" data-visible="false">排列</th>
-                        <th data-field="halign"data-sortable="true" data-align="center" data-visible="false">表头排列</th>
-                        <th data-field="falign"data-sortable="true" data-align="center" data-visible="false">页脚排列</th>
-                        <th data-field="idx"data-sortable="true" data-align="center" >序号</th>
+												<th data-field="id"  data-align="center">ID</th>
+												<th data-field="title"  data-align="center">别名</th>
+												<th data-field="field"  data-align="center">字段</th>
+                        <th data-field="dataType" data-align="center" >数据类型</th>
+                        <th data-field="maxlength" data-align="center" >长度</th>
+												<th data-field="updateType"  data-align="center">修改设置</th>
+												<th data-field="isView" data-align="center" >详情显示</th>
+                        <th data-field="isInsert" data-align="center">是否新增</th>
+                        <th data-field="fieldType" data-align="center" >控件类型</th>
+                        <th data-field="visible" data-align="center">列表显示</th>
+                        <th data-field="align" data-align="center" data-visible="false">排列</th>
+                        <th data-field="halign" data-align="center" data-visible="false">表头排列</th>
+                        <th data-field="falign" data-align="center" data-visible="false">页脚排列</th>
+                        <th data-field="idx" data-align="center" >序号</th>
 											</tr>
 										</thead>
-										
-										<tbody>
-											<tr>
-												<td>2222</td>
-												<td>UB-1609</td>
+										<!--formArrayName 作用域-->
+										<tbody *ngIf="formData.options && formData.options.columns" formArrayName="columns">
+											<tr  *ngFor="let columOptions of ngbForm.controls.options.controls.columns.controls; let idx=index" [formGroupName]="idx">
+												<td><input type="text" class="form-control" placeholder="别名" formControlName="title" /></td>
+												<td><input type="text" class="form-control" placeholder="字段" formControlName="field" /></td>
 												<td>Boudreaux</td>
 												<td>22 Jun 2015</td>
 												<td>$ 35.00</td>
@@ -123,7 +122,7 @@
 
   <div class="row">
     <div class="col-sm-12">
-      <div *ngIf="formErrors.length > 0" class="alert alert-danger">
+      <div *ngIf="formErrors && formErrors.length > 0" class="alert alert-danger">
         <p *ngFor="let error of formErrors">{{ error }} <br></p>
       </div>
     </div>
