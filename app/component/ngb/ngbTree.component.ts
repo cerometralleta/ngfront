@@ -3,7 +3,7 @@ import { LoggerService } from "../../service/basic/logger.service";
 import { Setting } from "../../metadata/ngb/ngbTree/dataModule.md";
 declare var $:any;
 @Component({
-    selector: 'ngb-tree',
+    selector: 'ng4b-tree',
     templateUrl: './app/component/ngb/ngbTree.component.html'
 })
 

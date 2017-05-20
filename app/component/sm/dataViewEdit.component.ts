@@ -27,15 +27,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.buildForm();
   }
 
-  //columnGrid
-  columnGrid: any;
-  @ViewChild("columnGrid") erf: ElementRef;
   ngAfterViewInit(): void {
-    this.columnGrid = $(this.erf.nativeElement);
-    this.columnGrid.bootstrapTable();
-    this.columnGrid.on('click-row.bs.table', ($event, row, $element) => {
-      // this.alertValue(row.id);
-    });
+     
   }
 
   alertValue(value: string) {
@@ -57,17 +50,17 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   //创建form
   buildForm(): void {
     this.formGroup = {
-      dataViewCode: [this.formData.dataViewCode,[
+      dataViewCode: [this.formData.dataViewCode, [
         Validators.required,
-        Validators.maxLength(5) ]
+        Validators.maxLength(5)]
       ],
-      dataViewName: [this.formData.dataViewName,[
+      dataViewName: [this.formData.dataViewName, [
         Validators.required,
         Validators.maxLength(5)]
       ],
       sqlid: [this.formData.sqlid, [
         Validators.required,
-        Validators.maxLength(50) ]
+        Validators.maxLength(50)]
       ],
       remark: [this.formData.remark, Validators.maxLength(250)],
       options: this.fb.group({
@@ -84,10 +77,37 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     let formArray = new Array<any>();
     this.formData.options.columns.forEach(columnOptions => {
       formArray.push(this.fb.group({
-        field: [columnOptions.field,[ Validators.required,Validators.maxLength(3)]],
-        title: [columnOptions.title,[ Validators.required,Validators.maxLength(3)]]
+        id: [columnOptions.id, [Validators.required, Validators.maxLength(32)]],
+        dataViewId: [columnOptions.dataViewId, [Validators.required, Validators.maxLength(32)]],
+        field: [columnOptions.field, [Validators.required, Validators.maxLength(10)]],
+        title: [columnOptions.title, [Validators.required, Validators.maxLength(10)]],
+        updateType: [columnOptions.updateType, [Validators.required, Validators.maxLength(10)]],
+        isView: [columnOptions.isView, [Validators.required]],
+        isInsert: [columnOptions.isInsert, [Validators.required, Validators.maxLength(10)]],
+        visible: [columnOptions.visible, [Validators.required, Validators.maxLength(10)]],
+        dataType: [columnOptions.dataType, [Validators.required, Validators.maxLength(10)]],
+        fieldType: [columnOptions.fieldType, [Validators.required, Validators.maxLength(10)]],
+        maxlength: [columnOptions.maxlength],
+        align: [columnOptions.align, [Validators.maxLength(10)]],
+        halign: [columnOptions.halign, [Validators.maxLength(10)]],
+        falign: [columnOptions.falign, [Validators.maxLength(10)]],
+        idx: [columnOptions.idx, [Validators.required, Validators.maxLength(10)]],
+        lastUpdateTime: [columnOptions.lastUpdateTime],
+        lastUpdateUser: [columnOptions.lastUpdateUser],
+        version: [columnOptions.version],
+        createUser: [columnOptions.createUser],
+        createTime: [columnOptions.createTime],
+        radio: [columnOptions.radio],
+        checkbox: [columnOptions.checkbox],
+        valign: [columnOptions.valign],
+        width: [columnOptions.width],
+        sortable: [columnOptions.sortable],
+        order: [columnOptions.order],
+        formatter: [columnOptions.formatter],
+        footerFormatter: [columnOptions.footerFormatter],
+        sortName: [columnOptions.sortName]
       }));
-    }) 
+    })
     return formArray;
   }
 

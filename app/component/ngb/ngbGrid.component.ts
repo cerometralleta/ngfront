@@ -7,17 +7,21 @@ declare var $: any;
  * ningzk
  */
 @Component({
-    selector: 'ngb-grid',
+    selector: 'ng4b-grid',
     templateUrl: './app/component/ngb/ngbGrid.component.html'
 })
-
-export class NgbGridComponent implements AfterViewInit {
+export class NgbGridComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
-        this.ngbGrid = $(this.erf.nativeElement);
-        this.ngbGrid.bootstrapTable(this.options);
+
     }
-    private ngbGrid: any;
-    @ViewChild("ngbGrid") erf: ElementRef;
+    ngOnInit() {
+
+    }
     @Input() options: Options;
     constructor() { }
+
+    // doPage(){
+    //     // int totalPageNum = (totalRecord  +  pageSize  - 1) / pageSize;  
+    //      this.maxSize = (this.options.collectionSize + this.options.pageSize - 1 ) / this.options.pageSize;
+    // }
 }

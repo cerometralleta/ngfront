@@ -1757,3 +1757,16 @@ File: Pages
 	cursor:pointer;
 	margin-bottom: 1px;
 }
+.nowrap{
+	white-space:nowrap; 
+}
+.trnowrap th{
+	white-space:nowrap;
+  text-align: center;
+}
+.overflow {
+	overflow: auto;
+}
+.wd100{
+  width:120px !important;
+}

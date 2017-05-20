@@ -2,7 +2,7 @@
 
 	<!-- tree start-->
 	<div class="col-md-{{treeModule.range}}" *ngIf="treeModule.isShow">
-		<ngb-tree [setting]="treeModule.setting" [znodes] = "treeModule.znodes"></ngb-tree>
+		<ng4b-tree [setting]="treeModule.setting" [znodes] = "treeModule.znodes"></ng4b-tree>
 	</div>
 	<!-- tree end -->
 
@@ -30,7 +30,7 @@
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
 								</button>
 							</div>
-							<ngb-grid [options]="options"></ngb-grid>
+							<ng4b-grid [options]="options"></ng4b-grid>
 						</div>
 					</div>
 				</div>
