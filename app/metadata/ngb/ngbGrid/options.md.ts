@@ -11,8 +11,8 @@ import { Columns, ColumOptions } from "./columnOptions.md";
 export class Options {
     constructor() {
     }
-    classes:string;
-    sortClass:string;
+    // classes:string;
+    // sortClass:string;
     height:number;
     undefinedText:string;
     // striped:boolean;
@@ -26,7 +26,7 @@ export class Options {
     data:Array<any>;
     // dataField:string;
     // totalField:string;
-    ajax:any;
+    // ajax:any;
     method:string;
     url:string;
     // cache:boolean;

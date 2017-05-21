@@ -58,35 +58,71 @@
     </div>
 
     <!--设置列-->
-    <div class="tab-pane" id="columns">
+    <div class="tab-pane" id="columns" formGroupName="options">
       <div class="form-group">
+        <div class="card-box">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">url</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" placeholder="url" formControlName="url" />
+            </div>
+            <label class="col-sm-2 control-label">method</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" placeholder="POST" formControlName="method" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">分页</label>
+            <div class="col-sm-4">
+              <div class="checkbox checkbox-pink">
+                <input id="pagination" type="checkbox" formControlName="pagination">
+                <label for="pagination"></label>
+              </div>
+            </div>
+            <label class="col-sm-2 control-label">分页数</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" placeholder="分页数" formControlName="pageSize" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">导出</label>
+            <div class="col-sm-4">
+              <div class="checkbox checkbox-inverse">
+                <input id="showExport" type="checkbox" formControlName="showExport">
+                <label for="showExport"></label>
+              </div>
+            </div>
+            <!--<label class="col-sm-2 control-label">分页数</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" placeholder="pageSize" formControlName="pageSize" />
+            </div>-->
+          </div>
+        </div>
         <div class="col-sm-12">
           <div class="card-box">
             <button type="button" class="btn btn-info waves-effect waves-light" (click)="alert()">生成列表</button>
           </div>
-        </div>
-        <div class="col-sm-12">
           <div class="card-box overflow">
-            <table class="table table table-hover table-bordered m-0 table-actions-bar" formGroupName="options">
+            <table class="table table table-hover table-bordered m-0 table-actions-bar">
               <!--formGroupName 作用域-->
               <thead>
                 <tr class="trnowrap">
-                  <th>别名</th>
+                  <th>名称</th>
                   <th>字段</th>
+                  <th>数据类型</th>
                   <th>修改方式</th>
                   <th>详情显示</th>
                   <th>新增显示</th>
                   <th>列表显示</th>
-                  <th>数据类型</th>
                   <th>字段类型</th>
                   <th>最大长度</th>
                   <th>对齐方式</th>
                   <th>表头对齐</th>
-                  <th>页尾对齐</th>
+                  <th>垂直对齐</th>
+                  <!--<th>页尾对齐</th>-->
                   <th>单选</th>
                   <th>多选</th>
-                  <th>垂直对齐</th>
-                  <th>表头对齐</th>
                   <th>宽度</th>
                   <th>是否排序</th>
                   <th>排序规则</th>
@@ -95,30 +131,94 @@
                 </tr>
               </thead>
               <tbody *ngIf="formData.options && formData.options.columns" formArrayName="columns">
-                <tr *ngFor="let columOptions of ngbForm.controls.options.controls.columns.controls; let idx=index" [formGroupName]="idx">
-                  <td><input type="text" class="form-control wd100" placeholder="别名" formControlName="title" /></td>
-                  <td>{{field}}</td>
-                  <td><input type="text" class="form-control wd100" placeholder="修改方式" formControlName="updateType" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="详情显示" formControlName="isView" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="新增显示" formControlName="isInsert" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="列表显示" formControlName="visible" /></td>
-                  <td>{{dataType}}</td>
-                  <td><input type="text" class="form-control wd100" placeholder="字段类型" formControlName="fieldType" /></td>
+                <tr class="tr-center" *ngFor="let columOptions of ngbForm.controls.options.controls.columns.controls; let idx=index" [formGroupName]="idx">
+                  <td><input type="text" class="form-control wd100" placeholder="名称" formControlName="title" /></td>
+                  <td>
+                    <label>{{columOptions.controls.field._value}}</label>
+                  </td>
+                  <td>
+                    <label>{{columOptions.controls.dataType._value}}</label>
+                  </td>
+                  <td>
+                    <select class="form-control wd100" formControlName="updateType" placeholder="修改方式">
+                         <option *ngFor="let updateType of updateTypes" [value]="updateType.code">{{updateType.text}}</option>
+                       </select>
+                  </td>
+                  <td>
+                    <div class="checkbox checkbox-custom">
+                      <input id="isView" type="checkbox" formControlName="isView">
+                      <label for="isView"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <!--<input type="checkbox" name="" formControlName="isInsert">-->
+                    <div class="checkbox checkbox-primary">
+                      <input id="isInsert" type="checkbox" formControlName="isInsert">
+                      <label for="isInsert"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <!--<input type="checkbox" name="" formControlName="visible">-->
+                    <div class="checkbox checkbox-success">
+                      <input id="visible" type="checkbox" formControlName="visible">
+                      <label for="visible"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <select class="form-control wd100" formControlName="fieldType" placeholder="字段类型">
+                         <option *ngFor="let fieldType of fieldTypes" [value]="fieldType.code">{{fieldType.text}}</option>
+                       </select>
+                  </td>
                   <td>{{maxlength}}</td>
-                  <td><input type="text" class="form-control wd100" placeholder="对齐方式" formControlName="align" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="表头对齐" formControlName="halign" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="页尾对齐" formControlName="falign" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="单选" formControlName="radio" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="多选" formControlName="checkbox" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="垂直对齐" formControlName="valign" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="表头对齐" formControlName="halign" /></td>
+                  <td>
+                    <select class="form-control wd100" formControlName="align" placeholder="对齐方式">
+                         <option *ngFor="let align of aligns" [value]="align.code">{{align.text}}</option>
+                       </select>
+                  </td>
+                  <td>
+                    <select class="form-control wd100" formControlName="halign" placeholder="表头对齐">
+                         <option *ngFor="let align of aligns" [value]="align.code">{{align.text}}</option>
+                       </select>
+                  </td>
+                  <td>
+                    <select class="form-control wd100" formControlName="falign" placeholder="垂直对齐">
+                         <option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>
+                       </select>
+                  </td>
+                  <td>
+                    <!--<input type="checkbox" name="" formControlName="radio">-->
+                    <div class="checkbox checkbox-info">
+                      <input id="radio" type="checkbox" formControlName="radio">
+                      <label for="radio"></label>
+                    </div>
+                  </td>
+                  <td>
+                    <!--<input type="checkbox" name="" formControlName="checkbox">-->
+                    <div class="checkbox checkbox-warning">
+                      <input id="checkbox" type="checkbox" formControlName="checkbox">
+                      <label for="checkbox"></label>
+                    </div>
+                  </td>
+                  <!--<td>
+                    <select class="form-control wd100" formControlName="valign" placeholder="页尾对齐">
+                         <option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>
+                       </select>
+                  </td>-->
                   <td><input type="text" class="form-control wd100" placeholder="宽度" formControlName="width" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="是否排序" formControlName="sortable" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="排序规则" formControlName="order" /></td>
+                  <td>
+                    <!--<input type="checkbox" name="" formControlName="sortable">-->
+                    <div class="checkbox checkbox-danger">
+                      <input id="sortable" type="checkbox" formControlName="sortable">
+                      <label for="sortable"></label>
+                    </div>
+                  </td>
                   <!--<td><input type="text" class="form-control wd100" placeholder="格式化" formControlName="formatter" /></td>-->
                   <!--<td><input type="text" class="form-control wd100" placeholder="页尾格式" formControlName="footerFormatter" /></td>-->
                   <td><input type="text" class="form-control wd100" placeholder="排序字段" formControlName="sortName" /></td>
-                  <td><input type="text" class="form-control wd100" placeholder="排序" formControlName="idx" /></td>
+                  <td>
+                    <!--<input type="text" class="form-control wd100" placeholder="排序" formControlName="idx" />-->
+                    <label>{{columOptions.controls.idx._value}}</label>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -126,13 +226,62 @@
         </div>
       </div>
     </div>
-    <div class="tab-pane" id="settings">
-      <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis
-        vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper
-        nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-        eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+    <div class="tab-pane" id="settings" formGroupName="treeModule">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">是否显示</label>
+        <div class="col-sm-10">
+          <!--<input type="text" class="form-control" placeholder="是否显示" formControlName="isShow" />-->
+          <div class="checkbox checkbox-purple">
+            <input id="isShow" type="checkbox" formControlName="isShow">
+            <label for="isShow"></label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">url</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="URL" formControlName="url" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">键值</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="键值" formControlName="idKey" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">文本值</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="文本值" formControlName="name" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">父节点键值</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="父节点键值" formControlName="pIdKey" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">作用范围</label>
+        <div class="col-sm-10">
+          <!--<input type="text" class="form-control" placeholder="作用范围" formControlName="nodeOpts" />-->
+          <select class="form-control wd100" formControlName="nodeOpts" placeholder="作用范围">
+                         <option *ngFor="let nodeOpts of scopes" [value]="nodeOpts.code">{{nodeOpts.text}}</option>
+                       </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">宽度</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="作用范围" formControlName="width" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">关系字段</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="关系字段" formControlName="relationField" />
+        </div>
+      </div>
     </div>
   </div>
 

@@ -20,9 +20,22 @@ export class DataViewModule {
     sqlid:string;
     remark:string;
     options:Options;
-    treeModule:DataModule;
+    treeModule:TreeModule;
     conditions:Array<Condition>;
     buttons:Array<Button>;
+}
+
+
+export class TreeModule{
+    constructor() {}
+    isShow:boolean;
+    url:string;
+    idKey:string;
+    name:string;
+    pIdKey:string;
+    nodeOpts:string;
+    width:number;
+    relationField:string;
 }
 
 /**
@@ -32,13 +45,13 @@ export class Condition {
     constructor() {
         
     }
-    isSort :number;
-    componentType:string;
+    isSort :boolean;
+    fieldType:string;
     field:string;
     dataType:string;
     expr:string;
     title:string;
-    expand:string;
+    extensions:string;
 }
 
 /**

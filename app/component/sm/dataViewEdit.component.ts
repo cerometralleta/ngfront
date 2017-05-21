@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { HttpService } from "../../service/basic/http.service";
 import { LoggerService } from "../../service/basic/logger.service";
 import { Application } from "../../metadata/constant/application.constant";
-import { DataViewModule } from "../../metadata/sm/dataViewModule.md";
+import { DataViewModule, TreeModule } from "../../metadata/sm/dataViewModule.md";
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Options } from "../../metadata/ngb/ngbGrid/options.md";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
@@ -20,15 +20,27 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   formGroup: any;
   // error info
   formErrors: Array<string>;
+  updateTypes: Array<any>;
+  orders: Array<any>
+  fieldTypes: Array<any>;
+  aligns: Array<any>;
+  valigns: Array<any>;
+  scopes:Array<any>;
 
   constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder) { }
   ngOnInit() {
     this.createModule();
     this.buildForm();
+    this.getUpdateTypes();
+    this.getAligns();
+    this.getValigns();
+    this.getOrders();
+    this.getfieldTypes();
+    this.getScopes();
   }
 
   ngAfterViewInit(): void {
-     
+
   }
 
   alertValue(value: string) {
@@ -39,12 +51,16 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.formData = new DataViewModule();
     this.formData.dataViewCode = "20170506";
     this.formData.options = new Options();
+    this.formData.treeModule = new TreeModule();
     let columOptions = new Array<ColumOptions>();
     let columOption = new ColumOptions();
     columOption.field = "id";
     columOption.title = "aaaaaaaaaaa";
+    columOption.isView = true;
+    columOption.updateType = 1;
     columOptions.push(columOption);
     this.formData.options.columns = columOptions;
+
   }
 
   //创建form
@@ -64,8 +80,25 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       ],
       remark: [this.formData.remark, Validators.maxLength(250)],
       options: this.fb.group({
-        classes: [this.formData.options.classes],
+        url: [this.formData.options.url, [Validators.required, Validators.maxLength(30)]],
+        method: [this.formData.options.method, [Validators.required, Validators.maxLength(30)]],
+        // contentType: [this.formData.options.contentType,[Validators.required, Validators.maxLength(30)]],
+        // dataType: [this.formData.options.dataType],
+        pagination: [this.formData.options.pagination],
+        pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(30)]],
+        // showHeader: [this.formData.options.showHeader,[Validators.required, Validators.maxLength(30)]],
+        showExport: [this.formData.options.showExport],
         columns: this.fb.array(this.initColumns())
+      }),
+      treeModule: this.fb.group({
+        isShow: [this.formData.treeModule.isShow],
+        url: [this.formData.treeModule.name],
+        idKey: [this.formData.treeModule.idKey],
+        name: [this.formData.treeModule.name],
+        pIdKey: [this.formData.treeModule.pIdKey],
+        nodeOpts: [this.formData.treeModule.nodeOpts],
+        width: [this.formData.treeModule.width],
+        relationField: [this.formData.treeModule.relationField]
       })
     };
     this.ngbForm = this.fb.group(this.formGroup);
@@ -77,14 +110,14 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     let formArray = new Array<any>();
     this.formData.options.columns.forEach(columnOptions => {
       formArray.push(this.fb.group({
-        id: [columnOptions.id, [Validators.required, Validators.maxLength(32)]],
-        dataViewId: [columnOptions.dataViewId, [Validators.required, Validators.maxLength(32)]],
+        // id: [columnOptions.id, [Validators.required, Validators.maxLength(32)]],
+        // dataViewId: [columnOptions.dataViewId, [Validators.required, Validators.maxLength(32)]],
         field: [columnOptions.field, [Validators.required, Validators.maxLength(10)]],
         title: [columnOptions.title, [Validators.required, Validators.maxLength(10)]],
         updateType: [columnOptions.updateType, [Validators.required, Validators.maxLength(10)]],
-        isView: [columnOptions.isView, [Validators.required]],
-        isInsert: [columnOptions.isInsert, [Validators.required, Validators.maxLength(10)]],
-        visible: [columnOptions.visible, [Validators.required, Validators.maxLength(10)]],
+        isView: [columnOptions.isView],
+        isInsert: [columnOptions.isInsert],
+        visible: [columnOptions.visible],
         dataType: [columnOptions.dataType, [Validators.required, Validators.maxLength(10)]],
         fieldType: [columnOptions.fieldType, [Validators.required, Validators.maxLength(10)]],
         maxlength: [columnOptions.maxlength],
@@ -92,11 +125,11 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         halign: [columnOptions.halign, [Validators.maxLength(10)]],
         falign: [columnOptions.falign, [Validators.maxLength(10)]],
         idx: [columnOptions.idx, [Validators.required, Validators.maxLength(10)]],
-        lastUpdateTime: [columnOptions.lastUpdateTime],
-        lastUpdateUser: [columnOptions.lastUpdateUser],
-        version: [columnOptions.version],
-        createUser: [columnOptions.createUser],
-        createTime: [columnOptions.createTime],
+        // lastUpdateTime: [columnOptions.lastUpdateTime],
+        // lastUpdateUser: [columnOptions.lastUpdateUser],
+        // version: [columnOptions.version],
+        // createUser: [columnOptions.createUser],
+        // createTime: [columnOptions.createTime],
         radio: [columnOptions.radio],
         checkbox: [columnOptions.checkbox],
         valign: [columnOptions.valign],
@@ -111,6 +144,48 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     return formArray;
   }
 
+  //修改方式
+  getUpdateTypes() {
+    this.updateTypes = new Array<any>();
+    this.updateTypes.push({ code: 0, text: "隐藏" });
+    this.updateTypes.push({ code: 1, text: "显示" });
+    this.updateTypes.push({ code: 2, text: "禁用" });
+  }
+
+  //修改方式
+  getOrders() {
+    this.orders = new Array<any>();
+    this.orders.push({ code: "ASC", text: "ASC" });
+    this.orders.push({ code: "DESC", text: "DESC" });
+  }
+
+  getAligns() {
+    this.aligns = new Array<any>();
+    this.aligns.push({ code: "center", text: "居中" });
+    this.aligns.push({ code: "right", text: "居右" });
+    this.aligns.push({ code: "left", text: "居左" });
+  }
+
+  getValigns() {
+    this.valigns = new Array<any>();
+    this.valigns.push({ code: "middle", text: "居中" });
+    this.valigns.push({ code: "top", text: "顶部" });
+    this.valigns.push({ code: "bottom", text: "底部" });
+  }
+
+  getfieldTypes() {
+    this.fieldTypes = new Array<any>();
+    this.fieldTypes.push({ code: "text", text: "text" });
+    this.fieldTypes.push({ code: "checkbox", text: "checkbox" });
+    this.fieldTypes.push({ code: "downdrop", text: "downdrop" });
+    this.fieldTypes.push({ code: "textarea", text: "textarea" });
+  }
+  getScopes(){
+    this.scopes = new Array<any>();
+    this.scopes.push({ code: "ALL", text: "全部子节点" });
+    this.scopes.push({ code: "CHILD", text: "子节点" });
+    this.scopes.push({ code: "SELF", text: "当前节点" });
+  }
 
   //提交表单
   onSubmit() {
