@@ -18,6 +18,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   ngbForm: FormGroup;
   formData: DataViewModule;
   formGroup: any;
+  treeFg : FormGroup;
+  optionsFg:FormGroup;
   // error info
   formErrors: Array<string>;
   updateTypes: Array<any>;
@@ -52,6 +54,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.formData.dataViewCode = "20170506";
     this.formData.options = new Options();
     this.formData.treeModule = new TreeModule();
+    this.formData.treeModule.isShow = true;
     let columOptions = new Array<ColumOptions>();
     let columOption = new ColumOptions();
     columOption.field = "id";
@@ -65,21 +68,19 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   //创建form
   buildForm(): void {
-    this.formGroup = {
-      dataViewCode: [this.formData.dataViewCode, [
-        Validators.required,
-        Validators.maxLength(5)]
-      ],
-      dataViewName: [this.formData.dataViewName, [
-        Validators.required,
-        Validators.maxLength(5)]
-      ],
-      sqlid: [this.formData.sqlid, [
-        Validators.required,
-        Validators.maxLength(50)]
-      ],
-      remark: [this.formData.remark, Validators.maxLength(250)],
-      options: this.fb.group({
+
+    this.treeFg = this.fb.group({
+        isShow: [this.formData.treeModule.isShow],
+        url: [this.formData.treeModule.name],
+        idKey: [this.formData.treeModule.idKey],
+        name: [this.formData.treeModule.name],
+        pIdKey: [this.formData.treeModule.pIdKey],
+        nodeOpts: [this.formData.treeModule.nodeOpts],
+        width: [this.formData.treeModule.width],
+        relationField: [this.formData.treeModule.relationField]
+      });
+
+    this.optionsFg = this.fb.group({
         url: [this.formData.options.url, [Validators.required, Validators.maxLength(30)]],
         method: [this.formData.options.method, [Validators.required, Validators.maxLength(30)]],
         // contentType: [this.formData.options.contentType,[Validators.required, Validators.maxLength(30)]],
@@ -89,17 +90,24 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         // showHeader: [this.formData.options.showHeader,[Validators.required, Validators.maxLength(30)]],
         showExport: [this.formData.options.showExport],
         columns: this.fb.array(this.initColumns())
-      }),
-      treeModule: this.fb.group({
-        isShow: [this.formData.treeModule.isShow],
-        url: [this.formData.treeModule.name],
-        idKey: [this.formData.treeModule.idKey],
-        name: [this.formData.treeModule.name],
-        pIdKey: [this.formData.treeModule.pIdKey],
-        nodeOpts: [this.formData.treeModule.nodeOpts],
-        width: [this.formData.treeModule.width],
-        relationField: [this.formData.treeModule.relationField]
       })
+
+    this.formGroup = {
+      dataViewCode: [this.formData.dataViewCode, [
+        Validators.required,
+        Validators.maxLength(30)]
+      ],
+      dataViewName: [this.formData.dataViewName, [
+        Validators.required,
+        Validators.maxLength(32)]
+      ],
+      sqlid: [this.formData.sqlid, [
+        Validators.required,
+        Validators.maxLength(50)]
+      ],
+      remark: [this.formData.remark, Validators.maxLength(250)],
+      options: this.optionsFg,
+      treeModule: this.treeFg
     };
     this.ngbForm = this.fb.group(this.formGroup);
     this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
@@ -112,19 +120,19 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       formArray.push(this.fb.group({
         // id: [columnOptions.id, [Validators.required, Validators.maxLength(32)]],
         // dataViewId: [columnOptions.dataViewId, [Validators.required, Validators.maxLength(32)]],
-        field: [columnOptions.field, [Validators.required, Validators.maxLength(10)]],
-        title: [columnOptions.title, [Validators.required, Validators.maxLength(10)]],
-        updateType: [columnOptions.updateType, [Validators.required, Validators.maxLength(10)]],
+        field: [columnOptions.field, [Validators.required, Validators.maxLength(50)]],
+        title: [columnOptions.title, [Validators.required, Validators.maxLength(50)]],
+        updateType: [columnOptions.updateType, [Validators.required, Validators.maxLength(30)]],
         isView: [columnOptions.isView],
         isInsert: [columnOptions.isInsert],
         visible: [columnOptions.visible],
-        dataType: [columnOptions.dataType, [Validators.required, Validators.maxLength(10)]],
-        fieldType: [columnOptions.fieldType, [Validators.required, Validators.maxLength(10)]],
+        dataType: [columnOptions.dataType, [Validators.maxLength(10)]],
+        fieldType: [columnOptions.fieldType, [Validators.required, Validators.maxLength(30)]],
         maxlength: [columnOptions.maxlength],
         align: [columnOptions.align, [Validators.maxLength(10)]],
         halign: [columnOptions.halign, [Validators.maxLength(10)]],
         falign: [columnOptions.falign, [Validators.maxLength(10)]],
-        idx: [columnOptions.idx, [Validators.required, Validators.maxLength(10)]],
+        idx: [columnOptions.idx, [Validators.maxLength(10)]],
         // lastUpdateTime: [columnOptions.lastUpdateTime],
         // lastUpdateUser: [columnOptions.lastUpdateUser],
         // version: [columnOptions.version],
@@ -187,10 +195,20 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.scopes.push({ code: "SELF", text: "当前节点" });
   }
 
+  showTreeCheck(){
+    // this.treeFg.controls.url.setValidators(Validators.required);
+    this.formData = this.ngbForm.value;
+    if(!this.formData.treeModule.isShow){
+      this.treeFg.controls.url.setValidators(Validators.required);
+    }else{
+       this.treeFg.controls.url.clearValidators();
+    }
+  }
+
   //提交表单
   onSubmit() {
     this.formData = this.ngbForm.value;
-    alert(this.formData);
+    alert(this.formData.treeModule.isShow);
   }
 
   //变更
@@ -221,5 +239,39 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         }
       }
     }
+
+    for (const field in this.optionsFg.controls) {
+
+      //get control
+      const control = this.optionsFg.get(field);
+      if (control && control.dirty && !control.valid) {
+
+        //control.errors required,minlength
+        for (const key in control.errors) {
+
+          //错误信息..
+          this.formErrors.push(`${field}` + messages[key]);
+
+        }
+      }
+    }
+
+    //tree valid
+    for (const field in this.treeFg.controls) {
+
+      //get control
+      const control = this.treeFg.get(field);
+      if (control && control.dirty && !control.valid) {
+
+        //control.errors required,minlength
+        for (const key in control.errors) {
+
+          //错误信息..
+          this.formErrors.push(`${field}` + messages[key]);
+
+        }
+      }
+    }
+
   }
 }
