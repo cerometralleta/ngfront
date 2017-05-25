@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { HttpService } from "../../service/basic/http.service";
 import { LoggerService } from "../../service/basic/logger.service";
 import { Application } from "../../metadata/constant/application.constant";
@@ -18,8 +18,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   ngbForm: FormGroup;
   formData: DataViewModule;
   formGroup: any;
-  treeFg : FormGroup;
-  optionsFg:FormGroup;
+  treeFg: FormGroup;
+  optionsFg: FormGroup;
   // error info
   formErrors: Array<string>;
   updateTypes: Array<any>;
@@ -27,7 +27,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   fieldTypes: Array<any>;
   aligns: Array<any>;
   valigns: Array<any>;
-  scopes:Array<any>;
+  scopes: Array<any>;
+  @Input() dataViewId: string;
 
   constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder) { }
   ngOnInit() {
@@ -50,47 +51,48 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   }
 
   createModule() {
+    if (this.dataViewId && this.dataViewId != null) {
+      return;
+    }
     this.formData = new DataViewModule();
-    this.formData.dataViewCode = "20170506";
     this.formData.options = new Options();
+    this.formData.options.method = 'POST';
+    this.formData.options.pagination = false;
+    this.formData.options.showExport = false;
+    this.formData.options.pageSize = 50;
+    this.formData.options.pageNumber = 1;
+    this.formData.options.columns = new Array<any>();
     this.formData.treeModule = new TreeModule();
-    this.formData.treeModule.isShow = true;
-    let columOptions = new Array<ColumOptions>();
-    let columOption = new ColumOptions();
-    columOption.field = "id";
-    columOption.title = "aaaaaaaaaaa";
-    columOption.isView = true;
-    columOption.updateType = 1;
-    columOptions.push(columOption);
-    this.formData.options.columns = columOptions;
-
+    this.formData.treeModule.isShow = false;
+    this.formData.treeModule.nodeOpts = 'SELF';
+    this.formData.treeModule.width = 2;
   }
 
   //创建form
   buildForm(): void {
 
     this.treeFg = this.fb.group({
-        isShow: [this.formData.treeModule.isShow],
-        url: [this.formData.treeModule.name],
-        idKey: [this.formData.treeModule.idKey],
-        name: [this.formData.treeModule.name],
-        pIdKey: [this.formData.treeModule.pIdKey],
-        nodeOpts: [this.formData.treeModule.nodeOpts],
-        width: [this.formData.treeModule.width],
-        relationField: [this.formData.treeModule.relationField]
-      });
+      isShow: [this.formData.treeModule.isShow],
+      url: [this.formData.treeModule.name],
+      idKey: [this.formData.treeModule.idKey],
+      name: [this.formData.treeModule.name],
+      pIdKey: [this.formData.treeModule.pIdKey],
+      nodeOpts: [this.formData.treeModule.nodeOpts],
+      width: [this.formData.treeModule.width],
+      relationField: [this.formData.treeModule.relationField]
+    });
 
     this.optionsFg = this.fb.group({
-        url: [this.formData.options.url, [Validators.required, Validators.maxLength(30)]],
-        method: [this.formData.options.method, [Validators.required, Validators.maxLength(30)]],
-        // contentType: [this.formData.options.contentType,[Validators.required, Validators.maxLength(30)]],
-        // dataType: [this.formData.options.dataType],
-        pagination: [this.formData.options.pagination],
-        pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(30)]],
-        // showHeader: [this.formData.options.showHeader,[Validators.required, Validators.maxLength(30)]],
-        showExport: [this.formData.options.showExport],
-        columns: this.fb.array(this.initColumns())
-      })
+      url: [this.formData.options.url, [Validators.required, Validators.maxLength(30)]],
+      method: [this.formData.options.method, [Validators.required, Validators.maxLength(30)]],
+      // contentType: [this.formData.options.contentType,[Validators.required, Validators.maxLength(30)]],
+      // dataType: [this.formData.options.dataType],
+      pagination: [this.formData.options.pagination],
+      pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(30)]],
+      // showHeader: [this.formData.options.showHeader,[Validators.required, Validators.maxLength(30)]],
+      showExport: [this.formData.options.showExport],
+      columns: this.fb.array(this.initColumns())
+    })
 
     this.formGroup = {
       dataViewCode: [this.formData.dataViewCode, [
@@ -188,20 +190,30 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.fieldTypes.push({ code: "downdrop", text: "downdrop" });
     this.fieldTypes.push({ code: "textarea", text: "textarea" });
   }
-  getScopes(){
+  getScopes() {
     this.scopes = new Array<any>();
     this.scopes.push({ code: "ALL", text: "全部子节点" });
     this.scopes.push({ code: "CHILD", text: "子节点" });
     this.scopes.push({ code: "SELF", text: "当前节点" });
   }
 
-  showTreeCheck(){
+  showTreeCheck() {
     // this.treeFg.controls.url.setValidators(Validators.required);
     this.formData = this.ngbForm.value;
-    if(!this.formData.treeModule.isShow){
+    if (!this.formData.treeModule.isShow) {
       this.treeFg.controls.url.setValidators(Validators.required);
-    }else{
-       this.treeFg.controls.url.clearValidators();
+      this.treeFg.controls.pIdKey.setValidators(Validators.required);
+      this.treeFg.controls.relationField.setValidators(Validators.required);
+      this.treeFg.controls.idKey.setValidators(Validators.required);
+      this.treeFg.controls.name.setValidators(Validators.required);
+      this.treeFg.controls.width.setValidators(Validators.required);
+    } else {
+      this.treeFg.controls.url.clearValidators();
+      this.treeFg.controls.pIdKey.clearValidators();
+      this.treeFg.controls.relationField.clearValidators();
+      this.treeFg.controls.idKey.clearValidators();
+      this.treeFg.controls.name.clearValidators();
+      this.treeFg.controls.width.clearValidators();
     }
   }
 

@@ -130,7 +130,7 @@
                   <th>序号</th>
                 </tr>
               </thead>
-              <tbody *ngIf="formData.options && formData.options.columns" formArrayName="columns">
+              <tbody formArrayName="columns">
                 <tr class="tr-center" *ngFor="let columOptions of ngbForm.controls.options.controls.columns.controls; let idx=index" [formGroupName]="idx">
                   <td><input type="text" class="form-control wd100" placeholder="名称" formControlName="title" /></td>
                   <td>
