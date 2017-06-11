@@ -124,12 +124,12 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     let formArray = new Array<any>();
     this.formData.funcButtons.forEach(funcButton => {
       formArray.push(this.fb.group({
-            func:[funcButton.func],
+            func:[funcButton.func,[Validators.required]],
             icon:[funcButton.icon],
             dialogSize:[funcButton.dialogSize],
             title:[funcButton.title,[Validators.required,Validators.maxLength(50)]],
             url:[funcButton.url,[Validators.required]],
-            type:[funcButton.type]
+            type:[funcButton.type,[Validators.required]]
         })
       )});
       return formArray;
