@@ -8,7 +8,7 @@ import { GUID } from "../../utils/guid.util";
 import { Response } from "../../metadata/response.md";
 import { Options } from "../../metadata/ngb/ngbGrid/options.md";
 import { Setting, DataModule } from "../../metadata/ngb/ngbTree/dataModule.md";
-import { DataViewModule, Button, TreeModule } from "../../metadata/sm/dataViewModule.md";
+import { DataViewModule, TreeModule, FuncButton } from "../../metadata/sm/dataViewModule.md";
 import { ActivatedRoute, Params } from "../../../node_modules/._@angular_router@3.1.1@@angular/router";
 import 'rxjs/add/operator/switchMap';
 
@@ -41,7 +41,7 @@ export class DataViewComponent implements OnInit {
         //tree input
         let treeModule: TreeModule;
         //buttons
-        let buttons: Array<Button>
+        let buttons: Array<FuncButton>
         this.route.params.switchMap((parmes: Params) =>
 
             this.httpService.doPost(Application.baseContext + "/" + parmes["sqlid"], "")
@@ -51,7 +51,7 @@ export class DataViewComponent implements OnInit {
             this.dataModule = resp.result;
             treeModule = this.dataModule.treeModule;
             options = this.dataModule.options;
-            buttons = this.dataModule.buttons;
+            buttons = this.dataModule.funcButtons;
 
             //grid宽比例
             let gridRange = 12 - treeModule.width

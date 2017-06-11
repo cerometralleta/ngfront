@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input } from '
 import { HttpService } from "../../service/basic/http.service";
 import { LoggerService } from "../../service/basic/logger.service";
 import { Application } from "../../metadata/constant/application.constant";
-import { DataViewModule, TreeModule } from "../../metadata/sm/dataViewModule.md";
+import { DataViewModule, TreeModule, FuncButton } from "../../metadata/sm/dataViewModule.md";
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Options } from "../../metadata/ngb/ngbGrid/options.md";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
@@ -20,11 +20,13 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   formGroup: any;
   treeFg: FormGroup;
   optionsFg: FormGroup;
+  funcButtonFg:FormGroup;
   // error info
   formErrors: Array<string>;
   updateTypes: Array<any>;
   orders: Array<any>
   fieldTypes: Array<any>;
+  funcButtons:Array<any>;
   aligns: Array<any>;
   valigns: Array<any>;
   scopes: Array<any>;
@@ -66,6 +68,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.formData.treeModule.isShow = false;
     this.formData.treeModule.nodeOpts = 'SELF';
     this.formData.treeModule.width = 2;
+    this.formData.funcButtons = Array<FuncButton>();
   }
 
   //创建form
@@ -92,7 +95,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       // showHeader: [this.formData.options.showHeader,[Validators.required, Validators.maxLength(30)]],
       showExport: [this.formData.options.showExport],
       columns: this.fb.array(this.initColumns())
-    })
+    });
 
     this.formGroup = {
       dataViewCode: [this.formData.dataViewCode, [
@@ -109,10 +112,27 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       ],
       remark: [this.formData.remark, Validators.maxLength(250)],
       options: this.optionsFg,
-      treeModule: this.treeFg
+      treeModule: this.treeFg,
+      funcButtons: this.fb.array(this.initFuncButtons())
     };
     this.ngbForm = this.fb.group(this.formGroup);
     this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
+  }
+
+  //初始化按钮
+  initFuncButtons(){
+    let formArray = new Array<any>();
+    this.formData.funcButtons.forEach(funcButton => {
+      formArray.push(this.fb.group({
+            func:[funcButton.func],
+            icon:[funcButton.icon],
+            dialogSize:[funcButton.dialogSize],
+            title:[funcButton.title,[Validators.required,Validators.maxLength(50)]],
+            url:[funcButton.url,[Validators.required]],
+            type:[funcButton.type]
+        })
+      )});
+      return formArray;
   }
 
   //初始化列表组件
@@ -189,6 +209,13 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.fieldTypes.push({ code: "checkbox", text: "checkbox" });
     this.fieldTypes.push({ code: "downdrop", text: "downdrop" });
     this.fieldTypes.push({ code: "textarea", text: "textarea" });
+  }
+
+  getFuncButtons(){
+    this.funcButtons = new Array<any>();
+    this.funcButtons.push({ code: 0, text: "service" });
+    this.funcButtons.push({ code: 1, text: "dialog" });
+    this.funcButtons.push({ code: 2, text: "window" });
   }
   getScopes() {
     this.scopes = new Array<any>();

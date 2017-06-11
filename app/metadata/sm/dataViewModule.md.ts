@@ -22,7 +22,7 @@ export class DataViewModule {
     options:Options;
     treeModule:TreeModule;
     conditions:Array<Condition>;
-    buttons:Array<Button>;
+    funcButtons:Array<FuncButton>;
 }
 
 
@@ -57,13 +57,14 @@ export class Condition {
 /**
  * Button
  */
-export class Button {
+export class FuncButton {
     constructor() {
         
     }
-    showDialog:number;//0:接口,1:弹窗,2:新窗口
+    func:number;//0:接口,1:弹窗,2:新窗口
     icon:string;
     dialogSize:string;
     title:string;
     url:string;
+    type:boolean;//导航按钮
 }

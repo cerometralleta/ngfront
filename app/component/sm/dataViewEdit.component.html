@@ -8,12 +8,12 @@
       <li class="">
         <a href="#profile" data-toggle="tab" aria-expanded="true">
           <span class="visible-xs"><i class="fa fa-user"></i></span>
-          <span class="hidden-xs">GRID</span>
+          <span class="hidden-xs">Function</span>
         </a>
         <li class="">
           <a href="#columns" data-toggle="tab" aria-expanded="false">
             <span class="visible-xs"><i class="fa fa-envelope-o"></i></span>
-            <span class="hidden-xs">columns</span>
+            <span class="hidden-xs">Grid</span>
           </a>
           <li class="">
             <a href="#settings" data-toggle="tab" aria-expanded="false">
@@ -48,13 +48,41 @@
         </div>
       </div>
     </div>
+    <!--设置功能按钮-->
     <div class="tab-pane" id="profile">
-      <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis
-        vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper
-        nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-        eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+        <!--<div class="card-box">
+            <button type="button" class="btn btn-info waves-effect waves-light" (click)="alert()">生成列表</button>
+          </div>-->
+          <div class="card-box overflow">
+            <table class="table table table-hover table-bordered m-0 table-actions-bar">
+              <!--formGroupName 作用域-->
+              <thead>
+                <tr class="trnowrap">
+                  <th>名称</th>
+                  <th>URL</th>
+                  <th>功能(service,dialog,window)</th>
+                  <th>导航按钮</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="funcButtons">
+                   <tr class="tr-center" *ngFor="let funcButtons of ngbForm.controls.funcButtons.controls; let idx=index" [formGroupName]="idx">
+                      <td><input type="text" class="form-control wd100" placeholder="名称" formControlName="title" /></td>
+                      <td><input type="text" class="form-control wd100" placeholder="URL" formControlName="url" /></td>
+                      <td>
+                        <select class="form-control wd100" formControlName="func" placeholder="功能(接口,dialog,窗口)">
+                         <option *ngFor="let fb of funcButtons" [value]="fb.code">{{fb.text}}</option>
+                       </select>
+                      </td>
+                      <td>
+                          <div class="checkbox checkbox-inverse">
+                            <input id="type" type="checkbox" formControlName="type">
+                            <label for="type"></label>
+                          </div>
+                      </td>
+                   </tr>
+              </tbody>
+            </table>
+          </div>
     </div>
 
     <!--设置列-->

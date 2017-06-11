@@ -7,6 +7,7 @@
  * table options
  */
 import { Columns, ColumOptions } from "./columnOptions.md";
+import { FuncButton } from "../../sm/dataViewModule.md";
 
 export class Options {
     constructor() {
@@ -88,5 +89,6 @@ export class Options {
     // locale:string;
     // footerStyle:any;
     columns:Array<ColumOptions>;
+    funcButtons:Array<FuncButton>;
     showExport:boolean;
 }
