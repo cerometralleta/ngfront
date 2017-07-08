@@ -9,7 +9,7 @@ import { Response } from "../../metadata/response.md";
 import { Options } from "../../metadata/ngb/ngbGrid/options.md";
 import { Setting, DataModule } from "../../metadata/ngb/ngbTree/dataModule.md";
 import { DataViewModule, TreeModule, FuncButton } from "../../metadata/sm/dataViewModule.md";
-import { ActivatedRoute, Params } from "../../../node_modules/._@angular_router@3.1.1@@angular/router";
+import { ActivatedRoute, Params } from "../../../node_modules/._@angular_router@4.1.1@@angular/router";
 import 'rxjs/add/operator/switchMap';
 
 /**

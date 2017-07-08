@@ -6,6 +6,7 @@
     "start": "webpack-dev-server --inline --colors --progress --port 3000"
   },
   "dependencies": {
+    "@angular/animations": "^4.0.3",
     "@angular/common": "^4.0.3",
     "@angular/compiler": "^4.0.3",
     "@angular/core": "^4.0.3",
@@ -13,10 +14,10 @@
     "@angular/http": "^4.0.3",
     "@angular/platform-browser": "^4.0.3",
     "@angular/platform-browser-dynamic": "^4.0.3",
-    "@angular/animations": "^4.0.3",
     "@angular/router": "4.1.1",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.27",
     "core-js": "2.4.1",
-    "ng-bootstrap":"1.6.3",
+    "ng-bootstrap": "1.6.3",
     "reflect-metadata": "0.1.8",
     "rxjs": "^5.0.1",
     "zone.js": "^0.7.2"
