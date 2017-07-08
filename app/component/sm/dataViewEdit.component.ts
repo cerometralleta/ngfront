@@ -51,7 +51,15 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   addFunc(){
      let funcButton = new FuncButton();
      this.formData.funcButtons.push(funcButton);
-     this.ngbForm.controls.funcButtons.updateValueAndValidity();
+     const controls = <FormArray>this.ngbForm.controls['funcButtons'];
+     controls.push(this.fb.group({
+            func:[funcButton.func,[Validators.required]],
+            icon:[funcButton.icon],
+            dialogSize:[funcButton.dialogSize],
+            title:[funcButton.title,[Validators.required,Validators.maxLength(50)]],
+            url:[funcButton.url,[Validators.required]],
+            type:[funcButton.type,[Validators.required]]
+        }));
   }
   createModule() {
     if (this.dataViewId && this.dataViewId != null) {
@@ -255,7 +263,6 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   //变更
   onValueChanged(data?: any) {
-    alert(21)
     if (!this.ngbForm) { return; }
 
     let messages = {
