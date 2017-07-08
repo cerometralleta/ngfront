@@ -48,10 +48,11 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   }
 
-  alertValue(value: string) {
-    alert(value);
+  addFunc(){
+     let funcButton = new FuncButton();
+     this.formData.funcButtons.push(funcButton);
+     this.ngbForm.controls.funcButtons.updateValueAndValidity();
   }
-
   createModule() {
     if (this.dataViewId && this.dataViewId != null) {
       return;
@@ -242,16 +243,19 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       this.treeFg.controls.name.clearValidators();
       this.treeFg.controls.width.clearValidators();
     }
+
+    // this.ngbForm.controls.treeModule.updateValueAndValidity();
   }
 
   //提交表单
   onSubmit() {
     this.formData = this.ngbForm.value;
-    alert(this.formData.treeModule.isShow);
+    // alert(this.formData.treeModule.isShow);
   }
 
   //变更
   onValueChanged(data?: any) {
+    alert(21)
     if (!this.ngbForm) { return; }
 
     let messages = {
