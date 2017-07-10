@@ -87,10 +87,10 @@
               </thead>
               <tbody formArrayName="funcButtons">
                    <tr class="tr-center" *ngFor="let funcButtons of ngbForm.controls.funcButtons.controls; let idx=index" [formGroupName]="idx">
-                      <td><input type="text" class="form-control wd100" placeholder="名称" formControlName="title" /></td>
-                      <td><input type="text" class="form-control wd100" placeholder="URL" formControlName="url" /></td>
+                      <td><input type="text" class="form-control" placeholder="名称" formControlName="title" /></td>
+                      <td><input type="text" class="form-control" placeholder="URL" formControlName="url" /></td>
                       <td>
-                        <select class="form-control wd100" formControlName="func" placeholder="功能(接口,dialog,窗口)">
+                        <select class="form-control" formControlName="func" placeholder="功能(接口,dialog,窗口)">
                          <option *ngFor="let fb of funcButtons" [value]="fb.code">{{fb.text}}</option>
                        </select>
                       </td>
@@ -181,7 +181,7 @@
               </thead>
               <tbody formArrayName="columns">
                 <tr class="tr-center" *ngFor="let columOptions of ngbForm.controls.options.controls.columns.controls; let idx=index" [formGroupName]="idx">
-                  <td><input type="text" class="form-control wd100" placeholder="名称" formControlName="title" /></td>
+                  <td><input type="text" class="form-control" placeholder="名称" formControlName="title" /></td>
                   <td>
                     <label>{{columOptions.controls.field._value}}</label>
                   </td>
@@ -189,7 +189,7 @@
                     <label>{{columOptions.controls.dataType._value}}</label>
                   </td>
                   <td>
-                    <select class="form-control wd100" formControlName="updateType" placeholder="修改方式">
+                    <select class="form-control" formControlName="updateType" placeholder="修改方式">
                          <option *ngFor="let updateType of updateTypes" [value]="updateType.code">{{updateType.text}}</option>
                        </select>
                   </td>
@@ -214,23 +214,23 @@
                     </div>
                   </td>
                   <td>
-                    <select class="form-control wd100" formControlName="fieldType" placeholder="字段类型">
+                    <select class="form-control" formControlName="fieldType" placeholder="字段类型">
                          <option *ngFor="let fieldType of fieldTypes" [value]="fieldType.code">{{fieldType.text}}</option>
                        </select>
                   </td>
                   <td>{{maxlength}}</td>
                   <td>
-                    <select class="form-control wd100" formControlName="align" placeholder="对齐方式">
+                    <select class="form-control" formControlName="align" placeholder="对齐方式">
                          <option *ngFor="let align of aligns" [value]="align.code">{{align.text}}</option>
                        </select>
                   </td>
                   <td>
-                    <select class="form-control wd100" formControlName="halign" placeholder="表头对齐">
+                    <select class="form-control" formControlName="halign" placeholder="表头对齐">
                          <option *ngFor="let align of aligns" [value]="align.code">{{align.text}}</option>
                        </select>
                   </td>
                   <td>
-                    <select class="form-control wd100" formControlName="falign" placeholder="垂直对齐">
+                    <select class="form-control" formControlName="falign" placeholder="垂直对齐">
                          <option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>
                        </select>
                   </td>
@@ -249,11 +249,11 @@
                     </div>
                   </td>
                   <!--<td>
-                    <select class="form-control wd100" formControlName="valign" placeholder="页尾对齐">
+                    <select class="form-control" formControlName="valign" placeholder="页尾对齐">
                          <option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>
                        </select>
                   </td>-->
-                  <td><input type="text" class="form-control wd100" placeholder="宽度" formControlName="width" /></td>
+                  <td><input type="text" class="form-control" placeholder="宽度" formControlName="width" /></td>
                   <td>
                     <!--<input type="checkbox" name="" formControlName="sortable">-->
                     <div class="checkbox checkbox-danger">
@@ -261,11 +261,11 @@
                       <label for="sortable"></label>
                     </div>
                   </td>
-                  <!--<td><input type="text" class="form-control wd100" placeholder="格式化" formControlName="formatter" /></td>-->
-                  <!--<td><input type="text" class="form-control wd100" placeholder="页尾格式" formControlName="footerFormatter" /></td>-->
-                  <td><input type="text" class="form-control wd100" placeholder="排序字段" formControlName="sortName" /></td>
+                  <!--<td><input type="text" class="form-control" placeholder="格式化" formControlName="formatter" /></td>-->
+                  <!--<td><input type="text" class="form-control" placeholder="页尾格式" formControlName="footerFormatter" /></td>-->
+                  <td><input type="text" class="form-control" placeholder="排序字段" formControlName="sortName" /></td>
                   <td>
-                    <!--<input type="text" class="form-control wd100" placeholder="排序" formControlName="idx" />-->
+                    <!--<input type="text" class="form-control" placeholder="排序" formControlName="idx" />-->
                     <label>{{columOptions.controls.idx._value}}</label>
                   </td>
                 </tr>
@@ -314,7 +314,7 @@
         <label class="col-sm-2 control-label">作用范围</label>
         <div class="col-sm-10">
           <!--<input type="text" class="form-control" placeholder="作用范围" formControlName="nodeOpts" />-->
-          <select class="form-control wd100" formControlName="nodeOpts" placeholder="作用范围">
+          <select class="form-control" formControlName="nodeOpts" placeholder="作用范围">
                          <option *ngFor="let nodeOpts of scopes" [value]="nodeOpts.code">{{nodeOpts.text}}</option>
                        </select>
         </div>
