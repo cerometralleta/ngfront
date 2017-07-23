@@ -83,6 +83,7 @@
                   <th>URL</th>
                   <th>功能(service,dialog,window)</th>
                   <th>导航按钮</th>
+                  <th>移除</th>
                 </tr>
               </thead>
               <tbody formArrayName="funcButtons">
@@ -100,7 +101,12 @@
                             <label for="{{fbt.id}}"></label>
                           </div>
                       </td>
-                   </tr>
+                        <td>
+                          <a  class="table-action-btn" (click)="removeControls(ngbForm.controls.funcButtons,idx)">
+                            <i class="md md-close"></i>
+                            </a>
+                        </td>
+                      </tr>
               </tbody>
             </table>
           </div>

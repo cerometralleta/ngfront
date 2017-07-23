@@ -53,6 +53,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   addFunc(){
      let funcButton = new FuncButton(); 
      funcButton.id = GUID.createGUIDString();
+     funcButton.func = 0;
      this.formData.funcButtons.push(funcButton);
      const controls = <FormArray>this.ngbForm.controls['funcButtons'];
      controls.push(this.fb.group({
@@ -64,6 +65,11 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
             type:[funcButton.type,[Validators.required]]
         }));
   }
+
+ removeControls(controls,idx){
+   controls.removeAt(idx);
+ }
+
   createModule() {
     if (this.dataViewId && this.dataViewId != null) {
       return;
