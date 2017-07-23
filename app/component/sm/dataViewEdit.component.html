@@ -7,7 +7,7 @@
       </a>
       <li class="">
         <a href="#profile" data-toggle="tab" aria-expanded="true">
-          <span class="visible-xs"><i class="fa fa-user"></i></span>
+          <span class="visible-xs"><i class="fa fa-user"></i></span>  
           <span class="hidden-xs">Function</span>
         </a>
         <li class="">
@@ -86,18 +86,18 @@
                 </tr>
               </thead>
               <tbody formArrayName="funcButtons">
-                   <tr class="tr-center" *ngFor="let funcButtons of ngbForm.controls.funcButtons.controls; let idx=index" [formGroupName]="idx">
+                   <tr class="tr-center" *ngFor="let fbt of ngbForm.controls.funcButtons.controls; let idx=index" [formGroupName]="idx">
                       <td><input type="text" class="form-control" placeholder="名称" formControlName="title" /></td>
                       <td><input type="text" class="form-control" placeholder="URL" formControlName="url" /></td>
                       <td>
                         <select class="form-control" formControlName="func" placeholder="功能(接口,dialog,窗口)">
-                         <option *ngFor="let fb of funcButtons" [value]="fb.code">{{fb.text}}</option>
+                         <option *ngFor="let fcb of funcButtons" [value]="fcb.code">{{fcb.text}}</option>
                        </select>
                       </td>
                       <td>
                           <div class="checkbox checkbox-inverse">
-                            <input id="type" type="checkbox" formControlName="type">
-                            <label for="type"></label>
+                            <input id="{{fbt.id}}" type="checkbox" formControlName="type">
+                            <label for="{{fbt.id}}"></label>
                           </div>
                       </td>
                    </tr>

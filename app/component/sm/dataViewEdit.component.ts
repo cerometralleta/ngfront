@@ -6,6 +6,7 @@ import { DataViewModule, TreeModule, FuncButton } from "../../metadata/sm/dataVi
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Options } from "../../metadata/ngb/ngbGrid/options.md";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
+import { GUID } from "../../utils/guid.util";
 declare var $: any;
 
 @Component({
@@ -42,6 +43,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.getOrders();
     this.getfieldTypes();
     this.getScopes();
+    this.getFuncButtons();
   }
 
   ngAfterViewInit(): void {
@@ -49,7 +51,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   }
 
   addFunc(){
-     let funcButton = new FuncButton();
+     let funcButton = new FuncButton(); 
+     funcButton.id = GUID.createGUIDString();
      this.formData.funcButtons.push(funcButton);
      const controls = <FormArray>this.ngbForm.controls['funcButtons'];
      controls.push(this.fb.group({

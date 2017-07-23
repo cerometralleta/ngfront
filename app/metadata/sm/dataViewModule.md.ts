@@ -61,10 +61,12 @@ export class FuncButton {
     constructor() {
         
     }
+    id:string;
     func:number;//0:接口,1:弹窗,2:新窗口
     icon:string;
     dialogSize:string;
     title:string;
     url:string;
-    type:boolean;//导航按钮
+    type:number;//导航按钮 0:导航按钮,1:行内按钮
+    sort:number;
 }
