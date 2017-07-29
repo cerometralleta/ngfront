@@ -5,21 +5,31 @@
         <span class="visible-xs"><i class="fa fa-home"></i></span>
         <span class="hidden-xs">VIEW</span>
       </a>
+    </li>
       <li class="">
         <a href="#profile" data-toggle="tab" aria-expanded="true">
           <span class="visible-xs"><i class="fa fa-user"></i></span>  
           <span class="hidden-xs">Function</span>
         </a>
-        <li class="">
-          <a href="#columns" data-toggle="tab" aria-expanded="false">
+      </li>
+       <li class="">
+          <a href="#options" data-toggle="tab" aria-expanded="false">
             <span class="visible-xs"><i class="fa fa-envelope-o"></i></span>
             <span class="hidden-xs">Grid</span>
           </a>
+        </li>
+        <li class="">
+          <a href="#columns" data-toggle="tab" aria-expanded="false">
+            <span class="visible-xs"><i class="fa fa-envelope-o"></i></span>
+            <span class="hidden-xs">Columns</span>
+          </a>
+        </li>
           <li class="">
             <a href="#settings" data-toggle="tab" aria-expanded="false">
               <span class="visible-xs"><i class="fa fa-cog"></i></span>
               <span class="hidden-xs">tree</span>
             </a>
+          </li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="home">
@@ -51,7 +61,7 @@
     <!--设置功能按钮-->
     <div class="tab-pane" id="profile">
           <div class="card-box">
-               <button class="btn btn-default" (click)="addFunc()"><i class="fa fa-plus m-r-5"></i>添加</button>
+               <button type ="button" class="btn btn-default" (click)="addFunc()"><i class="fa fa-plus m-r-5"></i>添加</button>
 
                 <div class="checkbox checkbox-primary checkbox-inline" style="padding-left: 35px;">
 									<input type="checkbox" id="insertCheckbox" (change)="checkFunc('i')" [checked]="ischecked('i')">
@@ -112,8 +122,8 @@
           </div>
     </div>
 
-    <!--设置列-->
-    <div class="tab-pane" id="columns" formGroupName="options">
+    <!--设置 table-bootstrap -->
+    <div class="tab-pane" id="options" formGroupName="options">
       <div class="form-group">
         <div class="card-box">
           <div class="form-group">
@@ -127,33 +137,55 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">分页</label>
+            <label class="col-sm-2 control-label">pagination</label>
             <div class="col-sm-4">
               <div class="checkbox checkbox-pink">
                 <input id="pagination" type="checkbox" formControlName="pagination">
                 <label for="pagination"></label>
               </div>
             </div>
-            <label class="col-sm-2 control-label">分页数</label>
+            <label class="col-sm-2 control-label">pageSize</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" placeholder="分页数" formControlName="pageSize" />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">导出</label>
+            <label class="col-sm-2 control-label">showExport</label>
             <div class="col-sm-4">
               <div class="checkbox checkbox-inverse">
                 <input id="showExport" type="checkbox" formControlName="showExport">
                 <label for="showExport"></label>
               </div>
             </div>
-            <!--<label class="col-sm-2 control-label">分页数</label>
+            <label class="col-sm-2 control-label">sortable</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" placeholder="pageSize" formControlName="pageSize" />
-            </div>-->
+               <div class="checkbox checkbox-inverse">
+                <input id="sortable" type="checkbox" formControlName="sortable">
+                <label for="sortable"></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">undefinedText</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="undefinedText" formControlName="undefinedText" />
+            </div>
+            <label class="col-sm-2 control-label">searchText</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="searchText" formControlName="searchText" />
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+    <!--设置 table-bootstrap -->
+
+
+    <!--设置列-->
+    <div class="tab-pane" id="columns">
+      <div class="form-group">
         <div class="col-sm-12">
           <div class="card-box">
             <button type="button" class="btn btn-info waves-effect waves-light" (click)="alert()">生成列表</button>
@@ -172,21 +204,21 @@
                   <th>列表显示</th>
                   <th>字段类型</th>
                   <th>最大长度</th>
-                  <th>对齐方式</th>
+                  <!--<th>对齐方式</th>
                   <th>表头对齐</th>
-                  <th>垂直对齐</th>
+                  <th>垂直对齐</th>-->
                   <!--<th>页尾对齐</th>-->
-                  <th>单选</th>
+                  <!--<th>单选</th>
                   <th>多选</th>
                   <th>宽度</th>
                   <th>是否排序</th>
                   <th>排序规则</th>
-                  <th>排序字段</th>
+                  <th>排序字段</th>-->
                   <th>序号</th>
                 </tr>
               </thead>
               <tbody formArrayName="columns">
-                <tr class="tr-center" *ngFor="let columOptions of ngbForm.controls.options.controls.columns.controls; let idx=index" [formGroupName]="idx">
+                <tr class="tr-center" *ngFor="let columOptions of ngbForm.controls.columns.controls; let idx=index" [formGroupName]="idx">
                   <td><input type="text" class="form-control" placeholder="名称" formControlName="title" /></td>
                   <td>
                     <label>{{columOptions.controls.field._value}}</label>
@@ -225,51 +257,51 @@
                        </select>
                   </td>
                   <td>{{maxlength}}</td>
-                  <td>
+                  <!--<td>
                     <select class="form-control" formControlName="align" placeholder="对齐方式">
                          <option *ngFor="let align of aligns" [value]="align.code">{{align.text}}</option>
                        </select>
-                  </td>
-                  <td>
+                  </td>-->
+                  <!--<td>
                     <select class="form-control" formControlName="halign" placeholder="表头对齐">
                          <option *ngFor="let align of aligns" [value]="align.code">{{align.text}}</option>
                        </select>
-                  </td>
-                  <td>
-                    <select class="form-control" formControlName="falign" placeholder="垂直对齐">
-                         <option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>
-                       </select>
-                  </td>
-                  <td>
+                  </td>-->
+                  <!--<td>-->
+                    <!--<select class="form-control" formControlName="falign" placeholder="垂直对齐">-->
+                         <!--<option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>-->
+                       <!--</select>-->
+                  <!--</td>-->
+                  <!--<td>-->
                     <!--<input type="checkbox" name="" formControlName="radio">-->
-                    <div class="checkbox checkbox-info">
-                      <input id="radio" type="checkbox" formControlName="radio">
-                      <label for="radio"></label>
-                    </div>
-                  </td>
-                  <td>
+                    <!--<div class="checkbox checkbox-info">-->
+                      <!--<input id="radio" type="checkbox" formControlName="radio">-->
+                      <!--<label for="radio"></label>-->
+                    <!--</div>-->
+                  <!--</td>-->
+                  <!--<td>-->
                     <!--<input type="checkbox" name="" formControlName="checkbox">-->
-                    <div class="checkbox checkbox-warning">
-                      <input id="checkbox" type="checkbox" formControlName="checkbox">
-                      <label for="checkbox"></label>
-                    </div>
-                  </td>
+                    <!--<div class="checkbox checkbox-warning">-->
+                      <!--<input id="checkbox" type="checkbox" formControlName="checkbox">-->
+                      <!--<label for="checkbox"></label>-->
+                    <!--</div>-->
+                  <!--</td>-->
                   <!--<td>
                     <select class="form-control" formControlName="valign" placeholder="页尾对齐">
                          <option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>
                        </select>
                   </td>-->
-                  <td><input type="text" class="form-control" placeholder="宽度" formControlName="width" /></td>
-                  <td>
+                  <!--<td><input type="text" class="form-control" placeholder="宽度" formControlName="width" /></td>-->
+                  <!--<td>-->
                     <!--<input type="checkbox" name="" formControlName="sortable">-->
-                    <div class="checkbox checkbox-danger">
-                      <input id="sortable" type="checkbox" formControlName="sortable">
-                      <label for="sortable"></label>
-                    </div>
-                  </td>
+                    <!--<div class="checkbox checkbox-danger">-->
+                      <!--<input id="sortable" type="checkbox" formControlName="sortable">-->
+                      <!--<label for="sortable"></label>-->
+                    <!--</div>-->
+                  <!--</td>-->
                   <!--<td><input type="text" class="form-control" placeholder="格式化" formControlName="formatter" /></td>-->
                   <!--<td><input type="text" class="form-control" placeholder="页尾格式" formControlName="footerFormatter" /></td>-->
-                  <td><input type="text" class="form-control" placeholder="排序字段" formControlName="sortName" /></td>
+                  <!--<td><input type="text" class="form-control" placeholder="排序字段" formControlName="sortName" /></td>-->
                   <td>
                     <!--<input type="text" class="form-control" placeholder="排序" formControlName="idx" />-->
                     <label>{{columOptions.controls.idx._value}}</label>
@@ -279,8 +311,10 @@
             </table>
           </div>
         </div>
-      </div>
     </div>
+    </div>
+    <!-- 设置列-->
+    
     <div class="tab-pane" id="settings" formGroupName="treeModule">
       <div class="form-group">
         <label class="col-sm-2 control-label">是否显示</label>

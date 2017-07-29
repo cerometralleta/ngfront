@@ -4,6 +4,7 @@
 
 import { DataModule } from "../ngb/ngbTree/dataModule.md";
 import { Options } from "../ngb/ngbGrid/options.md";
+import { ColumOptions } from "../ngb/ngbGrid/columnOptions.md";
 
 export class DataViewModule {
     constructor() {
@@ -20,6 +21,7 @@ export class DataViewModule {
     sqlid:string;
     remark:string;
     options:Options;
+    columns:Array<ColumOptions>;
     treeModule:TreeModule;
     conditions:Array<Condition>;
     funcButtons:Array<FuncButton>;

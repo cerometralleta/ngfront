@@ -31,9 +31,6 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   aligns: Array<any>;
   valigns: Array<any>;
   scopes: Array<any>;
-
-
-
   @Input() dataViewId: string;
 
   constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder) { }
@@ -53,6 +50,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   }
 
+  //添加功能
   addFunc(id,title,type){
      let funcButton = new FuncButton(); 
      if(id){
@@ -80,6 +78,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         }));
   }
 
+  //选中功能按钮
  checkFunc(id){
      const formArray = <FormArray>this.ngbForm.controls['funcButtons'];
      for (var index = 0; index < formArray.length; index++) {
@@ -140,7 +139,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.formData.options.showExport = false;
     this.formData.options.pageSize = 50;
     this.formData.options.pageNumber = 1;
-    this.formData.options.columns = new Array<any>();
+    this.formData.columns = new Array<any>();
     this.formData.treeModule = new TreeModule();
     this.formData.treeModule.isShow = false;
     this.formData.treeModule.nodeOpts = 'SELF';
@@ -150,7 +149,6 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   //创建form
   buildForm(): void {
-
     this.treeFg = this.fb.group({
       isShow: [this.formData.treeModule.isShow],
       url: [this.formData.treeModule.name],
@@ -163,15 +161,14 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     });
 
     this.optionsFg = this.fb.group({
-      url: [this.formData.options.url, [Validators.required, Validators.maxLength(30)]],
-      method: [this.formData.options.method, [Validators.required, Validators.maxLength(30)]],
-      // contentType: [this.formData.options.contentType,[Validators.required, Validators.maxLength(30)]],
-      // dataType: [this.formData.options.dataType],
+      url: [this.formData.options.url, [Validators.required, Validators.maxLength(200)]],
+      method: [this.formData.options.method, [Validators.required, Validators.maxLength(6)]],
       pagination: [this.formData.options.pagination],
-      pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(30)]],
-      // showHeader: [this.formData.options.showHeader,[Validators.required, Validators.maxLength(30)]],
+      pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(3)]],
       showExport: [this.formData.options.showExport],
-      columns: this.fb.array(this.initColumns())
+      undefinedText:[this.formData.options.undefinedText],
+      searchText:[this.formData.options.searchText],
+      sortable:[this.formData.options.sortable]
     });
 
     this.formGroup = {
@@ -189,6 +186,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       ],
       remark: [this.formData.remark, Validators.maxLength(250)],
       options: this.optionsFg,
+      columns: this.fb.array(this.initColumns()),
       treeModule: this.treeFg,
       funcButtons: this.fb.array(this.initFuncButtons())
     };
@@ -215,10 +213,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   //初始化列表组件
   initColumns() {
     let formArray = new Array<any>();
-    this.formData.options.columns.forEach(columnOptions => {
+    this.formData.columns.forEach(columnOptions => {
       formArray.push(this.fb.group({
-        // id: [columnOptions.id, [Validators.required, Validators.maxLength(32)]],
-        // dataViewId: [columnOptions.dataViewId, [Validators.required, Validators.maxLength(32)]],
         field: [columnOptions.field, [Validators.required, Validators.maxLength(50)]],
         title: [columnOptions.title, [Validators.required, Validators.maxLength(50)]],
         updateType: [columnOptions.updateType, [Validators.required, Validators.maxLength(30)]],
@@ -228,24 +224,19 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         dataType: [columnOptions.dataType, [Validators.maxLength(10)]],
         fieldType: [columnOptions.fieldType, [Validators.required, Validators.maxLength(30)]],
         maxlength: [columnOptions.maxlength],
-        align: [columnOptions.align, [Validators.maxLength(10)]],
-        halign: [columnOptions.halign, [Validators.maxLength(10)]],
-        falign: [columnOptions.falign, [Validators.maxLength(10)]],
-        idx: [columnOptions.idx, [Validators.maxLength(10)]],
-        // lastUpdateTime: [columnOptions.lastUpdateTime],
-        // lastUpdateUser: [columnOptions.lastUpdateUser],
-        // version: [columnOptions.version],
-        // createUser: [columnOptions.createUser],
-        // createTime: [columnOptions.createTime],
-        radio: [columnOptions.radio],
-        checkbox: [columnOptions.checkbox],
-        valign: [columnOptions.valign],
-        width: [columnOptions.width],
-        sortable: [columnOptions.sortable],
-        order: [columnOptions.order],
-        formatter: [columnOptions.formatter],
-        footerFormatter: [columnOptions.footerFormatter],
-        sortName: [columnOptions.sortName]
+        idx: [columnOptions.idx, [Validators.maxLength(10)]]
+        // align: [columnOptions.align, [Validators.maxLength(10)]],
+        // halign: [columnOptions.halign, [Validators.maxLength(10)]],
+        // falign: [columnOptions.falign, [Validators.maxLength(10)]],
+        // radio: [columnOptions.radio],
+        // checkbox: [columnOptions.checkbox],
+        // valign: [columnOptions.valign],
+        // width: [columnOptions.width],
+        // sortable: [columnOptions.sortable],
+        // order: [columnOptions.order],
+        // formatter: [columnOptions.formatter],
+        // footerFormatter: [columnOptions.footerFormatter],
+        // sortName: [columnOptions.sortName]
       }));
     })
     return formArray;
@@ -326,7 +317,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   //提交表单
   onSubmit() {
     this.formData = this.ngbForm.value;
-    // alert(this.formData.treeModule.isShow);
+    alert(JSON.stringify(this.formData));
   }
 
   //变更
