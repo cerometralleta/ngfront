@@ -31,6 +31,9 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   aligns: Array<any>;
   valigns: Array<any>;
   scopes: Array<any>;
+
+
+
   @Input() dataViewId: string;
 
   constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder) { }
@@ -50,13 +53,24 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   }
 
-  addFunc(){
+  addFunc(id,title,type){
      let funcButton = new FuncButton(); 
-     funcButton.id = GUID.createGUIDString();
+     if(id){
+       funcButton.id = id;
+     }else{
+       funcButton.id = GUID.createGUIDString();
+     }
      funcButton.func = 0;
+     funcButton.title = title;
+     if(type != undefined){
+      funcButton.type = type;
+     }else{
+      funcButton.type = 1;
+     }
      this.formData.funcButtons.push(funcButton);
      const controls = <FormArray>this.ngbForm.controls['funcButtons'];
      controls.push(this.fb.group({
+            id:[funcButton.id],
             func:[funcButton.func,[Validators.required]],
             icon:[funcButton.icon],
             dialogSize:[funcButton.dialogSize],
@@ -65,6 +79,51 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
             type:[funcButton.type,[Validators.required]]
         }));
   }
+
+ checkFunc(id){
+     const formArray = <FormArray>this.ngbForm.controls['funcButtons'];
+     for (var index = 0; index < formArray.length; index++) {
+       let element = <FormGroup>formArray.controls[index];
+        if(element.controls.id.value == id){
+          formArray.removeAt(index)
+          
+          //移除
+          return;
+        }
+     }
+
+     //添加
+     if("i" == id){
+        this.addFunc("i","增加",1);
+        return;
+     }
+     if("d" == id){
+        
+        //默认行内按钮
+        this.addFunc("d","删除",0);
+        return;
+     }
+     if("u" == id){
+        this.addFunc("u","修改",1);
+        return;
+     }
+     if("s" == id){
+        this.addFunc("s","查询",1);
+        return;
+     }
+ }
+
+ //判断是否选中
+ ischecked(id){
+   const formArray = <FormArray>this.ngbForm.controls['funcButtons'];
+     for (var index = 0; index < formArray.length; index++) {
+       let element = <FormGroup>formArray.controls[index];
+        if(element.controls.id.value == id){
+          return true;
+        }
+     }
+     return false;
+ }
 
  removeControls(controls,idx){
    controls.removeAt(idx);

@@ -67,6 +67,6 @@ export class FuncButton {
     dialogSize:string;
     title:string;
     url:string;
-    type:number;//导航按钮 0:导航按钮,1:行内按钮
+    type:number;//导航按钮 1:导航按钮,0:行内按钮
     sort:number;
 }
