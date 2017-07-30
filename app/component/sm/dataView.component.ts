@@ -16,8 +16,8 @@ import 'rxjs/add/operator/switchMap';
  * 统一dataView
  */
 @Component({
-    selector: 'sm-dataview',
-    templateUrl: './app/component/sm/dataView.component.html'
+    selector: 'sm-columnMore',
+    templateUrl: './app/component/sm/columnMore.component.html'
 })
 export class DataViewComponent implements OnInit {
     private dataModule: DataViewModule;

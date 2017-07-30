@@ -7,6 +7,9 @@ import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Options } from "../../metadata/ngb/ngbGrid/options.md";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 import { GUID } from "../../utils/guid.util";
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { DictConstant } from "../../metadata/constant/dict.constant";
+import { ColumnMoreComponent } from "./columnMore.component";
 declare var $: any;
 
 @Component({
@@ -26,24 +29,17 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   formErrors: Array<string>;
   updateTypes: Array<any>;
   orders: Array<any>
-  fieldTypes: Array<any>;
-  funcButtons:Array<any>;
-  aligns: Array<any>;
-  valigns: Array<any>;
-  scopes: Array<any>;
+  fieldTypes: Array<any> = DictConstant.createfieldTypes();
+  funcButtons:Array<any> = DictConstant.createFuncButtons();
+  aligns: Array<any> = DictConstant.createAligns();
+
+  scopes: Array<any> = DictConstant.createScopes();
   @Input() dataViewId: string;
 
-  constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder) { }
+  constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder,private modalService: NgbModal) { }
   ngOnInit() {
     this.createModule();
     this.buildForm();
-    this.getUpdateTypes();
-    this.getAligns();
-    this.getValigns();
-    this.getOrders();
-    this.getfieldTypes();
-    this.getScopes();
-    this.getFuncButtons();
   }
 
   ngAfterViewInit(): void {
@@ -124,9 +120,17 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
      return false;
  }
 
+ //删除行
  removeControls(controls,idx){
    controls.removeAt(idx);
  }
+
+//列更多设置
+openMore(columOptions){
+  const modalRef = this.modalService.open(ColumnMoreComponent);
+  modalRef.componentInstance.columOptions = columOptions;
+}
+
 
   createModule() {
     if (this.dataViewId && this.dataViewId != null) {
@@ -139,7 +143,11 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.formData.options.showExport = false;
     this.formData.options.pageSize = 50;
     this.formData.options.pageNumber = 1;
+
+    let co = new ColumOptions();
     this.formData.columns = new Array<any>();
+    this.formData.columns.push(co);
+
     this.formData.treeModule = new TreeModule();
     this.formData.treeModule.isShow = false;
     this.formData.treeModule.nodeOpts = 'SELF';
@@ -224,72 +232,22 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         dataType: [columnOptions.dataType, [Validators.maxLength(10)]],
         fieldType: [columnOptions.fieldType, [Validators.required, Validators.maxLength(30)]],
         maxlength: [columnOptions.maxlength],
-        idx: [columnOptions.idx, [Validators.maxLength(10)]]
-        // align: [columnOptions.align, [Validators.maxLength(10)]],
-        // halign: [columnOptions.halign, [Validators.maxLength(10)]],
-        // falign: [columnOptions.falign, [Validators.maxLength(10)]],
-        // radio: [columnOptions.radio],
-        // checkbox: [columnOptions.checkbox],
-        // valign: [columnOptions.valign],
-        // width: [columnOptions.width],
-        // sortable: [columnOptions.sortable],
-        // order: [columnOptions.order],
-        // formatter: [columnOptions.formatter],
-        // footerFormatter: [columnOptions.footerFormatter],
-        // sortName: [columnOptions.sortName]
+        idx: [columnOptions.idx, [Validators.maxLength(10)]],
+        align: [columnOptions.align, [Validators.maxLength(10)]],
+        halign: [columnOptions.halign, [Validators.maxLength(10)]],
+        falign: [columnOptions.falign, [Validators.maxLength(10)]],
+        radio: [columnOptions.radio],
+        checkbox: [columnOptions.checkbox],
+        valign: [columnOptions.valign],
+        width: [columnOptions.width],
+        sortable: [columnOptions.sortable],
+        order: [columnOptions.order],
+        formatter: [columnOptions.formatter],
+        footerFormatter: [columnOptions.footerFormatter],
+        sortName: [columnOptions.sortName]
       }));
     })
     return formArray;
-  }
-
-  //修改方式
-  getUpdateTypes() {
-    this.updateTypes = new Array<any>();
-    this.updateTypes.push({ code: 0, text: "隐藏" });
-    this.updateTypes.push({ code: 1, text: "显示" });
-    this.updateTypes.push({ code: 2, text: "禁用" });
-  }
-
-  //修改方式
-  getOrders() {
-    this.orders = new Array<any>();
-    this.orders.push({ code: "ASC", text: "ASC" });
-    this.orders.push({ code: "DESC", text: "DESC" });
-  }
-
-  getAligns() {
-    this.aligns = new Array<any>();
-    this.aligns.push({ code: "center", text: "居中" });
-    this.aligns.push({ code: "right", text: "居右" });
-    this.aligns.push({ code: "left", text: "居左" });
-  }
-
-  getValigns() {
-    this.valigns = new Array<any>();
-    this.valigns.push({ code: "middle", text: "居中" });
-    this.valigns.push({ code: "top", text: "顶部" });
-    this.valigns.push({ code: "bottom", text: "底部" });
-  }
-
-  getfieldTypes() {
-    this.fieldTypes = new Array<any>();
-    this.fieldTypes.push({ code: "text", text: "text" });
-    this.fieldTypes.push({ code: "checkbox", text: "checkbox" });
-    this.fieldTypes.push({ code: "downdrop", text: "downdrop" });
-    this.fieldTypes.push({ code: "textarea", text: "textarea" });
-  }
-
-  getFuncButtons(){
-    this.funcButtons = new Array<any>();
-    this.funcButtons.push({ code: 0, text: "service" });
-    this.funcButtons.push({ code: 1, text: "dialog" });
-    this.funcButtons.push({ code: 2, text: "window" });
-  }
-  getScopes() {
-    this.scopes = new Array<any>();
-    this.scopes.push({ code: "ALL", text: "全部子节点" });
-    this.scopes.push({ code: "CHILD", text: "子节点" });
-    this.scopes.push({ code: "SELF", text: "当前节点" });
   }
 
   showTreeCheck() {
@@ -318,6 +276,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   onSubmit() {
     this.formData = this.ngbForm.value;
     alert(JSON.stringify(this.formData));
+    console.info(JSON.stringify(this.formData))
   }
 
   //变更

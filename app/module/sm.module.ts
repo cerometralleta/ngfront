@@ -10,6 +10,7 @@ import { DataViewComponent } from "../component/sm/dataView.component";
 import { Ngb2Module } from "./ngb.module";
 import { DataViewEditComponent } from "../component/sm/dataViewEdit.component";
 import { ReactiveFormsModule } from '@angular/forms';
+import { ColumnMoreComponent } from "../component/sm/columnMore.component";
  
 /**
  * SQL MANAGE模块
@@ -19,9 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,Ngb2Module,ReactiveFormsModule],
     exports: [DataViewComponent,DataViewEditComponent],
     declarations: [
-        DataViewComponent
-        ,DataViewEditComponent
+        DataViewComponent,DataViewEditComponent,ColumnMoreComponent
     ],
+    entryComponents:[ColumnMoreComponent],
     providers: [LoggerService,AppRoutingProviders,HttpService]
 })
 export class SmModule { }
