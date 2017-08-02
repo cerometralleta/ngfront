@@ -10,6 +10,7 @@ import { GUID } from "../../utils/guid.util";
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { DictConstant } from "../../metadata/constant/dict.constant";
 import { ColumnMoreComponent } from "./columnMore.component";
+import { NgbModalOptions } from "../../../node_modules/._@ng-bootstrap_ng-bootstrap@1.0.0-alpha.25@@ng-bootstrap/ng-bootstrap/modal/modal.module";
 declare var $: any;
 
 @Component({
@@ -27,12 +28,12 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   funcButtonFg:FormGroup;
   // error info
   formErrors: Array<string>;
-  updateTypes: Array<any>;
+  updateTypes: Array<any> =  DictConstant.createUpdateTypes();
   orders: Array<any>
   fieldTypes: Array<any> = DictConstant.createfieldTypes();
   funcButtons:Array<any> = DictConstant.createFuncButtons();
   aligns: Array<any> = DictConstant.createAligns();
-
+  valigns:Array<any> = DictConstant.createValigns();
   scopes: Array<any> = DictConstant.createScopes();
   @Input() dataViewId: string;
 
@@ -126,9 +127,17 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
  }
 
 //列更多设置
-openMore(columOptions){
-  const modalRef = this.modalService.open(ColumnMoreComponent);
-  modalRef.componentInstance.columOptions = columOptions;
+openMore(content){
+
+  // 弹出组件
+  // const modalRef = this.modalService.open(ColumnMoreComponent);
+  // modalRef.componentInstance.columOptions = columOptions;
+  
+   this.modalService.open(content,{size:"lg"}).result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
 }
 
 
@@ -145,6 +154,8 @@ openMore(columOptions){
     this.formData.options.pageNumber = 1;
 
     let co = new ColumOptions();
+    co.title ="e3";
+    co.field = "ddd";
     this.formData.columns = new Array<any>();
     this.formData.columns.push(co);
 

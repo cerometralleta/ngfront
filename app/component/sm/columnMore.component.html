@@ -6,7 +6,9 @@
 </div>
 <div class="modal-body">
     <div class="card-box">
-       
+           <select class="form-control" formControlName="falign" placeholder="垂直对齐">-->
+                         <option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>
+                       </select>
     </div>
 </div>
 <div class="modal-footer">
