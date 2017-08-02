@@ -247,14 +247,14 @@
                     <!--更多设置-->
                     <ng-template #content let-c="close" let-d="dismiss">
                       <div class="modal-header">
-                        <h4 class="modal-title">More</h4>
+                        <h4 class="modal-title">Options</h4>
                       </div>
                       <div class="modal-body">
 
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">align</label>
                           <div class="col-sm-10">
-                            <select class="form-control" formControlName="align" placeholder="对齐方式">
+                            <select class="form-control" formControlName="align" placeholder="align">
                                   <option *ngFor="let align of aligns" [value]="align.code">{{align.text}}</option>
                                 </select>
                           </div>
@@ -263,7 +263,7 @@
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">halign</label>
                           <div class="col-sm-10">
-                            <select class="form-control" formControlName="halign" placeholder="表头对齐">
+                            <select class="form-control" formControlName="halign" placeholder="halign">
                                 <option *ngFor="let align of aligns" [value]="align.code">{{align.text}}</option>
                               </select>
                           </div>
@@ -272,7 +272,7 @@
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">valign</label>
                           <div class="col-sm-10">
-                            <select class="form-control" formControlName="valign" placeholder="垂直对齐">
+                            <select class="form-control" formControlName="valign" placeholder="valign">
                                  <option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>
                                </select>
                           </div>
@@ -281,7 +281,7 @@
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">falign</label>
                           <div class="col-sm-10">
-                            <select class="form-control" formControlName="falign" placeholder="垂直对齐">
+                            <select class="form-control" formControlName="falign" placeholder="falign">
                                   <option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>
                                 </select>
                           </div>
@@ -308,39 +308,60 @@
                         </div>
 
                         <div class="form-group row">
-                          <label class="col-sm-2 control-label">valign</label>
+                          <label class="col-sm-2 control-label">cardVisible</label>
                           <div class="col-sm-10">
-                            <select class="form-control" formControlName="valign" placeholder="页尾对齐">
-                                <option *ngFor="let valign of valigns" [value]="valign.code">{{valign.text}}</option>
-                              </select>
+                              <div class="checkbox checkbox-purple">
+                              <input id="cardVisible" type="checkbox" formControlName="checkbox">
+                              <label for="cardVisible"></label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 control-label">switchable</label>
+                          <div class="col-sm-10">
+                              <div class="checkbox checkbox-warning">
+                              <input id="switchable" type="checkbox" formControlName="checkbox">
+                              <label for="switchable"></label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 control-label">clickToSelect</label>
+                          <div class="col-sm-10">
+                              <div class="checkbox checkbox-pink">
+                              <input id="clickToSelect" type="checkbox" formControlName="checkbox">
+                              <label for="clickToSelect"></label>
+                            </div>
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">width</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="宽度" formControlName="width" />
+                            <input type="text" class="form-control" placeholder="width" formControlName="width" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">formatter</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="格式化" formControlName="formatter" />
+                            <input type="text" class="form-control" placeholder="formatter" formControlName="formatter" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">footerFormatter</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="页尾格式" formControlName="footerFormatter" />
+                            <input type="text" class="form-control" placeholder="footerFormatter" formControlName="footerFormatter" />
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">sortName</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="排序字段" formControlName="sortName" />
+                            <input type="text" class="form-control" placeholder="sortName" formControlName="sortName" />
                           </div>
                         </div>
 
