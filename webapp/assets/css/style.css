@@ -8,6 +8,7 @@ File: Main Css
    Common
 ============= */
 body {
+  font-size: 0.8rem !important;
   background: #ebeff2;
   margin: 0;
   overflow-x: hidden;
@@ -726,6 +727,7 @@ pre {
 /* Form components */
 .form-control {
   font-family: inherit;
+  font-size: 0.8rem !important;
   background-color: #ffffff;
   border: 1px solid #E3E3E3;
   border-radius: 4px;
@@ -1891,6 +1893,7 @@ body.fixed-left .side-menu.left {
 ============= */
 .btn {
   border-radius: 3px;
+  font-size: 0.8rem !important;
   outline: none !important; }
 
 .btn-md {
