@@ -315,7 +315,7 @@
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">cardVisible</label>
                           <div class="col-sm-10">
-                              <div class="checkbox checkbox-purple">
+                            <div class="checkbox checkbox-purple">
                               <input id="{{columOptions.controls.field._value}}cardVisible" type="checkbox" formControlName="checkbox">
                               <label for="{{columOptions.controls.field._value}}cardVisible"></label>
                             </div>
@@ -325,7 +325,7 @@
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">switchable</label>
                           <div class="col-sm-10">
-                              <div class="checkbox checkbox-warning">
+                            <div class="checkbox checkbox-warning">
                               <input id="{{columOptions.controls.field._value}}switchable" type="checkbox" formControlName="checkbox">
                               <label for="{{columOptions.controls.field._value}}switchable"></label>
                             </div>
@@ -335,7 +335,7 @@
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">clickToSelect</label>
                           <div class="col-sm-10">
-                              <div class="checkbox checkbox-pink">
+                            <div class="checkbox checkbox-pink">
                               <input id="{{columOptions.controls.field._value}}clickToSelect" type="checkbox" formControlName="checkbox">
                               <label for="{{columOptions.controls.field._value}}clickToSelect"></label>
                             </div>
@@ -388,8 +388,8 @@
     <!-- 设置列-->
 
     <!--数据过滤-->
-      <div class="tab-pane" id="filter">
-      </div>
+    <div class="tab-pane" id="filter">
+    </div>
     <!--数据过滤-->
 
     <div class="tab-pane" id="tree" formGroupName="treeModule">
@@ -404,48 +404,57 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-2 control-label">url</label>
+        <label class="col-sm-2 control-label">sqlId</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="URL" formControlName="url" />
+          <select class="form-control" formControlName="sqlId" placeholder="sqlId" (change)="treeSqlDefineChange()">
+              <option *ngFor="let sql of sqlDefines" [value]="sql.id">{{sql.code}}</option>
+          </select>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-2 control-label">键值</label>
+        <label class="col-sm-2 control-label">idKey</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="键值" formControlName="idKey" />
+          <select class="form-control" formControlName="idKey" placeholder="idKey">
+              <option *ngFor="let field of sqlDefineFields" [value]="field">{{field}}</option>
+            </select>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-2 control-label">文本值</label>
+        <label class="col-sm-2 control-label">name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="文本值" formControlName="name" />
+          <select class="form-control" formControlName="name" placeholder="name">
+              <option *ngFor="let field of sqlDefineFields" [value]="field">{{field}}</option>
+            </select>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-2 control-label">父节点键值</label>
+        <label class="col-sm-2 control-label">pIdKey</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="父节点键值" formControlName="pIdKey" />
+          <select class="form-control" formControlName="pIdKey" placeholder="pIdKey">
+              <option *ngFor="let field of sqlDefineFields" [value]="field">{{field}}</option>
+            </select>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-2 control-label">作用范围</label>
+        <label class="col-sm-2 control-label">scope</label>
         <div class="col-sm-10">
-          <!--<input type="text" class="form-control" placeholder="作用范围" formControlName="nodeOpts" />-->
-          <select class="form-control" formControlName="nodeOpts" placeholder="作用范围">
-                         <option *ngFor="let nodeOpts of scopes" [value]="nodeOpts.code">{{nodeOpts.text}}</option>
+          <select class="form-control" formControlName="scope" placeholder="scope">
+                         <option *ngFor="let scope of scopes" [value]="scope.code">{{scope.text}}</option>
                        </select>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-2 control-label">宽度</label>
+        <label class="col-sm-2 control-label">width</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="作用范围" formControlName="width" />
+          <input type="text" class="form-control" placeholder="width" formControlName="width" />
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-2 control-label">关系字段</label>
+        <label class="col-sm-2 control-label">relationField</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="关系字段" formControlName="relationField" />
+          <select class="form-control" formControlName="relationField" placeholder="relationField">
+                         <option *ngFor="let field of currentSqlDefineFields" [value]="field">{{field}}</option>
+                       </select>
         </div>
       </div>
     </div>

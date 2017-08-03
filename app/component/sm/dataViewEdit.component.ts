@@ -35,6 +35,16 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   aligns: Array<any> = DictConstant.createAligns();
   valigns:Array<any> = DictConstant.createValigns();
   scopes: Array<any> = DictConstant.createScopes();
+
+  //SQL 定义
+  sqlDefines:Array<any> = this.createSqlDefines();
+  
+  //被过滤的sqldefine
+  sqlDefineFields:Array<any>;
+
+  //当前对应SQLDEFINE
+  currentSqlDefineFields:Array<any>;
+  
   @Input() dataViewId: string;
 
   constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder,private modalService: NgbModal) { }
@@ -140,6 +150,17 @@ openMore(content){
     });
 }
 
+//初始化树设置数据源
+createSqlDefines(){
+  let array = new Array<any>();
+  return array;
+}
+
+//树sqldefine变更清空当前树内容
+treeSqlDefineChange(){
+       const formGroup = <FormGroup>this.ngbForm.controls['treeModule'];
+       formGroup.setValue({idKey:"",pIdKey:"",name:""});
+}
 
   createModule() {
     if (this.dataViewId && this.dataViewId != null) {
@@ -161,7 +182,7 @@ openMore(content){
 
     this.formData.treeModule = new TreeModule();
     this.formData.treeModule.isShow = false;
-    this.formData.treeModule.nodeOpts = 'SELF';
+    this.formData.treeModule.scope = 'SELF';
     this.formData.treeModule.width = 2;
     this.formData.funcButtons = Array<FuncButton>();
   }
@@ -170,15 +191,16 @@ openMore(content){
   buildForm(): void {
     this.treeFg = this.fb.group({
       isShow: [this.formData.treeModule.isShow],
-      url: [this.formData.treeModule.name],
+      sqlId: [this.formData.treeModule.name],
       idKey: [this.formData.treeModule.idKey],
       name: [this.formData.treeModule.name],
       pIdKey: [this.formData.treeModule.pIdKey],
-      nodeOpts: [this.formData.treeModule.nodeOpts],
+      scope: [this.formData.treeModule.scope],
       width: [this.formData.treeModule.width],
       relationField: [this.formData.treeModule.relationField]
     });
 
+    //options fromGroup
     this.optionsFg = this.fb.group({
       url: [this.formData.options.url, [Validators.required, Validators.maxLength(200)]],
       method: [this.formData.options.method, [Validators.required, Validators.maxLength(6)]],
@@ -265,18 +287,18 @@ openMore(content){
     // this.treeFg.controls.url.setValidators(Validators.required);
     this.formData = this.ngbForm.value;
     if (!this.formData.treeModule.isShow) {
-      this.treeFg.controls.url.setValidators(Validators.required);
+      this.treeFg.controls.sqlId.setValidators(Validators.required);
       this.treeFg.controls.pIdKey.setValidators(Validators.required);
       this.treeFg.controls.relationField.setValidators(Validators.required);
       this.treeFg.controls.idKey.setValidators(Validators.required);
-      this.treeFg.controls.name.setValidators(Validators.required);
+      this.treeFg.controls.scope.setValidators(Validators.required);
       this.treeFg.controls.width.setValidators(Validators.required);
     } else {
-      this.treeFg.controls.url.clearValidators();
+      this.treeFg.controls.sqlId.clearValidators();
       this.treeFg.controls.pIdKey.clearValidators();
       this.treeFg.controls.relationField.clearValidators();
       this.treeFg.controls.idKey.clearValidators();
-      this.treeFg.controls.name.clearValidators();
+      this.treeFg.controls.scope.clearValidators();
       this.treeFg.controls.width.clearValidators();
     }
 

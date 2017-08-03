@@ -31,11 +31,11 @@ export class DataViewModule {
 export class TreeModule{
     constructor() {}
     isShow:boolean;
-    url:string;
+    sqlId:string;
     idKey:string;
     name:string;
     pIdKey:string;
-    nodeOpts:string;
+    scope:string;
     width:number;
     relationField:string;
 }

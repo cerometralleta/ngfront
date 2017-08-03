@@ -47,11 +47,12 @@ export class DictConstant {
     funcButtons.push({ code: 2, text: "window" });
     return funcButtons;
   }
+  
   static createScopes() {
     let scopes = new Array<any>();
-    scopes.push({ code: "ALL", text: "全部子节点" });
-    scopes.push({ code: "CHILD", text: "子节点" });
-    scopes.push({ code: "SELF", text: "当前节点" });
+    scopes.push({ code: "ALL", text: "ALL" });
+    scopes.push({ code: "CHILD", text: "CHILD" });
+    scopes.push({ code: "SELF", text: "SELF" });
     return scopes;
   }
 
