@@ -22,13 +22,13 @@ export class DataViewModule {
     remark:string;
     options:Options;
     columns:Array<ColumOptions>;
-    treeModule:TreeModule;
-    conditions:Array<Condition>;
-    funcButtons:Array<FuncButton>;
+    treeOptions:TreeOptions;
+    dataFilters:Array<DataFilter>;
+    buttons:Array<Button>;
 }
 
 
-export class TreeModule{
+export class TreeOptions{
     constructor() {}
     isShow:boolean;
     sqlId:string;
@@ -43,23 +43,22 @@ export class TreeModule{
 /**
  * 查询条件
  */
-export class Condition {
+export class DataFilter {
     constructor() {
         
     }
-    isSort :boolean;
-    fieldType:string;
-    field:string;
-    dataType:string;
-    expr:string;
     title:string;
+    field:string;
+    fieldType:string;
+    dataType:string;
+    expression:string;
     extensions:string;
 }
 
 /**
  * Button
  */
-export class FuncButton {
+export class Button {
     constructor() {
         
     }

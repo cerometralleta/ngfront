@@ -8,7 +8,7 @@
  * table options
  */
 import { Columns, ColumOptions } from "./columnOptions.md";
-import { FuncButton } from "../../sm/dataViewModule.md";
+import { Button } from "../../sm/dataViewModule.md";
 
 export class Options {
     constructor() {
@@ -53,7 +53,7 @@ export class Options {
     searchOnEnterKey:boolean;
     strictSearch:boolean;
     searchText:string;
-    searchTimeOut:number;
+    searchTimeOut:number = 3;
     trimOnSearch:number;
     showHeader:boolean;
     showFooter:boolean;

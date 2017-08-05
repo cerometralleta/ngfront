@@ -98,8 +98,8 @@
               <th>移除</th>
             </tr>
           </thead>
-          <tbody formArrayName="funcButtons">
-            <tr class="tr-center" *ngFor="let fbt of ngbForm.controls.funcButtons.controls; let idx=index" [formGroupName]="idx">
+          <tbody formArrayName="buttons">
+            <tr class="tr-center" *ngFor="let fbt of ngbForm.controls.buttons.controls; let idx=index" [formGroupName]="idx">
               <td><input type="text" class="form-control" placeholder="名称" formControlName="title" /></td>
               <td><input type="text" class="form-control" placeholder="URL" formControlName="url" /></td>
               <td>
@@ -177,6 +177,147 @@
           <label class="col-sm-2 control-label">searchText</label>
           <div class="col-sm-4">
             <input type="text" class="form-control" placeholder="searchText" formControlName="searchText" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">sortName</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="sortName" formControlName="sortName" />
+          </div>
+          <label class="col-sm-2 control-label">dataField</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="dataField" formControlName="dataField" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">totalField</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="totalField" formControlName="totalField" />
+          </div>
+          <label class="col-sm-2 control-label">selectItemName</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="selectItemName" formControlName="selectItemName" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">smartDisplay</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="smartDisplay" type="checkbox" formControlName="smartDisplay">
+              <label for="smartDisplay"></label>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">escape</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="escape" type="checkbox" formControlName="escape">
+              <label for="escape"></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">searchOnEnterKey</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="searchOnEnterKey" type="checkbox" formControlName="searchOnEnterKey">
+              <label for="searchOnEnterKey"></label>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">strictSearch</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="strictSearch" type="checkbox" formControlName="strictSearch">
+              <label for="strictSearch"></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">searchTimeOut</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="searchTimeOut" formControlName="searchTimeOut" />
+          </div>
+          <label class="col-sm-2 control-label">trimOnSearch</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="trimOnSearch" formControlName="trimOnSearch" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">cardView</label>
+          <div class="col-sm-4">
+               <div class="checkbox checkbox-inverse">
+                <input id="cardView" type="checkbox" formControlName="cardView">
+                <label for="cardView"></label>
+              </div>
+          </div>
+          <label class="col-sm-2 control-label">showFooter</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="showFooter" formControlName="showFooter" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">showColumns</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="showColumns" formControlName="showColumns" />
+          </div>
+          <label class="col-sm-2 control-label">showRefresh</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="showRefresh" type="checkbox" formControlName="showRefresh">
+              <label for="showRefresh"></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">showPaginationSwitch</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="showPaginationSwitch" type="checkbox" formControlName="showPaginationSwitch">
+              <label for="showPaginationSwitch"></label>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">idField</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="idField" formControlName="idField" />
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">uniqueId</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="uniqueId" formControlName="uniqueId" />
+          </div>
+          <label class="col-sm-2 control-label">detailView</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="detailView" type="checkbox" formControlName="detailView">
+              <label for="detailView"></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">clickToSelect</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="clickToSelect" type="checkbox" formControlName="clickToSelect">
+              <label for="clickToSelect"></label>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">singleSelect</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="singleSelect" type="checkbox" formControlName="singleSelect">
+              <label for="singleSelect"></label>
+            </div>
           </div>
         </div>
       </div>
@@ -389,10 +530,82 @@
 
     <!--数据过滤-->
     <div class="tab-pane" id="filter">
+
+      <div class="form-group row">
+
+        <!--列表数据-->
+        <div class="col-sm-6">
+          <div class="card-box overflow">
+            <table class="table table table-hover table-bordered m-0 table-actions-bar">
+              <!--formGroupName 作用域-->
+              <thead>
+                <tr class="trnowrap">
+                  <th>名称</th>
+                  <th>字段</th>
+                  <th>数据类型</th>
+                  <th>字段类型</th>
+                  <th>最大长度</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tr-center" *ngFor="let column of formData.columns; let idx=index" (click)="filterSelected(column)">
+                  <td>{{column.title}}</td>
+                  <td>{{column.field}}</td>
+                  <td>{{column.dataField}}</td>
+                  <td>{{column.fieldType}}</td>
+                  <td>{{column.maxlength}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--列表字段-->
+        
+         <div class="col-sm-6">
+          <div class="card-box overflow">
+            <table class="table table table-hover table-bordered m-0 table-actions-bar">
+              <!--formGroupName 作用域-->
+              <thead>
+                <tr class="trnowrap">
+                  <th>名称</th>
+                  <th>字段</th>
+                  <th>数据类型</th>
+                  <th>表达式</th>
+                  <th>字段类型</th>
+                  <th>删除</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="dataFilters">
+                <tr class="tr-center" *ngFor="let datafilter of ngbForm.controls.dataFilters.controls; let idx=index" [formGroupName]="idx">
+                  <td>{{datafilter.controls.title._value}}</td>
+                  <td>{{datafilter.controls.field._value}}</td>
+                  <td>{{datafilter.controls.dataType._value}}</td>
+                   <td>
+                      <select class="form-control" formControlName="expression" placeholder="表达式">
+                         <option *ngFor="let expression of expressions" [value]="expression.code">{{expression.text}}</option>
+                       </select>
+                   </td>
+                  <td>
+                       <select class="form-control" formControlName="fieldType" placeholder="字段类型">
+                         <option *ngFor="let fieldType of fieldTypes" [value]="fieldType.code">{{fieldType.text}}</option>
+                       </select>
+                  </td>
+                  <td>
+                       <a class="table-action-btn" (click)="removeControls(ngbForm.controls.dataFilters,idx)">
+                          <p><i class="md md-highlight-remove"></i></p>
+                        </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
     </div>
     <!--数据过滤-->
 
-    <div class="tab-pane" id="tree" formGroupName="treeModule">
+    <div class="tab-pane" id="tree" formGroupName="treeOptions">
       <div class="form-group row">
         <label class="col-sm-2 control-label">是否显示</label>
         <div class="col-sm-10">

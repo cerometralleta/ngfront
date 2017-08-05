@@ -2,12 +2,12 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input } from '
 import { HttpService } from "../../service/basic/http.service";
 import { LoggerService } from "../../service/basic/logger.service";
 import { Application } from "../../metadata/constant/application.constant";
-import { DataViewModule, TreeModule, FuncButton } from "../../metadata/sm/dataViewModule.md";
+import { DataViewModule, TreeOptions, Button, DataFilter } from "../../metadata/sm/dataViewModule.md";
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Options } from "../../metadata/ngb/ngbGrid/options.md";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 import { GUID } from "../../utils/guid.util";
-import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DictConstant } from "../../metadata/constant/dict.constant";
 import { ColumnMoreComponent } from "./columnMore.component";
 import { NgbModalOptions } from "../../../node_modules/._@ng-bootstrap_ng-bootstrap@1.0.0-alpha.25@@ng-bootstrap/ng-bootstrap/modal/modal.module";
@@ -23,31 +23,30 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   ngbForm: FormGroup;
   formData: DataViewModule;
   formGroup: any;
-  treeFg: FormGroup;
-  optionsFg: FormGroup;
-  funcButtonFg:FormGroup;
+  treeFromGroup: FormGroup;
+  optionsFormGroup: FormGroup;
   // error info
   formErrors: Array<string>;
-  updateTypes: Array<any> =  DictConstant.createUpdateTypes();
-  orders: Array<any>
+  updateTypes: Array<any> = DictConstant.createUpdateTypes();
   fieldTypes: Array<any> = DictConstant.createfieldTypes();
-  funcButtons:Array<any> = DictConstant.createFuncButtons();
+  buttons: Array<any> = DictConstant.createButtons();
   aligns: Array<any> = DictConstant.createAligns();
-  valigns:Array<any> = DictConstant.createValigns();
+  valigns: Array<any> = DictConstant.createValigns();
   scopes: Array<any> = DictConstant.createScopes();
+  expressions:Array<any> = DictConstant.createExpressions();
 
   //SQL 定义
-  sqlDefines:Array<any> = this.createSqlDefines();
-  
+  sqlDefines: Array<any> = this.createSqlDefines();
+
   //被过滤的sqldefine
-  sqlDefineFields:Array<any>;
+  sqlDefineFields: Array<any>;
 
   //当前对应SQLDEFINE
-  currentSqlDefineFields:Array<any>;
-  
+  currentSqlDefineFields: Array<any>;
+
   @Input() dataViewId: string;
 
-  constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder,private modalService: NgbModal) { }
+  constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder, private modalService: NgbModal) { }
   ngOnInit() {
     this.createModule();
     this.buildForm();
@@ -58,110 +57,112 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   }
 
   //添加功能
-  addFunc(id,title,type){
-     let funcButton = new FuncButton(); 
-     if(id){
-       funcButton.id = id;
-     }else{
-       funcButton.id = GUID.createGUIDString();
-     }
-     funcButton.func = 0;
-     funcButton.title = title;
-     if(type != undefined){
-      funcButton.type = type;
-     }else{
-      funcButton.type = 1;
-     }
-     this.formData.funcButtons.push(funcButton);
-     const controls = <FormArray>this.ngbForm.controls['funcButtons'];
-     controls.push(this.fb.group({
-            id:[funcButton.id],
-            func:[funcButton.func,[Validators.required]],
-            icon:[funcButton.icon],
-            dialogSize:[funcButton.dialogSize],
-            title:[funcButton.title,[Validators.required,Validators.maxLength(50)]],
-            url:[funcButton.url,[Validators.required]],
-            type:[funcButton.type,[Validators.required]]
-        }));
+  addFunc(id, title, type) {
+    let button = new Button();
+    if (id) {
+      button.id = id;
+    } else {
+      button.id = GUID.createGUIDString();
+    }
+    button.func = 0;
+    button.title = title;
+    if (type != undefined) {
+      button.type = type;
+    } else {
+      button.type = 1;
+    }
+    this.formData.buttons.push(button);
+    const controls = <FormArray>this.ngbForm.controls['buttons'];
+    controls.push(this.fb.group({
+      id: [button.id],
+      func: [button.func, [Validators.required]],
+      icon: [button.icon],
+      dialogSize: [button.dialogSize],
+      title: [button.title, [Validators.required, Validators.maxLength(50)]],
+      url: [button.url, [Validators.required]],
+      type: [button.type, [Validators.required]]
+    }));
   }
 
   //选中功能按钮
- checkFunc(id){
-     const formArray = <FormArray>this.ngbForm.controls['funcButtons'];
-     for (var index = 0; index < formArray.length; index++) {
-       let element = <FormGroup>formArray.controls[index];
-        if(element.controls.id.value == id){
-          formArray.removeAt(index)
-          
-          //移除
-          return;
-        }
-     }
+  checkFunc(id) {
+    const formArray = <FormArray>this.ngbForm.controls['buttons'];
+    for (var index = 0; index < formArray.length; index++) {
+      let element = <FormGroup>formArray.controls[index];
+      if (element.controls.id.value == id) {
+        formArray.removeAt(index)
 
-     //添加
-     if("i" == id){
-        this.addFunc("i","增加",1);
+        //移除
         return;
-     }
-     if("d" == id){
-        
-        //默认行内按钮
-        this.addFunc("d","删除",0);
-        return;
-     }
-     if("u" == id){
-        this.addFunc("u","修改",1);
-        return;
-     }
-     if("s" == id){
-        this.addFunc("s","查询",1);
-        return;
-     }
- }
+      }
+    }
 
- //判断是否选中
- ischecked(id){
-   const formArray = <FormArray>this.ngbForm.controls['funcButtons'];
-     for (var index = 0; index < formArray.length; index++) {
-       let element = <FormGroup>formArray.controls[index];
-        if(element.controls.id.value == id){
-          return true;
-        }
-     }
-     return false;
- }
+    //添加
+    if ("i" == id) {
+      this.addFunc("i", "增加", 1);
+      return;
+    }
+    if ("d" == id) {
 
- //删除行
- removeControls(controls,idx){
-   controls.removeAt(idx);
- }
+      //默认行内按钮
+      this.addFunc("d", "删除", 0);
+      return;
+    }
+    if ("u" == id) {
+      this.addFunc("u", "修改", 1);
+      return;
+    }
+    if ("s" == id) {
+      this.addFunc("s", "查询", 1);
+      return;
+    }
+  }
 
-//列更多设置
-openMore(content){
+  //判断是否选中
+  ischecked(id) {
+    const formArray = <FormArray>this.ngbForm.controls['buttons'];
+    for (var index = 0; index < formArray.length; index++) {
+      let element = <FormGroup>formArray.controls[index];
+      if (element.controls.id.value == id) {
+        return true;
+      }
+    }
+    return false;
+  }
 
-  // 弹出组件
-  // const modalRef = this.modalService.open(ColumnMoreComponent);
-  // modalRef.componentInstance.columOptions = columOptions;
-  
-   this.modalService.open(content,{size:"lg"}).result.then((result) => {
+  //删除行
+  removeControls(controls, idx) {
+    controls.removeAt(idx);
+  }
+
+  //列更多设置
+  openMore(content) {
+
+    // 弹出组件
+    // const modalRef = this.modalService.open(ColumnMoreComponent);
+    // modalRef.componentInstance.columOptions = columOptions;
+
+    this.modalService.open(content, { size: "lg" }).result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-}
+  }
 
-//初始化树设置数据源
-createSqlDefines(){
-  let array = new Array<any>();
-  return array;
-}
+  //初始化树设置数据源
+  createSqlDefines() {
+    let array = new Array<any>();
+    return array;
+  }
 
-//树sqldefine变更清空当前树内容
-treeSqlDefineChange(){
-       const formGroup = <FormGroup>this.ngbForm.controls['treeModule'];
-       formGroup.setValue({idKey:"",pIdKey:"",name:""});
-}
+  //树sqldefine变更清空当前树内容
+  treeSqlDefineChange() {
+    const formGroup = <FormGroup>this.ngbForm.controls['treeOptions'];
+    formGroup.setValue({ idKey: "", pIdKey: "", name: "" });
+  }
 
+
+  //创建页面数据
   createModule() {
     if (this.dataViewId && this.dataViewId != null) {
       return;
@@ -175,42 +176,23 @@ treeSqlDefineChange(){
     this.formData.options.pageNumber = 1;
 
     let co = new ColumOptions();
-    co.title ="e3";
+    co.title = "e3";
     co.field = "ddd";
     this.formData.columns = new Array<any>();
     this.formData.columns.push(co);
 
-    this.formData.treeModule = new TreeModule();
-    this.formData.treeModule.isShow = false;
-    this.formData.treeModule.scope = 'SELF';
-    this.formData.treeModule.width = 2;
-    this.formData.funcButtons = Array<FuncButton>();
+    this.formData.treeOptions = new TreeOptions();
+    this.formData.treeOptions.isShow = false;
+    this.formData.treeOptions.scope = 'SELF';
+    this.formData.treeOptions.width = 2;
+    this.formData.buttons = Array<Button>();
+    this.formData.dataFilters = Array<DataFilter>();
   }
 
   //创建form
   buildForm(): void {
-    this.treeFg = this.fb.group({
-      isShow: [this.formData.treeModule.isShow],
-      sqlId: [this.formData.treeModule.name],
-      idKey: [this.formData.treeModule.idKey],
-      name: [this.formData.treeModule.name],
-      pIdKey: [this.formData.treeModule.pIdKey],
-      scope: [this.formData.treeModule.scope],
-      width: [this.formData.treeModule.width],
-      relationField: [this.formData.treeModule.relationField]
-    });
-
-    //options fromGroup
-    this.optionsFg = this.fb.group({
-      url: [this.formData.options.url, [Validators.required, Validators.maxLength(200)]],
-      method: [this.formData.options.method, [Validators.required, Validators.maxLength(6)]],
-      pagination: [this.formData.options.pagination],
-      pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(3)]],
-      showExport: [this.formData.options.showExport],
-      undefinedText:[this.formData.options.undefinedText],
-      searchText:[this.formData.options.searchText],
-      sortable:[this.formData.options.sortable]
-    });
+    this.createTreeGroup();
+    this.createOptionsFormGroup();
 
     this.formGroup = {
       dataViewCode: [this.formData.dataViewCode, [
@@ -226,33 +208,102 @@ treeSqlDefineChange(){
         Validators.maxLength(50)]
       ],
       remark: [this.formData.remark, Validators.maxLength(250)],
-      options: this.optionsFg,
-      columns: this.fb.array(this.initColumns()),
-      treeModule: this.treeFg,
-      funcButtons: this.fb.array(this.initFuncButtons())
+      options: this.optionsFormGroup,
+      columns: this.fb.array(this.createColumnsFormArray()),
+      treeOptions: this.treeFromGroup,
+      buttons: this.fb.array(this.createbuttonsFormArray()),
+      dataFilters: this.fb.array(this.createDataFilterFormArray())
     };
     this.ngbForm = this.fb.group(this.formGroup);
     this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
   }
 
-  //初始化按钮
-  initFuncButtons(){
+  //创建树
+  createTreeGroup() {
+    this.treeFromGroup = this.fb.group({
+      isShow: [this.formData.treeOptions.isShow],
+      sqlId: [this.formData.treeOptions.name],
+      idKey: [this.formData.treeOptions.idKey],
+      name: [this.formData.treeOptions.name],
+      pIdKey: [this.formData.treeOptions.pIdKey],
+      scope: [this.formData.treeOptions.scope],
+      width: [this.formData.treeOptions.width],
+      relationField: [this.formData.treeOptions.relationField]
+    });
+  }
+
+  createOptionsFormGroup() {
+    //options fromGroup
+    this.optionsFormGroup = this.fb.group({
+      url: [this.formData.options.url, [Validators.required, Validators.maxLength(200)]],
+      method: [this.formData.options.method, [Validators.required, Validators.maxLength(6)]],
+      pagination: [this.formData.options.pagination],
+      pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(3)]],
+      showExport: [this.formData.options.showExport],
+      undefinedText: [this.formData.options.undefinedText],
+      searchText: [this.formData.options.searchText],
+      sortable: [this.formData.options.sortable],
+      sortName: [this.formData.options.sortName],
+      dataField: [this.formData.options.dataField],
+      totalField: [this.formData.options.totalField],
+      selectItemName: [this.formData.options.selectItemName],
+      smartDisplay: [this.formData.options.smartDisplay],
+      escape: [this.formData.options.escape],
+      search: [this.formData.options.search],
+      searchOnEnterKey: [this.formData.options.searchOnEnterKey],
+      strictSearch: [this.formData.options.strictSearch],
+      searchTimeOut: [this.formData.options.searchTimeOut],
+      trimOnSearch: [this.formData.options.trimOnSearch],
+      showHeader: [this.formData.options.showHeader],
+      showFooter: [this.formData.options.showFooter],
+      cardView: [this.formData.options.cardView],
+      showColumns: [this.formData.options.showColumns],
+      showRefresh: [this.formData.options.showRefresh],
+      showPaginationSwitch: [this.formData.options.showPaginationSwitch],
+      idField: [this.formData.options.idField],
+      uniqueId: [this.formData.options.uniqueId],
+      detailView: [this.formData.options.detailView],
+      clickToSelect: [this.formData.options.clickToSelect],
+      singleSelect: [this.formData.options.singleSelect]
+    });
+  }
+
+  // 创建查询条件
+  createDataFilterFormArray() {
     let formArray = new Array<any>();
-    this.formData.funcButtons.forEach(funcButton => {
+    this.formData.dataFilters.forEach(dataFilter => {
       formArray.push(this.fb.group({
-            func:[funcButton.func,[Validators.required]],
-            icon:[funcButton.icon],
-            dialogSize:[funcButton.dialogSize],
-            title:[funcButton.title,[Validators.required,Validators.maxLength(50)]],
-            url:[funcButton.url,[Validators.required]],
-            type:[funcButton.type,[Validators.required]]
-        })
-      )});
-      return formArray;
+        title: [dataFilter.title],
+        field: [dataFilter.field],
+        fieldType: [dataFilter.fieldType],
+        dataType: [dataFilter.dataType, [Validators.required]],
+        expression: [dataFilter.expression, [Validators.required]],
+        extensions: [dataFilter.extensions]
+      })
+      )
+    });
+    return formArray;
+  }
+
+  //创建按钮
+  createbuttonsFormArray() {
+    let formArray = new Array<any>();
+    this.formData.buttons.forEach(button => {
+      formArray.push(this.fb.group({
+        func: [button.func, [Validators.required]],
+        icon: [button.icon],
+        dialogSize: [button.dialogSize],
+        title: [button.title, [Validators.required, Validators.maxLength(50)]],
+        url: [button.url, [Validators.required]],
+        type: [button.type, [Validators.required]]
+      })
+      )
+    });
+    return formArray;
   }
 
   //初始化列表组件
-  initColumns() {
+  createColumnsFormArray() {
     let formArray = new Array<any>();
     this.formData.columns.forEach(columnOptions => {
       formArray.push(this.fb.group({
@@ -284,27 +335,49 @@ treeSqlDefineChange(){
   }
 
   showTreeCheck() {
-    // this.treeFg.controls.url.setValidators(Validators.required);
+    // this.treeFromGroup.controls.url.setValidators(Validators.required);
     this.formData = this.ngbForm.value;
-    if (!this.formData.treeModule.isShow) {
-      this.treeFg.controls.sqlId.setValidators(Validators.required);
-      this.treeFg.controls.pIdKey.setValidators(Validators.required);
-      this.treeFg.controls.relationField.setValidators(Validators.required);
-      this.treeFg.controls.idKey.setValidators(Validators.required);
-      this.treeFg.controls.scope.setValidators(Validators.required);
-      this.treeFg.controls.width.setValidators(Validators.required);
+    if (!this.formData.treeOptions.isShow) {
+      this.treeFromGroup.controls.sqlId.setValidators(Validators.required);
+      this.treeFromGroup.controls.pIdKey.setValidators(Validators.required);
+      this.treeFromGroup.controls.relationField.setValidators(Validators.required);
+      this.treeFromGroup.controls.idKey.setValidators(Validators.required);
+      this.treeFromGroup.controls.scope.setValidators(Validators.required);
+      this.treeFromGroup.controls.width.setValidators(Validators.required);
     } else {
-      this.treeFg.controls.sqlId.clearValidators();
-      this.treeFg.controls.pIdKey.clearValidators();
-      this.treeFg.controls.relationField.clearValidators();
-      this.treeFg.controls.idKey.clearValidators();
-      this.treeFg.controls.scope.clearValidators();
-      this.treeFg.controls.width.clearValidators();
+      this.treeFromGroup.controls.sqlId.clearValidators();
+      this.treeFromGroup.controls.pIdKey.clearValidators();
+      this.treeFromGroup.controls.relationField.clearValidators();
+      this.treeFromGroup.controls.idKey.clearValidators();
+      this.treeFromGroup.controls.scope.clearValidators();
+      this.treeFromGroup.controls.width.clearValidators();
     }
 
-    // this.ngbForm.controls.treeModule.updateValueAndValidity();
+    // this.ngbForm.controls.treeOptions.updateValueAndValidity();
   }
 
+  //filterSelected
+  filterSelected(column){
+    let datafilter = new DataFilter();
+    // datafilter.id = GUID.createGUIDString();
+    datafilter.dataType = column.dataType;
+    datafilter.fieldType = column.fieldType;
+    datafilter.field = column.field;
+    datafilter.title = column.title;
+    datafilter.expression = '=';
+    const controls = <FormArray>this.ngbForm.controls['dataFilters'];
+      controls.push(this.fb.group({
+      title: [datafilter.title, [Validators.required]],
+      field: [datafilter.field],
+      dataType: [datafilter.dataType],
+      fieldType: [datafilter.fieldType, [Validators.required, Validators.maxLength(50)]],
+      expression: [datafilter.expression],
+      extensions: [datafilter.extensions]
+    }));
+  }
+ 
+
+  
   //提交表单
   onSubmit() {
     this.formData = this.ngbForm.value;
@@ -341,10 +414,10 @@ treeSqlDefineChange(){
       }
     }
 
-    for (const field in this.optionsFg.controls) {
+    for (const field in this.optionsFormGroup.controls) {
 
       //get control
-      const control = this.optionsFg.get(field);
+      const control = this.optionsFormGroup.get(field);
       if (control && control.dirty && !control.valid) {
 
         //control.errors required,minlength
@@ -358,10 +431,10 @@ treeSqlDefineChange(){
     }
 
     //tree valid
-    for (const field in this.treeFg.controls) {
+    for (const field in this.treeFromGroup.controls) {
 
       //get control
-      const control = this.treeFg.get(field);
+      const control = this.treeFromGroup.get(field);
       if (control && control.dirty && !control.valid) {
 
         //control.errors required,minlength

@@ -40,7 +40,7 @@ export class DictConstant {
     return fieldTypes;
   }
 
-  static createFuncButtons(){
+  static createButtons(){
     let funcButtons = new Array<any>();
     funcButtons.push({ code: 0, text: "service" });
     funcButtons.push({ code: 1, text: "dialog" });
@@ -54,6 +54,17 @@ export class DictConstant {
     scopes.push({ code: "CHILD", text: "CHILD" });
     scopes.push({ code: "SELF", text: "SELF" });
     return scopes;
+  }
+
+  static createExpressions(){ 
+    let expressions = new Array<any>();
+    expressions.push({ code: "=", text: "=" });
+    expressions.push({ code: ">", text: ">" });
+    expressions.push({ code: ">=", text: ">=" });
+    expressions.push({ code: "<", text: "<" });
+    expressions.push({ code: "<=", text: "<=" });
+    expressions.push({ code: "like", text: "like" });
+    return expressions;
   }
 
 }
