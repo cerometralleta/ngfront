@@ -46,15 +46,15 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-2 control-label">SQLID</label>
+        <label class="col-sm-2 control-label">sqlId</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="SQLID" formControlName="sqlid" />
+             <input type="text" class="form-control" placeholder="sqlId" formControlName="sqlId" (click)="openWindow()"/>
         </div>
       </div>
       <div class="form-group row">
         <label class="col-sm-2 control-label">备注</label>
         <div class="col-sm-10">
-          <input type="textare" class="form-control" placeholder="备注" formControlName="remark" />
+          <textarea rows="5" cols="20" class="form-control" placeholder="备注" formControlName="remark"></textarea> 
         </div>
       </div>
     </div>
@@ -250,10 +250,10 @@
         <div class="form-group row">
           <label class="col-sm-2 control-label">cardView</label>
           <div class="col-sm-4">
-               <div class="checkbox checkbox-inverse">
-                <input id="cardView" type="checkbox" formControlName="cardView">
-                <label for="cardView"></label>
-              </div>
+            <div class="checkbox checkbox-inverse">
+              <input id="cardView" type="checkbox" formControlName="cardView">
+              <label for="cardView"></label>
+            </div>
           </div>
           <label class="col-sm-2 control-label">showFooter</label>
           <div class="col-sm-4">
@@ -560,8 +560,8 @@
           </div>
         </div>
         <!--列表字段-->
-        
-         <div class="col-sm-6">
+
+        <div class="col-sm-6">
           <div class="card-box overflow">
             <table class="table table table-hover table-bordered m-0 table-actions-bar">
               <!--formGroupName 作用域-->
@@ -580,20 +580,20 @@
                   <td>{{datafilter.controls.title._value}}</td>
                   <td>{{datafilter.controls.field._value}}</td>
                   <td>{{datafilter.controls.dataType._value}}</td>
-                   <td>
-                      <select class="form-control" formControlName="expression" placeholder="表达式">
+                  <td>
+                    <select class="form-control" formControlName="expression" placeholder="表达式">
                          <option *ngFor="let expression of expressions" [value]="expression.code">{{expression.text}}</option>
                        </select>
-                   </td>
+                  </td>
                   <td>
-                       <select class="form-control" formControlName="fieldType" placeholder="字段类型">
+                    <select class="form-control" formControlName="fieldType" placeholder="字段类型">
                          <option *ngFor="let fieldType of fieldTypes" [value]="fieldType.code">{{fieldType.text}}</option>
                        </select>
                   </td>
                   <td>
-                       <a class="table-action-btn" (click)="removeControls(ngbForm.controls.dataFilters,idx)">
-                          <p><i class="md md-highlight-remove"></i></p>
-                        </a>
+                    <a class="table-action-btn" (click)="removeControls(ngbForm.controls.dataFilters,idx)">
+                      <p><i class="md md-highlight-remove"></i></p>
+                    </a>
                   </td>
                 </tr>
               </tbody>

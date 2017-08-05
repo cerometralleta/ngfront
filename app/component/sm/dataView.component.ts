@@ -8,7 +8,7 @@ import { GUID } from "../../utils/guid.util";
 import { Response } from "../../metadata/response.md";
 import { Options } from "../../metadata/ngb/ngbGrid/options.md";
 import { Setting, DataModule } from "../../metadata/ngb/ngbTree/dataModule.md";
-import { DataViewModule, TreeOptions,Button } from "../../metadata/sm/dataViewModule.md";
+import { DataViewModule, TreeOptions, Button, DataFilter } from "../../metadata/sm/dataViewModule.md";
 import { ActivatedRoute, Params } from "../../../node_modules/._@angular_router@4.1.1@@angular/router";
 import 'rxjs/add/operator/switchMap';
 
@@ -16,15 +16,28 @@ import 'rxjs/add/operator/switchMap';
  * 统一dataView
  */
 @Component({
-    selector: 'sm-columnMore',
-    templateUrl: './app/component/sm/columnMore.component.html'
+    selector: 'sm-dataView',
+    templateUrl: './app/component/sm/dataView.component.html'
 })
 export class DataViewComponent implements OnInit {
-    private dataModule: DataViewModule;
-    //tree input
-    // private treeOptions: DataModule;
-    @Input() sqlId: string;
 
+    //页面数据
+    dataViewModule: DataViewModule;
+
+    // 树操作
+    treeOptions: TreeOptions;
+
+    // 查询条件
+    dataFilters: Array<DataFilter>;
+
+    // 按钮
+    buttons : Array<Button>;
+
+    // 内容区域宽度
+    colContentWidth : number;
+    
+
+    @Input() sqlId: string;
     constructor(
         private logger: LoggerService
         , private httpService: HttpService
@@ -33,30 +46,31 @@ export class DataViewComponent implements OnInit {
 
     }
 
+    createMockData(){
+        this.dataViewModule = new DataViewModule();
+        this.treeOptions = new TreeOptions();
+        this.treeOptions.isShow = true;
+        this.treeOptions.width = 2;
+    }
+
     ngOnInit() {
-
-
-        //grid options
-        let options: Options;
-        //tree input
-        let treeOptions: TreeOptions;
-        //buttons
-        let buttons: Array<Button>
+        
+        this.createMockData();
+        this.rightWidth();
         this.route.params.switchMap((parmes: Params) =>
 
             this.httpService.doPost(Application.baseContext + "/" + parmes["sqlid"], "")
         ).subscribe(res => { // 传递过来的不是promise 所以要subscribe执行
             console.log(res);
-            let resp = res.data() as Response<DataViewModule>;
-            this.dataModule = resp.result;
-            treeOptions = this.dataModule.treeOptions;
-            options = this.dataModule.options;
-            buttons = this.dataModule.buttons;
-
-            //grid宽比例
-            let gridRange = 12 - treeOptions.width
+           
+            // let resp = res.data() as Response<DataViewModule>;
+            // this.dataViewModule = resp.result;
+            // this.treeOptions = this.dataViewModule.treeOptions;
+            // this.buttons = this.dataViewModule.buttons;
+            // this.dataFilters = this.dataViewModule.dataFilters;
         });
 
+      
 
         // var params = new URLSearchParams();
         // params.set("id", "1");
@@ -81,4 +95,16 @@ export class DataViewComponent implements OnInit {
     }
 
 
+   
+
+    // 计算内容宽度
+    rightWidth(){
+      let maxWidth = 12;
+      console.info(maxWidth);
+      if(this.treeOptions.isShow){
+            this.colContentWidth = maxWidth - this.treeOptions.width;
+            return;
+      }
+       this.colContentWidth = maxWidth;
+    }
 }

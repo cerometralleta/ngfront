@@ -203,7 +203,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         Validators.required,
         Validators.maxLength(32)]
       ],
-      sqlid: [this.formData.sqlid, [
+      sqlId: [this.formData.sqlId, [
         Validators.required,
         Validators.maxLength(50)]
       ],
@@ -222,7 +222,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   createTreeGroup() {
     this.treeFromGroup = this.fb.group({
       isShow: [this.formData.treeOptions.isShow],
-      sqlId: [this.formData.treeOptions.name],
+      sqlId: [this.formData.treeOptions.sqlId],
       idKey: [this.formData.treeOptions.idKey],
       name: [this.formData.treeOptions.name],
       pIdKey: [this.formData.treeOptions.pIdKey],
@@ -375,8 +375,13 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       extensions: [datafilter.extensions]
     }));
   }
- 
 
+  // 查询sql define
+  openWindow(){
+
+    //TODO  查询sql define
+
+  }
   
   //提交表单
   onSubmit() {

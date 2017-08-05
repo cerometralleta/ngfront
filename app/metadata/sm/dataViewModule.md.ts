@@ -18,7 +18,7 @@ export class DataViewModule {
     lastUpdateTime:string;
     dataViewCode:string;
     dataViewName:string;
-    sqlid:string;
+    sqlId:string;
     remark:string;
     options:Options;
     columns:Array<ColumOptions>;
