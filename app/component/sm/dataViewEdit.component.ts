@@ -235,7 +235,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   createOptionsFormGroup() {
     //options fromGroup
     this.optionsFormGroup = this.fb.group({
-      url: [this.formData.options.url, [Validators.required, Validators.maxLength(200)]],
+      url: [this.formData.options.url, [Validators.maxLength(200)]],
       method: [this.formData.options.method, [Validators.required, Validators.maxLength(6)]],
       pagination: [this.formData.options.pagination],
       pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(3)]],

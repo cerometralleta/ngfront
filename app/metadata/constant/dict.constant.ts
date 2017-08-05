@@ -9,25 +9,25 @@ export class DictConstant {
     //修改方式
   static createUpdateTypes() {
     let updateTypes = new Array<any>();
-    updateTypes.push({ code: 0, text: "隐藏" });
-    updateTypes.push({ code: 1, text: "显示" });
-    updateTypes.push({ code: 2, text: "禁用" });
+    updateTypes.push({ code: 0, text: "hide" });
+    updateTypes.push({ code: 1, text: "show" });
+    updateTypes.push({ code: 2, text: "disable" });
     return updateTypes;
   }
 
    static createAligns() {
     let aligns = new Array<any>();
-    aligns.push({ code: "center", text: "居中" });
-    aligns.push({ code: "right", text: "居右" });
-    aligns.push({ code: "left", text: "居左" });
+    aligns.push({ code: "center", text: "center" });
+    aligns.push({ code: "right", text: "right" });
+    aligns.push({ code: "left", text: "left" });
     return aligns;
     }
 
   static createValigns() {
     let valigns = new Array<any>();
-    valigns.push({ code: "middle", text: "居中" });
-    valigns.push({ code: "top", text: "顶部" });
-    valigns.push({ code: "bottom", text: "底部" });
+    valigns.push({ code: "middle", text: "middle" });
+    valigns.push({ code: "top", text: "top" });
+    valigns.push({ code: "bottom", text: "bottom" });
     return valigns;
   }
 

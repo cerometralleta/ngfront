@@ -104,7 +104,7 @@
               <td><input type="text" class="form-control" placeholder="URL" formControlName="url" /></td>
               <td>
                 <select class="form-control" formControlName="func" placeholder="功能(接口,dialog,窗口)">
-                         <option *ngFor="let fcb of funcButtons" [value]="fcb.code">{{fcb.text}}</option>
+                         <option *ngFor="let fcb of buttons" [value]="fcb.code">{{fcb.text}}</option>
                        </select>
               </td>
               <td>
@@ -115,7 +115,7 @@
                 </div>
               </td>
               <td>
-                <a class="table-action-btn" (click)="removeControls(ngbForm.controls.funcButtons,idx)">
+                <a class="table-action-btn" (click)="removeControls(ngbForm.controls.buttons,idx)">
                   <p><i class="md md-highlight-remove"></i></p>
                 </a>
               </td>
