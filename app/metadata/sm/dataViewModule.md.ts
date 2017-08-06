@@ -53,6 +53,7 @@ export class DataFilter {
     dataType:string;
     expression:string;
     extensions:string;
+    value:string;
 }
 
 /**

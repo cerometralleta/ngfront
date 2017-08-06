@@ -12,6 +12,8 @@ import { DataViewModule, TreeOptions, Button, DataFilter } from "../../metadata/
 import { ActivatedRoute, Params } from "../../../node_modules/._@angular_router@4.1.1@@angular/router";
 import 'rxjs/add/operator/switchMap';
 import { SimpleData, Key, Data } from "../../metadata/ngb/ngbTree/data.md";
+import { NgbModal } from "../../../node_modules/._@ng-bootstrap_ng-bootstrap@1.0.0-alpha.25@@ng-bootstrap/ng-bootstrap";
+import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 /**
  * 统一dataView
@@ -43,14 +45,36 @@ export class DataViewComponent implements OnInit {
     //bootstrap table数据
     options:BootstrapTableDefaults;
     
-
+    //form group
+    searchForm: FormGroup;
+    
     @Input() sqlId: string;
     constructor(
         private logger: LoggerService
         , private httpService: HttpService
         , private route: ActivatedRoute
+        ,private modalService: NgbModal
+        ,private fb: FormBuilder
     ) {
 
+    }
+
+    //查询对象
+    createSearch(){
+        let formArray = new Array<any>();
+        this.dataFilters.forEach(datafilter => {
+             formArray.push(this.fb.group({
+                 value: [datafilter.value],
+                 title: [datafilter.title]
+            }))
+        });
+        this.searchForm =  this.fb.group({searchArray : this.fb.array(formArray)});
+    }
+
+    //查询列表
+    search(){
+        this.dataFilters = this.searchForm.value;
+        alert(JSON.stringify(this.dataFilters));
     }
 
     createMockData(){
@@ -102,6 +126,7 @@ export class DataViewComponent implements OnInit {
         this.createMockData();
         this.rightWidth();
         this.ztree = this.createTree();
+        this.createSearch();
 
         // this.route.params.switchMap((parmes: Params) =>
 
@@ -171,12 +196,16 @@ export class DataViewComponent implements OnInit {
 // 导航按钮点击
    navClick(button:Button){
       //接口
-      if(button.option.optionType == 0){
+    if(button.option.optionType == 0){
 
-      }
+    }
       //模态窗口
     if(button.option.optionType == 1){
 
+        // 弹出组件
+        const modalRef = this.modalService.open(null);
+        // modalRef.componentInstance.columOptions = columOptions;
+ 
       }
       //新窗口
      if(button.option.optionType == 2){
