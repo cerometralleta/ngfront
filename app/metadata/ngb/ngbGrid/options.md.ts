@@ -91,6 +91,11 @@ export class Options {
     footerStyle:any;
     showExport:boolean;
 
-    // columns:Array<ColumOptions>;
     // funcButtons:Array<FuncButton>;
+}
+
+// http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
+// 表格的参数定义在 jQuery.fn.bootstrapTable.defaults。
+export class BootstrapTableDefaults extends Options{
+  columns:Array<ColumOptions>;
 }

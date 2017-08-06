@@ -6,11 +6,12 @@ import { LoggerService } from "../../service/basic/logger.service";
 import { ButtonType } from "../../metadata/constant/buttonType.constant";
 import { GUID } from "../../utils/guid.util";
 import { Response } from "../../metadata/response.md";
-import { Options } from "../../metadata/ngb/ngbGrid/options.md";
+import { Options, BootstrapTableDefaults } from "../../metadata/ngb/ngbGrid/options.md";
 import { Setting, DataModule } from "../../metadata/ngb/ngbTree/dataModule.md";
 import { DataViewModule, TreeOptions, Button, DataFilter } from "../../metadata/sm/dataViewModule.md";
 import { ActivatedRoute, Params } from "../../../node_modules/._@angular_router@4.1.1@@angular/router";
 import 'rxjs/add/operator/switchMap';
+import { SimpleData, Key, Data } from "../../metadata/ngb/ngbTree/data.md";
 
 /**
  * 统一dataView
@@ -35,6 +36,12 @@ export class DataViewComponent implements OnInit {
 
     // 内容区域宽度
     colContentWidth : number;
+
+    // treeModule
+    ztree : DataModule;
+
+    //bootstrap table数据
+    options:BootstrapTableDefaults;
     
 
     @Input() sqlId: string;
@@ -51,24 +58,63 @@ export class DataViewComponent implements OnInit {
         this.treeOptions = new TreeOptions();
         this.treeOptions.isShow = true;
         this.treeOptions.width = 2;
+        this.treeOptions.idKey="id";
+        this.treeOptions.name="name";
+        this.treeOptions.pIdKey="pId";
+        this.buttons = new Array<Button>();
+        let button = new Button();
+        button.type = 1;
+        button.title = '增加';
+        let button1 = new Button();
+        button1.type = 2;
+        button1.title = '增加';
+        this.buttons.push(button);
+        this.buttons.push(button1);
+
+        this.dataFilters = new Array<DataFilter>();
+        let dataFilter = new DataFilter();
+        dataFilter.title = "11111"
+        this.dataFilters.push(dataFilter);
+
+        let dataFilter1 = new DataFilter();
+        dataFilter1.title = "2222"
+        this.dataFilters.push(dataFilter1);
+
+        let dataFilter2 = new DataFilter();
+        dataFilter2.title = "33333"
+        this.dataFilters.push(dataFilter2);
+
+        let dataFilter3 = new DataFilter();
+        dataFilter3.title = "fafda33"
+        this.dataFilters.push(dataFilter3);
+
+          let dataFilter4 = new DataFilter();
+        dataFilter4.title = "33333"
+        this.dataFilters.push(dataFilter4);
+        
+          let dataFilter5 = new DataFilter();
+        dataFilter5.title = "33333"
+        this.dataFilters.push(dataFilter5);
     }
 
     ngOnInit() {
         
         this.createMockData();
         this.rightWidth();
-        this.route.params.switchMap((parmes: Params) =>
+        this.ztree = this.createTree();
 
-            this.httpService.doPost(Application.baseContext + "/" + parmes["sqlid"], "")
-        ).subscribe(res => { // 传递过来的不是promise 所以要subscribe执行
-            console.log(res);
+        // this.route.params.switchMap((parmes: Params) =>
+
+        //     this.httpService.doPost(Application.baseContext + "/" + parmes["sqlid"], "")
+        // ).subscribe(res => { // 传递过来的不是promise 所以要subscribe执行
+        //     console.log(res);
            
-            // let resp = res.data() as Response<DataViewModule>;
-            // this.dataViewModule = resp.result;
-            // this.treeOptions = this.dataViewModule.treeOptions;
-            // this.buttons = this.dataViewModule.buttons;
-            // this.dataFilters = this.dataViewModule.dataFilters;
-        });
+        //     // let resp = res.data() as Response<DataViewModule>;
+        //     // this.dataViewModule = resp.result;
+        //     // this.treeOptions = this.dataViewModule.treeOptions;
+        //     // this.buttons = this.dataViewModule.buttons;
+        //     // this.dataFilters = this.dataViewModule.dataFilters;
+        // });
 
       
 
@@ -94,8 +140,49 @@ export class DataViewComponent implements OnInit {
         // });
     }
 
+    //构建ztree
+    createTree(){
 
-   
+        // ztree data
+        let treeModule = new DataModule();
+        treeModule.setting = new Setting();
+        
+        let data = new Data();
+        let simpleData = new SimpleData();
+        simpleData.idKey = this.treeOptions.idKey;
+        simpleData.pIdKey = this.treeOptions.pIdKey;
+        simpleData.enable = true;
+        data.simpleData = simpleData;
+        
+        let key = new Key();
+        key.name = this.treeOptions.name;
+        data.key = key;
+
+        treeModule.setting.data = data;
+
+        treeModule.znodes =[
+                            {id:1, pId:0, name: "父节点1"},
+                            {id:11, pId:1, name: "子节点1"},
+                            {id:12, pId:1, name: "子节点2"}
+                        ];
+        return treeModule;
+    }
+
+// 导航按钮点击
+   navClick(button:Button){
+      //接口
+      if(button.option.optionType == 0){
+
+      }
+      //模态窗口
+    if(button.option.optionType == 1){
+
+      }
+      //新窗口
+     if(button.option.optionType == 2){
+
+      }
+   }
 
     // 计算内容宽度
     rightWidth(){

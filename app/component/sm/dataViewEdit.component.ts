@@ -34,6 +34,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   valigns: Array<any> = DictConstant.createValigns();
   scopes: Array<any> = DictConstant.createScopes();
   expressions:Array<any> = DictConstant.createExpressions();
+  methods:Array<any> = DictConstant.createMethods();
 
   //SQL 定义
   sqlDefines: Array<any> = this.createSqlDefines();
@@ -64,7 +65,6 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     } else {
       button.id = GUID.createGUIDString();
     }
-    button.func = 0;
     button.title = title;
     if (type != undefined) {
       button.type = type;
@@ -75,9 +75,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     const controls = <FormArray>this.ngbForm.controls['buttons'];
     controls.push(this.fb.group({
       id: [button.id],
-      func: [button.func, [Validators.required]],
+      option: [button.option, [Validators.required]],
       icon: [button.icon],
-      dialogSize: [button.dialogSize],
       title: [button.title, [Validators.required, Validators.maxLength(50)]],
       url: [button.url, [Validators.required]],
       type: [button.type, [Validators.required]]
@@ -290,9 +289,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     let formArray = new Array<any>();
     this.formData.buttons.forEach(button => {
       formArray.push(this.fb.group({
-        func: [button.func, [Validators.required]],
+        option: [button.option, [Validators.required]],
         icon: [button.icon],
-        dialogSize: [button.dialogSize],
         title: [button.title, [Validators.required, Validators.maxLength(50)]],
         url: [button.url, [Validators.required]],
         type: [button.type, [Validators.required]]

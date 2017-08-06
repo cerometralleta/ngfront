@@ -67,4 +67,12 @@ export class DictConstant {
     return expressions;
   }
 
+  static createMethods() {
+    let methods = new Array<any>();
+    methods.push({ code: "POST", text: "POST" });
+    methods.push({ code: "GET", text: "GET" }); 
+    return methods;
+  }
+
+
 }

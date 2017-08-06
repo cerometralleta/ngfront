@@ -3,7 +3,7 @@
 	<!-- tree start-->
 	<div class="col-md-{{treeOptions.width}}" *ngIf="treeOptions.isShow">
 		<div class="card-box overflow">
-			<!--<ng4b-tree [setting]="treeModule.setting" [znodes] = "treeModule.znodes"></ng4b-tree>-->
+			<ng4b-tree [setting]="ztree.setting" [znodes]="ztree.znodes"></ng4b-tree>
 		</div>
 	</div>
 	<!-- tree end -->
@@ -13,18 +13,62 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card-box">
+				
+				<div class="portlet">
+					<div class="portlet-heading">
+						
+						<!-- toolbar -->
+						<div class="btn-group vertical-middle" data-toggle="buttons">
+							<!--<label *ngFor="let bt of buttons;" class="btn btn-white btn-md waves-effect active mb-0">
+                                                        <input type="radio" autocomplete="off" checked="" *ngIf="bt.type == 1">{{bt.type}}
+                                                    </label>-->
+							<button  *ngFor="let bt of buttons"  type="button" class="btn btn-default" (click)="navClick(bt)">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true">{{bt.title}}</span>
+							</button>
+						</div>
+						<!-- toolbar -->
+					 
 
-						<!-- toolbar -->
-						<!-- toolbar -->
+						<div class="portlet-widgets" *ngIf="dataFilters.length > 0">
+							<!--<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>-->
+							<span class="divider"></span>
+							<a data-toggle="collapse" data-parent="#accordion1" href="#bg-primary" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
+							<span class="divider"></span>
+							<!--<a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>-->
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div id="bg-primary" class="panel-collapse collapse show" aria-expanded="true" *ngIf="dataFilters.length > 0">
 
 						<!-- search -->
+						<div class="portlet-body">
+							<form class="form-inline">
+							
+							 <!--<div class="form-group row" *ngFor="let datafilter of dataFilters">
+								<label class="col-sm-2 control-label">{{datafilter.title}}</label>
+								<div class="col-sm-4">
+								 <input type="text" class="form-control" placeholder="{{datafilter.title}}" formControlName="title" />
+								</div>
+							 </div>-->
+
+								 <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 mt20 row nowrap" *ngFor="let datafilter of dataFilters" >
+									<label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5" >{{datafilter.title}}</label>
+										<input type="text" class="form-control" placeholder="{{datafilter.title}}"  />
+								</div>  
+							 
+								
+							<button type="button" class="btn btn-info waves-effect waves-light input-sm mt20" ng-click="grid.search()"><i class="md-search m-r-5"></i>查询</button>
+							 </form>
+
+							<!--<button type="reset" class="btn btn-default waves-effect waves-light input-sm mt20"><i class="md-restore m-r-5"></i>重置</button>-->
+ 
+						</div>
 						<!-- search -->
+					</div>
 				</div>
-			 
 			</div>
 		</div>
-	
+
 		<!-- End of search Row -->
 
 		<!-- start of datagrid -->
@@ -33,6 +77,7 @@
 				<div class="card-box overflow">
 
 					<!--GRID-->
+					<ng4b-grid [options]="options"></ng4b-grid>
 					<!--GRID-->
 
 				</div>

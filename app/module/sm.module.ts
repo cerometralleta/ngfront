@@ -11,6 +11,7 @@ import { Ngb2Module } from "./ngb.module";
 import { DataViewEditComponent } from "../component/sm/dataViewEdit.component";
 import { ReactiveFormsModule } from '@angular/forms';
 import { ColumnMoreComponent } from "../component/sm/columnMore.component";
+import { TypeFilterPipe } from "../pipe/ngFilter.pipe";
  
 /**
  * SQL MANAGE模块
@@ -20,7 +21,7 @@ import { ColumnMoreComponent } from "../component/sm/columnMore.component";
     imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,Ngb2Module,ReactiveFormsModule],
     exports: [DataViewComponent,DataViewEditComponent],
     declarations: [
-        DataViewComponent,DataViewEditComponent,ColumnMoreComponent
+        DataViewComponent,DataViewEditComponent,ColumnMoreComponent,TypeFilterPipe
     ],
     entryComponents:[ColumnMoreComponent],
     providers: [LoggerService,AppRoutingProviders,HttpService]

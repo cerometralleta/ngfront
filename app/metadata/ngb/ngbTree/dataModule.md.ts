@@ -13,8 +13,6 @@ import { GUID } from "../../../utils/guid.util";
 export class DataModule {
     constructor() {
     }
-    range:number;//宽度比列
-    isShow:boolean;//是否显示
     setting:Setting;
     znodes:any;//树数据
 }

@@ -19,9 +19,7 @@ export class Keep {
 }
 
 export class Key {
-    constructor() {
-        
-    }
+    constructor() {}
     checked:string;
     children:string;
     name:string;
