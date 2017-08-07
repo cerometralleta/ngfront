@@ -73,8 +73,8 @@ export class DataViewComponent implements OnInit {
 
     //查询列表
     search(){
-        this.dataFilters = this.searchForm.value;
-        alert(JSON.stringify(this.dataFilters));
+        let datafilter = this.searchForm.value;
+        alert(JSON.stringify(datafilter));
     }
 
     createMockData(){
@@ -181,9 +181,13 @@ export class DataViewComponent implements OnInit {
         
         let key = new Key();
         key.name = this.treeOptions.name;
+        key.title = key.name;
         data.key = key;
 
         treeModule.setting.data = data;
+        treeModule.setting.callback = {
+            onClick:this.zTreeOnClick
+        }
 
         treeModule.znodes =[
                             {id:1, pId:0, name: "父节点1"},
@@ -192,6 +196,11 @@ export class DataViewComponent implements OnInit {
                         ];
         return treeModule;
     }
+
+    //节点点击事件
+    zTreeOnClick(event, treeId, treeNode) {
+        alert(treeNode.tId + ", " + treeNode.name);
+    };
 
 // 导航按钮点击
    navClick(button:Button){

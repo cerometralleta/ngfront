@@ -25,4 +25,5 @@ export class Setting {
     treeObj:any;
     async:Async;
     data:Data;
+    callback:any;
 }
