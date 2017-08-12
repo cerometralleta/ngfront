@@ -6,7 +6,7 @@ export class Columns {
     }
     field:string;
     title:string;
-    updateType:number;
+    updateType:string;
     isView:boolean;
     isInsert:boolean;
     visible:boolean;

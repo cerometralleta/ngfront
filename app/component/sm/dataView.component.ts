@@ -87,10 +87,10 @@ export class DataViewComponent implements OnInit {
         this.treeOptions.pIdKey="pId";
         this.buttons = new Array<Button>();
         let button = new Button();
-        button.type = 1;
+        button.location = 'row';
         button.title = '增加';
         let button1 = new Button();
-        button1.type = 2;
+        button1.location = 'nav';
         button1.title = '增加';
         this.buttons.push(button);
         this.buttons.push(button1);
@@ -205,11 +205,11 @@ export class DataViewComponent implements OnInit {
 // 导航按钮点击
    navClick(button:Button){
       //接口
-    if(button.option.optionType == 0){
+    if(button.option == 'service'){
 
     }
       //模态窗口
-    if(button.option.optionType == 1){
+    if(button.option == 'dialog'){
 
         // 弹出组件
         const modalRef = this.modalService.open(null);
@@ -217,7 +217,7 @@ export class DataViewComponent implements OnInit {
  
       }
       //新窗口
-     if(button.option.optionType == 2){
+     if(button.option == 'window'){
 
       }
    }

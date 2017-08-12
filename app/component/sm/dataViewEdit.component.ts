@@ -11,6 +11,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DictConstant } from "../../metadata/constant/dict.constant";
 import { ColumnMoreComponent } from "./columnMore.component";
 import { NgbModalOptions } from "../../../node_modules/._@ng-bootstrap_ng-bootstrap@1.0.0-alpha.25@@ng-bootstrap/ng-bootstrap/modal/modal.module";
+import { ButtonDialogComponent } from "./buttonDialog.component";
 declare var $: any;
 
 @Component({
@@ -33,8 +34,9 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   aligns: Array<any> = DictConstant.createAligns();
   valigns: Array<any> = DictConstant.createValigns();
   scopes: Array<any> = DictConstant.createScopes();
-  expressions:Array<any> = DictConstant.createExpressions();
-  methods:Array<any> = DictConstant.createMethods();
+  expressions: Array<any> = DictConstant.createExpressions();
+  methods: Array<any> = DictConstant.createMethods();
+  locations:Array<any> = DictConstant.createLocation();
 
   //SQL 定义
   sqlDefines: Array<any> = this.createSqlDefines();
@@ -57,6 +59,33 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   }
 
+// 添加按钮
+  openAdd(){
+       // 弹出组件
+    const modalRef = this.modalService.open(ButtonDialogComponent, { size: "lg" });
+    modalRef.result.then((result) => {
+        console.info(JSON.stringify(result))
+          let button = <Button>result;
+          this.formData.buttons.push(button);
+          const controls = <FormArray>this.ngbForm.controls['buttons'];
+          controls.push(this.fb.group({
+            id: [button.id],
+            // option: [button.option, [Validators.required]],
+            option: [button.option],
+            window: [button.window],
+            size: [button.size],
+            icon: [button.icon],
+            title: [button.title, [Validators.required, Validators.maxLength(50)]],
+            url: [button.url, [Validators.required]],
+            location: [button.location, [Validators.required]]
+          }));
+    }
+    // , (reason) => {
+    //      alert(1233)
+    // }
+    );
+  }
+
   //添加功能
   addFunc(id, title, type) {
     let button = new Button();
@@ -67,19 +96,22 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     }
     button.title = title;
     if (type != undefined) {
-      button.type = type;
+      button.location = type;
     } else {
-      button.type = 1;
+      button.location = 'nav';
     }
     this.formData.buttons.push(button);
     const controls = <FormArray>this.ngbForm.controls['buttons'];
     controls.push(this.fb.group({
       id: [button.id],
-      option: [button.option, [Validators.required]],
+      // option: [button.option, [Validators.required]],
+      option: [button.option],
+      window: [button.window],
+      size: [button.size],
       icon: [button.icon],
       title: [button.title, [Validators.required, Validators.maxLength(50)]],
       url: [button.url, [Validators.required]],
-      type: [button.type, [Validators.required]]
+      location: [button.location, [Validators.required]]
     }));
   }
 
@@ -132,6 +164,14 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   //删除行
   removeControls(controls, idx) {
     controls.removeAt(idx);
+  }
+  // 设置按钮类型
+  openOption(content) {
+    this.modalService.open(content, { size: "lg" }).result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
   //列更多设置
@@ -290,10 +330,12 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.formData.buttons.forEach(button => {
       formArray.push(this.fb.group({
         option: [button.option, [Validators.required]],
+        window: [button.window],
+        size: [button.size],
         icon: [button.icon],
         title: [button.title, [Validators.required, Validators.maxLength(50)]],
         url: [button.url, [Validators.required]],
-        type: [button.type, [Validators.required]]
+        type: [button.location, [Validators.required]]
       })
       )
     });
@@ -355,7 +397,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   }
 
   //filterSelected
-  filterSelected(column){
+  filterSelected(column) {
     let datafilter = new DataFilter();
     // datafilter.id = GUID.createGUIDString();
     datafilter.dataType = column.dataType;
@@ -364,7 +406,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     datafilter.title = column.title;
     datafilter.expression = '=';
     const controls = <FormArray>this.ngbForm.controls['dataFilters'];
-      controls.push(this.fb.group({
+    controls.push(this.fb.group({
       title: [datafilter.title, [Validators.required]],
       field: [datafilter.field],
       dataType: [datafilter.dataType],
@@ -375,12 +417,12 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   }
 
   // 查询sql define
-  openWindow(){
+  openWindow() {
 
     //TODO  查询sql define
 
   }
-  
+
   //提交表单
   onSubmit() {
     this.formData = this.ngbForm.value;

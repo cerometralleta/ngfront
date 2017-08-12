@@ -9,9 +9,9 @@ export class DictConstant {
     //修改方式
   static createUpdateTypes() {
     let updateTypes = new Array<any>();
-    updateTypes.push({ code: 0, text: "hide" });
-    updateTypes.push({ code: 1, text: "show" });
-    updateTypes.push({ code: 2, text: "disable" });
+    updateTypes.push({ code: "hide", text: "hide" });
+    updateTypes.push({ code: "enable", text: "enable" });
+    updateTypes.push({ code: "disable", text: "disable" });
     return updateTypes;
   }
 
@@ -42,9 +42,9 @@ export class DictConstant {
 
   static createButtons(){
     let funcButtons = new Array<any>();
-    funcButtons.push({ code: 0, text: "service" });
-    funcButtons.push({ code: 1, text: "dialog" });
-    funcButtons.push({ code: 2, text: "window" });
+    funcButtons.push({ code: "service", text: "service" });
+    funcButtons.push({ code: "dialog", text: "dialog" });
+    funcButtons.push({ code: "window", text: "window" });
     return funcButtons;
   }
   
@@ -73,6 +73,12 @@ export class DictConstant {
     methods.push({ code: "GET", text: "GET" }); 
     return methods;
   }
-
+  
+   static createLocation() {
+    let location = new Array<any>();
+    location.push({ code: "nav", text: "nav" });
+    location.push({ code: "row", text: "row" }); 
+    return location;
+  }
 
 }

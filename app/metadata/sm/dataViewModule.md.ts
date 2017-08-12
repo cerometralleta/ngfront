@@ -64,19 +64,13 @@ export class Button {
         
     }
     id:string;
-    option:Option;
+    option:string;//0:接口,1:弹窗,2:新窗口
+    window:String;
+    size:string;//窗口大小
     icon:string;
     title:string;
     url:string;
-    type:number;//导航按钮 1:导航按钮,0:行内按钮
+    location:string;//导航按钮 1:导航按钮,0:行内按钮
     sort:number;
-}
-export class Option{
-    constructor() {
-        
-    }
-    optionType:number;//0:接口,1:弹窗,2:新窗口
-    window:String;
-    size:string;//窗口大小
 }
 
