@@ -14,7 +14,7 @@ export class Columns {
     fieldType:string;
     rule:Array<string>;
     maxlength:number;
-    idx:string;
+    idx:number;
 }
 
 /**
