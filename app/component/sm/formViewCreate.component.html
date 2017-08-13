@@ -10,10 +10,6 @@
 
         <!--添加按钮-->
         <div class="card-box">
-            <div class="form-group row">
-                <button type="button" class="btn btn-info waves-effect waves-light" (click)="add(optioncontent)">添加</button>
-            </div>
-
             <!--编码-->
             <div class="form-group row">
                 <label class="col-sm-2 control-label">code</label>
@@ -36,6 +32,10 @@
                     <input type="text" class="form-control" placeholder="remark" formControlName="remark" />
                 </div>
             </div>
+        </div>
+
+        <div class="card-box">
+            <button type="button" class="btn btn-info waves-effect waves-light" (click)="add(optioncontent)">添加字段</button>
         </div>
 
         <!--表单列表-->
