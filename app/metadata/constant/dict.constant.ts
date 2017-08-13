@@ -34,8 +34,8 @@ export class DictConstant {
   static createfieldTypes() {
     let fieldTypes = new Array<any>();
     fieldTypes.push({ code: "text", text: "text" });
-    fieldTypes.push({ code: "checkbox", text: "checkbox" });
-    fieldTypes.push({ code: "downdrop", text: "downdrop" });
+    fieldTypes.push({ code: "radio", text: "radio" });
+    fieldTypes.push({ code: "select", text: "select" });
     fieldTypes.push({ code: "textarea", text: "textarea" });
     return fieldTypes;
   }

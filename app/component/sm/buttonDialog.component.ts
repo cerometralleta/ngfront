@@ -15,6 +15,7 @@ export class ButtonDialogComponent implements OnInit {
     ngbForm: FormGroup;
     buttons: Array<any> = DictConstant.createButtons();
     locations:Array<any> = DictConstant.createLocation();
+   
     constructor(public activeModal: NgbActiveModal
     , private fb: FormBuilder
     ,private logger: LoggerService,private httpService: HttpService) { }

@@ -15,6 +15,7 @@ import { ButtonDialogComponent } from "../component/sm/buttonDialog.component";
 import { DataViewCreateComponent } from "../component/sm/dataViewCreate.component";
 import { FormViewCreateComponent } from "../component/sm/formViewCreate.component";
 import { FormViewEditComponent } from "../component/sm/formViewEdit.component";
+import { FormViewColEditComponent } from "../component/sm/formViewColEdit.component";
  
 /**
  * SQL MANAGE模块
@@ -27,9 +28,9 @@ import { FormViewEditComponent } from "../component/sm/formViewEdit.component";
     ],
     declarations: [
         DataViewComponent,DataViewEditComponent,ButtonDialogComponent,TypeFilterPipe,DataViewCreateComponent
-        ,FormViewCreateComponent ,FormViewEditComponent
+        ,FormViewCreateComponent ,FormViewEditComponent,FormViewColEditComponent
     ],
-    entryComponents:[ButtonDialogComponent],
+    entryComponents:[ButtonDialogComponent,FormViewColEditComponent],
     providers: [LoggerService,AppRoutingProviders,HttpService]
 })
 export class SmModule { }

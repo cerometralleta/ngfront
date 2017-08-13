@@ -20,7 +20,7 @@
              </select>
 
             <!--textarea-->
-             <textarea *ngSwitchCase="'textarea'" rows="5" cols="20" class="form-control" placeholder="{{column.title}}" formControlName="remark"></textarea>
+             <textarea *ngSwitchCase="'textarea'" rows="5" cols="20" class="form-control" placeholder="{{column.title}}" formControlName="{{column.field}}"></textarea>
 
             <!--radio-->
             <div *ngSwitchCase="'radio'" class="checkbox checkbox-info">
