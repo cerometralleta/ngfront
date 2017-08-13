@@ -9,7 +9,6 @@ import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 import { GUID } from "../../utils/guid.util";
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DictConstant } from "../../metadata/constant/dict.constant";
-import { ColumnMoreComponent } from "./columnMore.component";
 import { NgbModalOptions } from "../../../node_modules/._@ng-bootstrap_ng-bootstrap@1.0.0-alpha.25@@ng-bootstrap/ng-bootstrap/modal/modal.module";
 import { ButtonDialogComponent } from "./buttonDialog.component";
 declare var $: any;

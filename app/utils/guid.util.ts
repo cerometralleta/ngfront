@@ -1,6 +1,8 @@
 /**
  * 生成uuid
  */
+import { ColumOptions } from "../metadata/ngb/ngbGrid/columnOptions.md";
+
 export class GUID {
     private str: string;
 

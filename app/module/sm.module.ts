@@ -12,6 +12,7 @@ import { DataViewEditComponent } from "../component/sm/dataViewEdit.component";
 import { ReactiveFormsModule } from '@angular/forms';
 import { TypeFilterPipe } from "../pipe/ngFilter.pipe";
 import { ButtonDialogComponent } from "../component/sm/buttonDialog.component";
+import { DataViewCreateComponent } from "../component/sm/dataViewCreate.component";
  
 /**
  * SQL MANAGE模块
@@ -19,9 +20,9 @@ import { ButtonDialogComponent } from "../component/sm/buttonDialog.component";
  */
 @NgModule({
     imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,Ngb2Module,ReactiveFormsModule],
-    exports: [DataViewComponent,DataViewEditComponent],
+    exports: [DataViewComponent,DataViewEditComponent,DataViewCreateComponent],
     declarations: [
-        DataViewComponent,DataViewEditComponent,ButtonDialogComponent,TypeFilterPipe
+        DataViewComponent,DataViewEditComponent,ButtonDialogComponent,TypeFilterPipe,DataViewCreateComponent
     ],
     entryComponents:[ButtonDialogComponent],
     providers: [LoggerService,AppRoutingProviders,HttpService]

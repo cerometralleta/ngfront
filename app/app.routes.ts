@@ -5,6 +5,7 @@ import { MainComponent } from "./component/frame/main.component";
 import { HomeComponent } from "./component/frame/home.componet";
 import { LoginComponent } from "./component/frame/login.component";
 import { DataViewEditComponent } from "./component/sm/dataViewEdit.component";
+import { DataViewCreateComponent } from "./component/sm/dataViewCreate.component";
 
 
 const appRoutes: Routes = [
@@ -33,6 +34,10 @@ const appRoutes: Routes = [
             {
                 path: "dataviewedit",
                 component: DataViewEditComponent
+            },
+            {
+                path: "dataviewcreate",
+                component: DataViewCreateComponent
             }
         ]
     },

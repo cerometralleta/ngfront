@@ -14,6 +14,7 @@ import 'rxjs/add/operator/switchMap';
 import { SimpleData, Key, Data } from "../../metadata/ngb/ngbTree/data.md";
 import { NgbModal } from "../../../node_modules/._@ng-bootstrap_ng-bootstrap@1.0.0-alpha.25@@ng-bootstrap/ng-bootstrap";
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { DataViewCreateComponent } from "./dataViewCreate.component";
 
 /**
  * 统一dataView
@@ -204,6 +205,20 @@ export class DataViewComponent implements OnInit {
 
 // 导航按钮点击
    navClick(button:Button){
+
+    // 判断按钮是否为增删改
+    if('i'==button.id){
+        const modalRef = this.modalService.open(DataViewCreateComponent);
+        return;
+    }
+
+    if('u'==button.id){
+         const modalRef = this.modalService.open(DataViewCreateComponent);
+
+         //获取选中数据id
+        return;
+    }
+
       //接口
     if(button.option == 'service'){
 
