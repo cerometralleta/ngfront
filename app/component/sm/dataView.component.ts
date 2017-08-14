@@ -12,7 +12,7 @@ import { DataViewModule, TreeOptions, Button, DataFilter } from "../../metadata/
 import { ActivatedRoute, Params } from "../../../node_modules/._@angular_router@4.1.1@@angular/router";
 import 'rxjs/add/operator/switchMap';
 import { SimpleData, Key, Data } from "../../metadata/ngb/ngbTree/data.md";
-import { NgbModal } from "../../../node_modules/._@ng-bootstrap_ng-bootstrap@1.0.0-alpha.25@@ng-bootstrap/ng-bootstrap";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DataViewCreateComponent } from "./dataViewCreate.component";
 
