@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataViewModule } from "../../metadata/sm/dataViewModule.md";
-import { NgbActiveModal, NgbModal } from "._@ng-bootstrap_ng-bootstrap@1.0.0-alpha.25@@ng-bootstrap/ng-bootstrap";
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { LoggerService } from "../../service/basic/logger.service";
 import { HttpService } from "../../service/basic/http.service";
@@ -9,6 +8,7 @@ import { Mock } from "../../metadata/constant/mock.constant";
 import { FormViewModel } from "../../metadata/sm/formViewModel.md";
 import { DictConstant } from "../../metadata/constant/dict.constant";
 import { FormViewColEditComponent } from "./formViewColEdit.component";
+import { NgbActiveModal,NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'sm-formViewCreate',

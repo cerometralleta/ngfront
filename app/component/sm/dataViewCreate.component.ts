@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataViewModule } from "../../metadata/sm/dataViewModule.md";
-import { NgbActiveModal } from "._@ng-bootstrap_ng-bootstrap@1.0.0-alpha.25@@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
 import { LoggerService } from "../../service/basic/logger.service";
 import { HttpService } from "../../service/basic/http.service";
