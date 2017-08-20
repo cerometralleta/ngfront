@@ -427,8 +427,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   //提交表单
   onSubmit() {
     this.formData = this.ngbForm.value;
-   
-    this.httpService.http.post(Application.ubold_sm_create,this.formData)
+    this.httpService.http.post(Application.ubold_sm_persistent,this.formData)
     .subscribe(res=> {
 
        //处理响应
