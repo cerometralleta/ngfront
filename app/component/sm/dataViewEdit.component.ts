@@ -35,7 +35,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   scopes: Array<any> = DictConstant.createScopes();
   expressions: Array<any> = DictConstant.createExpressions();
   methods: Array<any> = DictConstant.createMethods();
-  locations:Array<any> = DictConstant.createLocation();
+  locations: Array<any> = DictConstant.createLocation();
 
   //SQL 定义
   sqlDefines: Array<any> = this.createSqlDefines();
@@ -48,7 +48,10 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   @Input() dataViewId: string;
 
-  constructor(private logger: LoggerService, private httpService: HttpService, private fb: FormBuilder, private modalService: NgbModal) { }
+  constructor(private logger: LoggerService,
+    private httpService: HttpService, private fb: FormBuilder,
+    private modalService: NgbModal
+  ) { }
   ngOnInit() {
     this.createModule();
     this.buildForm();
@@ -58,30 +61,30 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   }
 
-// 添加按钮
-  openAdd(){
-       // 弹出组件
+  // 添加按钮
+  openAdd() {
+    // 弹出组件
     const modalRef = this.modalService.open(ButtonDialogComponent, { size: "lg" });
     modalRef.result.then((result) => {
-        console.info(JSON.stringify(result))
-          let button = <Button>result;
-          this.formData.buttons.push(button);
-          const controls = <FormArray>this.ngbForm.controls['buttons'];
-          controls.push(this.fb.group({
-            id: [button.id],
-            // option: [button.option, [Validators.required]],
-            option: [button.option],
-            window: [button.window],
-            size: [button.size],
-            icon: [button.icon],
-            title: [button.title, [Validators.required, Validators.maxLength(50)]],
-            url: [button.url, [Validators.required]],
-            location: [button.location, [Validators.required]]
-          }));
+      console.info(JSON.stringify(result))
+      let button = <Button>result;
+      this.formData.buttons.push(button);
+      const controls = <FormArray>this.ngbForm.controls['buttons'];
+      controls.push(this.fb.group({
+        id: [button.id],
+        // option: [button.option, [Validators.required]],
+        option: [button.option],
+        window: [button.window],
+        size: [button.size],
+        icon: [button.icon],
+        title: [button.title, [Validators.required, Validators.maxLength(50)]],
+        url: [button.url, [Validators.required]],
+        location: [button.location, [Validators.required]]
+      }));
     }
-    // , (reason) => {
-    //      alert(1233)
-    // }
+      // , (reason) => {
+      //      alert(1233)
+      // }
     );
   }
 
@@ -425,7 +428,15 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   //提交表单
   onSubmit() {
     this.formData = this.ngbForm.value;
-    alert(JSON.stringify(this.formData));
+   
+    this.httpService.http.post(Application.ubold_sm_create,this.formData)
+    .subscribe(res=> {
+
+       //处理响应
+       alert(JSON.stringify(res.json()));
+    });
+    
+
     console.info(JSON.stringify(this.formData))
   }
 
