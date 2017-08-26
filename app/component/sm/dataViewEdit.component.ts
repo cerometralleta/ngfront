@@ -234,6 +234,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.createOptionsFormGroup();
 
     this.formGroup = {
+      id:[this.formData.id],
+      version:[this.formData.version],
       dataViewCode: [this.formData.dataViewCode, [
         Validators.required,
         Validators.maxLength(30)]
