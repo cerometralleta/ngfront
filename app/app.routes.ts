@@ -7,6 +7,7 @@ import { LoginComponent } from "./component/frame/login.component";
 import { DataViewEditComponent } from "./component/sm/dataViewEdit.component";
 import { DataViewCreateComponent } from "./component/sm/dataViewCreate.component";
 import { FormViewCreateComponent } from "./component/sm/formViewCreate.component";
+import { DataViewResolver } from "./resolver/sm/dataViewResolver";
 
 
 const appRoutes: Routes = [
@@ -34,7 +35,12 @@ const appRoutes: Routes = [
             },
             {
                 path: "dataviewedit",
-                component: DataViewEditComponent
+                component: DataViewEditComponent,
+                resolve: {
+
+                    //define dataViewResolver
+                     dataViewResolver: DataViewResolver
+                }
             },
             {
                 path: "dataviewcreate",

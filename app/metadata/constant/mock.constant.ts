@@ -2,6 +2,8 @@
  * mock
  */
 import { ColumOptions } from "../ngb/ngbGrid/columnOptions.md";
+import { DataFilter, TreeOptions, Button } from "../sm/dataViewModule.md";
+import { Options } from "../ngb/ngbGrid/options.md";
 
 export class Mock {
 
@@ -31,7 +33,28 @@ export class Mock {
     }
 
 
-    static createDataView(){
+    static createDataView(formData){
+        formData.options = new Options();
+        formData.options.method = 'POST';
+        formData.options.pagination = false;
+        formData.options.showExport = false;
+        formData.options.pageSize = 5000;
+        formData.options.pageNumber = 1;
+        formData.dataViewCode = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        formData.dataViewName = "dddddddddddddddddddd";
+        formData.sqlId = "FFFFFFFFFFFFFFFFFFFFF";
 
+        let co = new ColumOptions();
+        co.title = "e3";
+        co.field = "ddd";
+        formData.columns = new Array<any>();
+        formData.columns.push(co);
+
+        formData.treeOptions = new TreeOptions();
+        formData.treeOptions.isShow = false;
+        formData.treeOptions.scope = 'SELF';
+        formData.treeOptions.width = 2;
+        formData.buttons = Array<Button>();
+        formData.dataFilters = Array<DataFilter>();
     }
 }

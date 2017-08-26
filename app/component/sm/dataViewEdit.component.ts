@@ -10,6 +10,11 @@ import { GUID } from "../../utils/guid.util";
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DictConstant } from "../../metadata/constant/dict.constant";
 import { ButtonDialogComponent } from "./buttonDialog.component";
+import { Mock } from "../../metadata/constant/mock.constant";
+import { GoldbalConstant } from "../../metadata/constant/global.constant";
+import { Observable } from "../../../node_modules/._rxjs@5.3.1@rxjs/Observable";
+import { DataViewResolver } from "../../resolver/sm/dataViewResolver";
+import { Resolve,ActivatedRoute } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -48,7 +53,10 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   @Input() dataViewId: string;
 
   constructor(private logger: LoggerService,
-    private httpService: HttpService, private fb: FormBuilder,
+    private httpService: HttpService,
+    private fb: FormBuilder,
+    private dataViewResolver:DataViewResolver,
+    private route: ActivatedRoute,
     private modalService: NgbModal
   ) { }
   ngOnInit() {
@@ -205,28 +213,19 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   //创建页面数据
   createModule() {
     if (this.dataViewId && this.dataViewId != null) {
+      this.formData = new DataViewModule();
+      this.formData.columns = new Array<any>();
+      this.formData.dataFilters = new Array<any>();
+      this.formData.buttons = new Array<any>();
+      this.formData.options = new Options();
+      this.formData.treeOptions = new TreeOptions();
       return;
     }
-    this.formData = new DataViewModule();
-    this.formData.options = new Options();
-    this.formData.options.method = 'POST';
-    this.formData.options.pagination = false;
-    this.formData.options.showExport = false;
-    this.formData.options.pageSize = 50;
-    this.formData.options.pageNumber = 1;
 
-    let co = new ColumOptions();
-    co.title = "e3";
-    co.field = "ddd";
-    this.formData.columns = new Array<any>();
-    this.formData.columns.push(co);
-
-    this.formData.treeOptions = new TreeOptions();
-    this.formData.treeOptions.isShow = false;
-    this.formData.treeOptions.scope = 'SELF';
-    this.formData.treeOptions.width = 2;
-    this.formData.buttons = Array<Button>();
-    this.formData.dataFilters = Array<DataFilter>();
+    //监控路由守卫获取初始化数据
+    this.route.data.subscribe(resp=>{
+       this.formData = resp.dataViewResolver.result;
+    });
   }
 
   //创建form
@@ -427,13 +426,13 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   //提交表单
   onSubmit() {
     this.formData = this.ngbForm.value;
-    this.httpService.http.post(Application.ubold_sm_persistent,this.formData)
-    .subscribe(res=> {
+    this.httpService.http.post(Application.ubold_sm_persistent, this.formData)
+      .subscribe(res => {
 
-       //处理响应
-       alert(JSON.stringify(res.json()));
-    });
-    
+        //处理响应
+        alert(JSON.stringify(res.json()));
+      });
+
 
     console.info(JSON.stringify(this.formData))
   }
