@@ -37,12 +37,12 @@ export class ColumOptions extends Columns{
     cardVisible:boolean;
     switchable:boolean;
     clickToSelect:boolean;
-    formatter:any;
-    footerFormatter:any;
-    events:any;
-    sorter:any;
+    // formatter:any;
+    // footerFormatter:any;
+    // events:any;
+    // sorter:any;
     sortName:string;
-    cellStyle:any;
+    // cellStyle:any;
     searchable:boolean;
     searchFormatter:boolean;
     escape:boolean;

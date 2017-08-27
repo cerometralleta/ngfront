@@ -370,8 +370,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         width: [columnOptions.width],
         sortable: [columnOptions.sortable],
         order: [columnOptions.order],
-        formatter: [columnOptions.formatter],
-        footerFormatter: [columnOptions.footerFormatter],
+        // formatter: [columnOptions.formatter],
+        // footerFormatter: [columnOptions.footerFormatter],
         sortName: [columnOptions.sortName]
       }));
     })
