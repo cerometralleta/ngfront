@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Options, BootstrapTableDefaults } from "../../metadata/ngb/ngbGrid/options.md";
+import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 declare var $: any;
 
 /**
@@ -17,7 +18,8 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
     private ngbootstrapTable:any;
     @ViewChild("ngbootstrapTable") erf: ElementRef;
     ngOnInit() {
-        this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(Options);
+        // console.info(JSON.stringify(this.options));
+        this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(this.options);
     }
     @Input() options: BootstrapTableDefaults;
     constructor() { }

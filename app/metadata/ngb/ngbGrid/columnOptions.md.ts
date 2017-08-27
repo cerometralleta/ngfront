@@ -23,8 +23,6 @@ export class Columns {
 export class ColumOptions extends Columns{
     radio:boolean;
     checkbox:boolean;
-    // field:string;
-    // title:string;
     titleTooltip:string;
     class:string;
     rowspan:number;

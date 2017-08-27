@@ -13,7 +13,7 @@ import { Button } from "../../sm/dataViewModule.md";
 export class Options {
     constructor() {
     }
-    classes:string;
+    // classes:string;
     sortClass:string;
     height:number;
     undefinedText:string;
