@@ -230,10 +230,10 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-2 control-label">sortName</label>
+          <!--<label class="col-sm-2 control-label">sortName</label>
           <div class="col-sm-4">
             <input type="text" class="form-control" placeholder="sortName" formControlName="sortName" />
-          </div>
+          </div>-->
           <label class="col-sm-2 control-label">dataField</label>
           <div class="col-sm-4">
             <input type="text" class="form-control" placeholder="dataField" formControlName="dataField" />
@@ -297,7 +297,7 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-2 control-label">cardView</label>
+          <label class="col-sm-2 control-label">showHeader</label>
           <div class="col-sm-4">
               <div class="checkbox checkbox-inverse">
               <input id="showHeader" type="checkbox" formControlName="showHeader">
@@ -307,7 +307,10 @@
           </div>
           <label class="col-sm-2 control-label">showFooter</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="showFooter" formControlName="showFooter" />
+              <div class="checkbox checkbox-inverse">
+              <input id="showFooter" type="checkbox" formControlName="showFooter">
+              <label for="showFooter"></label>
+              </div>
           </div>
         </div>
 
@@ -376,17 +379,20 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-2 control-label">showHeader</label>
+          <label class="col-sm-2 control-label">cardView</label>
           <div class="col-sm-4">
                <div class="checkbox checkbox-inverse">
                 <input id="cardView" type="checkbox" formControlName="cardView">
                 <label for="cardView"></label>
               </div>
           </div>
-          <!--<label class="col-sm-2 control-label">showFooter</label>
+          <label class="col-sm-2 control-label">showToggle</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="showFooter" formControlName="showFooter" />
-          </div>-->
+            <div class="checkbox checkbox-inverse">
+                <input id="showToggle" type="checkbox" formControlName="showToggle">
+                <label for="showToggle"></label>
+              </div>
+          </div>
         </div>
 
       </div>

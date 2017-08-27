@@ -284,7 +284,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       undefinedText: [this.formData.options.undefinedText],
       searchText: [this.formData.options.searchText],
       sortable: [this.formData.options.sortable],
-      sortName: [this.formData.options.sortName],
+      // sortName: [this.formData.options.sortName],
       dataField: [this.formData.options.dataField],
       totalField: [this.formData.options.totalField],
       selectItemName: [this.formData.options.selectItemName],
@@ -305,7 +305,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       uniqueId: [this.formData.options.uniqueId],
       detailView: [this.formData.options.detailView],
       clickToSelect: [this.formData.options.clickToSelect],
-      singleSelect: [this.formData.options.singleSelect]
+      singleSelect: [this.formData.options.singleSelect],
+      showToggle:[this.formData.options.showToggle]
     });
   }
 

@@ -13,19 +13,19 @@ import { Button } from "../../sm/dataViewModule.md";
 export class Options {
     constructor() {
     }
-    // classes:string;
+    classes:string;
     sortClass:string;
     height:number;
     undefinedText:string;
     //条纹
     striped:boolean = true;
-    sortName:string;
+    // sortName:string;
     sortOrder:string;
     sortStable:boolean;
     iconsPrefix:string;
     iconSize:string;
     buttonsClass:string;
-    icons:any;
+    // icons:any;
     data:Array<any>;
     dataField:string;
     totalField:string;
@@ -36,16 +36,16 @@ export class Options {
     contentType:string;
     dataType:string;
     ajaxOptions:any;
-    queryParams:any;
+    // queryParams:any;
     queryParamsType:string;
-    responseHandler:any;
+    // responseHandler:any;
     pagination:boolean;
     paginationLoop:boolean;
     onlyInfoPagination:boolean;
     sidePagination:string;
     pageNumber:number;
     pageSize:number;
-    pageList:Array<number>;
+    // pageList:Array<number>;
     selectItemName:string;
     smartDisplay:boolean;
     escape:boolean;
@@ -67,7 +67,7 @@ export class Options {
     uniqueId:string;
     cardView:boolean;
     detailView:boolean;
-    detailFormatter:any;
+    // detailFormatter:any;
     searchAlign:string;
     buttonsAlign:string;
     toolbarAlign:string;
@@ -83,12 +83,12 @@ export class Options {
     maintainSelected:boolean;
     sortable:boolean;
     silentSort:boolean;
-    rowStyle:any;
-    rowAttributes:any;
-    customSearch:any;
-    customSort:any;
+    // rowStyle:any;
+    // rowAttributes:any;
+    // customSearch:any;
+    // customSort:any;
     locale:string;
-    footerStyle:any;
+    // footerStyle:any;
     showExport:boolean;
 
     // funcButtons:Array<FuncButton>;
