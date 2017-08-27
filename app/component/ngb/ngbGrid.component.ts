@@ -18,7 +18,7 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
     private ngbootstrapTable:any;
     @ViewChild("ngbootstrapTable") erf: ElementRef;
     ngOnInit() {
-        // console.info(JSON.stringify(this.options));
+        console.info(JSON.stringify(this.options));
         this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(this.options);
     }
     @Input() options: BootstrapTableDefaults;
