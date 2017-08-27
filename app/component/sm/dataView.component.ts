@@ -15,6 +15,7 @@ import { SimpleData, Key, Data } from "../../metadata/ngb/ngbTree/data.md";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DataViewCreateComponent } from "./dataViewCreate.component";
+import { Mock } from "../../metadata/constant/mock.constant";
 
 /**
  * 统一dataView
@@ -51,9 +52,9 @@ export class DataViewComponent implements OnInit {
     
     @Input() sqlId: string;
     constructor(
-        private logger: LoggerService
-        , private httpService: HttpService
-        , private route: ActivatedRoute
+         private logger: LoggerService
+        ,private httpService: HttpService
+        ,private route: ActivatedRoute
         ,private modalService: NgbModal
         ,private fb: FormBuilder
     ) {
@@ -78,53 +79,23 @@ export class DataViewComponent implements OnInit {
         alert(JSON.stringify(datafilter));
     }
 
-    createMockData(){
-        this.dataViewModule = new DataViewModule();
-        this.treeOptions = new TreeOptions();
-        this.treeOptions.isShow = true;
-        this.treeOptions.width = 2;
-        this.treeOptions.idKey="id";
-        this.treeOptions.name="name";
-        this.treeOptions.pIdKey="pId";
-        this.buttons = new Array<Button>();
-        let button = new Button();
-        button.location = 'row';
-        button.title = '增加';
-        let button1 = new Button();
-        button1.location = 'nav';
-        button1.title = '增加';
-        this.buttons.push(button);
-        this.buttons.push(button1);
-
-        this.dataFilters = new Array<DataFilter>();
-        let dataFilter = new DataFilter();
-        dataFilter.title = "11111"
-        this.dataFilters.push(dataFilter);
-
-        let dataFilter1 = new DataFilter();
-        dataFilter1.title = "2222"
-        this.dataFilters.push(dataFilter1);
-
-        let dataFilter2 = new DataFilter();
-        dataFilter2.title = "33333"
-        this.dataFilters.push(dataFilter2);
-
-        let dataFilter3 = new DataFilter();
-        dataFilter3.title = "fafda33"
-        this.dataFilters.push(dataFilter3);
-
-          let dataFilter4 = new DataFilter();
-        dataFilter4.title = "33333"
-        this.dataFilters.push(dataFilter4);
-        
-          let dataFilter5 = new DataFilter();
-        dataFilter5.title = "33333"
-        this.dataFilters.push(dataFilter5);
-    }
+    
 
     ngOnInit() {
         
-        this.createMockData();
+        // Mock.createDataViewList(this.dataViewModule);
+
+         //监控路由守卫获取初始化数据
+        this.route.data.subscribe(resp=>{
+        this.dataViewModule = resp.dataViewResolver.result;
+        this.dataViewModule.columns = resp.dataViewResolver.result.columns;
+        this.buttons =  resp.dataViewResolver.result.buttons;
+        this.dataFilters = resp.dataViewResolver.result.dataFilters;
+        this.treeOptions =  resp.dataViewResolver.result.treeOptions;
+        this.options = resp.dataViewResolver.result.options;
+        this.options.columns = resp.dataViewResolver.result.columns;
+        });
+
         this.rightWidth();
         this.ztree = this.createTree();
         this.createSearch();
@@ -241,7 +212,7 @@ export class DataViewComponent implements OnInit {
     rightWidth(){
       let maxWidth = 12;
       console.info(maxWidth);
-      if(this.treeOptions.isShow){
+      if(this.treeOptions.show){
             this.colContentWidth = maxWidth - this.treeOptions.width;
             return;
       }

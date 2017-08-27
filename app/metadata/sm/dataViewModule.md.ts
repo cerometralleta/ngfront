@@ -30,7 +30,7 @@ export class DataViewModule {
 
 export class TreeOptions{
     constructor() {}
-    isShow:boolean;
+    show:boolean;
     sqlId:string;
     idKey:string;
     name:string;

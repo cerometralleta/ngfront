@@ -262,7 +262,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   //创建树
   createTreeGroup() {
     this.treeFromGroup = this.fb.group({
-      isShow: [this.formData.treeOptions.isShow],
+      show: [this.formData.treeOptions.show],
       sqlId: [this.formData.treeOptions.sqlId],
       idKey: [this.formData.treeOptions.idKey],
       name: [this.formData.treeOptions.name],
@@ -331,13 +331,14 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     let formArray = new Array<any>();
     this.formData.buttons.forEach(button => {
       formArray.push(this.fb.group({
+        id:[button.id],
         option: [button.option, [Validators.required]],
         window: [button.window],
         size: [button.size],
         icon: [button.icon],
         title: [button.title, [Validators.required, Validators.maxLength(50)]],
         url: [button.url, [Validators.required]],
-        type: [button.location, [Validators.required]]
+        location: [button.location, [Validators.required]]
       })
       )
     });
@@ -379,7 +380,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   showTreeCheck() {
     // this.treeFromGroup.controls.url.setValidators(Validators.required);
     this.formData = this.ngbForm.value;
-    if (!this.formData.treeOptions.isShow) {
+    if (!this.formData.treeOptions.show) {
       this.treeFromGroup.controls.sqlId.setValidators(Validators.required);
       this.treeFromGroup.controls.pIdKey.setValidators(Validators.required);
       this.treeFromGroup.controls.relationField.setValidators(Validators.required);

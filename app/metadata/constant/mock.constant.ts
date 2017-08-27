@@ -2,7 +2,7 @@
  * mock
  */
 import { ColumOptions } from "../ngb/ngbGrid/columnOptions.md";
-import { DataFilter, TreeOptions, Button } from "../sm/dataViewModule.md";
+import { DataFilter, TreeOptions, Button, DataViewModule } from "../sm/dataViewModule.md";
 import { Options } from "../ngb/ngbGrid/options.md";
 
 export class Mock {
@@ -51,10 +51,54 @@ export class Mock {
         formData.columns.push(co);
 
         formData.treeOptions = new TreeOptions();
-        formData.treeOptions.isShow = false;
+        formData.treeOptions.show = false;
         formData.treeOptions.scope = 'SELF';
         formData.treeOptions.width = 2;
         formData.buttons = Array<Button>();
         formData.dataFilters = Array<DataFilter>();
+    }
+
+    static createDataViewList(dataViewModule){
+         dataViewModule = new DataViewModule();
+        dataViewModule.treeOptions = new TreeOptions();
+        dataViewModule.treeOptions.show = true;
+        dataViewModule.treeOptions.width = 2;
+        dataViewModule.treeOptions.idKey="id";
+        dataViewModule.treeOptions.name="name";
+        dataViewModule.treeOptions.pIdKey="pId";
+        dataViewModule.buttons = new Array<Button>();
+        let button = new Button();
+        button.location = 'row';
+        button.title = '增加';
+        let button1 = new Button();
+        button1.location = 'nav';
+        button1.title = '增加';
+        dataViewModule.buttons.push(button);
+        dataViewModule.buttons.push(button1);
+
+        dataViewModule.dataFilters = new Array<DataFilter>();
+        let dataFilter = new DataFilter();
+        dataFilter.title = "11111"
+        dataViewModule.dataFilters.push(dataFilter);
+
+        let dataFilter1 = new DataFilter();
+        dataViewModule.dataFilter1.title = "2222"
+        dataViewModule.dataFilters.push(dataFilter1);
+
+        let dataFilter2 = new DataFilter();
+        dataFilter2.title = "33333"
+        dataViewModule.dataFilters.push(dataFilter2);
+
+        let dataFilter3 = new DataFilter();
+        dataFilter3.title = "fafda33"
+        dataViewModule.dataFilters.push(dataFilter3);
+
+        let dataFilter4 = new DataFilter();
+        dataFilter4.title = "33333"
+        dataViewModule.dataFilters.push(dataFilter4);
+        
+        let dataFilter5 = new DataFilter();
+        dataFilter5.title = "33333"
+        dataViewModule.dataFilters.push(dataFilter5);
     }
 }

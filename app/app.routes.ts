@@ -31,7 +31,12 @@ const appRoutes: Routes = [
             {
                 path: "dataview/:sqlid",
                 component: DataViewComponent,
-                pathMatch: "prefix"
+                pathMatch: "prefix",
+                resolve: {
+
+                    //define dataViewResolver
+                     dataViewResolver: DataViewResolver
+                }
             },
             {
                 path: "dataviewedit",
