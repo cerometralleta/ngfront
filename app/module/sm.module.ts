@@ -15,7 +15,8 @@ import { ButtonDialogComponent } from "../component/sm/buttonDialog.component";
 import { DataViewCreateComponent } from "../component/sm/dataViewCreate.component";
 import { FormViewCreateComponent } from "../component/sm/formViewCreate.component";
 import { FormViewEditComponent } from "../component/sm/formViewEdit.component";
-import { FormViewColEditComponent } from "../component/sm/formViewColEdit.component";
+import { FormViewFieldEditComponent } from "../component/sm/formViewFieldEdit.component";
+import { FormViewComponent } from "../component/sm/formView.component";
  
 /**
  * SQL MANAGE模块
@@ -24,13 +25,13 @@ import { FormViewColEditComponent } from "../component/sm/formViewColEdit.compon
 @NgModule({
     imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,Ngb2Module,ReactiveFormsModule],
     exports: [DataViewComponent,DataViewEditComponent,DataViewCreateComponent,FormViewCreateComponent
-        ,FormViewEditComponent
+        ,FormViewEditComponent,FormViewComponent
     ],
     declarations: [
         DataViewComponent,DataViewEditComponent,ButtonDialogComponent,TypeFilterPipe,DataViewCreateComponent
-        ,FormViewCreateComponent ,FormViewEditComponent,FormViewColEditComponent
+        ,FormViewCreateComponent ,FormViewEditComponent,FormViewFieldEditComponent,FormViewComponent
     ],
-    entryComponents:[ButtonDialogComponent,FormViewColEditComponent],
+    entryComponents:[ButtonDialogComponent,FormViewFieldEditComponent,FormViewComponent],
     providers: [LoggerService,AppRoutingProviders,HttpService]
 })
 export class SmModule { }

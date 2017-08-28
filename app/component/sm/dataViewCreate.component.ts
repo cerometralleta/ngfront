@@ -51,7 +51,7 @@ export class DataViewCreateComponent implements OnInit {
     onSubmit(){
         console.info(JSON.stringify(this.ngbForm.value))
     }
-
+    
     createFormGroup(){
         let fg = {};
         this.columns.forEach(element => {

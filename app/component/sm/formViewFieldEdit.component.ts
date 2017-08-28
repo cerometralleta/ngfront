@@ -8,11 +8,15 @@ import { GUID } from "../../utils/guid.util";
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Columns } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 
+
+/**
+ * 创建formView Field
+ */
 @Component({
-    selector: 'sm-formViewColEdit',
-    templateUrl: './app/component/sm/formViewColEdit.component.html'
+    selector: 'sm-formViewFieldEdit',
+    templateUrl: './app/component/sm/formViewFieldEdit.component.html'
 })
-export class FormViewColEditComponent implements OnInit {
+export class FormViewFieldEditComponent implements OnInit {
      ngbForm: FormGroup;
      updateTypes: Array<any> = DictConstant.createUpdateTypes();
      fieldTypes: Array<any> = DictConstant.createfieldTypes();
@@ -27,11 +31,14 @@ export class FormViewColEditComponent implements OnInit {
     ngOnInit() {
 
         let col = new Columns();
+        col.updateType = 'enable';
+        col.fieldType = 'text';
+        col.idx = 1;
         this.ngbForm = this.fb.group({
-            field:[col.field],
-            title:[col.title],
-            updateType:[col.updateType],
-            fieldType:[col.fieldType],
+            field:[col.field,Validators.required],
+            title:[col.title,Validators.required],
+            updateType:[col.updateType,Validators.required],
+            fieldType:[col.fieldType,Validators.required],
             isInsert:[col.isInsert],
             isView:[col.isView],
             maxlength:[col.maxlength],

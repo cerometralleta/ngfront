@@ -11,6 +11,7 @@ export class FormViewModel {
     // 表单编号
     code:string;
     sqlId:string;
+    url:string;
     remark:string;
 
     // 表单字段

@@ -18,6 +18,14 @@
                 </div>
             </div>
 
+            <!--保存服务url-->
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">url</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="url" formControlName="url" />
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label class="col-sm-2 control-label">sqlId</label>
                 <div class="col-sm-10">
@@ -29,45 +37,78 @@
             <div class="form-group row">
                 <label class="col-sm-2 control-label">remark</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="remark" formControlName="remark" />
+                    <textarea class="form-control" placeholder="remark" formControlName="remark" ></textarea>
                 </div>
             </div>
         </div>
 
         <div class="card-box">
-            <button type="button" class="btn btn-info waves-effect waves-light" (click)="add(optioncontent)">添加字段</button>
+            <button type="button" class="btn btn-info waves-effect waves-light" (click)="openField(optioncontent)">字段</button>
+            <button type="button" class="btn btn-info waves-effect waves-light" (click)="preView(preViewContent)">预览</button>
         </div>
 
-        <!--表单列表-->
+        <!--表单字段列表-->
         <div class="card-box">
-            <div class="form-group row" *ngFor="let column of columns;">
-                <label class="col-sm-2 control-label">{{column.title}}</label>
-                <div class="col-sm-10" [ngSwitch]="column.fieldType">
+             <table class="table table table-hover table-bordered m-0 table-actions-bar">
+                     <thead>
+                        <tr class="trnowrap">
+                            <th>名称</th>
+                            <th>字段</th>
+                            <th>移除</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="tr-center" *ngFor="let column of columns;let idx=index">
+                            <td>{{column.title}}</td>
+                            <td>{{column.field}}</td>
+                            <td>
+                                <a class="table-action-btn" (click)="deleteIdx(idx)">
+                                <p><i class="md md-highlight-remove"></i></p>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+             </table>
+            
+            <!--show window option-->
+                <ng-template #preViewContent let-c="close" let-d="dismiss">
+                  <div class="modal-header">
+                    <h4 class="modal-title">{{formViewModel.code}}</h4>
+                    <!--<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>-->
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group row" *ngFor="let column of columns;">
+                        <label class="col-sm-2 control-label">{{column.title}}</label>
+                        <div class="col-sm-10" [ngSwitch]="column.fieldType">
 
-                    <!--text-->
-                    <input type="text" *ngSwitchCase="'text'" class="form-control" placeholder="{{column.title}}" />
+                            <!--text-->
+                            <input type="text" *ngSwitchCase="'text'" class="form-control" placeholder="{{column.title}}" />
 
-                    <!--select-->
-                    <select *ngSwitchCase="'select'" class="form-control">
-                 <option *ngFor="let location of locations" [value]="location.code">{{location.text}}</option>
-                </select>
+                            <!--select-->
+                            <select *ngSwitchCase="'select'" class="form-control">
+                        <option *ngFor="let location of locations" [value]="location.code">{{location.text}}</option>
+                        </select>
 
-                    <!--textarea-->
-                    <textarea *ngSwitchCase="'textarea'" rows="5" cols="20" class="form-control" placeholder="{{column.title}}"></textarea>
+                            <!--textarea-->
+                            <textarea *ngSwitchCase="'textarea'" rows="5" cols="20" class="form-control" placeholder="{{column.title}}"></textarea>
 
-                    <!--radio-->
-                    <div *ngSwitchCase="'radio'" class="checkbox checkbox-info">
-                        <input id="{{column.field}}radio" type="checkbox">
-                        <label for="{{column.field}}radio"></label>
+                            <!--radio-->
+                            <div *ngSwitchCase="'radio'" class="checkbox checkbox-info">
+                                <input id="{{column.field}}radio" type="checkbox">
+                                <label for="{{column.field}}radio"></label>
+                            </div>
+
+                            <!--文件上传-->
+
+                            <!--日期-->
+                        </div>
                     </div>
-
-                    <!--文件上传-->
-
-                    <!--日期-->
-
-
-                </div>
-            </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn w-sm btn-default waves-effect waves-light" (click)="stroe()">保存</button>
+                  </div>
+                </ng-template>
+           <!--show window option-->
         </div>
     </div>
     <div class="modal-footer">

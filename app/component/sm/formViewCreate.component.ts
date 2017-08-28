@@ -7,8 +7,9 @@ import { ColumOptions, Columns } from "../../metadata/ngb/ngbGrid/columnOptions.
 import { Mock } from "../../metadata/constant/mock.constant";
 import { FormViewModel } from "../../metadata/sm/formViewModel.md";
 import { DictConstant } from "../../metadata/constant/dict.constant";
-import { FormViewColEditComponent } from "./formViewColEdit.component";
-import { NgbActiveModal,NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { FormViewFieldEditComponent } from "./formViewFieldEdit.component";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Application } from "../../metadata/constant/application.constant";
 
 @Component({
     selector: 'sm-formViewCreate',
@@ -24,11 +25,13 @@ export class FormViewCreateComponent implements OnInit {
         private fb: FormBuilder,
         private logger: LoggerService,
         private httpService: HttpService,
-         private modalService: NgbModal) { }
+        private modalService: NgbModal) { }
 
     //表单数据对象
     formViewModel: FormViewModel
     ngbForm: FormGroup;
+
+    //表单字段
     columns:Array<Columns>;
     fieldTypes: Array<any> = DictConstant.createfieldTypes();
 
@@ -46,11 +49,11 @@ export class FormViewCreateComponent implements OnInit {
 
     }
 
-    add(content) {
+    openField(content) {
 
         //打开新建窗口
-        this.modalService.open(FormViewColEditComponent,{ size: "lg" }).result.then((result) => {
-            let column = <Columns>result;
+        this.modalService.open(FormViewFieldEditComponent,{ size: "lg" }).result.then((result) => {
+            let column = <Columns>result; 
             // const controls = <FormArray>this.ngbForm.controls['columns'];
              this.columns.push(column);
         }, (reason) => {
@@ -58,13 +61,36 @@ export class FormViewCreateComponent implements OnInit {
         });
     }
 
+    stroe(){
+        
+    }
+
+     // 设置按钮类型
+  preView(content) {
+    this.modalService.open(content, { size: "lg" }).result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
     createFormGroup() {
         let fg = {
             code: new FormControl(this.formViewModel.code, Validators.required),
-            sqlId: new FormControl(this.formViewModel.sqlId, Validators.required),
+            sqlId: new FormControl(this.formViewModel.sqlId),
+            url: new FormControl(this.formViewModel.url),
             remark: new FormControl(this.formViewModel.remark)
         };
         return fg;
+    }
+
+    deleteIdx(idx){
+        this.columns.splice(idx,1);
+    }
+
+    //预览
+    proView(){
+
     }
 
     onSubmit(){
@@ -74,6 +100,12 @@ export class FormViewCreateComponent implements OnInit {
         this.formViewModel.columns = this.columns;
         console.info(JSON.stringify(this.formViewModel));
         // this.activeModal.close(this.ngbForm.value);
+        this.httpService.http.post(Application.ubold_form_persistent, this.formViewModel)
+        .subscribe(res => {
+
+            //处理响应
+            alert(JSON.stringify(res.json()));
+        });
     }
 
 }

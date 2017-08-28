@@ -8,6 +8,8 @@ import { DataViewEditComponent } from "./component/sm/dataViewEdit.component";
 import { DataViewCreateComponent } from "./component/sm/dataViewCreate.component";
 import { FormViewCreateComponent } from "./component/sm/formViewCreate.component";
 import { DataViewResolver } from "./resolver/sm/dataViewResolver";
+import { FormViewComponent } from "./component/sm/formView.component";
+import { FormViewResolver } from "./resolver/sm/formViewResolver";
 
 
 const appRoutes: Routes = [
@@ -54,6 +56,16 @@ const appRoutes: Routes = [
             {
                 path: "formviewcreate",
                 component: FormViewCreateComponent
+            },
+            {
+                path: "formview/:sqlid",
+                component: FormViewComponent,
+                pathMatch: "prefix",
+                resolve: {
+
+                    //define formViewResolver
+                     formViewResolver: FormViewResolver
+                }
             }
         ]
     },

@@ -174,6 +174,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   removeControls(controls, idx) {
     controls.removeAt(idx);
   }
+  
   // 设置按钮类型
   openOption(content) {
     this.modalService.open(content, { size: "lg" }).result.then((result) => {

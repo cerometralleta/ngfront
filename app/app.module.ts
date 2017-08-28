@@ -10,6 +10,7 @@ import { FrameModule } from "./module/frame.module";
 import { Ngb2Module } from "./module/ngb.module";
 import { SmModule } from "./module/sm.module";
 import { DataViewResolver } from "./resolver/sm/dataViewResolver";
+import { FormViewResolver } from "./resolver/sm/formViewResolver";
 
 @NgModule({
     imports: [FrameModule,Routing,Ngb2Module,SmModule],
@@ -17,7 +18,7 @@ import { DataViewResolver } from "./resolver/sm/dataViewResolver";
     declarations: [
         AppComponent
     ],
-    providers: [AppRoutingProviders,DataViewResolver],
+    providers: [AppRoutingProviders,DataViewResolver,FormViewResolver],
     bootstrap: [AppComponent] // 根组件
 })
 export class AppModule { }

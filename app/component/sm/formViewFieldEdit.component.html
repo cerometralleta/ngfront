@@ -1,6 +1,6 @@
 <!--新增列表单模板-->
     <div class="modal-header">
-        <h4 class="modal-title">添加表单字段</h4>
+        <h4 class="modal-title">字段</h4>
     </div>
     <div class="modal-body" [formGroup]="ngbForm">
         <div class="form-group row">
@@ -71,6 +71,6 @@
     </div>
     <div class="modal-footer">
           <form (ngSubmit)="onSubmit()">
-            <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">保存</button>
+            <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">确定</button>
           </form>
     </div>
