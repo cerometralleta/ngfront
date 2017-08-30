@@ -405,7 +405,7 @@
       <div class="form-group row">
         <div class="col-sm-12">
           <div class="card-box">
-            <button type="button" class="btn btn-info waves-effect waves-light" (click)="alert()">生成列表</button>
+            <button type="button" class="btn btn-info waves-effect waves-light" (click)="createColumnList()">生成列表</button>
           </div>
           <div class="card-box overflow">
             <table class="table table table-hover table-bordered m-0 table-actions-bar">
@@ -532,7 +532,7 @@
                           <label class="col-sm-2 control-label">cardVisible</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-purple">
-                              <input id="{{columOptions.controls.field._value}}cardVisible" type="checkbox" formControlName="checkbox">
+                              <input id="{{columOptions.controls.field._value}}cardVisible" type="checkbox" formControlName="cardVisible">
                               <label for="{{columOptions.controls.field._value}}cardVisible"></label>
                             </div>
                           </div>
@@ -542,7 +542,7 @@
                           <label class="col-sm-2 control-label">switchable</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-warning">
-                              <input id="{{columOptions.controls.field._value}}switchable" type="checkbox" formControlName="checkbox">
+                              <input id="{{columOptions.controls.field._value}}switchable" type="checkbox" formControlName="switchable">
                               <label for="{{columOptions.controls.field._value}}switchable"></label>
                             </div>
                           </div>
@@ -552,7 +552,7 @@
                           <label class="col-sm-2 control-label">clickToSelect</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-pink">
-                              <input id="{{columOptions.controls.field._value}}clickToSelect" type="checkbox" formControlName="checkbox">
+                              <input id="{{columOptions.controls.field._value}}clickToSelect" type="checkbox" formControlName="clickToSelect">
                               <label for="{{columOptions.controls.field._value}}clickToSelect"></label>
                             </div>
                           </div>

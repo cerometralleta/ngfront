@@ -347,11 +347,10 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     return formArray;
   }
 
-  //初始化列表组件
-  createColumnsFormArray() {
-    let formArray = new Array<any>();
-    this.formData.columns.forEach(columnOptions => {
-      formArray.push(this.fb.group({
+
+//创建列
+ createColumnGroup(columnOptions){
+   return this.fb.group({
         field: [columnOptions.field, [Validators.required, Validators.maxLength(50)]],
         title: [columnOptions.title, [Validators.required, Validators.maxLength(50)]],
         updateType: [columnOptions.updateType, [Validators.required, Validators.maxLength(30)]],
@@ -371,12 +370,45 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         width: [columnOptions.width],
         sortable: [columnOptions.sortable],
         order: [columnOptions.order],
+        cardVisible:[columnOptions.cardVisible],
+        switchable:[columnOptions.switchable],
+        clickToSelect:[columnOptions.clickToSelect],
         // formatter: [columnOptions.formatter],
         // footerFormatter: [columnOptions.footerFormatter],
         sortName: [columnOptions.sortName]
-      }));
+      })
+ }
+
+  //初始化列表组件
+  createColumnsFormArray() {
+    let formArray = new Array<any>();
+    this.formData.columns.forEach(columnOptions => {
+      formArray.push(this.createColumnGroup(columnOptions));
     })
     return formArray;
+  }
+
+  //根据SQLID生成列
+  createColumnList(){
+    this.httpService.doPost(Application.ubold_sqldefine_createColumnList + "201708310019",null)
+    .subscribe(resp =>{
+       if(GoldbalConstant.STATUS_CODE.SUCCESS == resp.code){
+          let  dataList = resp.result;
+          const formArray = <FormArray>this.ngbForm.controls['columns'];
+          console.info(dataList);
+          //先清空,倒序删除数组
+          for (var idx = formArray.length; idx >= 0; idx--) {
+               formArray.removeAt(idx);
+          }
+        
+          //重新赋值
+          for (var index = 0; index < dataList.length; index++) {
+               formArray.push(this.createColumnGroup(dataList[index]));
+          }
+       }else{
+         alert(resp.messages)
+       }
+    });
   }
 
   showTreeCheck() {
@@ -427,6 +459,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     //TODO  查询sql define
 
   }
+
 
   //提交表单
   onSubmit() {

@@ -60,7 +60,14 @@ export class FormViewComponent implements OnInit {
     
     onSubmit(){
         this.logger.debug(JSON.stringify(this.ngbForm.value));
-        this.httpService.http.post(Application.baseContext + this.formViewModel.url, this.ngbForm.value)
+        let url = Application.baseContext + this.formViewModel.url;
+
+        //判断是否包含https://，http://
+        if(this.formViewModel.url.indexOf("https://") >= 0 ||
+            this.formViewModel.url.indexOf("http://") >= 0 ){
+                url = this.formViewModel.url;
+        }
+        this.httpService.http.post(url, this.ngbForm.value)
         .subscribe(res => {
 
             //处理响应
