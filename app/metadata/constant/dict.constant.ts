@@ -81,4 +81,20 @@ export class DictConstant {
     return location;
   }
 
+  static createSidePagination() {
+    let sidePagination = new Array<any>();
+    sidePagination.push({ code: "client", text: "client" });
+    sidePagination.push({ code: "server", text: "server" }); 
+    return sidePagination;
+  }
+
+   static createQueryParamsType() {
+    let queryParamsType = new Array<any>();
+    queryParamsType.push({ code: "undefined", text: "undefined" });
+    queryParamsType.push({ code: "limit", text: "limit" }); 
+    return queryParamsType;
+  }
+
+  
+
 }

@@ -11,7 +11,7 @@ export class Application {
     static ubold_sm_persistent:string = Application.baseContext + "/api/sm/persistent";
 
     //查询视图
-     static ubold_sm_query:string = Application.baseContext + "/api/sm/find/3555";
+     static ubold_sm_query:string = Application.baseContext + "/api/sm/find/201708312105";
 
      //生成视图列
      static ubold_sqldefine_createColumnList = Application.baseContext + "/api/sqlDefine/createColumnList/"

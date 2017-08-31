@@ -40,6 +40,9 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   expressions: Array<any> = DictConstant.createExpressions();
   methods: Array<any> = DictConstant.createMethods();
   locations: Array<any> = DictConstant.createLocation();
+  sidePaginations: Array<any> = DictConstant.createSidePagination();
+  createQueryParamsTypes: Array<any> = DictConstant.createQueryParamsType();
+  
 
   //SQL 定义
   sqlDefines: Array<any> = this.createSqlDefines();
@@ -281,10 +284,12 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       method: [this.formData.options.method, [Validators.required, Validators.maxLength(6)]],
       pagination: [this.formData.options.pagination],
       pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(3)]],
+      pageNumber:[this.formData.options.pageNumber],
       showExport: [this.formData.options.showExport],
       undefinedText: [this.formData.options.undefinedText],
       searchText: [this.formData.options.searchText],
       sortable: [this.formData.options.sortable],
+      sortStable:[this.formData.options.sortStable],
       // sortName: [this.formData.options.sortName],
       dataField: [this.formData.options.dataField],
       totalField: [this.formData.options.totalField],
@@ -307,7 +312,9 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       detailView: [this.formData.options.detailView],
       clickToSelect: [this.formData.options.clickToSelect],
       singleSelect: [this.formData.options.singleSelect],
-      showToggle:[this.formData.options.showToggle]
+      showToggle:[this.formData.options.showToggle],
+      sidePagination:[this.formData.options.sidePagination],
+      queryParamsType:[this.formData.options.queryParamsType]
     });
   }
 
@@ -375,7 +382,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         clickToSelect:[columnOptions.clickToSelect],
         // formatter: [columnOptions.formatter],
         // footerFormatter: [columnOptions.footerFormatter],
-        sortName: [columnOptions.sortName]
+        sortName: [columnOptions.sortName],
+        searchable:[columnOptions.searchable]
       })
  }
 
