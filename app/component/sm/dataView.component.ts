@@ -87,13 +87,13 @@ export class DataViewComponent implements OnInit {
 
          //监控路由守卫获取初始化数据
         this.route.data.subscribe(resp=>{
-        this.dataViewModule = resp.dataViewResolver.result;
-        this.dataViewModule.columns = resp.dataViewResolver.result.columns;
-        this.buttons =  resp.dataViewResolver.result.buttons;
-        this.dataFilters = resp.dataViewResolver.result.dataFilters;
-        this.treeOptions =  resp.dataViewResolver.result.treeOptions;
-        this.options = resp.dataViewResolver.result.options;
-        this.options.columns = resp.dataViewResolver.result.columns;
+            this.dataViewModule = resp.dataViewResolver.result;
+            this.dataViewModule.columns = resp.dataViewResolver.result.columns;
+            this.buttons =  resp.dataViewResolver.result.buttons;
+            this.dataFilters = resp.dataViewResolver.result.dataFilters;
+            this.treeOptions =  resp.dataViewResolver.result.treeOptions;
+            this.options = resp.dataViewResolver.result.options;
+            this.options.columns = resp.dataViewResolver.result.columns;
         });
 
         this.rightWidth();
