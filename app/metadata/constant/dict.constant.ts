@@ -69,8 +69,8 @@ export class DictConstant {
 
   static createMethods() {
     let methods = new Array<any>();
-    methods.push({ code: "POST", text: "POST" });
-    methods.push({ code: "GET", text: "GET" }); 
+    methods.push({ code: "post", text: "POST" });
+    methods.push({ code: "get", text: "GET" }); 
     return methods;
   }
   
