@@ -674,7 +674,7 @@
                   <th>名称</th>
                   <th>字段</th>
                   <th>数据类型</th>
-                  <th>字段类型</th>
+                  <!--<th>字段类型</th>-->
                   <th>最大长度</th>
                 </tr>
               </thead>
@@ -682,8 +682,8 @@
                 <tr class="tr-center" *ngFor="let column of formData.columns; let idx=index" (click)="filterSelected(column)">
                   <td>{{column.title}}</td>
                   <td>{{column.field}}</td>
-                  <td>{{column.dataField}}</td>
-                  <td>{{column.fieldType}}</td>
+                  <td>{{column.dataType}}</td>
+                  <!--<td>{{column.fieldType}}</td>-->
                   <td>{{column.maxlength}}</td>
                 </tr>
               </tbody>
