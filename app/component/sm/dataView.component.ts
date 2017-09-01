@@ -67,6 +67,8 @@ export class DataViewComponent implements OnInit {
         this.dataFilters.forEach(datafilter => {
              formArray.push(this.fb.group({
                  value: [datafilter.value],
+                 field: [datafilter.field],
+                 expression: [datafilter.expression],
                  title: [datafilter.title]
             }))
         });
