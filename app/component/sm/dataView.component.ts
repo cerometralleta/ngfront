@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
 import { URLSearchParams, Http, Jsonp } from "@angular/http";
 import { HttpService } from "../../service/basic/http.service";
 import { Application } from "../../metadata/constant/application.constant";
@@ -16,6 +16,8 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DataViewCreateComponent } from "./dataViewCreate.component";
 import { Mock } from "../../metadata/constant/mock.constant";
+import { NgbTreeComponent } from "../ngb/ngbTree.component";
+import { NgbGridComponent } from "../ngb/ngbGrid.component";
 
 /**
  * 统一dataView
@@ -49,6 +51,9 @@ export class DataViewComponent implements OnInit {
     
     //form group
     searchForm: FormGroup;
+
+    @ViewChild(NgbTreeComponent) ngbTreeComponent: NgbTreeComponent;//树组件
+    @ViewChild(NgbGridComponent) ngbGridComponent: NgbGridComponent;//bootstrapTable
     
     @Input() sqlId: string;
     constructor(
@@ -78,7 +83,7 @@ export class DataViewComponent implements OnInit {
     //查询列表
     search(){
         let datafilter = this.searchForm.value;
-        alert(JSON.stringify(datafilter));
+        this.ngbGridComponent.refresh(datafilter);
     }
 
     

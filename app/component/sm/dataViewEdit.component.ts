@@ -314,7 +314,9 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       singleSelect: [this.formData.options.singleSelect],
       showToggle:[this.formData.options.showToggle],
       sidePagination:[this.formData.options.sidePagination],
-      queryParamsType:[this.formData.options.queryParamsType]
+      queryParamsType:[this.formData.options.queryParamsType],
+      checkboxHeader:[this.formData.options.checkboxHeader],
+      maintainSelected:[this.formData.options.maintainSelected]
     });
   }
 

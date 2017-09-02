@@ -23,4 +23,8 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
     }
     @Input() options: BootstrapTableDefaults;
     constructor() { }
+
+    refresh(parameter){
+        this.ngbootstrapTable.bootstrapTable("refresh", {query: parameter});
+    }
 }
