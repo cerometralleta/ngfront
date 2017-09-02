@@ -18,6 +18,7 @@ import { DataViewCreateComponent } from "./dataViewCreate.component";
 import { Mock } from "../../metadata/constant/mock.constant";
 import { NgbTreeComponent } from "../ngb/ngbTree.component";
 import { NgbGridComponent } from "../ngb/ngbGrid.component";
+import { GoldbalConstant } from "../../metadata/constant/global.constant";
 
 /**
  * 统一dataView
@@ -103,45 +104,14 @@ export class DataViewComponent implements OnInit {
             this.options.columns = resp.dataViewResolver.result.columns;
         });
 
+        //计算右边宽度
         this.rightWidth();
+
+        //构建树
         this.ztree = this.createTree();
+        
+        //构建查询过滤
         this.createSearch();
-
-        // this.route.params.switchMap((parmes: Params) =>
-
-        //     this.httpService.doPost(Application.baseContext + "/" + parmes["sqlid"], "")
-        // ).subscribe(res => { // 传递过来的不是promise 所以要subscribe执行
-        //     console.log(res);
-           
-        //     // let resp = res.data() as Response<DataViewModule>;
-        //     // this.dataViewModule = resp.result;
-        //     // this.treeOptions = this.dataViewModule.treeOptions;
-        //     // this.buttons = this.dataViewModule.buttons;
-        //     // this.dataFilters = this.dataViewModule.dataFilters;
-        // });
-
-      
-
-        // var params = new URLSearchParams();
-        // params.set("id", "1");
-
-        // // 传递过来的不是promise 所以要subscribe执行
-        // this.httpService.doPost(Application.baseContext, params).subscribe(res => {
-        //     console.log(res);
-        //     let resp = res.data() as Response<DataViewModule>;
-        //     this.dataModule = resp.result;
-        //     treeOptions = this.dataModule.treeOptions;
-        //     options = this.dataModule.options;
-        //     buttons = this.dataModule.buttons;
-
-        //     //grid宽比例
-        //     let gridRange = 12 - treeOptions.range
-
-        //     //加载按钮需要的js文件
-        //     buttons.forEach(element => {
-        //     });
-
-        // });
     }
 
     //构建ztree
@@ -186,14 +156,28 @@ export class DataViewComponent implements OnInit {
 
     // 判断按钮是否为增删改
     if('i'==button.id){
-        const modalRef = this.modalService.open(DataViewCreateComponent);
+          const modalRef = this.modalService.open(DataViewCreateComponent,{ size: "lg" });
+          modalRef.result.then((result) => {
+            // this.closeResult = `Closed with: ${result}`;
+            }, (reason) => {
+            // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            });
+          modalRef.componentInstance.dataViewModule = this.dataViewModule;
         return;
     }
 
     if('u'==button.id){
-         const modalRef = this.modalService.open(DataViewCreateComponent);
-
          //获取选中数据id
+
+          this.httpService.doPost(Application.ubold_sm_fetch, 
+                {sqlId:this.dataViewModule.sqlId,id:null}).subscribe(resp =>{
+
+                  if(GoldbalConstant.STATUS_CODE.SUCCESS == resp.formViewResolver.code){
+                    const modalRef = this.modalService.open(DataViewCreateComponent,{ size: "lg" });
+                    modalRef.componentInstance.dataViewModule = this.dataViewModule
+                    modalRef.componentInstance.viewModel = resp.result;
+                  }
+            });
         return;
     }
 

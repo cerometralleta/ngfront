@@ -12,7 +12,7 @@
         <div class="col-sm-10" [ngSwitch]="column.fieldType">
             
             <!--text-->
-            <input type="text" *ngSwitchCase="'text'"  class="form-control" placeholder="{{column.title}}" formControlName="{{column.field}}" />
+            <input type="text" *ngSwitchCase="'text'"  class="form-control" placeholder="{{column.field}}" formControlName="{{column.field}}" />
 
             <!--select-->
              <select *ngSwitchCase="'select'" class="form-control" formControlName="{{column.field}}">
@@ -20,7 +20,7 @@
              </select>
 
             <!--textarea-->
-             <textarea *ngSwitchCase="'textarea'" rows="5" cols="20" class="form-control" placeholder="{{column.title}}" formControlName="remark"></textarea>
+             <textarea *ngSwitchCase="'textarea'" rows="5" cols="20" class="form-control" placeholder="{{column.field}}" formControlName="remark"></textarea>
 
             <!--radio-->
             <div *ngSwitchCase="'radio'" class="checkbox checkbox-info">

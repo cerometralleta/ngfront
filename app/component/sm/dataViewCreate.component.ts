@@ -15,19 +15,17 @@ import { Mock } from "../../metadata/constant/mock.constant";
 export class DataViewCreateComponent implements OnInit {
 
     //将列表dataViewModule透传
-    // @Input() dataViewModule:DataViewModule; 
-    // @Input() id:string;
-    
+    @Input() dataViewModule:DataViewModule; 
     ngbForm: FormGroup;
 
     //操作列
     columns:Array<ColumOptions>;
 
     //视图数据
-    viewModel:any;
+    @Input() viewModel:any;
     
     constructor(
-    // public activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private logger: LoggerService,
     private httpService: HttpService) { 
@@ -35,9 +33,11 @@ export class DataViewCreateComponent implements OnInit {
     }
     
     ngOnInit() { 
-        // this.columns = this.dataViewModule.columns;
-        this.columns = Mock.createColumn();
-        this.viewModel = {name:"aaaaa",sex:"男",remark:"ffffffffffff"};
+        this.columns = this.dataViewModule.columns;
+        // this.columns = Mock.createColumn();
+        if(!this.viewModel){
+             this.viewModel = {};
+        }
         this.ngbForm = new FormGroup(this.createFormGroup());
 
         // 根据id查询数据

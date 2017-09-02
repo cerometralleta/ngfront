@@ -13,6 +13,9 @@ export class Application {
     //查询视图
      static ubold_sm_query:string = Application.baseContext + "/api/sm/find/201708312105";
 
+      //查询视图
+     static ubold_sm_fetch:string = Application.baseContext + "/api/sm/fetch";
+
      //生成视图列
      static ubold_sqldefine_createColumnList = Application.baseContext + "/api/sqlDefine/createColumnList/"
     
