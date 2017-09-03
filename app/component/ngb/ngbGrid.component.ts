@@ -27,4 +27,8 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
     refresh(parameter){
         this.ngbootstrapTable.bootstrapTable("refresh", {query: parameter});
     }
+
+    getSelections(){
+        return this.ngbootstrapTable.bootstrapTable("getSelections");
+    }
 }

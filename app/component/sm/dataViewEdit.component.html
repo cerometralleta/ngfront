@@ -48,7 +48,7 @@
       <div class="form-group row">
         <label class="col-sm-2 control-label">sqlId</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="sqlId" formControlName="sqlId" (click)="openWindow()" />
+          <input type="text" class="form-control" placeholder="sqlId" formControlName="sqlId" (click)="openWindow()" readonly/>
         </div>
       </div>
       <div class="form-group row">
@@ -703,12 +703,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="tr-center" *ngFor="let column of formData.columns; let idx=index" (click)="filterSelected(column)">
-                  <td>{{column.title}}</td>
-                  <td>{{column.field}}</td>
-                  <td>{{column.dataType}}</td>
+                <!--<tr class="tr-center" *ngFor="let column of formData.columns; let idx=index" (click)="filterSelected(column)">-->
+                <tr class="tr-center" *ngFor="let columOptions of ngbForm.controls.columns.controls;" (click)="filterSelected(columOptions)">
+                  <td>{{columOptions.controls.title._value}}</td>
+                  <td>{{columOptions.controls.field._value}}</td>
+                  <td>{{columOptions.controls.dataType._value}}</td>
                   <!--<td>{{column.fieldType}}</td>-->
-                  <td>{{column.maxlength}}</td>
+                  <td>{{columOptions.controls.maxlength._value}}</td>
                 </tr>
               </tbody>
             </table>

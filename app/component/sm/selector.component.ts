@@ -22,25 +22,22 @@ import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { ToastrService } from "../../service/basic/toastr.service";
 
 /**
- * 统一dataView
+ * dataView选择器
  */
 @Component({
-    selector: 'sm-dataView',
-    templateUrl: './app/component/sm/dataView.component.html'
+    selector: 'sm-selector',
+    templateUrl: './app/component/sm/selector.component.html'
 })
-export class DataViewComponent implements OnInit {
+export class SelectorComponent implements OnInit {
 
     //页面数据
-    dataViewModule: DataViewModule;
+    @Input() dataViewModule: DataViewModule;
 
     // 树操作
     treeOptions: TreeOptions;
 
     // 查询条件
     dataFilters: Array<DataFilter>;
-
-    // 按钮
-    buttons : Array<Button>;
 
     // 内容区域宽度
     colContentWidth : number;
@@ -56,31 +53,20 @@ export class DataViewComponent implements OnInit {
 
     @ViewChild(NgbTreeComponent) ngbTreeComponent: NgbTreeComponent;//树组件
     @ViewChild(NgbGridComponent) ngbGridComponent: NgbGridComponent;//bootstrapTable
-    
-    @Input() sqlId: string;
     constructor(
          private logger: LoggerService
         ,private httpService: HttpService
-        ,private route: ActivatedRoute
         ,private modalService: NgbModal
         ,private fb: FormBuilder
         ,private toastr:ToastrService
-        // ,private activeModal: NgbActiveModal
+        ,private activeModal: NgbActiveModal
     ) {}
     ngOnInit() {
-        
-        // Mock.createDataViewList(this.dataViewModule);
-
-         //监控路由守卫获取初始化数据
-        this.route.data.subscribe(resp=>{
-            this.dataViewModule = resp.dataViewResolver.result;
-            this.dataViewModule.columns = resp.dataViewResolver.result.columns;
-            this.buttons =  resp.dataViewResolver.result.buttons;
-            this.dataFilters = resp.dataViewResolver.result.dataFilters;
-            this.treeOptions =  resp.dataViewResolver.result.treeOptions;
-            this.options = resp.dataViewResolver.result.options;
-            this.options.columns = resp.dataViewResolver.result.columns;
-        });
+        this.dataViewModule.columns = this.dataViewModule.columns;
+        this.dataFilters = this.dataViewModule.dataFilters;
+        this.treeOptions =  this.dataViewModule.treeOptions;
+        this.options = <BootstrapTableDefaults>this.dataViewModule.options;
+        this.options.columns = this.dataViewModule.columns;
 
         //计算右边宽度
         this.rightWidth();
@@ -94,7 +80,12 @@ export class DataViewComponent implements OnInit {
 
     //获取选中行
     getSelections(){
-        return this.ngbGridComponent.getSelections();
+        let selected = this.ngbGridComponent.getSelections();
+        if(selected.length < 1){
+            this.toastr.warning("请选择记录");
+            return;
+        }
+        this.activeModal.close(selected);
     }
 
     //返回当前DataViewModel
@@ -158,60 +149,6 @@ export class DataViewComponent implements OnInit {
     zTreeOnClick(event, treeId, treeNode) {
         alert(treeNode.tId + ", " + treeNode.name);
     };
-
-// 导航按钮点击
-   navClick(button:Button){
-
-    // 判断按钮是否为增删改
-    if('i'==button.id){
-          const modalRef = this.modalService.open(DataViewCreateComponent,{ size: "lg" });
-          modalRef.result.then((result) => {
-            // this.closeResult = `Closed with: ${result}`;
-            this.toastr.success(result);
-            this.search();
-        }, (reason) => {
-                // this.search();
-            // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            });
-          modalRef.componentInstance.dataViewModule = this.dataViewModule;
-        return;
-    }
-
-    if('u'==button.id){
-         //获取选中数据id
-         let id = "";
-
-          this.httpService.doPost(Application.ubold_sm_fetch, 
-                {sqlId:this.dataViewModule.sqlId,id:id}).subscribe(resp =>{
-
-                  if(GoldbalConstant.STATUS_CODE.SUCCESS == resp.formViewResolver.code){
-                    const modalRef = this.modalService.open(DataViewCreateComponent,{ size: "lg" });
-                    modalRef.componentInstance.dataViewModule = this.dataViewModule
-                    modalRef.componentInstance.viewModel = resp.result;
-                  }else{
-                       this.toastr.error(resp.message);
-                  }
-            });
-        return;
-    }
-
-      //接口
-    if(button.option == 'service'){
-
-    }
-      //模态窗口
-    if(button.option == 'dialog'){
-
-        // 弹出组件
-        const modalRef = this.modalService.open(null);
-        // modalRef.componentInstance.columOptions = columOptions;
- 
-      }
-      //新窗口
-     if(button.option == 'window'){
-
-      }
-   }
 
     // 计算内容宽度
     rightWidth(){

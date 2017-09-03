@@ -16,6 +16,8 @@ import { Observable } from "../../../node_modules/._rxjs@5.3.1@rxjs/Observable";
 import { DataViewResolver } from "../../resolver/sm/dataViewResolver";
 import { Resolve, ActivatedRoute } from '@angular/router';
 import { ToastrService } from "../../service/basic/toastr.service";
+import { DataViewComponent } from "./dataView.component";
+import { SelectorComponent } from "./selector.component";
 declare var $: any;
 
 @Component({
@@ -406,13 +408,20 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   //根据SQLID生成列
   createColumnList(){
-    this.httpService.doPost(Application.ubold_sqldefine_createColumnList + "201708310019",null)
+    this.httpService.doPost(Application.ubold_sqldefine_createColumnList + this.ngbForm.value.sqlId,null)
     .subscribe(resp =>{
        if(GoldbalConstant.STATUS_CODE.SUCCESS == resp.code){
           let  dataList = resp.result;
 
           //刷新ztree关系字段
           this.currentSqlDefineFields = resp.result;
+          
+          //刷新过滤器列,其实可以不用刷新
+          this.formData.columns = resp.result;
+
+          //清空数据过滤
+          this.clearDatafilter();
+
           const formArray = <FormArray>this.ngbForm.controls['columns'];
           console.info(dataList);
           //先清空,倒序删除数组
@@ -457,10 +466,11 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   filterSelected(column) {
     let datafilter = new DataFilter();
     // datafilter.id = GUID.createGUIDString();
-    datafilter.dataType = column.dataType;
-    datafilter.fieldType = column.fieldType;
-    datafilter.field = column.field;
-    datafilter.title = column.title;
+    let control = column.controls;
+    datafilter.dataType = control.dataType._value;
+    datafilter.fieldType = control.fieldType._value;
+    datafilter.field = control.field._value;
+    datafilter.title = control.title._value;
     datafilter.expression = '=';
     const controls = <FormArray>this.ngbForm.controls['dataFilters'];
     controls.push(this.fb.group({
@@ -473,11 +483,37 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     }));
   }
 
+//清空datafilter
+ clearDatafilter(){
+    const controls = <FormArray>this.ngbForm.controls['dataFilters'];
+    for (var idx = controls.length; idx >= 0; idx--) {
+              controls.removeAt(idx);
+        }
+ }
+
+
   // 查询sql define
   openWindow() {
+     
+     //查询sqldefine
+     this.httpService.http.post(Application.ubold_sm_sqldefine, null)
+      .subscribe(res => {
+          let resp = res.json();
+          //TODO  查询sql define
+          if(GoldbalConstant.STATUS_CODE.SUCCESS != resp.code){
+            this.toastr.error("选择器数据获取异常,请检查视图编号:DW2017090320430000");
+            return;  
+          }
+          const modalRef = this.modalService.open(SelectorComponent, { size: "lg" });
+          modalRef.componentInstance.dataViewModule =  resp.result;
+          modalRef.result.then((result) => {
 
-    //TODO  查询sql define
+              //返回的sqlId
+              this.ngbForm.controls["sqlId"].setValue(result[0].sqlId);
 
+              //清空生成的列
+          });
+      });
   }
 
 

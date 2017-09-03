@@ -5,3 +5,12 @@
 .nowrap{
 	white-space:nowrap; 
 }
+
+.modal-lg {
+    max-width: 1000px;
+}
+
+.modal-sm {
+    max-width: 800px;
+}
+

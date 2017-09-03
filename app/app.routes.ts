@@ -31,7 +31,7 @@ const appRoutes: Routes = [
                 component: MainComponent
             },
             {
-                path: "dataview/:sqlid",
+                path: "dataview/:code",
                 component: DataViewComponent,
                 pathMatch: "prefix",
                 resolve: {
@@ -41,7 +41,7 @@ const appRoutes: Routes = [
                 }
             },
             {
-                path: "dataviewedit",
+                path: "dataviewedit/:code",
                 component: DataViewEditComponent,
                 resolve: {
 

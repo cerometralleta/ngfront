@@ -1,0 +1,70 @@
+<div class="row">
+
+	<!-- tree start-->
+	<div class="col-md-{{treeOptions.width}}" *ngIf="treeOptions.show">
+		<div class="card-box overflow">
+			<ng4b-tree [setting]="ztree.setting" [znodes]="ztree.znodes"></ng4b-tree>
+		</div>
+	</div>
+	<!-- tree end -->
+
+	<!-- start of search row -->
+	<div class="col-md-{{colContentWidth}}">
+
+		<div class="row">
+			<div class="col-md-12">
+				
+				<div class="portlet">
+					<div class="portlet-heading">
+						
+						<div class="portlet-widgets" *ngIf="dataFilters.length > 0">
+							<!--<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>-->
+							<span class="divider"></span>
+							<a data-toggle="collapse" data-parent="#accordion1" href="#bg-primary" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
+							<span class="divider"></span>
+							<!--<a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>-->
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div id="bg-primary" class="panel-collapse collapse show" aria-expanded="true" *ngIf="dataFilters.length > 0">
+
+						<!-- search -->
+						<div class="portlet-body"  [formGroup]="searchForm">
+							<form class="form-inline" formArrayName="searchArray" (ngSubmit)="search()"> 
+								 <div  class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 mt20 row nowrap"
+									*ngFor="let df of searchForm.controls.searchArray.controls; let idx=index" [formGroupName]="idx" >
+									<label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5" >{{df.controls.title._value}}({{df.controls.expression._value}})</label>
+										 <input  type="text"  class="form-control" placeholder="{{df.controls.field._value}}"  formControlName="value">
+								</div>
+								
+								<button class="btn btn-info waves-effect waves-light input-sm mt20" type="submit"><i class="md-search m-r-5"></i>查询</button>
+							 </form>
+
+							<!--<button type="reset" class="btn btn-default waves-effect waves-light input-sm mt20"><i class="md-restore m-r-5"></i>重置</button>-->
+						</div>
+						<!-- search -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- End of search Row -->
+
+		<!-- start of datagrid -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card-box overflow">
+
+					<!--GRID-->
+					<ng4b-grid [options]="options"></ng4b-grid>
+					<!--GRID-->
+
+				</div>
+			</div>
+		</div>
+		<!-- end of datagrid -->
+	</div>
+</div>
+  <div class="modal-footer">
+        <button type="button" class="btn w-sm btn-default waves-effect waves-light" (click)="getSelections()" >确定</button>
+    </div>

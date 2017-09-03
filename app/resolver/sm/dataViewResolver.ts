@@ -22,6 +22,6 @@ export class DataViewResolver implements Resolve<DataViewModule> {
         // alert(this.route.params)
         
         //Resolve守卫（预先获取路由数据）。
-        return this.httpService.doPost(Application.ubold_sm_query, this.route.params);
+        return this.httpService.doPost(Application.ubold_sm_query + route.params.code, this.route.params);
     }
 }
