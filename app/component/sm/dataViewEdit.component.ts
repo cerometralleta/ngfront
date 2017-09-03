@@ -501,7 +501,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
           let resp = res.json();
           //TODO  查询sql define
           if(GoldbalConstant.STATUS_CODE.SUCCESS != resp.code){
-            this.toastr.error("选择器数据获取异常,请检查视图编号:DW2017090320430000");
+            this.toastr.error("选择器数据获取异常,请检查视图编号:DV0000000000000001");
             return;  
           }
           const modalRef = this.modalService.open(SelectorComponent, { size: "lg" });

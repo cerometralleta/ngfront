@@ -44,9 +44,7 @@ export class TreeOptions{
  * 查询条件
  */
 export class DataFilter {
-    constructor() {
-        
-    }
+    constructor() {}
     title:string;
     field:string;
     fieldType:string;

@@ -10,6 +10,7 @@ import { FormViewCreateComponent } from "./component/sm/formViewCreate.component
 import { DataViewResolver } from "./resolver/sm/dataViewResolver";
 import { FormViewComponent } from "./component/sm/formView.component";
 import { FormViewResolver } from "./resolver/sm/formViewResolver";
+import { DataViewListComponent } from "./component/sm/dataViewList.component";
 
 
 const appRoutes: Routes = [
@@ -48,6 +49,10 @@ const appRoutes: Routes = [
                     //define dataViewResolver
                      dataViewResolver: DataViewResolver
                 }
+            },
+            {
+                path: "datavieweditlist",
+                component: DataViewListComponent
             },
             {
                 path: "dataviewcreate",

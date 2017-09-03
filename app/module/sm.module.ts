@@ -19,6 +19,7 @@ import { FormViewFieldEditComponent } from "../component/sm/formViewFieldEdit.co
 import { FormViewComponent } from "../component/sm/formView.component";
 import { ToastrService } from "../service/basic/toastr.service";
 import { SelectorComponent } from "../component/sm/selector.component";
+import { DataViewListComponent } from "../component/sm/dataViewList.component";
  
 /**
  * SQL MANAGE模块
@@ -27,12 +28,12 @@ import { SelectorComponent } from "../component/sm/selector.component";
 @NgModule({
     imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,Ngb2Module,ReactiveFormsModule],
     exports: [DataViewComponent,DataViewEditComponent,DataViewCreateComponent,FormViewCreateComponent
-        ,FormViewEditComponent,FormViewComponent,SelectorComponent
+        ,FormViewEditComponent,FormViewComponent,SelectorComponent,DataViewListComponent
     ],
     declarations: [
         DataViewComponent,DataViewEditComponent,ButtonDialogComponent,TypeFilterPipe,DataViewCreateComponent
         ,FormViewCreateComponent ,FormViewEditComponent,FormViewFieldEditComponent,FormViewComponent,
-        SelectorComponent
+        SelectorComponent,DataViewListComponent
     ],
     entryComponents:[ButtonDialogComponent,FormViewFieldEditComponent,FormViewComponent,SelectorComponent],
     providers: [LoggerService,AppRoutingProviders,HttpService,ToastrService]

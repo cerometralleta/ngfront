@@ -1,15 +1,15 @@
 <div class="row">
 
 	<!-- tree start-->
-	<div class="col-md-{{treeOptions.width}}" *ngIf="treeOptions.show">
+	<!--<div class="col-md-{{treeOptions.width}}" *ngIf="treeOptions.show">
 		<div class="card-box overflow">
 			<ng4b-tree [setting]="ztree.setting" [znodes]="ztree.znodes"></ng4b-tree>
 		</div>
-	</div>
+	</div>-->
 	<!-- tree end -->
 
 	<!-- start of search row -->
-	<div class="col-md-{{colContentWidth}}">
+	<div class="col-md-12">
 
 		<div class="row">
 			<div class="col-md-12">
@@ -19,17 +19,13 @@
 						
 						<!-- toolbar -->
 						<div class="btn-group vertical-middle" data-toggle="buttons">
-							<!--<label *ngFor="let bt of buttons;" class="btn btn-white btn-md waves-effect active mb-0">
-                                                        <input type="radio" autocomplete="off" checked="" *ngIf="bt.type == 1">{{bt.type}}
-                                                    </label>-->
-							<button  *ngFor="let bt of buttons"  type="button" class="btn btn-default" (click)="navClick(bt)">
-										<span class="glyphicon glyphicon-plus" aria-hidden="true">{{bt.title}}</span>
+							<button type="button" class="btn btn-default" (click)="insert(bt)">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true">增加</span>
 							</button>
 						</div>
 						<!-- toolbar -->
-					 
 
-						<div class="portlet-widgets" *ngIf="dataFilters.length > 0">
+						<div class="portlet-widgets">
 							<!--<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>-->
 							<span class="divider"></span>
 							<a data-toggle="collapse" data-parent="#accordion1" href="#bg-primary" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
@@ -38,12 +34,12 @@
 						</div>
 						<div class="clearfix"></div>
 					</div>
-					<div id="bg-primary" class="panel-collapse collapse show" aria-expanded="true" *ngIf="dataFilters.length > 0">
+					<div id="bg-primary" class="panel-collapse collapse show" aria-expanded="true">
 
 						<!-- search -->
 						<div class="portlet-body"  [formGroup]="searchForm">
 							<form class="form-inline" formArrayName="searchArray" (ngSubmit)="search()"> 
-							
+							  
 								 <div  class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 mt20 row nowrap"
 									*ngFor="let df of searchForm.controls.searchArray.controls; let idx=index" [formGroupName]="idx" >
 									<label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5" >{{df.controls.title._value}}({{df.controls.expression._value}})</label>
@@ -51,9 +47,9 @@
 								</div>
 								
 								<button class="btn btn-info waves-effect waves-light input-sm mt20" type="submit"><i class="md-search m-r-5"></i>查询</button>
+							    <!--<button type="reset" class="btn btn-default waves-effect waves-light input-sm mt20"><i class="md-restore m-r-5"></i>重置</button>-->
 							 </form>
 
-							<!--<button type="reset" class="btn btn-default waves-effect waves-light input-sm mt20"><i class="md-restore m-r-5"></i>重置</button>-->
  
 						</div>
 						<!-- search -->
@@ -76,37 +72,5 @@
 				</div>
 			</div>
 		</div>
-		<!-- end of datagrid -->
-
-
-		<!--<div class="col-md-10">
-
-		<div class="row">
-			<div class="col-md-12">-->
-
-		<!-- 查询导航 -->
-
-		<!--数据列表-->
-		<!--<div class="row">
-					<div class="col-md-12">
-						<div class="card-box overflow">
-							
-							<div id="ngbToolbar" class="btn-group">
-								<button id="btn_add" type="button" class="btn btn-default">
-										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
-								</button>
-								<button id="btn_edit" type="button" class="btn btn-default">
-									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
-								</button>
-								<button id="btn_delete" type="button" class="btn btn-default">
-									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-								</button>
-							</div>-->
-		<!--<ng4b-grid [options]="options"></ng4b-grid>-->
-		<!--</div>
-					</div>
-				</div>
-			</div>
-		</div>-->
 	</div>
 </div>

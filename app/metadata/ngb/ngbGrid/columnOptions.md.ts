@@ -2,8 +2,7 @@
  * Column base @zkning
  */
 export class Columns {
-    constructor() {
-    }
+    constructor() {}
     field:string;
     title:string;
     updateType:string;
