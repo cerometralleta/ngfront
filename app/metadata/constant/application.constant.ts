@@ -15,6 +15,12 @@ export class Application {
 
       //查询视图
      static ubold_sm_fetch:string = Application.baseContext + "/api/sm/fetch";
+    
+    //视图保存
+    static ubold_sm_insert:string = Application.baseContext + "/api/sqlDefine/create/";
+    static ubold_sm_modfity:string = Application.baseContext + "/api/sqlDefine/modfity/";
+    static ubold_sm_delete:string = Application.baseContext + "/api/sqlDefine/delete/";
+
 
      //生成视图列
      static ubold_sqldefine_createColumnList = Application.baseContext + "/api/sqlDefine/createColumnList/"

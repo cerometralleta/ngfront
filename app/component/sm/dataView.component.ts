@@ -168,9 +168,10 @@ export class DataViewComponent implements OnInit {
 
     if('u'==button.id){
          //获取选中数据id
+         let id = "";
 
           this.httpService.doPost(Application.ubold_sm_fetch, 
-                {sqlId:this.dataViewModule.sqlId,id:null}).subscribe(resp =>{
+                {sqlId:this.dataViewModule.sqlId,id:id}).subscribe(resp =>{
 
                   if(GoldbalConstant.STATUS_CODE.SUCCESS == resp.formViewResolver.code){
                     const modalRef = this.modalService.open(DataViewCreateComponent,{ size: "lg" });

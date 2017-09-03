@@ -6,6 +6,8 @@ import { LoggerService } from "../../service/basic/logger.service";
 import { HttpService } from "../../service/basic/http.service";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 import { Mock } from "../../metadata/constant/mock.constant";
+import { Application } from "../../metadata/constant/application.constant";
+import { GoldbalConstant } from "../../metadata/constant/global.constant";
 
 @Component({
     selector: 'sm-dataViewCreate',
@@ -23,6 +25,7 @@ export class DataViewCreateComponent implements OnInit {
 
     //视图数据
     @Input() viewModel:any;
+    inset:boolean = false;
     
     constructor(
     public activeModal: NgbActiveModal,
@@ -36,20 +39,30 @@ export class DataViewCreateComponent implements OnInit {
         this.columns = this.dataViewModule.columns;
         // this.columns = Mock.createColumn();
         if(!this.viewModel){
+             this.inset = true;
              this.viewModel = {};
         }
         this.ngbForm = new FormGroup(this.createFormGroup());
-
-        // 根据id查询数据
-
-        // 遍历列表生成编辑字段
-
-        //保存数据
-
     }
 
     onSubmit(){
-        console.info(JSON.stringify(this.ngbForm.value))
+         console.info(JSON.stringify(this.ngbForm.value))
+         let url  = this.inset ? Application.ubold_sm_insert : Application.ubold_sm_modfity;
+          this.httpService.http.post(url + this.dataViewModule.dataViewCode,this.ngbForm.value).subscribe(resp =>{
+                  let response = resp.json();
+                  if(GoldbalConstant.STATUS_CODE.SUCCESS == response.code){
+                        
+                        //关闭刷新
+                  }else{
+                      alert(JSON.stringify(resp))
+                  }
+            });
+    }
+
+    normal(column){
+        let result = this.inset ? column.inset : column.updateType != GoldbalConstant.MODIFTY_TYPES.hide;
+        // console.info(result);
+        return result;
     }
     
     createFormGroup(){

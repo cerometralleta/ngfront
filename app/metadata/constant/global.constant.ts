@@ -14,11 +14,7 @@ export class GoldbalConstant {
     ];
 
     /*修改类型*/
-    static MODIFTY_TYPES = [
-        { value: 0, text: "隐藏" },
-        { value: 1, text: "显示" },
-        { value: 2, text: "DISABLE" }
-    ];
+    static MODIFTY_TYPES =  { hide: "hide", enable: "enable", disable: "disable" };
 
     /*排序类型*/
     static SORT_TYPES = [
