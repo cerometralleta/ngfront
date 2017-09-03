@@ -8,6 +8,7 @@ import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 import { Mock } from "../../metadata/constant/mock.constant";
 import { Application } from "../../metadata/constant/application.constant";
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
+import { ToastrService } from "../../service/basic/toastr.service";
 
 @Component({
     selector: 'sm-dataViewCreate',
@@ -31,7 +32,8 @@ export class DataViewCreateComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private logger: LoggerService,
-    private httpService: HttpService) { 
+    private httpService: HttpService,
+    private toastr:ToastrService) { 
 
     }
     
@@ -53,8 +55,9 @@ export class DataViewCreateComponent implements OnInit {
                   if(GoldbalConstant.STATUS_CODE.SUCCESS == response.code){
                         
                         //关闭刷新
+                         this.toastr.success(response.message);
                   }else{
-                      alert(JSON.stringify(resp))
+                     this.toastr.error(response.message);
                   }
             });
     }

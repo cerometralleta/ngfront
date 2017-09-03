@@ -17,6 +17,7 @@ import { FormViewCreateComponent } from "../component/sm/formViewCreate.componen
 import { FormViewEditComponent } from "../component/sm/formViewEdit.component";
 import { FormViewFieldEditComponent } from "../component/sm/formViewFieldEdit.component";
 import { FormViewComponent } from "../component/sm/formView.component";
+import { ToastrService } from "../service/basic/toastr.service";
  
 /**
  * SQL MANAGE模块
@@ -32,6 +33,6 @@ import { FormViewComponent } from "../component/sm/formView.component";
         ,FormViewCreateComponent ,FormViewEditComponent,FormViewFieldEditComponent,FormViewComponent
     ],
     entryComponents:[ButtonDialogComponent,FormViewFieldEditComponent,FormViewComponent],
-    providers: [LoggerService,AppRoutingProviders,HttpService]
+    providers: [LoggerService,AppRoutingProviders,HttpService,ToastrService]
 })
 export class SmModule { }

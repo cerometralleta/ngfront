@@ -19,6 +19,7 @@ import { Mock } from "../../metadata/constant/mock.constant";
 import { NgbTreeComponent } from "../ngb/ngbTree.component";
 import { NgbGridComponent } from "../ngb/ngbGrid.component";
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
+import { ToastrService } from "../../service/basic/toastr.service";
 
 /**
  * 统一dataView
@@ -63,6 +64,7 @@ export class DataViewComponent implements OnInit {
         ,private route: ActivatedRoute
         ,private modalService: NgbModal
         ,private fb: FormBuilder
+        ,private toastr:ToastrService
     ) {
 
     }
@@ -177,6 +179,8 @@ export class DataViewComponent implements OnInit {
                     const modalRef = this.modalService.open(DataViewCreateComponent,{ size: "lg" });
                     modalRef.componentInstance.dataViewModule = this.dataViewModule
                     modalRef.componentInstance.viewModel = resp.result;
+                  }else{
+                       this.toastr.error(resp.message);
                   }
             });
         return;
