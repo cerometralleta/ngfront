@@ -89,8 +89,6 @@ export class DataViewComponent implements OnInit {
         this.ngbGridComponent.refresh(datafilter);
     }
 
-    
-
     ngOnInit() {
         
         // Mock.createDataViewList(this.dataViewModule);
@@ -162,6 +160,7 @@ export class DataViewComponent implements OnInit {
           modalRef.result.then((result) => {
             // this.closeResult = `Closed with: ${result}`;
             }, (reason) => {
+                this.search();
             // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
             });
           modalRef.componentInstance.dataViewModule = this.dataViewModule;

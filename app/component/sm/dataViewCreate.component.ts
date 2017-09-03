@@ -53,9 +53,9 @@ export class DataViewCreateComponent implements OnInit {
           this.httpService.http.post(url + this.dataViewModule.dataViewCode,this.ngbForm.value).subscribe(resp =>{
                   let response = resp.json();
                   if(GoldbalConstant.STATUS_CODE.SUCCESS == response.code){
-                        
                         //关闭刷新
-                         this.toastr.success(response.message);
+                        this.activeModal.dismiss(response.message);
+                        //  this.toastr.success(response.message);
                   }else{
                      this.toastr.error(response.message);
                   }
