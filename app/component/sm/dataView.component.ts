@@ -159,8 +159,10 @@ export class DataViewComponent implements OnInit {
           const modalRef = this.modalService.open(DataViewCreateComponent,{ size: "lg" });
           modalRef.result.then((result) => {
             // this.closeResult = `Closed with: ${result}`;
-            }, (reason) => {
-                this.search();
+            this.toastr.success(result);
+            this.search();
+        }, (reason) => {
+                // this.search();
             // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
             });
           modalRef.componentInstance.dataViewModule = this.dataViewModule;

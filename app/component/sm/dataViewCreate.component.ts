@@ -54,8 +54,7 @@ export class DataViewCreateComponent implements OnInit {
                   let response = resp.json();
                   if(GoldbalConstant.STATUS_CODE.SUCCESS == response.code){
                         //关闭刷新
-                        this.activeModal.dismiss(response.message);
-                        //  this.toastr.success(response.message);
+                        this.activeModal.close(response.message);
                   }else{
                      this.toastr.error(response.message);
                   }
