@@ -821,7 +821,7 @@
         <label class="col-sm-2 control-label">relationField</label>
         <div class="col-sm-10">
           <select class="form-control" formControlName="relationField" placeholder="relationField">
-                         <option *ngFor="let field of currentSqlDefineFields" [value]="field">{{field}}</option>
+                         <option *ngFor="let col of currentSqlDefineFields" [value]="col.field">{{col.field}}</option>
                        </select>
         </div>
       </div>

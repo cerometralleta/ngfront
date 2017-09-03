@@ -231,6 +231,10 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     //监控路由守卫获取初始化数据
     this.route.data.subscribe(resp=>{
        this.formData = resp.dataViewResolver.result;
+
+       //ztree关系字段
+       this.currentSqlDefineFields = this.formData.columns;
+       
     });
   }
 
@@ -406,6 +410,9 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     .subscribe(resp =>{
        if(GoldbalConstant.STATUS_CODE.SUCCESS == resp.code){
           let  dataList = resp.result;
+
+          //刷新ztree关系字段
+          this.currentSqlDefineFields = resp.result;
           const formArray = <FormArray>this.ngbForm.controls['columns'];
           console.info(dataList);
           //先清空,倒序删除数组
@@ -417,8 +424,9 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
           for (var index = 0; index < dataList.length; index++) {
                formArray.push(this.createColumnGroup(dataList[index]));
           }
+          this.toastr.success("字段列表更新成功");
        }else{
-         alert(resp.messages)
+         this.toastr.error(resp.messages)
        }
     });
   }
