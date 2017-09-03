@@ -14,7 +14,8 @@ import { Mock } from "../../metadata/constant/mock.constant";
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { Observable } from "../../../node_modules/._rxjs@5.3.1@rxjs/Observable";
 import { DataViewResolver } from "../../resolver/sm/dataViewResolver";
-import { Resolve,ActivatedRoute } from '@angular/router';
+import { Resolve, ActivatedRoute } from '@angular/router';
+import { ToastrService } from "../../service/basic/toastr.service";
 declare var $: any;
 
 @Component({
@@ -60,7 +61,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private dataViewResolver:DataViewResolver,
     private route: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr:ToastrService
   ) { }
   ngOnInit() {
     this.createModule();
@@ -476,13 +478,14 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.formData = this.ngbForm.value;
     this.httpService.http.post(Application.ubold_sm_persistent, this.formData)
       .subscribe(res => {
-
-        //处理响应
-        alert(JSON.stringify(res.json()));
+         let resp = res.json();
+         if(GoldbalConstant.STATUS_CODE.SUCCESS == resp.code){
+            this.toastr.success(resp.message);
+         }else{
+            this.toastr.error(resp.message);
+         }
       });
-
-
-    console.info(JSON.stringify(this.formData))
+    // console.info(JSON.stringify(this.formData))
   }
 
   //变更
