@@ -523,11 +523,11 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
          let resp = res.json();
          if(GoldbalConstant.STATUS_CODE.SUCCESS == resp.code){
             this.toastr.success(resp.message);
+            this.cancel();
          }else{
             this.toastr.error(resp.message);
          }
       });
-    // console.info(JSON.stringify(this.formData))
   }
 
   cancel(){

@@ -122,20 +122,23 @@ export class DataViewListComponent implements OnInit {
         let dataViewCode = new ColumOptions();
         dataViewCode.field = "dataViewCode";
         dataViewCode.title = "编号";
+        dataViewCode.sortable=true;
         this.options.columns.push(dataViewCode);
         
         let dataViewName = new ColumOptions();
         dataViewName.field = "dataViewName";
         dataViewName.title = "名称";
+        dataViewName.sortable=true;
         this.options.columns.push(dataViewName);
 
         let sqlId = new ColumOptions();
         sqlId.field = "sqlId";
         sqlId.title = "sqlId";
+        sqlId.sortable=true;
         this.options.columns.push(sqlId);
 
         let remark = new ColumOptions();
-        remark.field = "sqlId";
+        remark.field = "remark";
         remark.title = "备注";
         this.options.columns.push(remark);
 
@@ -147,11 +150,13 @@ export class DataViewListComponent implements OnInit {
         let createTime = new ColumOptions();
         createTime.field = "createTime";
         createTime.title = "创建时间";
+        createTime.sortable=true;
         this.options.columns.push(createTime);
         
         let lasetUpdateTime = new ColumOptions();
         lasetUpdateTime.field = "lasetUpdateTime";
         lasetUpdateTime.title = "更新时间";
+        lasetUpdateTime.sortable=true;
         this.options.columns.push(lasetUpdateTime);
     }
 
