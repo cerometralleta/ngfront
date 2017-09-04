@@ -105,8 +105,8 @@ export class DataViewListComponent implements OnInit {
         this.options.editView = false,
         this.options.cardView = false,
         this.options.detailView = false,
-        this.options.clickToSelect = true,
-        this.options.singleSelect = true,
+        this.options.clickToSelect = false,
+        this.options.singleSelect = false,
         this.options.checkboxHeader = true,
         this.options.maintainSelected = true,
         this.options.sortable = true,
@@ -235,22 +235,15 @@ export class DataViewListComponent implements OnInit {
 
     // 导航按钮点击
     insert() {
-        this.router.navigate(['/dataviewedit',"DV0000000000000001"]);
+        this.router.navigate(['home','dataviewedit',""]);
     }
 
     update() {
-        //获取选中数据id
-        let id = this.ngbGridComponent.getSelections()[0].id;
-        this.httpService.doPost(Application.ubold_sm_fetch,
-            { sqlId: null, id: id }).subscribe(resp => {
-
-                if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.formViewResolver.code) {
-                    const modalRef = this.modalService.open(DataViewCreateComponent, { size: "lg" });
-                    modalRef.componentInstance.dataViewModule = null;
-                    modalRef.componentInstance.viewModel = resp.result;
-                } else {
-                    this.toastr.error(resp.message);
-                }
-            });
+        let _selected = this.ngbGridComponent.getSelections();
+        if(_selected < 1){
+            this.toastr.warning("请选择要修改的记录!");
+            return;
+        }
+        this.router.navigate(['home','dataviewedit',_selected[0].id]);
     }
 }

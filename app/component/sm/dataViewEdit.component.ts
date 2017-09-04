@@ -14,7 +14,7 @@ import { Mock } from "../../metadata/constant/mock.constant";
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { Observable } from "../../../node_modules/._rxjs@5.3.1@rxjs/Observable";
 import { DataViewResolver } from "../../resolver/sm/dataViewResolver";
-import { Resolve, ActivatedRoute } from '@angular/router';
+import { Resolve, ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from "../../service/basic/toastr.service";
 import { DataViewComponent } from "./dataView.component";
 import { SelectorComponent } from "./selector.component";
@@ -56,14 +56,13 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   //当前对应SQLDEFINE
   currentSqlDefineFields: Array<any>;
 
-  @Input() dataViewId: string;
-
   constructor(private logger: LoggerService,
     private httpService: HttpService,
     private fb: FormBuilder,
     private dataViewResolver:DataViewResolver,
     private route: ActivatedRoute,
     private modalService: NgbModal,
+    private router:Router, 
     private toastr:ToastrService
   ) { }
   ngOnInit() {
@@ -220,20 +219,19 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
 
   //创建页面数据
   createModule() {
-    if (this.dataViewId && this.dataViewId != null) {
-      this.formData = new DataViewModule();
-      this.formData.columns = new Array<any>();
-      this.formData.dataFilters = new Array<any>();
-      this.formData.buttons = new Array<any>();
-      this.formData.options = new Options();
-      this.formData.treeOptions = new TreeOptions();
-      return;
-    }
 
     //监控路由守卫获取初始化数据
     this.route.data.subscribe(resp=>{
-       this.formData = resp.dataViewResolver.result;
-
+      if(resp.dataViewResolver){
+          this.formData = resp.dataViewResolver.result;
+      }else{
+          this.formData = new DataViewModule();
+          this.formData.columns = new Array<any>();
+          this.formData.dataFilters = new Array<any>();
+          this.formData.buttons = new Array<any>();
+          this.formData.options = new Options();
+          this.formData.treeOptions = new TreeOptions();
+      }
        //ztree关系字段
        this.currentSqlDefineFields = this.formData.columns;
        
@@ -530,6 +528,10 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
          }
       });
     // console.info(JSON.stringify(this.formData))
+  }
+
+  cancel(){
+    this.router.navigate(['home','dataviewlist']);
   }
 
   //变更

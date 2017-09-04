@@ -51,7 +51,7 @@ const appRoutes: Routes = [
                 }
             },
             {
-                path: "datavieweditlist",
+                path: "dataviewlist",
                 component: DataViewListComponent
             },
             {

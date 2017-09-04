@@ -11,17 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 @Injectable()
 export class DataViewResolver implements Resolve<DataViewModule> {
     constructor(private httpService: HttpService,
-     private route: ActivatedRoute) { }
+     private activatedRoute: ActivatedRoute) { }
 
     resolve(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<any> | Promise<any> | any {
-
-        //获取参数
-        // alert(this.route.params)
         
         //Resolve守卫（预先获取路由数据）。
-        return this.httpService.doPost(Application.ubold_sm_query + route.params.code, this.route.params);
+        if(route.params.code != ""){
+            return this.httpService.doPost(Application.ubold_sm_query + route.params.code, null);
+        }
+        return Promise.resolve();
     }
 }
