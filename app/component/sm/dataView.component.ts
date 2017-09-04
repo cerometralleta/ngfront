@@ -56,8 +56,6 @@ export class DataViewComponent implements OnInit {
 
     @ViewChild(NgbTreeComponent) ngbTreeComponent: NgbTreeComponent;//树组件
     @ViewChild(NgbGridComponent) ngbGridComponent: NgbGridComponent;//bootstrapTable
-    
-    @Input() sqlId: string;
     constructor(
          private logger: LoggerService
         ,private httpService: HttpService
@@ -65,7 +63,6 @@ export class DataViewComponent implements OnInit {
         ,private modalService: NgbModal
         ,private fb: FormBuilder
         ,private toastr:ToastrService
-        // ,private activeModal: NgbActiveModal
     ) {}
     ngOnInit() {
         
@@ -216,7 +213,6 @@ export class DataViewComponent implements OnInit {
     // 计算内容宽度
     rightWidth(){
       let maxWidth = 12;
-      console.info(maxWidth);
       if(this.treeOptions.show){
             this.colContentWidth = maxWidth - this.treeOptions.width;
             return;

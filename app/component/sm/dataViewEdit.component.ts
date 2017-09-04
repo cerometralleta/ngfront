@@ -24,7 +24,7 @@ declare var $: any;
   selector: 'sm-dataViewEdit',
   templateUrl: './app/component/sm/dataViewEdit.component.html'
 })
-export class DataViewEditComponent implements OnInit, AfterViewInit {
+export class DataViewEditComponent implements OnInit {
 
   //form group
   ngbForm: FormGroup;
@@ -45,33 +45,29 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   locations: Array<any> = DictConstant.createLocation();
   sidePaginations: Array<any> = DictConstant.createSidePagination();
   createQueryParamsTypes: Array<any> = DictConstant.createQueryParamsType();
-  
+
 
   //SQL 定义
   sqlDefines: Array<any> = this.createSqlDefines();
 
-  //被过滤的sqldefine
-  sqlDefineFields: Array<any>;
+  //ztree sqldefine fields
+  ztreeSqlDefineFields: Array<any>;
 
-  //当前对应SQLDEFINE
+  //当前对应SQLDEFINE,relationId字段
   currentSqlDefineFields: Array<any>;
 
   constructor(private logger: LoggerService,
     private httpService: HttpService,
     private fb: FormBuilder,
-    private dataViewResolver:DataViewResolver,
+    private dataViewResolver: DataViewResolver,
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    private router:Router, 
-    private toastr:ToastrService
+    private router: Router,
+    private toastr: ToastrService
   ) { }
   ngOnInit() {
     this.createModule();
     this.buildForm();
-  }
-
-  ngAfterViewInit(): void {
-
   }
 
   // 添加按钮
@@ -85,7 +81,6 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       const controls = <FormArray>this.ngbForm.controls['buttons'];
       controls.push(this.fb.group({
         id: [button.id],
-        // option: [button.option, [Validators.required]],
         option: [button.option],
         window: [button.window],
         size: [button.size],
@@ -95,9 +90,6 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
         location: [button.location, [Validators.required]]
       }));
     }
-      // , (reason) => {
-      //      alert(1233)
-      // }
     );
   }
 
@@ -180,7 +172,7 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   removeControls(controls, idx) {
     controls.removeAt(idx);
   }
-  
+
   // 设置按钮类型
   openOption(content) {
     this.modalService.open(content, { size: "lg" }).result.then((result) => {
@@ -210,31 +202,73 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     return array;
   }
 
-  //树sqldefine变更清空当前树内容
-  treeSqlDefineChange() {
-    const formGroup = <FormGroup>this.ngbForm.controls['treeOptions'];
-    formGroup.setValue({ idKey: "", pIdKey: "", name: "" });
+  //ztree 数据源
+  openZtreeSqlDefine(){
+    //查询sqldefine
+    this.httpService.http.post(Application.ubold_sm_sqldefine, null)
+      .subscribe(res => {
+        let resp = res.json();
+        //TODO  查询sql define
+        if (GoldbalConstant.STATUS_CODE.SUCCESS != resp.code) {
+          this.toastr.error("选择器数据获取异常,请检查视图编号:DV0000000000000001");
+          return;
+        }
+        const modalRef = this.modalService.open(SelectorComponent, { size: "lg" });
+        modalRef.componentInstance.dataViewModule = resp.result;
+        modalRef.result.then((result) => {
+           const _treeFormGroup = <FormGroup>this.ngbForm.controls['treeOptions'];
+           let _selectedSqlId = result[0].sqlId;
+
+           if(_selectedSqlId == _treeFormGroup.controls.sqlId.value){
+              return;
+           }
+            _treeFormGroup.controls.sqlId.setValue(_selectedSqlId);
+
+             //clear idKey,pIdkey name field
+            _treeFormGroup.controls.idKey.setValue("");
+            _treeFormGroup.controls.pIdKey.setValue("");
+            _treeFormGroup.controls.name.setValue("");
+
+           //刷新sqldefine fields
+           this.refreshZtreeSqlIdFields(_selectedSqlId);
+        });
+      });
   }
+
+  //ztree sqldefine 
+  refreshZtreeSqlIdFields(sqlId){
+       this.httpService.doPost(Application.ubold_sqldefine_createColumnList + sqlId, null)
+      .subscribe(resp => {
+        if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
+          //刷新ztree关系字段
+          this.ztreeSqlDefineFields = resp.result;
+        } else {
+          this.toastr.error(resp.messages)
+        }
+      });
+  }
+
+ 
 
 
   //创建页面数据
   createModule() {
 
     //监控路由守卫获取初始化数据
-    this.route.data.subscribe(resp=>{
-      if(resp.dataViewResolver){
-          this.formData = resp.dataViewResolver.result;
-      }else{
-          this.formData = new DataViewModule();
-          this.formData.columns = new Array<any>();
-          this.formData.dataFilters = new Array<any>();
-          this.formData.buttons = new Array<any>();
-          this.formData.options = new Options();
-          this.formData.treeOptions = new TreeOptions();
+    this.route.data.subscribe(resp => {
+      if (resp.dataViewResolver) {
+        this.formData = resp.dataViewResolver.result;
+      } else {
+        this.formData = new DataViewModule();
+        this.formData.columns = new Array<any>();
+        this.formData.dataFilters = new Array<any>();
+        this.formData.buttons = new Array<any>();
+        this.formData.options = new Options();
+        this.formData.treeOptions = new TreeOptions();
       }
-       //ztree关系字段
-       this.currentSqlDefineFields = this.formData.columns;
-       
+      //ztree关系字段
+      this.currentSqlDefineFields = this.formData.columns;
+
     });
   }
 
@@ -244,8 +278,8 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.createOptionsFormGroup();
 
     this.formGroup = {
-      id:[this.formData.id],
-      version:[this.formData.version],
+      id: [this.formData.id],
+      version: [this.formData.version],
       dataViewCode: [this.formData.dataViewCode, [
         Validators.required,
         Validators.maxLength(30)]
@@ -281,6 +315,11 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       width: [this.formData.treeOptions.width],
       relationField: [this.formData.treeOptions.relationField]
     });
+
+    //refresh ztree
+    if(this.formData.treeOptions.sqlId){
+      this.refreshZtreeSqlIdFields(this.formData.treeOptions.sqlId);
+    }
   }
 
   createOptionsFormGroup() {
@@ -290,12 +329,12 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       method: [this.formData.options.method, [Validators.required, Validators.maxLength(6)]],
       pagination: [this.formData.options.pagination],
       pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(3)]],
-      pageNumber:[this.formData.options.pageNumber],
+      pageNumber: [this.formData.options.pageNumber],
       showExport: [this.formData.options.showExport],
       undefinedText: [this.formData.options.undefinedText],
       searchText: [this.formData.options.searchText],
       sortable: [this.formData.options.sortable],
-      sortStable:[this.formData.options.sortStable],
+      sortStable: [this.formData.options.sortStable],
       // sortName: [this.formData.options.sortName],
       dataField: [this.formData.options.dataField],
       totalField: [this.formData.options.totalField],
@@ -318,11 +357,11 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
       detailView: [this.formData.options.detailView],
       clickToSelect: [this.formData.options.clickToSelect],
       singleSelect: [this.formData.options.singleSelect],
-      showToggle:[this.formData.options.showToggle],
-      sidePagination:[this.formData.options.sidePagination],
-      queryParamsType:[this.formData.options.queryParamsType],
-      checkboxHeader:[this.formData.options.checkboxHeader],
-      maintainSelected:[this.formData.options.maintainSelected]
+      showToggle: [this.formData.options.showToggle],
+      sidePagination: [this.formData.options.sidePagination],
+      queryParamsType: [this.formData.options.queryParamsType],
+      checkboxHeader: [this.formData.options.checkboxHeader],
+      maintainSelected: [this.formData.options.maintainSelected]
     });
   }
 
@@ -347,53 +386,53 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   createbuttonsFormArray() {
     let formArray = new Array<any>();
     this.formData.buttons.forEach(button => {
-      formArray.push(this.fb.group({
-        id:[button.id],
-        option: [button.option, [Validators.required]],
-        window: [button.window],
-        size: [button.size],
-        icon: [button.icon],
-        title: [button.title, [Validators.required, Validators.maxLength(50)]],
-        url: [button.url, [Validators.required]],
-        location: [button.location, [Validators.required]]
-      })
+        formArray.push(this.fb.group({
+          id: [button.id],
+          option: [button.option, [Validators.required]],
+          window: [button.window],
+          size: [button.size],
+          icon: [button.icon],
+          title: [button.title, [Validators.required, Validators.maxLength(50)]],
+          url: [button.url, [Validators.required]],
+          location: [button.location, [Validators.required]]
+        })
       )
     });
     return formArray;
   }
 
 
-//创建列
- createColumnGroup(columnOptions){
-   return this.fb.group({
-        field: [columnOptions.field, [Validators.required, Validators.maxLength(50)]],
-        title: [columnOptions.title, [Validators.required, Validators.maxLength(50)]],
-        updateType: [columnOptions.updateType, [Validators.required, Validators.maxLength(30)]],
-        view: [columnOptions.view],
-        inset: [columnOptions.inset],
-        visible: [columnOptions.visible],
-        dataType: [columnOptions.dataType, [Validators.maxLength(10)]],
-        fieldType: [columnOptions.fieldType, [Validators.required, Validators.maxLength(30)]],
-        maxlength: [columnOptions.maxlength],
-        idx: [columnOptions.idx, [Validators.maxLength(10)]],
-        align: [columnOptions.align, [Validators.maxLength(10)]],
-        halign: [columnOptions.halign, [Validators.maxLength(10)]],
-        falign: [columnOptions.falign, [Validators.maxLength(10)]],
-        radio: [columnOptions.radio],
-        checkbox: [columnOptions.checkbox],
-        valign: [columnOptions.valign],
-        width: [columnOptions.width],
-        sortable: [columnOptions.sortable],
-        order: [columnOptions.order],
-        cardVisible:[columnOptions.cardVisible],
-        switchable:[columnOptions.switchable],
-        clickToSelect:[columnOptions.clickToSelect],
-        // formatter: [columnOptions.formatter],
-        // footerFormatter: [columnOptions.footerFormatter],
-        sortName: [columnOptions.sortName],
-        searchable:[columnOptions.searchable]
-      })
- }
+  //创建列
+  createColumnGroup(columnOptions) {
+    return this.fb.group({
+      field: [columnOptions.field, [Validators.required, Validators.maxLength(50)]],
+      title: [columnOptions.title, [Validators.required, Validators.maxLength(50)]],
+      updateType: [columnOptions.updateType, [Validators.required, Validators.maxLength(30)]],
+      view: [columnOptions.view],
+      inset: [columnOptions.inset],
+      visible: [columnOptions.visible],
+      dataType: [columnOptions.dataType, [Validators.maxLength(10)]],
+      fieldType: [columnOptions.fieldType, [Validators.required, Validators.maxLength(30)]],
+      maxlength: [columnOptions.maxlength],
+      idx: [columnOptions.idx, [Validators.maxLength(10)]],
+      align: [columnOptions.align, [Validators.maxLength(10)]],
+      halign: [columnOptions.halign, [Validators.maxLength(10)]],
+      falign: [columnOptions.falign, [Validators.maxLength(10)]],
+      radio: [columnOptions.radio],
+      checkbox: [columnOptions.checkbox],
+      valign: [columnOptions.valign],
+      width: [columnOptions.width],
+      sortable: [columnOptions.sortable],
+      order: [columnOptions.order],
+      cardVisible: [columnOptions.cardVisible],
+      switchable: [columnOptions.switchable],
+      clickToSelect: [columnOptions.clickToSelect],
+      // formatter: [columnOptions.formatter],
+      // footerFormatter: [columnOptions.footerFormatter],
+      sortName: [columnOptions.sortName],
+      searchable: [columnOptions.searchable]
+    })
+  }
 
   //初始化列表组件
   createColumnsFormArray() {
@@ -405,37 +444,42 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
   }
 
   //根据SQLID生成列
-  createColumnList(){
-    this.httpService.doPost(Application.ubold_sqldefine_createColumnList + this.ngbForm.value.sqlId,null)
-    .subscribe(resp =>{
-       if(GoldbalConstant.STATUS_CODE.SUCCESS == resp.code){
-          let  dataList = resp.result;
+  createColumnList() {
+    this.httpService.doPost(Application.ubold_sqldefine_createColumnList + this.ngbForm.value.sqlId, null)
+      .subscribe(resp => {
+        if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
+          let dataList = resp.result;
 
           //刷新ztree关系字段
           this.currentSqlDefineFields = resp.result;
-          
+
           //刷新过滤器列,其实可以不用刷新
           this.formData.columns = resp.result;
 
           //清空数据过滤
           this.clearDatafilter();
-
           const formArray = <FormArray>this.ngbForm.controls['columns'];
-          console.info(dataList);
-          //先清空,倒序删除数组
-          for (var idx = formArray.length; idx >= 0; idx--) {
-               formArray.removeAt(idx);
-          }
-        
+          //清空现在有的视图字段列表
+          this.clearColumns();
+
           //重新赋值
           for (var index = 0; index < dataList.length; index++) {
-               formArray.push(this.createColumnGroup(dataList[index]));
+            formArray.push(this.createColumnGroup(dataList[index]));
           }
           this.toastr.success("字段列表更新成功");
-       }else{
-         this.toastr.error(resp.messages)
-       }
-    });
+        } else {
+          this.toastr.error(resp.messages)
+        }
+      });
+  }
+
+  //清空现有的视图字段
+  clearColumns() {
+    const formArray = <FormArray>this.ngbForm.controls['columns'];
+    //先清空,倒序删除数组
+    for (var idx = formArray.length; idx >= 0; idx--) {
+      formArray.removeAt(idx);
+    }
   }
 
   showTreeCheck() {
@@ -481,36 +525,42 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     }));
   }
 
-//清空datafilter
- clearDatafilter(){
+  //清空datafilter
+  clearDatafilter() {
     const controls = <FormArray>this.ngbForm.controls['dataFilters'];
     for (var idx = controls.length; idx >= 0; idx--) {
-              controls.removeAt(idx);
-        }
- }
+      controls.removeAt(idx);
+    }
+  }
 
 
   // 查询sql define
-  openWindow() {
-     
-     //查询sqldefine
-     this.httpService.http.post(Application.ubold_sm_sqldefine, null)
+  openSelector() {
+
+    //查询sqldefine
+    this.httpService.http.post(Application.ubold_sm_sqldefine, null)
       .subscribe(res => {
-          let resp = res.json();
-          //TODO  查询sql define
-          if(GoldbalConstant.STATUS_CODE.SUCCESS != resp.code){
-            this.toastr.error("选择器数据获取异常,请检查视图编号:DV0000000000000001");
-            return;  
+        let resp = res.json();
+        //TODO  查询sql define
+        if (GoldbalConstant.STATUS_CODE.SUCCESS != resp.code) {
+          this.toastr.error("选择器数据获取异常,请检查视图编号:DV0000000000000001");
+          return;
+        }
+        const modalRef = this.modalService.open(SelectorComponent, { size: "lg" });
+        modalRef.componentInstance.dataViewModule = resp.result;
+        modalRef.result.then((result) => {
+          let _selectedValue = result[0].sqlId;
+          if(_selectedValue == this.ngbForm.controls.sqlId.value){
+            return;
           }
-          const modalRef = this.modalService.open(SelectorComponent, { size: "lg" });
-          modalRef.componentInstance.dataViewModule =  resp.result;
-          modalRef.result.then((result) => {
 
-              //返回的sqlId
-              this.ngbForm.controls["sqlId"].setValue(result[0].sqlId);
+          //返回的sqlId
+          this.ngbForm.controls.sqlId.setValue(_selectedValue);
 
-              //清空生成的列
-          });
+          //清空生成的列
+          this.clearColumns();
+          this.clearDatafilter();
+        });
       });
   }
 
@@ -520,18 +570,18 @@ export class DataViewEditComponent implements OnInit, AfterViewInit {
     this.formData = this.ngbForm.value;
     this.httpService.http.post(Application.ubold_sm_persistent, this.formData)
       .subscribe(res => {
-         let resp = res.json();
-         if(GoldbalConstant.STATUS_CODE.SUCCESS == resp.code){
-            this.toastr.success(resp.message);
-            this.cancel();
-         }else{
-            this.toastr.error(resp.message);
-         }
+        let resp = res.json();
+        if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
+          this.toastr.success(resp.message);
+          this.cancel();
+        } else {
+          this.toastr.error(resp.message);
+        }
       });
   }
 
-  cancel(){
-    this.router.navigate(['home','dataviewlist']);
+  cancel() {
+    this.router.navigate(['home', 'dataviewlist']);
   }
 
   //变更

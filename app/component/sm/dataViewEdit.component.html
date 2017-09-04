@@ -48,7 +48,7 @@
       <div class="form-group row">
         <label class="col-sm-2 control-label">sqlId</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="sqlId" formControlName="sqlId" (click)="openWindow()" readonly/>
+          <input type="text" class="form-control" placeholder="sqlId" formControlName="sqlId" (click)="openSelector()" readonly/>
         </div>
       </div>
       <div class="form-group row">
@@ -100,63 +100,64 @@
             </tr>
           </thead>
           <tbody formArrayName="buttons">
-            <tr class="tr-center" (click)="openOption(optioncontent)" *ngFor="let fbt of ngbForm.controls.buttons.controls; let idx=index" [formGroupName]="idx">
-               <!--show window option-->
-                <ng-template #optioncontent let-c="close" let-d="dismiss">
-                  <div class="modal-header">
-                    <!--<h4 class="modal-title">Options</h4>-->
+            <tr class="tr-center" (click)="openOption(optioncontent)" *ngFor="let fbt of ngbForm.controls.buttons.controls; let idx=index"
+              [formGroupName]="idx">
+              <!--show window option-->
+              <ng-template #optioncontent let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <!--<h4 class="modal-title">Options</h4>-->
+                </div>
+                <div class="modal-body">
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label">title</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="title" formControlName="title" />
+                    </div>
                   </div>
-                  <div class="modal-body">
-                    <div class="form-group row">
-                      <label class="col-sm-2 control-label">title</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="title" formControlName="title" />
-                      </div>
-                    </div>
 
-                    <div class="form-group row">
-                      <label class="col-sm-2 control-label">url</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="url" formControlName="url" />
-                      </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label">url</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="url" formControlName="url" />
                     </div>
+                  </div>
 
-                    <div class="form-group row">
-                      <label class="col-sm-2 control-label">Nav/Row</label>
-                      <div class="col-sm-10">
-                           <select class="form-control" formControlName="location" placeholder="location">
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label">Nav/Row</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" formControlName="location" placeholder="location">
                             <option *ngFor="let location of locations" [value]="location.code">{{location.text}}</option>
                          </select>
-                      </div>
                     </div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 control-label">option</label>
-                      <div class="col-sm-10">
-                        <select class="form-control" formControlName="option" placeholder="option">
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label">option</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" formControlName="option" placeholder="option">
                           <option *ngFor="let fcb of buttons" [value]="fcb.code">{{fcb.text}}</option>
                         </select>
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label class="col-sm-2 control-label">window</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="window" formControlName="window" />
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label class="col-sm-2 control-label">size</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="size" formControlName="size" />
-                      </div>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label">window</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="window" formControlName="window" />
+                    </div>
                   </div>
-                </ng-template>
-           <!--show window option-->
+
+                  <div class="form-group row">
+                    <label class="col-sm-2 control-label">size</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" placeholder="size" formControlName="size" />
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                </div>
+              </ng-template>
+              <!--show window option-->
               <td>{{fbt.controls.title._value}}</td>
               <td>{{fbt.controls.url._value}}</td>
               <td>{{fbt.controls.option._value}}</td>
@@ -230,25 +231,25 @@
         </div>
 
         <div class="form-group row">
-         
+
           <label class="col-sm-2 control-label">dataField</label>
           <div class="col-sm-4">
             <input type="text" class="form-control" placeholder="dataField" formControlName="dataField" />
           </div>
-           
+
           <!--<label class="col-sm-2 control-label">queryParamsType</label>
           <div class="col-sm-4">
                <select class="form-control" formControlName="queryParamsType" placeholder="queryParamsType">
                       <option *ngFor="let queryParamsType of queryParamsTypes" [value]="queryParamsType.code">{{queryParamsType.text}}</option>
                </select>
           </div>-->
-              <label class="col-sm-2 control-label">showToggle</label>
-              <div class="col-sm-4">
-                <div class="checkbox checkbox-inverse">
-                    <input id="showToggle" type="checkbox" formControlName="showToggle">
-                    <label for="showToggle"></label>
-                  </div>
-              </div>
+          <label class="col-sm-2 control-label">showToggle</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="showToggle" type="checkbox" formControlName="showToggle">
+              <label for="showToggle"></label>
+            </div>
+          </div>
         </div>
 
         <div class="form-group row">
@@ -310,18 +311,18 @@
         <div class="form-group row">
           <label class="col-sm-2 control-label">showHeader</label>
           <div class="col-sm-4">
-              <div class="checkbox checkbox-inverse">
+            <div class="checkbox checkbox-inverse">
               <input id="showHeader" type="checkbox" formControlName="showHeader">
               <label for="showHeader"></label>
             </div>
-           
+
           </div>
           <label class="col-sm-2 control-label">showFooter</label>
           <div class="col-sm-4">
-              <div class="checkbox checkbox-inverse">
+            <div class="checkbox checkbox-inverse">
               <input id="showFooter" type="checkbox" formControlName="showFooter">
               <label for="showFooter"></label>
-              </div>
+            </div>
           </div>
         </div>
 
@@ -329,7 +330,7 @@
           <label class="col-sm-2 control-label">showColumns</label>
           <div class="col-sm-4">
             <!--<input type="text" class="form-control" placeholder="showColumns" formControlName="showColumns" />-->
-              <div class="checkbox checkbox-inverse">
+            <div class="checkbox checkbox-inverse">
               <input id="showColumns" type="checkbox" formControlName="showColumns">
               <label for="showColumns"></label>
             </div>
@@ -392,10 +393,10 @@
         <div class="form-group row">
           <label class="col-sm-2 control-label">cardView</label>
           <div class="col-sm-4">
-               <div class="checkbox checkbox-inverse">
-                <input id="cardView" type="checkbox" formControlName="cardView">
-                <label for="cardView"></label>
-              </div>
+            <div class="checkbox checkbox-inverse">
+              <input id="cardView" type="checkbox" formControlName="cardView">
+              <label for="cardView"></label>
+            </div>
           </div>
           <label class="col-sm-2 control-label">sortStable</label>
           <div class="col-sm-4">
@@ -405,52 +406,52 @@
             </div>
           </div>
         </div>
-        
-         <div class="form-group row">
-            <label class="col-sm-2 control-label">sidePagination</label>
-            <div class="col-sm-4">
-              <select class="form-control" formControlName="sidePagination" placeholder="sidePagination">
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">sidePagination</label>
+          <div class="col-sm-4">
+            <select class="form-control" formControlName="sidePagination" placeholder="sidePagination">
                   <option *ngFor="let sidePagination of sidePaginations" [value]="sidePagination.code">{{sidePagination.text}}</option>
                 </select>
-            </div>
+          </div>
 
-            <label class="col-sm-2 control-label">queryParamsType</label>
-            <div class="col-sm-4">
-              <select class="form-control" formControlName="queryParamsType" placeholder="queryParamsType">
+          <label class="col-sm-2 control-label">queryParamsType</label>
+          <div class="col-sm-4">
+            <select class="form-control" formControlName="queryParamsType" placeholder="queryParamsType">
                   <option *ngFor="let queryParamsType of createQueryParamsTypes" [value]="queryParamsType.code">{{queryParamsType.text}}</option>
                 </select>
-            </div>
           </div>
-          
-         <div class="form-group row">
-            <label class="col-sm-2 control-label">pageNumber</label>
-            <div class="col-sm-4">
-               <input type="text" class="form-control" placeholder="pageNumber" formControlName="pageNumber" />
-            </div>
-            <label class="col-sm-2 control-label">search</label>
-             <div class="col-sm-4">
-              <div class="checkbox checkbox-inverse">
-                <input id="search" type="checkbox" formControlName="search">
-                <label for="search"></label>
-              </div>
-             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 control-label">checkboxHeader</label>
-            <div class="col-sm-4">
-              <div class="checkbox checkbox-inverse">
-                <input id="checkboxHeader" type="checkbox" formControlName="checkboxHeader">
-                <label for="checkboxHeader"></label>
-              </div>
+          <label class="col-sm-2 control-label">pageNumber</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="pageNumber" formControlName="pageNumber" />
+          </div>
+          <label class="col-sm-2 control-label">search</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="search" type="checkbox" formControlName="search">
+              <label for="search"></label>
             </div>
-            <label class="col-sm-2 control-label">maintainSelected</label>
-            <div class="col-sm-4">
-              <div class="checkbox checkbox-inverse">
-                <input id="maintainSelected" type="checkbox" formControlName="maintainSelected">
-                <label for="maintainSelected"></label>
-              </div>
-             </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 control-label">checkboxHeader</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="checkboxHeader" type="checkbox" formControlName="checkboxHeader">
+              <label for="checkboxHeader"></label>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">maintainSelected</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="maintainSelected" type="checkbox" formControlName="maintainSelected">
+              <label for="maintainSelected"></label>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -626,7 +627,7 @@
                           </div>
                         </div>
 
-                         <div class="form-group row">
+                        <div class="form-group row">
                           <label class="col-sm-2 control-label">searchable</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-pink">
@@ -656,8 +657,8 @@
                             <input type="text" class="form-control" placeholder="footerFormatter" formControlName="footerFormatter" />
                           </div>
                         </div>-->
-                        
-                       
+
+
 
                         <div class="form-group row">
                           <label class="col-sm-2 control-label">sortName</label>
@@ -775,16 +776,14 @@
       <div class="form-group row">
         <label class="col-sm-2 control-label">sqlId</label>
         <div class="col-sm-10">
-          <select class="form-control" formControlName="sqlId" placeholder="sqlId" (change)="treeSqlDefineChange()">
-              <option *ngFor="let sql of sqlDefines" [value]="sql.id">{{sql.code}}</option>
-          </select>
+          <input type="text" class="form-control" placeholder="sqlId" formControlName="sqlId" (click)="openZtreeSqlDefine()" readonly/>
         </div>
       </div>
       <div class="form-group row">
         <label class="col-sm-2 control-label">idKey</label>
         <div class="col-sm-10">
           <select class="form-control" formControlName="idKey" placeholder="idKey">
-              <option *ngFor="let field of sqlDefineFields" [value]="field">{{field}}</option>
+              <option *ngFor="let col of ztreeSqlDefineFields" [value]="col.field">{{col.field}}</option>
             </select>
         </div>
       </div>
@@ -792,7 +791,7 @@
         <label class="col-sm-2 control-label">name</label>
         <div class="col-sm-10">
           <select class="form-control" formControlName="name" placeholder="name">
-              <option *ngFor="let field of sqlDefineFields" [value]="field">{{field}}</option>
+              <option *ngFor="let col of ztreeSqlDefineFields" [value]="col.field">{{col.field}}</option>
             </select>
         </div>
       </div>
@@ -800,7 +799,7 @@
         <label class="col-sm-2 control-label">pIdKey</label>
         <div class="col-sm-10">
           <select class="form-control" formControlName="pIdKey" placeholder="pIdKey">
-              <option *ngFor="let field of sqlDefineFields" [value]="field">{{field}}</option>
+              <option *ngFor="let col of ztreeSqlDefineFields" [value]="col.field">{{col.field}}</option>
             </select>
         </div>
       </div>
@@ -815,7 +814,14 @@
       <div class="form-group row">
         <label class="col-sm-2 control-label">width</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="width" formControlName="width" />
+          <!--<input type="text" class="form-control" placeholder="width" formControlName="width" />-->
+          <select class="form-control" formControlName="width" placeholder="width">
+            <option [value]="2">2</option>
+            <option [value]="3">3</option>
+            <option [value]="4">4</option>
+            <option [value]="5">5</option>
+            <option [value]="6">6</option>
+          </select>
         </div>
       </div>
       <div class="form-group row">
@@ -850,4 +856,3 @@
     </div>
   </div>
 </form>
- 
