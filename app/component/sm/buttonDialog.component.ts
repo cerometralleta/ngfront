@@ -26,7 +26,7 @@ export class ButtonDialogComponent implements OnInit {
          this.ngbForm = this.fb.group({
             id:[btn.id],
             option:[btn.option],
-            window:[btn.window],
+            modal:[btn.modal],
             size:[btn.size],
             icon:[btn.icon],
             title:[btn.title],

@@ -16,6 +16,9 @@ export class GoldbalConstant {
     /*修改类型*/
     static MODIFTY_TYPES =  { hide: "hide", enable: "enable", disable: "disable" };
 
+    /*按钮操作 */
+    static OPTIONS_BUTTON =  { service: "service", modal: "modal", window: "window" };
+
     /*排序类型*/
     static SORT_TYPES = [
         { value: null, text: "" },
@@ -25,9 +28,6 @@ export class GoldbalConstant {
 
     /*是否*/
     // static OPTION_WHETHER = [CHECK_WHETHER_YES, CHECK_WHETHER_NO];
-
-    /*按钮(行内，导航按钮)*/
-    static OPTION_BUTTON = [{ value: 1, text: "行外" }, { value: 0, text: "行内" }];
 
     /*数据字典控件类型*/
     static DICT_COMPONENTTYPE =

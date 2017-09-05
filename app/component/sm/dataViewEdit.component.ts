@@ -82,7 +82,7 @@ export class DataViewEditComponent implements OnInit {
       controls.push(this.fb.group({
         id: [button.id],
         option: [button.option],
-        window: [button.window],
+        modal: [button.modal],
         size: [button.size],
         icon: [button.icon],
         title: [button.title, [Validators.required, Validators.maxLength(50)]],
@@ -113,7 +113,7 @@ export class DataViewEditComponent implements OnInit {
       id: [button.id],
       // option: [button.option, [Validators.required]],
       option: [button.option],
-      window: [button.window],
+      modal: [button.modal],
       size: [button.size],
       icon: [button.icon],
       title: [button.title, [Validators.required, Validators.maxLength(50)]],
@@ -389,7 +389,7 @@ export class DataViewEditComponent implements OnInit {
         formArray.push(this.fb.group({
           id: [button.id],
           option: [button.option, [Validators.required]],
-          window: [button.window],
+          modal: [button.modal],
           size: [button.size],
           icon: [button.icon],
           title: [button.title, [Validators.required, Validators.maxLength(50)]],

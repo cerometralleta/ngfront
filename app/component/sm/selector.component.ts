@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { URLSearchParams, Http, Jsonp } from "@angular/http";
 import { HttpService } from "../../service/basic/http.service";
 import { Application } from "../../metadata/constant/application.constant";
@@ -60,9 +60,9 @@ export class SelectorComponent implements OnInit {
         ,private fb: FormBuilder
         ,private toastr:ToastrService
         ,private activeModal: NgbActiveModal
-    ) {}
+    ) {
+    }
     ngOnInit() {
-        this.dataViewModule.columns = this.dataViewModule.columns;
         this.dataFilters = this.dataViewModule.dataFilters;
         this.treeOptions =  this.dataViewModule.treeOptions;
         this.options = <BootstrapTableDefaults>this.dataViewModule.options;

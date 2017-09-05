@@ -63,7 +63,7 @@ export class Button {
     }
     id:string;
     option:string;//0:接口,1:弹窗,2:新窗口
-    window:String;
+    modal:String;
     size:string;//窗口大小
     icon:string;
     title:string;
