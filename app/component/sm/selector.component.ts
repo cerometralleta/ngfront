@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild, ChangeDetectorRef, enableProdMode } from '@angular/core';
 import { URLSearchParams, Http, Jsonp } from "@angular/http";
 import { HttpService } from "../../service/basic/http.service";
 import { Application } from "../../metadata/constant/application.constant";
@@ -21,6 +21,9 @@ import { NgbGridComponent } from "../ngb/ngbGrid.component";
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { ToastrService } from "../../service/basic/toastr.service";
 
+//Error: ExpressionChangedAfterItHasBeenCheckedError: 
+//Expression has changed after it was checked. Previous value: 'true'. Current value: 'false'
+enableProdMode();
 /**
  * dataView选择器
  */
