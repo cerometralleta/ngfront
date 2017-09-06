@@ -67,22 +67,22 @@
           <button type="button" class="btn btn-default" (click)="openAdd()"><i class="fa fa-plus m-r-5"></i>添加</button>
 
           <div class="checkbox checkbox-primary checkbox-inline" style="padding-left: 35px;">
-            <input type="checkbox" id="insertCheckbox" (change)="checkFunc('i')" [checked]="ischecked('i')">
+            <input type="checkbox" id="insertCheckbox" (change)="checkFunc('create')" [checked]="ischecked('create')">
             <label for="insertCheckbox"> 增加 </label>
           </div>
 
           <div class="checkbox checkbox-pink checkbox-inline" style="padding-left: 35px;">
-            <input type="checkbox" id="removeCheckbox" (change)="checkFunc('d')" [checked]="ischecked('d')">
+            <input type="checkbox" id="removeCheckbox" (change)="checkFunc('delete')" [checked]="ischecked('delete')">
             <label for="removeCheckbox"> 删除 </label>
           </div>
 
           <div class="checkbox checkbox-warning checkbox-inline" style="padding-left: 35px;">
-            <input type="checkbox" id="updateCheckbox" (change)="checkFunc('u')" [checked]="ischecked('u')">
+            <input type="checkbox" id="updateCheckbox" (change)="checkFunc('update')" [checked]="ischecked('update')">
             <label for="updateCheckbox"> 修改 </label>
           </div>
 
           <div class="checkbox checkbox-info checkbox-inline" style="padding-left: 35px;">
-            <input type="checkbox" id="selectCheckbox" (change)="checkFunc('s')" [checked]="ischecked('s')">
+            <input type="checkbox" id="selectCheckbox" (change)="checkFunc('retrieve')" [checked]="ischecked('retrieve')">
             <label for="selectCheckbox"> 查看 </label>
           </div>
         </div>

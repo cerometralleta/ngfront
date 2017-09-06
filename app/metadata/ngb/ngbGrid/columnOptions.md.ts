@@ -36,7 +36,7 @@ export class ColumOptions extends Columns{
     cardVisible:boolean;
     switchable:boolean;
     clickToSelect:boolean;
-    // formatter:any;
+    formatter:any;
     // footerFormatter:any;
     // events:any;
     // sorter:any;

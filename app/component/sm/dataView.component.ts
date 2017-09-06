@@ -168,7 +168,7 @@ export class DataViewComponent implements OnInit {
     navClick(button: Button) {
 
         // 判断按钮是否为增删改
-        if ('i' == button.id) {
+        if ('create' == button.id) {
             const modalRef = this.modalService.open(DataViewCreateComponent, { size: "lg" });
             modalRef.result.then((result) => {
                 // this.closeResult = `Closed with: ${result}`;
@@ -182,7 +182,7 @@ export class DataViewComponent implements OnInit {
             return;
         }
 
-        if ('u' == button.id) {
+        if ('update' == button.id) {
             //获取选中数据id
             let id = "";
 

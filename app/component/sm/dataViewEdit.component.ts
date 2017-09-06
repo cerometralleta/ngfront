@@ -18,6 +18,7 @@ import { Resolve, ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from "../../service/basic/toastr.service";
 import { DataViewComponent } from "./dataView.component";
 import { SelectorComponent } from "./selector.component";
+import { FormVerifiyService } from "../../service/sm/formVerifiy.service";
 declare var $: any;
 
 @Component({
@@ -63,7 +64,8 @@ export class DataViewEditComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: NgbModal,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private formVerifiyService: FormVerifiyService
   ) { }
   ngOnInit() {
     this.createModule();
@@ -111,13 +113,12 @@ export class DataViewEditComponent implements OnInit {
     const controls = <FormArray>this.ngbForm.controls['buttons'];
     controls.push(this.fb.group({
       id: [button.id],
-      // option: [button.option, [Validators.required]],
-      option: [button.option],
+      option: [button.option, [Validators.required]],
       modal: [button.modal],
       size: [button.size],
       icon: [button.icon],
-      title: [button.title, [Validators.required, Validators.maxLength(50)]],
-      url: [button.url, [Validators.required]],
+      title: [button.title, [Validators.required, Validators.maxLength(10)]],
+      url: [button.url],
       location: [button.location, [Validators.required]]
     }));
   }
@@ -136,22 +137,22 @@ export class DataViewEditComponent implements OnInit {
     }
 
     //添加
-    if ("i" == id) {
-      this.addFunc("i", "增加", 1);
+    if ("create" == id) {
+      this.addFunc(id, "增加", 1);
       return;
     }
-    if ("d" == id) {
+    if ("delete" == id) {
 
       //默认行内按钮
-      this.addFunc("d", "删除", 0);
+      this.addFunc(id, "删除", 0);
       return;
     }
-    if ("u" == id) {
-      this.addFunc("u", "修改", 1);
+    if ("update" == id) {
+      this.addFunc(id, "修改", 1);
       return;
     }
-    if ("s" == id) {
-      this.addFunc("s", "查询", 1);
+    if ("retrieve" == id) {
+      this.addFunc(id, "查询", 1);
       return;
     }
   }
@@ -392,8 +393,8 @@ export class DataViewEditComponent implements OnInit {
           modal: [button.modal],
           size: [button.size],
           icon: [button.icon],
-          title: [button.title, [Validators.required, Validators.maxLength(50)]],
-          url: [button.url, [Validators.required]],
+          title: [button.title, [Validators.required, Validators.maxLength(10)]],
+          url: [button.url],
           location: [button.location, [Validators.required]]
         })
       )
@@ -486,22 +487,16 @@ export class DataViewEditComponent implements OnInit {
     // this.treeFromGroup.controls.url.setValidators(Validators.required);
     this.formData = this.ngbForm.value;
     if (!this.formData.treeOptions.show) {
-      this.treeFromGroup.controls.sqlId.setValidators(Validators.required);
-      this.treeFromGroup.controls.pIdKey.setValidators(Validators.required);
-      this.treeFromGroup.controls.relationField.setValidators(Validators.required);
-      this.treeFromGroup.controls.idKey.setValidators(Validators.required);
-      this.treeFromGroup.controls.scope.setValidators(Validators.required);
-      this.treeFromGroup.controls.width.setValidators(Validators.required);
+      for(let key in this.treeFromGroup.controls){
+          this.treeFromGroup.controls[key].setValidators(Validators.required);
+          this.treeFromGroup.controls[key].updateValueAndValidity();
+      }
     } else {
-      this.treeFromGroup.controls.sqlId.clearValidators();
-      this.treeFromGroup.controls.pIdKey.clearValidators();
-      this.treeFromGroup.controls.relationField.clearValidators();
-      this.treeFromGroup.controls.idKey.clearValidators();
-      this.treeFromGroup.controls.scope.clearValidators();
-      this.treeFromGroup.controls.width.clearValidators();
+        for(let key in this.treeFromGroup.controls){
+          this.treeFromGroup.controls[key].clearValidators();
+          this.treeFromGroup.controls[key].updateValueAndValidity();
+        }
     }
-
-    // this.ngbForm.controls.treeOptions.updateValueAndValidity();
   }
 
   //filterSelected
@@ -587,64 +582,7 @@ export class DataViewEditComponent implements OnInit {
   //变更
   onValueChanged(data?: any) {
     if (!this.ngbForm) { return; }
-
-    let messages = {
-      'required': '为必填',
-      'minlength': '长度不足',
-      'maxlength': '长度超出范围'
-    };
-
-    //是否清空message ??
-    this.formErrors = new Array<string>();
-    //group data
-    for (const field in this.formGroup) {
-
-      //get control
-      const control = this.ngbForm.get(field);
-      if (control && control.dirty && !control.valid) {
-
-        //control.errors required,minlength
-        for (const key in control.errors) {
-
-          //错误信息..
-          this.formErrors.push(`${field}` + messages[key]);
-
-        }
-      }
-    }
-
-    for (const field in this.optionsFormGroup.controls) {
-
-      //get control
-      const control = this.optionsFormGroup.get(field);
-      if (control && control.dirty && !control.valid) {
-
-        //control.errors required,minlength
-        for (const key in control.errors) {
-
-          //错误信息..
-          this.formErrors.push(`${field}` + messages[key]);
-
-        }
-      }
-    }
-
-    //tree valid
-    for (const field in this.treeFromGroup.controls) {
-
-      //get control
-      const control = this.treeFromGroup.get(field);
-      if (control && control.dirty && !control.valid) {
-
-        //control.errors required,minlength
-        for (const key in control.errors) {
-
-          //错误信息..
-          this.formErrors.push(`${field}` + messages[key]);
-
-        }
-      }
-    }
+    this.formErrors = this.formVerifiyService.formVerifiy(this.ngbForm,data);
 
   }
 }

@@ -13,6 +13,12 @@ export class GoldbalConstant {
         { value: "SELF", text: "当前节点" }
     ];
 
+    static ERROR_MESSAGE = {
+      'required': '为必填',
+      'minlength': '长度不足',
+      'maxlength': '长度超出范围'
+    };
+
     /*修改类型*/
     static MODIFTY_TYPES =  { hide: "hide", enable: "enable", disable: "disable" };
 

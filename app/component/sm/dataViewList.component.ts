@@ -158,6 +158,15 @@ export class DataViewListComponent implements OnInit {
         lasetUpdateTime.title = "更新时间";
         lasetUpdateTime.sortable=true;
         this.options.columns.push(lasetUpdateTime);
+
+        // let options = new ColumOptions();
+        // options.field = "id";
+        // options.title = "操作";
+        // options.formatter = function(value,row,index){
+        //         return ' <button type="button" class="btn btn-default" (click)="update()"> '
+		// 		 +'<span class="glyphicon glyphicon-plus" aria-hidden="true">修改</span></button>';
+        // }
+        // this.options.columns.push(options);
     }
 
     //查询对象
@@ -249,6 +258,7 @@ export class DataViewListComponent implements OnInit {
             this.toastr.warning("请选择要修改的记录!");
             return;
         }
-        this.router.navigate(['home','dataviewedit',_selected[0].id]);
+        this.router.navigate(['home','dataviewedit',_selected[0].dataViewCode]);
+        // this.router.navigate(['home','dataviewedit',id]);
     }
 }
