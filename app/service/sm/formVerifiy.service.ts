@@ -64,7 +64,7 @@ export class FormVerifiyService {
 
     //获取错误信息
     formControlErrors(name, control) {
-        if (control && control.dirty && !control.valid) {
+        if (!control.valid) {
 
             //control.errors required,minlength
             for (const error in control.errors) {
