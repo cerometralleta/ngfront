@@ -569,16 +569,22 @@ export class DataViewEditComponent implements OnInit {
         const modalRef = this.modalService.open(SelectorComponent, { size: "lg" });
         modalRef.componentInstance.dataViewModule = resp.result;
         modalRef.result.then((result) => {
-          let _selectedValue = result[0].sqlId;
-          if(_selectedValue == this.ngbForm.controls.sqlId.value){
+          let _selectedValue = result[0];
+          if(_selectedValue.sqlId == this.ngbForm.controls.sqlId.value){
             return;
           }
 
           //返回的sqlId
-          this.ngbForm.controls.sqlId.setValue(_selectedValue);
+          this.ngbForm.controls.sqlId.setValue(_selectedValue.sqlId);
 
           //更新默认数据请求地址
-          this.optionsFormGroup.controls.url.setValue("/"+_selectedValue);
+          this.optionsFormGroup.controls.url.setValue("/"+_selectedValue.sqlId);
+
+          //设置默认主键
+          if(_selectedValue.masterTableId){
+            this.optionsFormGroup.controls.idField.setValue( _selectedValue.masterTableId);
+            this.optionsFormGroup.controls.uniqueId.setValue(_selectedValue.masterTableId);
+          }
 
           //清空生成的列
           this.clearColumns();
