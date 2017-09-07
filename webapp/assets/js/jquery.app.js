@@ -293,3 +293,6 @@ var wow = new WOW(
   }
 );
 wow.init();
+
+// bootstraptable 多语言
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
