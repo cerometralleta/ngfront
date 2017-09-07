@@ -14,14 +14,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				
-				<div class="portlet">
+				<div class="portlet" *ngIf="dataFilters.length > 0 || buttons.length > 0">
 					<div class="portlet-heading">
 						
 						<!-- toolbar -->
-						<div class="btn-group vertical-middle" data-toggle="buttons">
-							<!--<label *ngFor="let bt of buttons;" class="btn btn-white btn-md waves-effect active mb-0">
-                                                        <input type="radio" autocomplete="off" checked="" *ngIf="bt.type == 1">{{bt.type}}
-                                                    </label>-->
+						<div class="btn-group vertical-middle" data-toggle="buttons" *ngIf="buttons.length > 0">
 							<button  *ngFor="let bt of buttons"  type="button" class="btn btn-default" (click)="navClick(bt)">
 										<span class="glyphicon glyphicon-plus" aria-hidden="true">{{bt.title}}</span>
 							</button>
