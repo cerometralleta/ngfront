@@ -20,7 +20,9 @@ export class Application {
      static ubold_sm_fetch:string = Application.baseContext + "/api/sm/view/fetch";
      
      //dataViewList
-    static ubold_sm_sql_dataList:string =Application.baseContext + "/api/sm/sql/bootstrap/SD0000000000000000"
+    static ubold_sm_sql_dataList:string =Application.baseContext + "/api/sm/sql/bootstrap/SD0000000000000000";
+
+     static ubold_sm_sql_bootstrap_dataList:string =Application.baseContext + "/api/sm/sql/bootstrap";
     
     //视图保存
     static ubold_sm_insert:string = Application.baseContext + "/api/sm/sql/create/";

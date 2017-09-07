@@ -2,9 +2,6 @@ export class GoldbalConstant {
     
     static GRID_OPTIONS = { SINGLE: 1, MULTIPLE: 2 };
     static STATUS_CODE = { SUCCESS: 0, FAILURE: 1 };
-    static CRUD_CODE = { INSERT: "10001", UPDATE: "10002", DELETE: "10003", VIEW: "10004" };
-    // static CHECK_WHETHER_YES = { value: 1, text: "是" };
-    // static CHECK_WHETHER_NO = { value: 0, text: "否" };
 
     /*树控制*/
     static TREE_OPTIONS = [

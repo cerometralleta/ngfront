@@ -87,7 +87,7 @@ export class DataViewEditComponent implements OnInit {
         modal: [button.modal],
         size: [button.size],
         icon: [button.icon],
-        title: [button.title, [Validators.required, Validators.maxLength(50)]],
+        title: [button.title, [Validators.required, Validators.maxLength(10)]],
         url: [button.url, [Validators.required]],
         location: [button.location, [Validators.required]]
       }));
@@ -109,6 +109,9 @@ export class DataViewEditComponent implements OnInit {
     } else {
       button.location = 'nav';
     }
+    button.option = GoldbalConstant.OPTIONS_BUTTON.service;
+    button.sort = 0;
+    button.size = "lg";
     this.formData.buttons.push(button);
     const controls = <FormArray>this.ngbForm.controls['buttons'];
     controls.push(this.fb.group({
@@ -138,21 +141,21 @@ export class DataViewEditComponent implements OnInit {
 
     //添加
     if ("create" == id) {
-      this.addFunc(id, "增加", 1);
+      this.addFunc(id, "增加", "nav");
       return;
     }
     if ("delete" == id) {
 
       //默认行内按钮
-      this.addFunc(id, "删除", 0);
+      this.addFunc(id, "删除", "nav");
       return;
     }
     if ("update" == id) {
-      this.addFunc(id, "修改", 1);
+      this.addFunc(id, "修改","nav");
       return;
     }
     if ("retrieve" == id) {
-      this.addFunc(id, "查询", 1);
+      this.addFunc(id, "查询", "nav");
       return;
     }
   }
@@ -264,8 +267,30 @@ export class DataViewEditComponent implements OnInit {
         this.formData.columns = new Array<any>();
         this.formData.dataFilters = new Array<any>();
         this.formData.buttons = new Array<any>();
+
+        //options
         this.formData.options = new Options();
+        this.formData.options.method = "post";
+        this.formData.options.pagination = true;
+        this.formData.options.pageSize = 50;
+        this.formData.options.sortable = true;
+        this.formData.options.showToggle = true;
+        this.formData.options.smartDisplay = true;
+        this.formData.options.searchTimeOut = 3;
+        this.formData.options.showHeader = true;
+        this.formData.options.showColumns = true;
+        this.formData.options.showRefresh = true;
+        this.formData.options.sidePagination="server";
+        this.formData.options.queryParamsType ="undefined";
+        this.formData.options.pageNumber = 1;
+        this.formData.options.checkboxHeader = true;
+        this.formData.options.maintainSelected=true;
+
+        //tree
         this.formData.treeOptions = new TreeOptions();
+        this.formData.treeOptions.show = false;
+        this.formData.treeOptions.width = 2;
+        this.formData.treeOptions.scope = GoldbalConstant.TREE_OPTIONS[0].value;
       }
       //ztree关系字段
       this.currentSqlDefineFields = this.formData.columns;
@@ -551,6 +576,9 @@ export class DataViewEditComponent implements OnInit {
 
           //返回的sqlId
           this.ngbForm.controls.sqlId.setValue(_selectedValue);
+
+          //更新默认数据请求地址
+          this.optionsFormGroup.controls.url.setValue("/"+_selectedValue);
 
           //清空生成的列
           this.clearColumns();

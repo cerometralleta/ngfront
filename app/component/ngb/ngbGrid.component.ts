@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Options, BootstrapTableDefaults } from "../../metadata/ngb/ngbGrid/options.md";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
+import { Application } from "../../metadata/constant/application.constant";
 declare var $: any;
 
 /**
@@ -19,6 +20,9 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
     @ViewChild("ngbootstrapTable") erf: ElementRef;
     ngOnInit() {
         // console.info(JSON.stringify(this.options));
+        if(this.options.url.indexOf("http") < 0 && this.options.url.indexOf("https") < 0){
+            this.options.url =  Application.ubold_sm_sql_bootstrap_dataList +  this.options.url
+        }
         this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(this.options);
     }
     @Input() options: BootstrapTableDefaults;
