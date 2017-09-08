@@ -79,16 +79,16 @@ export class DataViewComponent implements OnInit {
             this.treeOptions = resp.dataViewResolver.result.treeOptions;
             this.options = resp.dataViewResolver.result.options;
             this.options.columns = resp.dataViewResolver.result.columns;
-        });
 
-        //计算右边宽度
-        this.rightWidth();
+            //计算右边宽度
+            this.rightWidth();
 
-        //构建树
-        this.ztree = this.createTree();
+            //构建树
+            this.ztree = this.createTree();
 
-        //构建查询过滤
-        this.createSearch();
+            //构建查询过滤
+            this.createSearch();
+            });
     }
 
     //获取已有的component

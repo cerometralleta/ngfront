@@ -290,7 +290,7 @@ export class DataViewEditComponent implements OnInit {
         this.formData.treeOptions = new TreeOptions();
         this.formData.treeOptions.show = false;
         this.formData.treeOptions.width = 2;
-        this.formData.treeOptions.enable = false;
+        this.formData.treeOptions.enable = true;
         this.formData.treeOptions.scope = GoldbalConstant.TREE_OPTIONS[0].value;
       }
       //ztree关系字段
