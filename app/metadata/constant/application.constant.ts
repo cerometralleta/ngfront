@@ -22,8 +22,8 @@ export class Application {
      //dataViewList
     static ubold_sm_sql_dataList:string =Application.baseContext + "/api/sm/sql/bootstrap/SD0000000000000000";
 
-     static ubold_sm_sql_bootstrap_dataList:string =Application.baseContext + "/api/sm/sql/bootstrap";
-    
+    static ubold_sm_sql_bootstrap_dataList:string =Application.baseContext + "/api/sm/sql/bootstrap";
+    static ubold_sm_sql_bootstrap_ztree:string =Application.baseContext + "/api/sm/sql/ztree";
     //视图保存
     static ubold_sm_insert:string = Application.baseContext + "/api/sm/sql/create/";
     static ubold_sm_modfity:string = Application.baseContext + "/api/sm/sql/modfity/";

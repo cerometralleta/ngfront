@@ -38,6 +38,7 @@ export class TreeOptions{
     scope:string;
     width:number;
     relationField:string;
+    enable:boolean;//是否异步
 }
 
 /**

@@ -11,7 +11,7 @@ import { Setting, DataModule } from "../../metadata/ngb/ngbTree/dataModule.md";
 import { DataViewModule, TreeOptions, Button, DataFilter } from "../../metadata/sm/dataViewModule.md";
 import { ActivatedRoute, Params } from "../../../node_modules/._@angular_router@4.1.1@@angular/router";
 import 'rxjs/add/operator/switchMap';
-import { SimpleData, Key, Data } from "../../metadata/ngb/ngbTree/data.md";
+import { SimpleData, Key, Data, Keep } from "../../metadata/ngb/ngbTree/data.md";
 import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DataViewCreateComponent } from "./dataViewCreate.component";
@@ -20,6 +20,7 @@ import { NgbTreeComponent } from "../ngb/ngbTree.component";
 import { NgbGridComponent } from "../ngb/ngbGrid.component";
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { ToastrService } from "../../service/basic/toastr.service";
+import { Async } from "../../metadata/ngb/ngbTree/async.md";
 
 /**
  * 统一dataView
@@ -141,28 +142,41 @@ export class DataViewComponent implements OnInit {
         simpleData.enable = true;
         data.simpleData = simpleData;
 
+        //ztree key
         let key = new Key();
         key.name = this.treeOptions.name;
         key.title = key.name;
         data.key = key;
 
+        //keep
+        let keep = new Keep();
+        keep.leaf = false;
+        keep.parent = true;
+        data.keep = keep;
         treeModule.setting.data = data;
-        treeModule.setting.callback = {
-            onClick: this.zTreeOnClick
-        }
 
-        treeModule.znodes = [
-            { id: 1, pId: 0, name: "父节点1" },
-            { id: 11, pId: 1, name: "子节点1" },
-            { id: 12, pId: 1, name: "子节点2" }
-        ];
+        //asyc
+        let async = new Async();
+        async.autoParam = [this.treeOptions.idKey+'=id'];//服务端默认取id
+        // async.contentType = "application/json";
+        async.dataType = "json";
+        async.type = "POST";
+        async.url = Application.ubold_sm_sql_bootstrap_ztree;
+        async.enable = this.treeOptions.enable;
+        async.otherParam =  ["sqlId", this.treeOptions.sqlId,
+                "idKey", this.treeOptions.idKey,
+                "pIdKey",this.treeOptions.pIdKey,
+                "name",this.treeOptions.name,
+                "scope",this.treeOptions.scope,
+                "enable",this.treeOptions.enable+''];
+        treeModule.setting.async = async;
+        treeModule.setting.callback = {
+            onClick:function(event, treeId, treeNode) {
+                        console.info(JSON.stringify(treeNode));
+                    }
+        }
         return treeModule;
     }
-
-    //节点点击事件
-    zTreeOnClick(event, treeId, treeNode) {
-        alert(treeNode.tId + ", " + treeNode.name);
-    };
 
     // 导航按钮点击
     navClick(button: Button) {
