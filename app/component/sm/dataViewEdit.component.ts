@@ -188,11 +188,6 @@ export class DataViewEditComponent implements OnInit {
 
   //列更多设置
   openMore(content) {
-
-    // 弹出组件
-    // const modalRef = this.modalService.open(ColumnMoreComponent);
-    // modalRef.componentInstance.columOptions = columOptions;
-
     this.modalService.open(content, { size: "lg" }).result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -235,7 +230,7 @@ export class DataViewEditComponent implements OnInit {
 
            //刷新sqldefine fields
            this.refreshZtreeSqlIdFields(_selectedSqlId);
-        });
+        }, (reason) => {});
       });
   }
 
@@ -591,7 +586,7 @@ export class DataViewEditComponent implements OnInit {
           //清空生成的列
           this.clearColumns();
           this.clearDatafilter();
-        });
+        }, (reason) => {});
       });
   }
 

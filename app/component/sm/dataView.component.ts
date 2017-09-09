@@ -180,7 +180,6 @@ export class DataViewComponent implements OnInit {
         var self = this;
         treeModule.setting.callback = {
             onClick:function(event, treeId, treeNode) {
-                        console.info(JSON.stringify(treeNode[data.simpleData.idKey]));
                         self.search(treeNode[data.simpleData.idKey]);
                     },
             onAsyncSuccess: function(event, treeId, treeNode, msg) {
