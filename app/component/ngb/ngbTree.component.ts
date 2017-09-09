@@ -21,7 +21,7 @@ export class NgbTreeComponent implements AfterViewInit {
     @ViewChild("ngbTree") erf: ElementRef;
 
     //输入
-     @Input() setting: Setting;
+     @Input() setting: any;
      @Input() znodes:Array<any>;
 
     constructor(private logger:LoggerService) {
