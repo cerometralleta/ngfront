@@ -83,7 +83,7 @@
                 $.each(exportTypes, function (i, type) {
                     if (TYPE_NAME.hasOwnProperty(type)) {
                         $menu.append(['<li role="menuitem" data-type="' + type + '">',
-                                '<a href="javascript:void(0)">',
+                                '<a href="javascript:void(0)"><img src="webapp/assets/plugins/bootstrap-table/extensions/export/icons/'+type+'.png" width="24px">',
                                     TYPE_NAME[type],
                                 '</a>',
                             '</li>'].join(''));
