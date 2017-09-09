@@ -36,7 +36,7 @@ export class Options {
     contentType:string;
     dataType:string;
     ajaxOptions:any;
-    // queryParams:any;
+    queryParams:any;
     queryParamsType:string;
     // responseHandler:any;
     pagination:boolean;

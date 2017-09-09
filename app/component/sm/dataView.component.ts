@@ -21,7 +21,7 @@ import { NgbGridComponent } from "../ngb/ngbGrid.component";
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { ToastrService } from "../../service/basic/toastr.service";
 import { Async } from "../../metadata/ngb/ngbTree/async.md";
-
+declare var $: any;
 /**
  * 统一dataView
  */
@@ -78,6 +78,12 @@ export class DataViewComponent implements OnInit {
             this.dataFilters = resp.dataViewResolver.result.dataFilters;
             this.treeOptions = resp.dataViewResolver.result.treeOptions;
             this.options = resp.dataViewResolver.result.options;
+            this.options.queryParams = function(params){
+
+                //ztree初始查询参数
+                params.treeOptions = resp.dataViewResolver.result.treeOptions;
+                return params;
+            }
             this.options.columns = resp.dataViewResolver.result.columns;
 
             //计算右边宽度
@@ -123,8 +129,12 @@ export class DataViewComponent implements OnInit {
     }
 
     //查询列表
-    search() {
+    search(nodeId?) {
         let datafilter = this.searchForm.value;
+        datafilter.treeOptions = this.treeOptions;
+        if(nodeId){
+            this.treeOptions.nodeValue = nodeId;
+        }
         this.ngbGridComponent.refresh(datafilter);
     }
 
@@ -136,29 +146,25 @@ export class DataViewComponent implements OnInit {
         treeModule.setting = new Setting();
 
         let data = new Data();
-        let simpleData = new SimpleData();
-        simpleData.idKey = this.treeOptions.idKey;
-        simpleData.pIdKey = this.treeOptions.pIdKey;
-        simpleData.enable = true;
-        data.simpleData = simpleData;
+        data.simpleData = new SimpleData();
+        data.simpleData.idKey = this.treeOptions.idKey;
+        data.simpleData.pIdKey = this.treeOptions.pIdKey;
+        data.simpleData.enable = true;
 
         //ztree key
-        let key = new Key();
-        key.name = this.treeOptions.name;
-        key.title = key.name;
-        data.key = key;
+        data.key = new Key();
+        data.key.name = this.treeOptions.name;
+        data.key.title = data.key.name;
 
         //keep
-        let keep = new Keep();
-        keep.leaf = false;
-        keep.parent = true;
-        data.keep = keep;
+        data.keep = new Keep();
+        data.keep.leaf = false;
+        data.keep.parent = true;
         treeModule.setting.data = data;
 
         //asyc
         let async = new Async();
         async.autoParam = [this.treeOptions.idKey+'=id'];//服务端默认取id
-        // async.contentType = "application/json";
         async.dataType = "json";
         async.type = "POST";
         async.url = Application.ubold_sm_sql_bootstrap_ztree;
@@ -170,13 +176,26 @@ export class DataViewComponent implements OnInit {
                 "scope",this.treeOptions.scope,
                 "enable",this.treeOptions.enable+''];
         treeModule.setting.async = async;
+         
+        var self = this;
         treeModule.setting.callback = {
             onClick:function(event, treeId, treeNode) {
-                        console.info(JSON.stringify(treeNode));
-                    }
+                        console.info(JSON.stringify(treeNode[data.simpleData.idKey]));
+                        self.search(treeNode[data.simpleData.idKey]);
+                    },
+            onAsyncSuccess: function(event, treeId, treeNode, msg) {
+                
+                 //默认展开第一个结点    
+                if(!treeNode){
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+                    treeObj.expandNode(treeObj.getNodes()[0], true);    
+                }
+            }
         }
         return treeModule;
     }
+
+   
 
     // 导航按钮点击
     navClick(button: Button) {

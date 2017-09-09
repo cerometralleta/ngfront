@@ -35,4 +35,8 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
     getSelections(){
         return this.ngbootstrapTable.bootstrapTable("getSelections");
     }
+
+    getInstance(){
+        return this.ngbootstrapTable;
+    }
 }

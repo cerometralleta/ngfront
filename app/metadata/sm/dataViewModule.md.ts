@@ -39,6 +39,7 @@ export class TreeOptions{
     width:number;
     relationField:string;
     enable:boolean;//是否异步
+    nodeValue:string;
 }
 
 /**
