@@ -90,6 +90,7 @@ export class Options {
     locale:string;
     // footerStyle:any;
     showExport:boolean;
+    exportDataType:string; // export data type, support: 'basic', 'all', 'selected'.
 
     // funcButtons:Array<FuncButton>;
 }

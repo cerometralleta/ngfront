@@ -210,13 +210,14 @@
               <label for="showExport"></label>
             </div>
           </div>
-          <label class="col-sm-2 control-label">sortable</label>
+
+          <label class="col-sm-2 control-label">exportDataType</label>
           <div class="col-sm-4">
-            <div class="checkbox checkbox-inverse">
-              <input id="sortable" type="checkbox" formControlName="sortable">
-              <label for="sortable"></label>
-            </div>
+               <select class="form-control" formControlName="exportDataType" placeholder="exportDataType">
+                      <option *ngFor="let et of exportDataType" [value]="et.code">{{et.text}}</option>
+               </select>
           </div>
+         
         </div>
 
         <div class="form-group row">
@@ -232,17 +233,19 @@
 
         <div class="form-group row">
 
-          <label class="col-sm-2 control-label">dataField</label>
+          <!--<label class="col-sm-2 control-label">dataField</label>
           <div class="col-sm-4">
             <input type="text" class="form-control" placeholder="dataField" formControlName="dataField" />
-          </div>
-
-          <!--<label class="col-sm-2 control-label">queryParamsType</label>
-          <div class="col-sm-4">
-               <select class="form-control" formControlName="queryParamsType" placeholder="queryParamsType">
-                      <option *ngFor="let queryParamsType of queryParamsTypes" [value]="queryParamsType.code">{{queryParamsType.text}}</option>
-               </select>
           </div>-->
+          
+          <label class="col-sm-2 control-label">sortable</label>
+          <div class="col-sm-4">
+            <div class="checkbox checkbox-inverse">
+              <input id="sortable" type="checkbox" formControlName="sortable">
+              <label for="sortable"></label>
+            </div>
+          </div>
+        
           <label class="col-sm-2 control-label">showToggle</label>
           <div class="col-sm-4">
             <div class="checkbox checkbox-inverse">

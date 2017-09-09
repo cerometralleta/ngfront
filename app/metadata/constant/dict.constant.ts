@@ -95,6 +95,13 @@ export class DictConstant {
     return queryParamsType;
   }
 
-  
+// 'basic', 'all', 'selected'
+   static createExportDataType() {
+    let exportDataType = new Array<any>();
+    exportDataType.push({ code: "basic", text: "basic" });
+    exportDataType.push({ code: "all", text: "all" }); 
+    exportDataType.push({ code: "selected", text: "selected" }); 
+    return exportDataType;
+  }
 
 }

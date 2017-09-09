@@ -46,7 +46,7 @@ export class DataViewEditComponent implements OnInit {
   locations: Array<any> = DictConstant.createLocation();
   sidePaginations: Array<any> = DictConstant.createSidePagination();
   createQueryParamsTypes: Array<any> = DictConstant.createQueryParamsType();
-
+  exportDataType:Array<any> = DictConstant.createExportDataType();
 
   //SQL 定义
   sqlDefines: Array<any> = this.createSqlDefines();
@@ -280,6 +280,7 @@ export class DataViewEditComponent implements OnInit {
         this.formData.options.pageNumber = 1;
         this.formData.options.checkboxHeader = true;
         this.formData.options.maintainSelected=true;
+        this.formData.options.exportDataType = "basic";
 
         //tree
         this.formData.treeOptions = new TreeOptions();
@@ -354,6 +355,7 @@ export class DataViewEditComponent implements OnInit {
       pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(3)]],
       pageNumber: [this.formData.options.pageNumber],
       showExport: [this.formData.options.showExport],
+      exportDataType:[this.formData.options.exportDataType],
       undefinedText: [this.formData.options.undefinedText],
       searchText: [this.formData.options.searchText],
       sortable: [this.formData.options.sortable],
