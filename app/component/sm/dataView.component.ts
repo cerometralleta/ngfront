@@ -21,6 +21,7 @@ import { NgbGridComponent } from "../ngb/ngbGrid.component";
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { ToastrService } from "../../service/basic/toastr.service";
 import { Async } from "../../metadata/ngb/ngbTree/async.md";
+import { SelectorComponent } from "./selector.component";
 declare var $: any;
 /**
  * 统一dataView
@@ -29,43 +30,18 @@ declare var $: any;
     selector: 'sm-dataView',
     templateUrl: './app/component/sm/dataView.component.html'
 })
-export class DataViewComponent implements OnInit {
-
-    //页面数据
-    dataViewModule: DataViewModule;
-
-    // 树操作
-    treeOptions: TreeOptions;
-
-    // 查询条件
-    dataFilters: Array<DataFilter>;
-
-    // 按钮
-    buttons: Array<Button>;
-
-    // 内容区域宽度
-    colContentWidth: number;
-
-    // treeModule
-    ztree: DataModule;
-
-    //bootstrap table数据
-    options: BootstrapTableDefaults;
-
-    //form group
-    searchForm: FormGroup;
-
-    @ViewChild(NgbTreeComponent) ngbTreeComponent: NgbTreeComponent;//树组件
-    @ViewChild(NgbGridComponent) ngbGridComponent: NgbGridComponent;//bootstrapTable
+export class DataViewComponent extends SelectorComponent {
     constructor(
-        private logger: LoggerService
-        , private httpService: HttpService
-        , private route: ActivatedRoute
-        , private modalService: NgbModal
-        , private fb: FormBuilder
-        , private toastr: ToastrService
-        , private componentFactoryResolver : ComponentFactoryResolver
-    ) { }
+        public logger: LoggerService
+        , public httpService: HttpService
+        , public route: ActivatedRoute
+        , public modalService: NgbModal
+        , public fb: FormBuilder
+        , public toastr: ToastrService
+        , public componentFactoryResolver: ComponentFactoryResolver
+    ) {
+        super(logger, httpService, modalService, fb, toastr, null);
+    }
     ngOnInit() {
 
         // Mock.createDataViewList(this.dataViewModule);
@@ -78,7 +54,7 @@ export class DataViewComponent implements OnInit {
             this.dataFilters = resp.dataViewResolver.result.dataFilters;
             this.treeOptions = resp.dataViewResolver.result.treeOptions;
             this.options = resp.dataViewResolver.result.options;
-            this.options.queryParams = function(params){
+            this.options.queryParams = function (params) {
 
                 //ztree初始查询参数
                 params.treeOptions = resp.dataViewResolver.result.treeOptions;
@@ -94,7 +70,7 @@ export class DataViewComponent implements OnInit {
 
             //构建查询过滤
             this.createSearch();
-            });
+        });
     }
 
     //获取已有的component
@@ -104,97 +80,6 @@ export class DataViewComponent implements OnInit {
         return factoryClass;
     }
 
-    //获取选中行
-    getSelections() {
-        return this.ngbGridComponent.getSelections();
-    }
-
-    //返回当前DataViewModel
-    getDataViewModule() {
-        return this.dataViewModule;
-    }
-
-    //查询对象
-    createSearch() {
-        let formArray = new Array<any>();
-        this.dataFilters.forEach(datafilter => {
-            formArray.push(this.fb.group({
-                value: [datafilter.value],
-                field: [datafilter.field],
-                expression: [datafilter.expression],
-                title: [datafilter.title]
-            }))
-        });
-        this.searchForm = this.fb.group({ searchArray: this.fb.array(formArray) });
-    }
-
-    //查询列表
-    search(nodeId?) {
-        let datafilter = this.searchForm.value;
-        datafilter.treeOptions = this.treeOptions;
-        if(nodeId){
-            this.treeOptions.nodeValue = nodeId;
-        }
-        this.ngbGridComponent.refresh(datafilter);
-    }
-
-    //构建ztree
-    createTree() {
-
-        // ztree data
-        let treeModule = new DataModule();
-        treeModule.setting = new Setting();
-
-        let data = new Data();
-        data.simpleData = new SimpleData();
-        data.simpleData.idKey = this.treeOptions.idKey;
-        data.simpleData.pIdKey = this.treeOptions.pIdKey;
-        data.simpleData.enable = true;
-
-        //ztree key
-        data.key = new Key();
-        data.key.name = this.treeOptions.name;
-        data.key.title = data.key.name;
-
-        //keep
-        data.keep = new Keep();
-        data.keep.leaf = false;
-        data.keep.parent = true;
-        treeModule.setting.data = data;
-
-        //asyc
-        let async = new Async();
-        async.autoParam = [this.treeOptions.idKey+'=id'];//服务端默认取id
-        async.dataType = "json";
-        async.type = "POST";
-        async.url = Application.ubold_sm_sql_bootstrap_ztree;
-        async.enable = this.treeOptions.enable;
-        async.otherParam =  ["sqlId", this.treeOptions.sqlId,
-                "idKey", this.treeOptions.idKey,
-                "pIdKey",this.treeOptions.pIdKey,
-                "name",this.treeOptions.name,
-                "scope",this.treeOptions.scope,
-                "enable",this.treeOptions.enable+''];
-        treeModule.setting.async = async;
-         
-        var self = this;
-        treeModule.setting.callback = {
-            onClick:function(event, treeId, treeNode) {
-                        self.search(treeNode[data.simpleData.idKey]);
-                    },
-            onAsyncSuccess: function(event, treeId, treeNode, msg) {
-                
-                 //默认展开第一个结点    
-                if(!treeNode){
-                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
-                    treeObj.expandNode(treeObj.getNodes()[0], true);    
-                }
-            }
-        }
-        return treeModule;
-    }
-
-   
 
     // 导航按钮点击
     navClick(button: Button) {
@@ -248,15 +133,5 @@ export class DataViewComponent implements OnInit {
         if (button.option == GoldbalConstant.OPTIONS_BUTTON.window) {
 
         }
-    }
-
-    // 计算内容宽度
-    rightWidth() {
-        let maxWidth = 12;
-        if (this.treeOptions.show) {
-            this.colContentWidth = maxWidth - this.treeOptions.width;
-            return;
-        }
-        this.colContentWidth = maxWidth;
     }
 }

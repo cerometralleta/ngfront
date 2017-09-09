@@ -59,13 +59,14 @@ export class SelectorComponent implements OnInit {
     @ViewChild(NgbTreeComponent) ngbTreeComponent: NgbTreeComponent;//树组件
     @ViewChild(NgbGridComponent) ngbGridComponent: NgbGridComponent;//bootstrapTable
     constructor(
-         private logger: LoggerService
-        ,private httpService: HttpService
-        ,private modalService: NgbModal
-        ,private fb: FormBuilder
-        ,private toastr:ToastrService
-        ,private activeModal: NgbActiveModal
+         public logger: LoggerService
+        ,public httpService: HttpService
+        ,public modalService: NgbModal
+        ,public fb: FormBuilder
+        ,public toastr:ToastrService
+        ,public activeModal: NgbActiveModal
     ) {
+
     }
     ngOnInit() {
         this.buttons = new Array<Button>();
