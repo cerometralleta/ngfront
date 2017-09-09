@@ -153,11 +153,11 @@ export class DataViewListComponent implements OnInit {
         createTime.sortable=true;
         this.options.columns.push(createTime);
         
-        let lasetUpdateTime = new ColumOptions();
-        lasetUpdateTime.field = "lasetUpdateTime";
-        lasetUpdateTime.title = "更新时间";
-        lasetUpdateTime.sortable=true;
-        this.options.columns.push(lasetUpdateTime);
+        let lastUpdateTime = new ColumOptions();
+        lastUpdateTime.field = "lastUpdateTime";
+        lastUpdateTime.title = "更新时间";
+        lastUpdateTime.sortable=true;
+        this.options.columns.push(lastUpdateTime);
 
         // let options = new ColumOptions();
         // options.field = "id";
