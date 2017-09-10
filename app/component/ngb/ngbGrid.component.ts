@@ -13,9 +13,8 @@ declare var $: any;
     templateUrl: './app/component/ngb/ngbGrid.component.html'
 })
 export class NgbGridComponent implements OnInit, AfterViewInit {
-    ngAfterViewInit(): void {
-
-    }
+    @Input() options: BootstrapTableDefaults;
+    constructor() { }
     private ngbootstrapTable:any;
     @ViewChild("ngbootstrapTable") erf: ElementRef;
     ngOnInit() {
@@ -23,10 +22,26 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
         if(this.options.url.indexOf("http") < 0 && this.options.url.indexOf("https") < 0){
             this.options.url =  Application.ubold_sm_sql_bootstrap_dataList +  this.options.url
         }
-        this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(this.options);
+
+        //深度复制
+        let bootstrapOptions = JSON.parse(JSON.stringify(this.options));
+        this.createStatefield(bootstrapOptions);
+        this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(bootstrapOptions);
     }
-    @Input() options: BootstrapTableDefaults;
-    constructor() { }
+    ngAfterViewInit(): void {}
+
+    //createStatefield
+    createStatefield(bootstrapOptions:BootstrapTableDefaults){
+        if(bootstrapOptions.columns && 
+            bootstrapOptions.columns.length > 0 &&
+            bootstrapOptions.checkboxHeader){
+            let options = new ColumOptions();
+            options.title = "_state";
+            options.field = "_state";
+            options.checkbox = true;
+            bootstrapOptions.columns.splice(0, 0,options);  
+        }
+    }
 
     refresh(parameter){
         this.ngbootstrapTable.bootstrapTable("refresh", {query: parameter});

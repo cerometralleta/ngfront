@@ -18,6 +18,7 @@ export class Application {
 
     //查询视图
      static ubold_sm_fetch:string = Application.baseContext + "/api/sm/view/fetch";
+     static ubold_sql_fetch:string = Application.baseContext + "/api/sm/sql/fetch";
      
      //dataViewList
     static ubold_sm_sql_dataList:string =Application.baseContext + "/api/sm/sql/bootstrap/SD0000000000000000";

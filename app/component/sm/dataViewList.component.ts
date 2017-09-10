@@ -116,7 +116,9 @@ export class DataViewListComponent implements OnInit {
         this.options.columns = new Array<ColumOptions>();
         let id = new ColumOptions();
         id.field = "id";
-        id.checkbox = true;
+        id.title = "ID";
+        id.checkbox = false;
+        id.visible = false;
         this.options.columns.push(id);
 
         let dataViewCode = new ColumOptions();
