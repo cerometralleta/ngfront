@@ -11,14 +11,19 @@ import { Ngb2Module } from "./module/ngb.module";
 import { SmModule } from "./module/sm.module";
 import { DataViewResolver } from "./resolver/sm/dataViewResolver";
 import { FormViewResolver } from "./resolver/sm/formViewResolver";
-import { LocationStrategy, HashLocationStrategy  } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { CustomReuseStrategy } from "./service/sm/customReuseStrategy.service";
+import { RouteReuseStrategy } from '@angular/router';
 @NgModule({
     imports: [FrameModule,Routing,Ngb2Module,SmModule],
     exports: [],
     declarations: [
         AppComponent
     ],
-    providers: [AppRoutingProviders,DataViewResolver,FormViewResolver,{ provide: LocationStrategy, useClass: HashLocationStrategy  }],
+    providers: [AppRoutingProviders,DataViewResolver,FormViewResolver,
+       { provide: LocationStrategy, useClass: HashLocationStrategy  },
+       {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
+    ],
     bootstrap: [AppComponent] // 根组件
 })
 export class AppModule { }
