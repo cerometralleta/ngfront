@@ -43,7 +43,7 @@ export class DictConstant {
   static createButtons(){
     let funcButtons = new Array<any>();
     funcButtons.push({ code: "service", text: "service" });
-    funcButtons.push({ code: "dialog", text: "dialog" });
+    funcButtons.push({ code: "modal", text: "modal" });
     funcButtons.push({ code: "window", text: "window" });
     return funcButtons;
   }

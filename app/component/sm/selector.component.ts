@@ -138,7 +138,7 @@ export class SelectorComponent implements OnInit {
         if (nodeId) {
             this.treeOptions.nodeValue = nodeId;
         }
-        this.ngbGridComponent.refresh(datafilter);
+        this.ngbGridComponent.refresh();
     }
 
     //构建ztree

@@ -57,10 +57,7 @@ export class DataViewComponent extends SelectorComponent {
             var self  = this;
             this.options.queryParams = function (params) {
                 params.treeOptions = self.treeOptions;
-                return params;
-            }
-            this.options.onRefresh = function(params){
-                params.treeOptions = self.treeOptions;
+                params.searchArray = self.searchForm.value.searchArray;
                 return params;
             }
             this.ztree = this.buildzTree();
@@ -89,12 +86,13 @@ export class DataViewComponent extends SelectorComponent {
                 if(!selected){
                     return;
                 }
-                //获取主键
-                this.httpService.doPost(Application.ubold_sm_fetch,
+               
+                this.httpService.http.post(Application.ubold_sql_fetch,
 
                     //TODO 主键不一定是id
-                    { sqlId: this.dataViewModule.sqlId, id: selected[0].id }).subscribe(resp => {
-                        if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.formViewResolver.code) {
+                    { sqlId: this.dataViewModule.sqlId, id: selected[0].id }).subscribe(result => {
+                        let resp = result.json();
+                        if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
                             const modalRef = this.modalService.open(DataViewCreateComponent, { size: "lg" });
                             modalRef.componentInstance.dataViewModule = this.dataViewModule
                             modalRef.componentInstance.viewModel = resp.result;

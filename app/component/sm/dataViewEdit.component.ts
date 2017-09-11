@@ -77,7 +77,6 @@ export class DataViewEditComponent implements OnInit {
     // 弹出组件
     const modalRef = this.modalService.open(ButtonDialogComponent, { size: "lg" });
     modalRef.result.then((result) => {
-      console.info(JSON.stringify(result))
       let button = <Button>result;
       this.formData.buttons.push(button);
       const controls = <FormArray>this.ngbForm.controls['buttons'];
@@ -107,7 +106,7 @@ export class DataViewEditComponent implements OnInit {
     if (type != undefined) {
       button.location = type;
     } else {
-      button.location = 'nav';
+      button.location = GoldbalConstant.LOCATION.nav;
     }
     button.option = GoldbalConstant.OPTIONS_BUTTON.service;
     button.sort = 0;

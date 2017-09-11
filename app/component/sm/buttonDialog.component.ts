@@ -6,6 +6,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Button } from "../../metadata/sm/dataViewModule.md";
 import { GUID } from "../../utils/guid.util";
 import { FormArray, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { GoldbalConstant } from "../../metadata/constant/global.constant";
 @Component({
     selector: 'sm-buttonDialog',
     templateUrl: './app/component/sm/buttonDialog.component.html'
@@ -22,16 +23,19 @@ export class ButtonDialogComponent implements OnInit {
 
     ngOnInit() { 
          let btn = new Button();
+         btn.location = GoldbalConstant.LOCATION.nav;
+         btn.option = GoldbalConstant.OPTIONS_BUTTON.service;
+         btn.size = "lg";
          btn.id = GUID.createGUIDString();
          this.ngbForm = this.fb.group({
-            id:[btn.id],
-            option:[btn.option],
+            id:[btn.id,Validators.required],
+            option:[btn.option,Validators.required],
             modal:[btn.modal],
             size:[btn.size],
             icon:[btn.icon],
-            title:[btn.title],
+            title:[btn.title,Validators.required],
             url:[btn.url],
-            location:[btn.location],
+            location:[btn.location,Validators.required],
             sort:[btn.sort]
          });
     }

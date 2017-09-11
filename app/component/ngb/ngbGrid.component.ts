@@ -25,6 +25,7 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
 
         //深度复制
         let bootstrapOptions = JSON.parse(JSON.stringify(this.options));
+        bootstrapOptions.queryParams = this.options.queryParams;
         this.createStatefield(bootstrapOptions);
         this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(bootstrapOptions);
     }
@@ -41,7 +42,7 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
         }
     }
 
-    refresh(parameter){
+    refresh(parameter?){
         this.ngbootstrapTable.bootstrapTable("refresh", {query: parameter});
     }
 
