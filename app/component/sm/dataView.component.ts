@@ -43,7 +43,6 @@ export class DataViewComponent extends SelectorComponent {
         super(logger, httpService, modalService, fb, toastr, null);
     }
     ngOnInit() {
-
         // Mock.createDataViewList(this.dataViewModule);
 
         //监控路由守卫获取初始化数据
@@ -54,84 +53,83 @@ export class DataViewComponent extends SelectorComponent {
             this.dataFilters = resp.dataViewResolver.result.dataFilters;
             this.treeOptions = resp.dataViewResolver.result.treeOptions;
             this.options = resp.dataViewResolver.result.options;
+            this.options.columns = resp.dataViewResolver.result.columns;
+            var self  = this;
             this.options.queryParams = function (params) {
-
-                //ztree初始查询参数
-                params.treeOptions = resp.dataViewResolver.result.treeOptions;
+                params.treeOptions = self.treeOptions;
                 return params;
             }
-            this.options.columns = resp.dataViewResolver.result.columns;
-
-            //计算右边宽度
-            this.rightWidth();
-
-            //构建树
-            this.ztree = this.createTree();
-
-            //构建查询过滤
-            this.createSearch();
+            this.options.onRefresh = function(params){
+                params.treeOptions = self.treeOptions;
+                return params;
+            }
+            this.ztree = this.buildzTree();
+            this.createDatafilter();
         });
     }
 
-    //获取已有的component
-    createComponentInstance(componentName) {
+    componentFactory(componentName) {
         var factories = Array.from(this.componentFactoryResolver['_factories'].keys());
-        var factoryClass = <Type<any>>factories.find((x: any) => x.name === componentName);
+        var factoryClass = <Type<any>>factories.find((x: any) => x.name == componentName);
         return factoryClass;
     }
 
-
-    // 导航按钮点击
     navClick(button: Button) {
+        switch (button.id) {
+            case GoldbalConstant.CRUD.create:
+                const modalRef = this.modalService.open(DataViewCreateComponent, { size: "lg" });
+                modalRef.result.then((result) => {
+                    this.toastr.success(result);
+                    this.search();
+                }, (reason) => { });
+                modalRef.componentInstance.dataViewModule = this.dataViewModule;
+                break;
+            case GoldbalConstant.CRUD.update:
+                let selected = this.getSelections();
+                if(!selected){
+                    return;
+                }
+                //获取主键
+                this.httpService.doPost(Application.ubold_sm_fetch,
 
-        // 判断按钮是否为增删改
-        if ('create' == button.id) {
-            const modalRef = this.modalService.open(DataViewCreateComponent, { size: "lg" });
-            modalRef.result.then((result) => {
-                // this.closeResult = `Closed with: ${result}`;
-                this.toastr.success(result);
-                this.search();
-            }, (reason) => {
-                // this.search();
-                // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            });
-            modalRef.componentInstance.dataViewModule = this.dataViewModule;
-            return;
+                    //TODO 主键不一定是id
+                    { sqlId: this.dataViewModule.sqlId, id: selected[0].id }).subscribe(resp => {
+                        if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.formViewResolver.code) {
+                            const modalRef = this.modalService.open(DataViewCreateComponent, { size: "lg" });
+                            modalRef.componentInstance.dataViewModule = this.dataViewModule
+                            modalRef.componentInstance.viewModel = resp.result;
+                            modalRef.result.then((result) => {
+                                this.toastr.success(result);
+                                this.search();
+                            },(reason) => {});;
+                        } else {
+                            this.toastr.error(resp.message);
+                        }
+                    });
+                break;
+            case GoldbalConstant.CRUD.retrieve:
+
+                break;
+            case GoldbalConstant.CRUD.delete:
+
+                break;
+            default:
+                break;
         }
 
-        if ('update' == button.id) {
-            //获取选中数据id
-            let id = "";
+        //根据按钮操作类型处理
+        switch (button.option) {
+            case GoldbalConstant.OPTIONS_BUTTON.service:
 
-            this.httpService.doPost(Application.ubold_sm_fetch,
-                { sqlId: this.dataViewModule.sqlId, id: id }).subscribe(resp => {
-
-                    if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.formViewResolver.code) {
-                        const modalRef = this.modalService.open(DataViewCreateComponent, { size: "lg" });
-                        modalRef.componentInstance.dataViewModule = this.dataViewModule
-                        modalRef.componentInstance.viewModel = resp.result;
-                    } else {
-                        this.toastr.error(resp.message);
-                    }
-                });
-            return;
-        }
-
-        //接口
-        if (button.option == GoldbalConstant.OPTIONS_BUTTON.service) {
-
-        }
-        //模态窗口
-        if (button.option == GoldbalConstant.OPTIONS_BUTTON.modal) {
-            let _component = this.createComponentInstance(button.modal);
-
-            // 弹出组件
-            const modalRef = this.modalService.open(this.createComponentInstance(_component));
-            // modalRef.componentInstance.columOptions = columOptions;
-        }
-        //新窗口
-        if (button.option == GoldbalConstant.OPTIONS_BUTTON.window) {
-
+                break;
+            case GoldbalConstant.OPTIONS_BUTTON.modal:
+                  const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: "lg" })
+                  .result.then((result) => {},(reason) => {});
+                break;
+            case GoldbalConstant.OPTIONS_BUTTON.window:
+                break;
+            default:
+                break;
         }
     }
 }

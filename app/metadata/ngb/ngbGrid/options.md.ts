@@ -99,4 +99,5 @@ export class Options {
 // 表格的参数定义在 jQuery.fn.bootstrapTable.defaults。
 export class BootstrapTableDefaults extends Options{
   columns:Array<ColumOptions>;
+  onRefresh:any;
 }

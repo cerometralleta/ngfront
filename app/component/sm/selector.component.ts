@@ -44,106 +44,106 @@ export class SelectorComponent implements OnInit {
     dataFilters: Array<DataFilter>;
 
     // 内容区域宽度
-    colContentWidth : number;
+    colContentWidth: number;
 
     // treeModule
-    ztree : DataModule;
+    ztree: DataModule;
 
     //bootstrap table数据
-    options:BootstrapTableDefaults;
-    
+    options: BootstrapTableDefaults;
+
     //form group
     searchForm: FormGroup;
     buttons: Array<Button>;
-
     @ViewChild(NgbTreeComponent) ngbTreeComponent: NgbTreeComponent;//树组件
     @ViewChild(NgbGridComponent) ngbGridComponent: NgbGridComponent;//bootstrapTable
     constructor(
-         public logger: LoggerService
-        ,public httpService: HttpService
-        ,public modalService: NgbModal
-        ,public fb: FormBuilder
-        ,public toastr:ToastrService
-        ,public activeModal: NgbActiveModal
-    ) {
-
-    }
+        public logger: LoggerService
+        , public httpService: HttpService
+        , public modalService: NgbModal
+        , public fb: FormBuilder
+        , public toastr: ToastrService
+        , public activeModal: NgbActiveModal
+    ) { }
     ngOnInit() {
         this.buttons = new Array<Button>();
         this.dataFilters = this.dataViewModule.dataFilters;
-        this.treeOptions =  this.dataViewModule.treeOptions;
+        this.treeOptions = this.dataViewModule.treeOptions;
         this.options = <BootstrapTableDefaults>this.dataViewModule.options;
-        var self  = this;
-        this.options.queryParams = function(params){
-
-            //ztree初始查询参数
+        this.options.columns = this.dataViewModule.columns;
+        var self = this;
+        this.options.queryParams = function (params) {
             params.treeOptions = self.treeOptions;
             return params;
         }
-        this.options.columns = this.dataViewModule.columns;
-
-        //计算右边宽度
-        this.rightWidth();
+        this.options.onRefresh = function (params) {
+            params.treeOptions = self.treeOptions;
+            return params;
+        }
 
         //构建树
-        this.ztree = this.createTree();
-        
+        this.ztree = this.buildzTree();
         //构建查询过滤
-        this.createSearch();
+        this.createDatafilter();
     }
 
     //获取选中行
-    getSelections(){
+    getSelectionsAndShut() {
+        let selections = this.getSelections();
+        this.activeModal.close(selections);
+    }
+
+    getSelections() {
         let selected = this.ngbGridComponent.getSelections();
-        if(selected.length < 1){
-            this.toastr.warning("请选择记录");
+        if (selected.length < 1) {
+            this.toastr.warning("请选择要处理的记录!");
             return;
         }
-        this.activeModal.close(selected);
+        return selected;
     }
 
     //返回当前DataViewModel
-    getDataViewModule(){
+    getDataViewModule() :DataViewModule {
         return this.dataViewModule;
     }
 
     //查询对象
-    createSearch(){
+    createDatafilter() {
         let formArray = new Array<any>();
         this.dataFilters.forEach(datafilter => {
-             formArray.push(this.fb.group({
-                 value: [datafilter.value],
-                 field: [datafilter.field],
-                 expression: [datafilter.expression],
-                 title: [datafilter.title]
+            formArray.push(this.fb.group({
+                value: [datafilter.value],
+                field: [datafilter.field],
+                expression: [datafilter.expression],
+                title: [datafilter.title]
             }))
         });
-        this.searchForm =  this.fb.group({searchArray : this.fb.array(formArray)});
+        this.searchForm = this.fb.group({ searchArray: this.fb.array(formArray) });
     }
 
-     // 计算内容宽度
-    rightWidth(){
-      let maxWidth = 12;
-      if(this.treeOptions.show){
+    // 计算内容宽度
+    zTreeRange() {
+        let maxWidth = 12;
+        if (this.treeOptions.show) {
             this.colContentWidth = maxWidth - this.treeOptions.width;
             return;
-      }
-       this.colContentWidth = maxWidth;
+        }
+        this.colContentWidth = maxWidth;
     }
 
-     //查询列表
+    //查询列表
     search(nodeId?) {
         let datafilter = this.searchForm.value;
         datafilter.treeOptions = this.treeOptions;
-        if(nodeId){
+        if (nodeId) {
             this.treeOptions.nodeValue = nodeId;
         }
         this.ngbGridComponent.refresh(datafilter);
     }
 
     //构建ztree
-    createTree() {
-
+    buildzTree() {
+        this.zTreeRange();
         // ztree data
         let treeModule = new DataModule();
         treeModule.setting = new Setting();
@@ -167,30 +167,30 @@ export class SelectorComponent implements OnInit {
 
         //asyc
         let async = new Async();
-        async.autoParam = [this.treeOptions.idKey+'=id'];//服务端默认取id
+        async.autoParam = [this.treeOptions.idKey + '=id'];//服务端默认取id
         async.dataType = "json";
         async.type = "POST";
         async.url = Application.ubold_sm_sql_bootstrap_ztree;
         async.enable = this.treeOptions.enable;
-        async.otherParam =  ["sqlId", this.treeOptions.sqlId,
-                "idKey", this.treeOptions.idKey,
-                "pIdKey",this.treeOptions.pIdKey,
-                "name",this.treeOptions.name,
-                "scope",this.treeOptions.scope,
-                "enable",this.treeOptions.enable+''];
+        async.otherParam = ["sqlId", this.treeOptions.sqlId,
+            "idKey", this.treeOptions.idKey,
+            "pIdKey", this.treeOptions.pIdKey,
+            "name", this.treeOptions.name,
+            "scope", this.treeOptions.scope,
+            "enable", this.treeOptions.enable + ''];
         treeModule.setting.async = async;
-         
+
         var self = this;
         treeModule.setting.callback = {
-            onClick:function(event, treeId, treeNode) {
-                        self.search(treeNode[data.simpleData.idKey]);
-                    },
-            onAsyncSuccess: function(event, treeId, treeNode, msg) {
-                
-                 //默认展开第一个结点    
-                if(!treeNode){
+            onClick: function (event, treeId, treeNode) {
+                self.search(treeNode[data.simpleData.idKey]);
+            },
+            onAsyncSuccess: function (event, treeId, treeNode, msg) {
+
+                //默认展开第一个结点    
+                if (!treeNode) {
                     var treeObj = $.fn.zTree.getZTreeObj(treeId);
-                    treeObj.expandNode(treeObj.getNodes()[0], true);    
+                    treeObj.expandNode(treeObj.getNodes()[0], true);
                 }
             }
         }

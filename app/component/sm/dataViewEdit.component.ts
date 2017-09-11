@@ -46,7 +46,7 @@ export class DataViewEditComponent implements OnInit {
   locations: Array<any> = DictConstant.createLocation();
   sidePaginations: Array<any> = DictConstant.createSidePagination();
   createQueryParamsTypes: Array<any> = DictConstant.createQueryParamsType();
-  exportDataType:Array<any> = DictConstant.createExportDataType();
+  exportDataType: Array<any> = DictConstant.createExportDataType();
 
   //SQL 定义
   sqlDefines: Array<any> = this.createSqlDefines();
@@ -96,7 +96,7 @@ export class DataViewEditComponent implements OnInit {
   }
 
   //添加功能
-  addFunc(id, title, type) {
+  addButton(id, title, type) {
     let button = new Button();
     if (id) {
       button.id = id;
@@ -139,24 +139,21 @@ export class DataViewEditComponent implements OnInit {
       }
     }
 
-    //添加
-    if ("create" == id) {
-      this.addFunc(id, "增加", "nav");
-      return;
-    }
-    if ("delete" == id) {
-
-      //默认行内按钮
-      this.addFunc(id, "删除", "nav");
-      return;
-    }
-    if ("update" == id) {
-      this.addFunc(id, "修改","nav");
-      return;
-    }
-    if ("retrieve" == id) {
-      this.addFunc(id, "查询", "nav");
-      return;
+    switch (id) {
+      case GoldbalConstant.CRUD.create:
+        this.addButton(id, "增加", GoldbalConstant.LOCATION.nav);
+        break;
+      case GoldbalConstant.CRUD.delete:
+        this.addButton(id, "删除", GoldbalConstant.LOCATION.nav);
+        break;
+      case GoldbalConstant.CRUD.update:
+        this.addButton(id, "修改", GoldbalConstant.LOCATION.nav);
+        break;
+      case GoldbalConstant.CRUD.retrieve:
+        this.addButton(id, "查询", GoldbalConstant.LOCATION.nav);
+        break;
+      default:
+        break;
     }
   }
 
@@ -202,7 +199,7 @@ export class DataViewEditComponent implements OnInit {
   }
 
   //ztree 数据源
-  openZtreeSqlDefine(){
+  openZtreeSqlDefine() {
     //查询sqldefine
     this.httpService.http.post(Application.ubold_sm_sqldefine, null)
       .subscribe(res => {
@@ -215,28 +212,28 @@ export class DataViewEditComponent implements OnInit {
         const modalRef = this.modalService.open(SelectorComponent, { size: "lg" });
         modalRef.componentInstance.dataViewModule = resp.result;
         modalRef.result.then((result) => {
-           const _treeFormGroup = <FormGroup>this.ngbForm.controls['treeOptions'];
-           let _selectedSqlId = result[0].sqlId;
+          const _treeFormGroup = <FormGroup>this.ngbForm.controls['treeOptions'];
+          let _selectedSqlId = result[0].sqlId;
 
-           if(_selectedSqlId == _treeFormGroup.controls.sqlId.value){
-              return;
-           }
-            _treeFormGroup.controls.sqlId.setValue(_selectedSqlId);
+          if (_selectedSqlId == _treeFormGroup.controls.sqlId.value) {
+            return;
+          }
+          _treeFormGroup.controls.sqlId.setValue(_selectedSqlId);
 
-             //clear idKey,pIdkey name field
-            _treeFormGroup.controls.idKey.setValue("");
-            _treeFormGroup.controls.pIdKey.setValue("");
-            _treeFormGroup.controls.name.setValue("");
+          //clear idKey,pIdkey name field
+          _treeFormGroup.controls.idKey.setValue("");
+          _treeFormGroup.controls.pIdKey.setValue("");
+          _treeFormGroup.controls.name.setValue("");
 
-           //刷新sqldefine fields
-           this.refreshZtreeSqlIdFields(_selectedSqlId);
-        }, (reason) => {});
+          //刷新sqldefine fields
+          this.refreshZtreeSqlIdFields(_selectedSqlId);
+        }, (reason) => { });
       });
   }
 
   //ztree sqldefine 
-  refreshZtreeSqlIdFields(sqlId){
-       this.httpService.doPost(Application.ubold_sqldefine_createColumnList + sqlId, null)
+  refreshZtreeSqlIdFields(sqlId) {
+    this.httpService.doPost(Application.ubold_sqldefine_createColumnList + sqlId, null)
       .subscribe(resp => {
         if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
           //刷新ztree关系字段
@@ -247,7 +244,7 @@ export class DataViewEditComponent implements OnInit {
       });
   }
 
- 
+
 
 
   //创建页面数据
@@ -275,11 +272,11 @@ export class DataViewEditComponent implements OnInit {
         this.formData.options.showHeader = true;
         this.formData.options.showColumns = true;
         this.formData.options.showRefresh = true;
-        this.formData.options.sidePagination="server";
-        this.formData.options.queryParamsType ="undefined";
+        this.formData.options.sidePagination = "server";
+        this.formData.options.queryParamsType = "undefined";
         this.formData.options.pageNumber = 1;
         this.formData.options.checkboxHeader = true;
-        this.formData.options.maintainSelected=true;
+        this.formData.options.maintainSelected = true;
         this.formData.options.exportDataType = "basic";
 
         //tree
@@ -336,12 +333,12 @@ export class DataViewEditComponent implements OnInit {
       pIdKey: [this.formData.treeOptions.pIdKey],
       scope: [this.formData.treeOptions.scope],
       width: [this.formData.treeOptions.width],
-      enable:[this.formData.treeOptions.enable],
+      enable: [this.formData.treeOptions.enable],
       relationField: [this.formData.treeOptions.relationField]
     });
 
     //refresh ztree
-    if(this.formData.treeOptions.sqlId){
+    if (this.formData.treeOptions.sqlId) {
       this.refreshZtreeSqlIdFields(this.formData.treeOptions.sqlId);
     }
   }
@@ -355,7 +352,7 @@ export class DataViewEditComponent implements OnInit {
       pageSize: [this.formData.options.pageSize, [Validators.required, Validators.maxLength(3)]],
       pageNumber: [this.formData.options.pageNumber],
       showExport: [this.formData.options.showExport],
-      exportDataType:[this.formData.options.exportDataType],
+      exportDataType: [this.formData.options.exportDataType],
       undefinedText: [this.formData.options.undefinedText],
       searchText: [this.formData.options.searchText],
       sortable: [this.formData.options.sortable],
@@ -411,16 +408,16 @@ export class DataViewEditComponent implements OnInit {
   createbuttonsFormArray() {
     let formArray = new Array<any>();
     this.formData.buttons.forEach(button => {
-        formArray.push(this.fb.group({
-          id: [button.id],
-          option: [button.option, [Validators.required]],
-          modal: [button.modal],
-          size: [button.size],
-          icon: [button.icon],
-          title: [button.title, [Validators.required, Validators.maxLength(10)]],
-          url: [button.url],
-          location: [button.location, [Validators.required]]
-        })
+      formArray.push(this.fb.group({
+        id: [button.id],
+        option: [button.option, [Validators.required]],
+        modal: [button.modal],
+        size: [button.size],
+        icon: [button.icon],
+        title: [button.title, [Validators.required, Validators.maxLength(10)]],
+        url: [button.url],
+        location: [button.location, [Validators.required]]
+      })
       )
     });
     return formArray;
@@ -511,15 +508,15 @@ export class DataViewEditComponent implements OnInit {
     // this.treeFromGroup.controls.url.setValidators(Validators.required);
     this.formData = this.ngbForm.value;
     if (!this.formData.treeOptions.show) {
-      for(let key in this.treeFromGroup.controls){
-          this.treeFromGroup.controls[key].setValidators(Validators.required);
-          this.treeFromGroup.controls[key].updateValueAndValidity();
+      for (let key in this.treeFromGroup.controls) {
+        this.treeFromGroup.controls[key].setValidators(Validators.required);
+        this.treeFromGroup.controls[key].updateValueAndValidity();
       }
     } else {
-        for(let key in this.treeFromGroup.controls){
-          this.treeFromGroup.controls[key].clearValidators();
-          this.treeFromGroup.controls[key].updateValueAndValidity();
-        }
+      for (let key in this.treeFromGroup.controls) {
+        this.treeFromGroup.controls[key].clearValidators();
+        this.treeFromGroup.controls[key].updateValueAndValidity();
+      }
     }
   }
 
@@ -569,7 +566,7 @@ export class DataViewEditComponent implements OnInit {
         modalRef.componentInstance.dataViewModule = resp.result;
         modalRef.result.then((result) => {
           let _selectedValue = result[0];
-          if(_selectedValue.sqlId == this.ngbForm.controls.sqlId.value){
+          if (_selectedValue.sqlId == this.ngbForm.controls.sqlId.value) {
             return;
           }
 
@@ -577,18 +574,18 @@ export class DataViewEditComponent implements OnInit {
           this.ngbForm.controls.sqlId.setValue(_selectedValue.sqlId);
 
           //更新默认数据请求地址
-          this.optionsFormGroup.controls.url.setValue("/"+_selectedValue.sqlId);
+          this.optionsFormGroup.controls.url.setValue("/" + _selectedValue.sqlId);
 
           //设置默认主键
-          if(_selectedValue.masterTableId){
-            this.optionsFormGroup.controls.idField.setValue( _selectedValue.masterTableId);
+          if (_selectedValue.masterTableId) {
+            this.optionsFormGroup.controls.idField.setValue(_selectedValue.masterTableId);
             this.optionsFormGroup.controls.uniqueId.setValue(_selectedValue.masterTableId);
           }
 
           //清空生成的列
           this.clearColumns();
           this.clearDatafilter();
-        }, (reason) => {});
+        }, (reason) => { });
       });
   }
 
@@ -615,7 +612,7 @@ export class DataViewEditComponent implements OnInit {
   //变更
   onValueChanged(data?: any) {
     if (!this.ngbForm) { return; }
-    this.formErrors = this.formVerifiyService.formVerifiy(this.ngbForm,data);
+    this.formErrors = this.formVerifiyService.formVerifiy(this.ngbForm, data);
 
   }
 }

@@ -29,8 +29,6 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
         this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(bootstrapOptions);
     }
     ngAfterViewInit(): void {}
-
-    //createStatefield
     createStatefield(bootstrapOptions:BootstrapTableDefaults){
         if(bootstrapOptions.columns && 
             bootstrapOptions.columns.length > 0 &&

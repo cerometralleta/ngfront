@@ -16,6 +16,9 @@ export class GoldbalConstant {
       'maxlength': '长度超出范围'
     };
 
+    static CRUD = {create:"create",update:"update",delete:"delete",retrieve:"retrieve"};
+    static LOCATION = {nav:"nav",row:"row"};
+
     /*修改类型*/
     static MODIFTY_TYPES =  { hide: "hide", enable: "enable", disable: "disable" };
 
