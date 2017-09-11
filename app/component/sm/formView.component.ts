@@ -45,7 +45,6 @@ export class FormViewComponent implements OnInit {
                 this.formViewModel.columns = new Array<Columns>();
             }
         });
-        this.logger.debug(JSON.stringify(this.formViewModel));
         this.ngbForm = new FormGroup(this.createFormGroup());
     }
 

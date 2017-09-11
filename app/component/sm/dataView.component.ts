@@ -123,7 +123,7 @@ export class DataViewComponent extends SelectorComponent {
 
                 break;
             case GoldbalConstant.OPTIONS_BUTTON.modal:
-                  const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: "lg" })
+                  const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: button.size })
                   .result.then((result) => {},(reason) => {});
                 break;
             case GoldbalConstant.OPTIONS_BUTTON.window:

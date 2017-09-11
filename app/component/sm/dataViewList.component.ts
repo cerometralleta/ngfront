@@ -65,8 +65,6 @@ export class DataViewListComponent implements OnInit {
         //构建bootstrap table
         this.createBootstrap();
 
-        //构建ztree
-
         //构建查询过滤
         this.createSearch();
     }
@@ -211,43 +209,6 @@ export class DataViewListComponent implements OnInit {
         let datafilter = this.searchForm.value;
         this.ngbGridComponent.refresh(datafilter);
     }
-
-    //构建ztree
-    createTree() {
-
-        // ztree data
-        let treeModule = new DataModule();
-        treeModule.setting = new Setting();
-
-        let data = new Data();
-        let simpleData = new SimpleData();
-        simpleData.idKey = this.treeOptions.idKey;
-        simpleData.pIdKey = this.treeOptions.pIdKey;
-        simpleData.enable = true;
-        data.simpleData = simpleData;
-
-        let key = new Key();
-        key.name = this.treeOptions.name;
-        key.title = key.name;
-        data.key = key;
-
-        treeModule.setting.data = data;
-        treeModule.setting.callback = {
-            onClick: this.zTreeOnClick
-        }
-
-        treeModule.znodes = [
-            { id: 1, pId: 0, name: "父节点1" },
-            { id: 11, pId: 1, name: "子节点1" },
-            { id: 12, pId: 1, name: "子节点2" }
-        ];
-        return treeModule;
-    }
-
-    //节点点击事件
-    zTreeOnClick(event, treeId, treeNode) {
-        alert(treeNode.tId + ", " + treeNode.name);
-    };
 
     // 导航按钮点击
     insert() {

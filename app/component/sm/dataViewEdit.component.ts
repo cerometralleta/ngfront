@@ -417,7 +417,7 @@ export class DataViewEditComponent implements OnInit {
         title: [button.title, [Validators.required, Validators.maxLength(10)]],
         url: [button.url],
         location: [button.location, [Validators.required]]
-      })
+        })
       )
     });
     return formArray;
