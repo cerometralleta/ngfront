@@ -38,9 +38,9 @@
 
 </div>
 <div class="modal-footer" >
-    <!--<button type="button" class="btn btn-secondary" (click)="close()">确定</button>-->
      <form (ngSubmit)="onSubmit()">
-         <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">保存</button>
+         <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid" *ngIf="!this.isView">提交</button>
+         <button type="button" class="btn w-sm btn-white waves-effect"  (click)="activeModal.dismiss('Cross click')" *ngIf="this.isView">关闭</button>
      </form>
 </div>
 

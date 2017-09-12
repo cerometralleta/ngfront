@@ -74,7 +74,7 @@ export class DataViewComponent extends SelectorComponent {
     navClick(button: Button) {
         switch (button.id) {
             case GoldbalConstant.CRUD.create:
-                const modalRef = this.modalService.open(DataViewCreateComponent, { size: "lg" });
+                const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
                 modalRef.result.then((result) => {
                     this.toastr.success(result);
                     this.search();
@@ -88,12 +88,10 @@ export class DataViewComponent extends SelectorComponent {
                 }
                
                 this.httpService.http.post(Application.ubold_sql_fetch,
-
-                    //TODO 主键不一定是id
-                    { sqlId: this.dataViewModule.sqlId, id: selected[0].id }).subscribe(result => {
+                    { sqlId: this.dataViewModule.sqlId, id: selected[0][this.options.uniqueId] }).subscribe(result => {
                         let resp = result.json();
                         if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
-                            const modalRef = this.modalService.open(DataViewCreateComponent, { size: "lg" });
+                            const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
                             modalRef.componentInstance.dataViewModule = this.dataViewModule
                             modalRef.componentInstance.viewModel = resp.result;
                             modalRef.result.then((result) => {

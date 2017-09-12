@@ -26,6 +26,7 @@ export class DataViewCreateComponent implements OnInit {
 
     //视图数据
     @Input() viewModel:any;
+    @Input() isView:boolean = false;
     inset:boolean = false;
     
     constructor(
@@ -62,8 +63,10 @@ export class DataViewCreateComponent implements OnInit {
     }
 
     normal(column){
+        if(this.isView){
+            return column.isView;
+        }
         let result = this.inset ? column.inset : column.updateType != GoldbalConstant.MODIFTY_TYPES.hide;
-        // console.info(result);
         return result;
     }
     

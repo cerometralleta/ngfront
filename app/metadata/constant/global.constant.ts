@@ -24,6 +24,8 @@ export class GoldbalConstant {
 
     /*按钮操作 */
     static OPTIONS_BUTTON =  { service: "service", modal: "modal", window: "window" };
+    static modal_size_lg : "lg"|"sm" =  "lg";
+    static modal_size_sm : "lg"|"sm" =  "sm";
 
     /*排序类型*/
     static SORT_TYPES = [

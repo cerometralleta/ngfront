@@ -46,7 +46,10 @@
     <div class="form-group row">
         <label class="col-sm-2 control-label">size</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="size" formControlName="size" />
+            <!--<input type="text" class="form-control" placeholder="size" formControlName="size" />-->
+             <select class="form-control" formControlName="size" placeholder="size">
+                <option *ngFor="let size of modalsizes" [value]="size.code">{{size.text}}</option>
+            </select>
         </div>
     </div>
 </div>

@@ -52,7 +52,7 @@ export class FormViewCreateComponent implements OnInit {
     openField(content) {
 
         //打开新建窗口
-        this.modalService.open(FormViewFieldEditComponent,{ size: "lg" }).result.then((result) => {
+        this.modalService.open(FormViewFieldEditComponent,{ size: GoldbalConstant.modal_size_lg }).result.then((result) => {
             let column = <Columns>result; 
             // const controls = <FormArray>this.ngbForm.controls['columns'];
              this.columns.push(column);
@@ -67,7 +67,7 @@ export class FormViewCreateComponent implements OnInit {
 
      // 设置按钮类型
   preView(content) {
-    this.modalService.open(content, { size: "lg" }).result.then((result) => {
+    this.modalService.open(content, { size: GoldbalConstant.modal_size_lg }).result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

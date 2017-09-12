@@ -18,14 +18,15 @@ export class ButtonDialogComponent implements OnInit {
     locations:Array<any> = DictConstant.createLocation();
    
     constructor(public activeModal: NgbActiveModal
-    , private fb: FormBuilder
+    ,private fb: FormBuilder
     ,private logger: LoggerService,private httpService: HttpService) { }
+    modalsizes: Array<any> = DictConstant.createModalsize();
 
     ngOnInit() { 
          let btn = new Button();
          btn.location = GoldbalConstant.LOCATION.nav;
          btn.option = GoldbalConstant.OPTIONS_BUTTON.service;
-         btn.size = "lg";
+         btn.size = GoldbalConstant.modal_size_lg;
          btn.id = GUID.createGUIDString();
          this.ngbForm = this.fb.group({
             id:[btn.id,Validators.required],

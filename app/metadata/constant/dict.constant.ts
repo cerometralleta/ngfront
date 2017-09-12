@@ -81,6 +81,13 @@ export class DictConstant {
     return location;
   }
 
+   static createModalsize() {
+    let modalsize = new Array<any>();
+    modalsize.push({ code: "lg", text: "lg" });
+    modalsize.push({ code: "sm", text: "sm" }); 
+    return modalsize;
+  }
+
   static createSidePagination() {
     let sidePagination = new Array<any>();
     sidePagination.push({ code: "client", text: "client" });
