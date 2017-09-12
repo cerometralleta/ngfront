@@ -10,6 +10,7 @@ import { DictConstant } from "../../metadata/constant/dict.constant";
 import { FormViewFieldEditComponent } from "./formViewFieldEdit.component";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Application } from "../../metadata/constant/application.constant";
+import { GoldbalConstant } from "../../metadata/constant/global.constant";
 
 @Component({
     selector: 'sm-formViewCreate',
@@ -44,9 +45,7 @@ export class FormViewCreateComponent implements OnInit {
         
         // 初始化数据不然会异常
         this.columns = new Array<Columns>();
-
         this.ngbForm = new FormGroup(this.createFormGroup());
-
     }
 
     openField(content) {

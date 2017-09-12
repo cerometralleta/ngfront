@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input, ViewChild, ChangeDetectorRef, enableProdMode } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild, ChangeDetectorRef, enableProdMode, AfterViewInit } from '@angular/core';
 import { URLSearchParams, Http, Jsonp } from "@angular/http";
 import { HttpService } from "../../service/basic/http.service";
 import { Application } from "../../metadata/constant/application.constant";
@@ -32,7 +32,7 @@ enableProdMode();
     selector: 'sm-selector',
     templateUrl: './app/component/sm/selector.component.html'
 })
-export class SelectorComponent implements OnInit {
+export class SelectorComponent implements OnInit , AfterViewInit{
 
     //页面数据
     @Input() dataViewModule: DataViewModule;
@@ -86,6 +86,8 @@ export class SelectorComponent implements OnInit {
         //构建查询过滤
         this.createDatafilter();
     }
+
+    ngAfterViewInit(): void { }
 
     //获取选中行
     getSelectionsAndShut() {

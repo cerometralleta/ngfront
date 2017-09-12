@@ -15,42 +15,51 @@ declare var $: any;
 export class NgbGridComponent implements OnInit, AfterViewInit {
     @Input() options: BootstrapTableDefaults;
     constructor() { }
-    private ngbootstrapTable:any;
+    private ngbootstrapTable: any;
     @ViewChild("ngbootstrapTable") erf: ElementRef;
     ngOnInit() {
         // console.info(JSON.stringify(this.options));
-        if(this.options.url.indexOf("http") < 0 && this.options.url.indexOf("https") < 0){
-            this.options.url =  Application.ubold_sm_sql_bootstrap_dataList +  this.options.url
+        if (this.options.url.indexOf("http") < 0 && this.options.url.indexOf("https") < 0) {
+            this.options.url = Application.ubold_sm_sql_bootstrap_dataList + this.options.url
         }
 
         //深度复制
         let bootstrapOptions = JSON.parse(JSON.stringify(this.options));
         bootstrapOptions.queryParams = this.options.queryParams;
         this.createStatefield(bootstrapOptions);
+        this.columnsformart(bootstrapOptions.columns);
         this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(bootstrapOptions);
     }
-    ngAfterViewInit(): void {}
-    createStatefield(bootstrapOptions:BootstrapTableDefaults){
-        if(bootstrapOptions.columns && 
+    ngAfterViewInit(): void { }
+    createStatefield(bootstrapOptions: BootstrapTableDefaults) {
+        if (bootstrapOptions.columns &&
             bootstrapOptions.columns.length > 0 &&
-            bootstrapOptions.checkboxHeader){
+            bootstrapOptions.checkboxHeader) {
             let options = new ColumOptions();
             options.title = "_state";
             options.field = "_state";
             options.checkbox = true;
-            bootstrapOptions.columns.splice(0, 0,options);  
+            bootstrapOptions.columns.splice(0, 0, options);
         }
     }
 
-    refresh(parameter?){
-        this.ngbootstrapTable.bootstrapTable("refresh", {query: parameter});
+    columnsformart(columnOptions: Array<ColumOptions>) {
+        if (columnOptions) {
+            columnOptions.forEach(co => {
+                 co.formatter =  null == co.formatter ? undefined : eval("("+co.formatter+")");
+            })
+        }
     }
 
-    getSelections(){
+    refresh(parameter?) {
+        this.ngbootstrapTable.bootstrapTable("refresh", { query: parameter });
+    }
+
+    getSelections() {
         return this.ngbootstrapTable.bootstrapTable("getSelections");
     }
 
-    getInstance(){
+    getInstance() {
         return this.ngbootstrapTable;
     }
 }

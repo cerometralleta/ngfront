@@ -445,7 +445,7 @@ export class DataViewEditComponent implements OnInit {
       cardVisible: [columnOptions.cardVisible],
       switchable: [columnOptions.switchable],
       clickToSelect: [columnOptions.clickToSelect],
-      // formatter: [columnOptions.formatter],
+      formatter: [columnOptions.formatter],
       // footerFormatter: [columnOptions.footerFormatter],
       sortName: [columnOptions.sortName],
       searchable: [columnOptions.searchable]

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input, ViewChild, Type, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild, Type, ComponentFactoryResolver, ElementRef, Renderer } from '@angular/core';
 import { URLSearchParams, Http, Jsonp } from "@angular/http";
 import { HttpService } from "../../service/basic/http.service";
 import { Application } from "../../metadata/constant/application.constant";
@@ -39,9 +39,31 @@ export class DataViewComponent extends SelectorComponent {
         , public fb: FormBuilder
         , public toastr: ToastrService
         , public componentFactoryResolver: ComponentFactoryResolver
+        , public elementRef: ElementRef, renderer: Renderer
     ) {
         super(logger, httpService, modalService, fb, toastr, null);
+
+        renderer.listen(elementRef.nativeElement, 'click', ($event) => {
+            if (this.ifListen($event.target)) {
+                this.onClickListenter($event.target);
+            }else if (this.ifListen($event.target.parentNode)) {
+                this.onClickListenter($event.target.parentNode);
+            }
+        });
     }
+
+    onClickListenter($target) {
+        // var child = this.elementRef.nativeElement.querySelectorAll('button');
+        // console.info(child);
+        var value = $target.getAttribute("value");
+        var option = $target.getAttribute("option");
+    }
+
+
+    ifListen($target) {
+        return $target && $target.nodeName == "BUTTON" && $target.hasAttribute("option");
+    }
+
     ngOnInit() {
         // Mock.createDataViewList(this.dataViewModule);
 
@@ -54,7 +76,7 @@ export class DataViewComponent extends SelectorComponent {
             this.treeOptions = resp.dataViewResolver.result.treeOptions;
             this.options = resp.dataViewResolver.result.options;
             this.options.columns = resp.dataViewResolver.result.columns;
-            var self  = this;
+            var self = this;
             this.options.queryParams = function (params) {
                 params.treeOptions = self.treeOptions;
                 params.searchArray = self.searchForm.value.searchArray;
@@ -64,6 +86,7 @@ export class DataViewComponent extends SelectorComponent {
             this.createDatafilter();
         });
     }
+    ngAfterViewInit(): void { }
 
     componentFactory(componentName) {
         var factories = Array.from(this.componentFactoryResolver['_factories'].keys());
@@ -83,10 +106,10 @@ export class DataViewComponent extends SelectorComponent {
                 break;
             case GoldbalConstant.CRUD.update:
                 let selected = this.getSelections();
-                if(!selected){
+                if (!selected) {
                     return;
                 }
-               
+
                 this.httpService.http.post(Application.ubold_sql_fetch,
                     { sqlId: this.dataViewModule.sqlId, id: selected[0][this.options.uniqueId] }).subscribe(result => {
                         let resp = result.json();
@@ -97,7 +120,7 @@ export class DataViewComponent extends SelectorComponent {
                             modalRef.result.then((result) => {
                                 this.toastr.success(result);
                                 this.search();
-                            },(reason) => {});;
+                            }, (reason) => { });;
                         } else {
                             this.toastr.error(resp.message);
                         }
@@ -119,8 +142,8 @@ export class DataViewComponent extends SelectorComponent {
 
                 break;
             case GoldbalConstant.OPTIONS_BUTTON.modal:
-                  const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: button.size })
-                  .result.then((result) => {},(reason) => {});
+                const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: button.size })
+                    .result.then((result) => { }, (reason) => { });
                 break;
             case GoldbalConstant.OPTIONS_BUTTON.window:
                 break;

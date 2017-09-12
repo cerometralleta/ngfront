@@ -37,7 +37,7 @@ export class ColumOptions extends Columns{
     switchable:boolean;
     clickToSelect:boolean;
     formatter:any;
-    // footerFormatter:any;
+    footerFormatter:any;
     // events:any;
     // sorter:any;
     sortName:string;
