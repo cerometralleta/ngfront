@@ -1,5 +1,5 @@
 export class GoldbalConstant {
-    
+
     static GRID_OPTIONS = { SINGLE: 1, MULTIPLE: 2 };
     static STATUS_CODE = { SUCCESS: 0, FAILURE: 1 };
 
@@ -10,24 +10,39 @@ export class GoldbalConstant {
         { value: "SELF", text: "当前节点" }
     ];
 
-    static NGB_BUTTON_ATTR = {_attr:"_attr",_value:"value"};
+    static NGB_BUTTON_ATTR = { _attr: "_attr", _value: "value" };
 
     static ERROR_MESSAGE = {
-      'required': '为必填',
-      'minlength': '长度不足',
-      'maxlength': '长度超出范围'
+        'required': '为必填',
+        'minlength': '长度不足',
+        'maxlength': '长度超出范围'
     };
 
-    static CRUD = {create:"create",update:"update",delete:"delete",retrieve:"retrieve"};
-    static LOCATION = {nav:"nav",row:"row"};
+    static CHECK_REG = {
+        '/^/S/': '非空',
+        '/^[a-zA-Z]+$/': '英文字母',
+        '/^[-+]?\d*$/': '整数',
+        '/^\d*$/': '正整数',
+        '/^[-\+]?\d+(\.\d+)?$/': '保留两位小数',
+        '/^[a-zA-Z0-9_]+$/': 'a-z,A-Z,0-9',
+        '/^[\u0391-\uFFE5]+$/': '请输入中文',
+        '/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/': 'EMAIL',
+        '/^\d{6}$/': '邮编(只能为六位)',
+        '/^((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/': '电话号码',
+        '/^((\(\d{2,3}\))|(\d{3}\-))?13\d{9}$/': '手机号码',
+        '/^\d{15}(\d{2}[A-Za-z0-9])?$/': '身份证'
+    };
+
+    static CRUD = { create: "create", update: "update", delete: "delete", retrieve: "retrieve" };
+    static LOCATION = { nav: "nav", row: "row" };
 
     /*修改类型*/
-    static MODIFTY_TYPES =  { hide: "hide", enable: "enable", disable: "disable" };
+    static MODIFTY_TYPES = { hide: "hide", enable: "enable", disable: "disable" };
 
     /*按钮操作 */
-    static OPTIONS_BUTTON =  { service: "service", modal: "modal", window: "window" };
-    static modal_size_lg : "lg"|"sm" =  "lg";
-    static modal_size_sm : "lg"|"sm" =  "sm";
+    static OPTIONS_BUTTON = { service: "service", modal: "modal", window: "window" };
+    static modal_size_lg: "lg" | "sm" = "lg";
+    static modal_size_sm: "lg" | "sm" = "sm";
 
     /*排序类型*/
     static SORT_TYPES = [
@@ -78,33 +93,5 @@ export class GoldbalConstant {
         { value: 90, text: "90%" },
         { value: 100, text: "100%" }
     ]
-
-    /**正则表达式**/
-    // static REGULAR_EXPRESSION = {
-    //     10001: { rule: '10001', tip: '非空' },
-    //     10002: { rule: '/^[a-zA-Z]+$/', tip: '英文字母' },
-    //     10003: { rule: '/^[-+]?\d*$/', tip: '整数' },
-    //     10004: { rule: '/^[-\+]?\d+(\.\d+)?$/', tip: '保留两位小数' },
-    //     10005: { rule: '/^[a-zA-Z0-9_]+$/', tip: 'a-z,A-Z,0-9' },
-    //     10006: { rule: '/^[\u0391-\uFFE5]+$/', tip: '请输入中文' },
-    //     10007: { rule: '/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/', tip: 'EMAIL' },
-    //     10008: { rule: '/^\d{6}$/', tip: '邮编(只能为六位)' },
-    //     10009: { rule: '/^((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/', tip: '电话号码' },
-    //     10010: { rule: '/^((\(\d{2,3}\))|(\d{3}\-))?13\d{9}$/', tip: '手机号码' },
-    //     10011: { rule: '/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/', tip: 'URL' },
-    //     10012: { rule: '/^\d{15}(\d{2}[A-Za-z0-9])?$/', tip: '身份证' },
-    //     10013: { rule: '/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/', tip: 'YYYY-MM-DD' },
-    //     10014: { rule: '/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$/', tip: 'YYYY-MM-DD hh:mm:ss' },
-    //     10015: { rule: '/^((20|21|22|23|[0-1]\d)\:[0-5][0-9])(\:[0-5][0-9])?$/', tip: 'hh:mm:ss' }
-    //     // 10000:{rule:'',tip:''}
-    // };
-
-    static DATETIME_FORMAT = [
-        { value: "%Y-%m-%d %H:%i:%s", text: "yyyy-MM-dd hh:mm:ss" },
-        { value: "%Y-%m-%d %H:%i", text: "yyyy-MM-dd hh:mm" },
-        { value: "%Y-%m-%d", text: "yyyy-MM-dd" },
-        { value: "%Y-%m", text: "yyyy-MM" },
-        { value: "%Y", text: "yyyy" }
-    ];
 }
 

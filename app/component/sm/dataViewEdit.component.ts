@@ -47,6 +47,7 @@ export class DataViewEditComponent implements OnInit {
   sidePaginations: Array<any> = DictConstant.createSidePagination();
   createQueryParamsTypes: Array<any> = DictConstant.createQueryParamsType();
   exportDataType: Array<any> = DictConstant.createExportDataType();
+  patterns :Array<any> = DictConstant.createPatterns();
 
   //SQL 定义
   sqlDefines: Array<any> = this.createSqlDefines();
@@ -448,7 +449,8 @@ export class DataViewEditComponent implements OnInit {
       formatter: [columnOptions.formatter],
       // footerFormatter: [columnOptions.footerFormatter],
       sortName: [columnOptions.sortName],
-      searchable: [columnOptions.searchable]
+      searchable: [columnOptions.searchable],
+      pattern:[columnOptions.pattern]
     })
   }
 

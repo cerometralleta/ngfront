@@ -12,7 +12,7 @@
         <div class="col-sm-10" [ngSwitch]="column.fieldType">
             
             <!--text-->
-            <input type="text" *ngSwitchCase="'text'"  class="form-control" placeholder="{{column.field}}" formControlName="{{column.field}}" />
+            <input type="text" *ngSwitchCase="'text'"  class="form-control" placeholder="{{column.field}}" formControlName="{{column.field}}"/>
 
             <!--select-->
              <select *ngSwitchCase="'select'" class="form-control" formControlName="{{column.field}}">

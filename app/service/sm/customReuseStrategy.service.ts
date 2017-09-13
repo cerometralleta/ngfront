@@ -17,7 +17,7 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
     }
 
     shouldAttach(route: ActivatedRouteSnapshot): boolean {
-        console.info('CustomReuseStrategy:shouldAttach', !!route.routeConfig && !!this.handlers[route.routeConfig.path]);
+        // console.info('CustomReuseStrategy:shouldAttach', !!route.routeConfig && !!this.handlers[route.routeConfig.path]);
         return !!route.routeConfig && !!this.handlers[route.routeConfig.path];
     }
 

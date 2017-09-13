@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataViewModule } from "../../metadata/sm/dataViewModule.md";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { LoggerService } from "../../service/basic/logger.service";
 import { HttpService } from "../../service/basic/http.service";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
@@ -45,8 +45,9 @@ export class DataViewCreateComponent implements OnInit {
         }
         this.columnfilter();
         this.ngbForm = new FormGroup(this.createFormGroup());
+        // this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
     }
-
+    // onValueChanged(data?: any){ }
     columnfilter() {
         let cols = new Array<ColumOptions>();
         this.columns.forEach(col => {
@@ -82,7 +83,11 @@ export class DataViewCreateComponent implements OnInit {
         let fg = {};
         this.columns.forEach(element => {
             // fg[element.field] = new FormControl(this.viewModel[element.field], <any>Validators.required),
-            fg[element.field] = new FormControl(this.viewModel[element.field]);
+            if (element.pattern && "" != element.pattern) {
+                fg[element.field] = new FormControl(this.viewModel[element.field], [Validators.pattern(element.pattern)]);
+            } else {
+                fg[element.field] = new FormControl(this.viewModel[element.field]);
+            }
         });
         return fg;
     }

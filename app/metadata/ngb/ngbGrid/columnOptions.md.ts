@@ -45,4 +45,5 @@ export class ColumOptions extends Columns{
     searchable:boolean;
     searchFormatter:boolean;
     escape:boolean;
+    pattern:string;//验证规则
 }

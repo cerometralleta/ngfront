@@ -213,11 +213,11 @@
 
           <label class="col-sm-2 control-label">exportDataType</label>
           <div class="col-sm-4">
-               <select class="form-control" formControlName="exportDataType" placeholder="exportDataType">
+            <select class="form-control" formControlName="exportDataType" placeholder="exportDataType">
                       <option *ngFor="let et of exportDataType" [value]="et.code">{{et.text}}</option>
                </select>
           </div>
-         
+
         </div>
 
         <div class="form-group row">
@@ -237,7 +237,7 @@
           <div class="col-sm-4">
             <input type="text" class="form-control" placeholder="dataField" formControlName="dataField" />
           </div>-->
-          
+
           <label class="col-sm-2 control-label">sortable</label>
           <div class="col-sm-4">
             <div class="checkbox checkbox-inverse">
@@ -245,7 +245,7 @@
               <label for="sortable"></label>
             </div>
           </div>
-        
+
           <label class="col-sm-2 control-label">showToggle</label>
           <div class="col-sm-4">
             <div class="checkbox checkbox-inverse">
@@ -591,6 +591,15 @@
                         </div>-->
 
                         <div class="form-group row">
+                          <label class="col-sm-2 control-label">pattern</label>
+                          <div class="col-sm-10">
+                            <select class="form-control" formControlName="pattern" placeholder="pattern">
+                              <option *ngFor="let pattern of patterns" [value]="pattern.code">{{pattern.text}}</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
                           <label class="col-sm-2 control-label">cardVisible</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-purple">
@@ -814,7 +823,7 @@
             </select>
         </div>
       </div>
-     
+
       <!--<div class="form-group row">
         <label class="col-sm-2 control-label">url</label>
         <div class="col-sm-10">

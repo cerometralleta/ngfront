@@ -1,12 +1,14 @@
+import { GoldbalConstant } from "./global.constant";
+
 /**
  * 字典
  */
 export class DictConstant {
-    constructor(parameters) {
-        
-    }
+  constructor(parameters) {
 
-    //修改方式
+  }
+
+  //修改方式
   static createUpdateTypes() {
     let updateTypes = new Array<any>();
     updateTypes.push({ code: "hide", text: "hide" });
@@ -15,13 +17,13 @@ export class DictConstant {
     return updateTypes;
   }
 
-   static createAligns() {
+  static createAligns() {
     let aligns = new Array<any>();
     aligns.push({ code: "center", text: "center" });
     aligns.push({ code: "right", text: "right" });
     aligns.push({ code: "left", text: "left" });
     return aligns;
-    }
+  }
 
   static createValigns() {
     let valigns = new Array<any>();
@@ -40,14 +42,14 @@ export class DictConstant {
     return fieldTypes;
   }
 
-  static createButtons(){
+  static createButtons() {
     let funcButtons = new Array<any>();
     funcButtons.push({ code: "service", text: "service" });
     funcButtons.push({ code: "modal", text: "modal" });
     funcButtons.push({ code: "window", text: "window" });
     return funcButtons;
   }
-  
+
   static createScopes() {
     let scopes = new Array<any>();
     scopes.push({ code: "ALL", text: "ALL" });
@@ -56,7 +58,7 @@ export class DictConstant {
     return scopes;
   }
 
-  static createExpressions(){ 
+  static createExpressions() {
     let expressions = new Array<any>();
     expressions.push({ code: "=", text: "=" });
     expressions.push({ code: ">", text: ">" });
@@ -70,45 +72,52 @@ export class DictConstant {
   static createMethods() {
     let methods = new Array<any>();
     methods.push({ code: "post", text: "POST" });
-    methods.push({ code: "get", text: "GET" }); 
+    methods.push({ code: "get", text: "GET" });
     return methods;
   }
-  
-   static createLocation() {
+
+  static createLocation() {
     let location = new Array<any>();
     location.push({ code: "nav", text: "nav" });
-    location.push({ code: "row", text: "row" }); 
+    location.push({ code: "row", text: "row" });
     return location;
   }
 
-   static createModalsize() {
+  static createModalsize() {
     let modalsize = new Array<any>();
     modalsize.push({ code: "lg", text: "lg" });
-    modalsize.push({ code: "sm", text: "sm" }); 
+    modalsize.push({ code: "sm", text: "sm" });
     return modalsize;
   }
 
   static createSidePagination() {
     let sidePagination = new Array<any>();
     sidePagination.push({ code: "client", text: "client" });
-    sidePagination.push({ code: "server", text: "server" }); 
+    sidePagination.push({ code: "server", text: "server" });
     return sidePagination;
   }
 
-   static createQueryParamsType() {
+  static createQueryParamsType() {
     let queryParamsType = new Array<any>();
     queryParamsType.push({ code: "undefined", text: "undefined" });
-    queryParamsType.push({ code: "limit", text: "limit" }); 
+    queryParamsType.push({ code: "limit", text: "limit" });
     return queryParamsType;
   }
 
-// 'basic', 'all', 'selected'
-   static createExportDataType() {
+  // 'basic', 'all', 'selected'
+  static createExportDataType() {
     let exportDataType = new Array<any>();
     exportDataType.push({ code: "basic", text: "basic" });
-    exportDataType.push({ code: "all", text: "all" }); 
-    exportDataType.push({ code: "selected", text: "selected" }); 
+    exportDataType.push({ code: "all", text: "all" });
+    exportDataType.push({ code: "selected", text: "selected" });
     return exportDataType;
   }
 
+  static createPatterns() {
+    let pattern = new Array<any>();
+    for (var rule in GoldbalConstant.CHECK_REG) {
+      pattern.push({ code: rule, text: GoldbalConstant.CHECK_REG[rule] });
+    }
+    return pattern;
+  }
 }
