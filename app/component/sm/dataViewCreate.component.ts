@@ -18,59 +18,67 @@ import { ToastrService } from "../../service/basic/toastr.service";
 export class DataViewCreateComponent implements OnInit {
 
     //将列表dataViewModule透传
-    @Input() dataViewModule:DataViewModule; 
+    @Input() dataViewModule: DataViewModule;
     ngbForm: FormGroup;
 
     //操作列
-    columns:Array<ColumOptions>;
+    columns: Array<ColumOptions>;
 
     //视图数据
-    @Input() viewModel:any;
-    @Input() isView:boolean = false;
-    inset:boolean = false;
-    
-    constructor(
-    public activeModal: NgbActiveModal,
-    private fb: FormBuilder,
-    private logger: LoggerService,
-    private httpService: HttpService,
-    private toastr:ToastrService) { 
+    @Input() viewModel: any;
+    @Input() isView: boolean = false;
+    inset: boolean = false;
 
-    }
-    
-    ngOnInit() { 
+    constructor(
+        public activeModal: NgbActiveModal,
+        private fb: FormBuilder,
+        private logger: LoggerService,
+        private httpService: HttpService,
+        private toastr: ToastrService) { }
+
+    ngOnInit() {
         this.columns = this.dataViewModule.columns;
         // this.columns = Mock.createColumn();
-        if(!this.viewModel){
-             this.inset = true;
-             this.viewModel = {};
+        if (!this.viewModel) {
+            this.inset = true;
+            this.viewModel = {};
         }
+        this.columnfilter();
         this.ngbForm = new FormGroup(this.createFormGroup());
     }
 
-    onSubmit(){
-         console.info(JSON.stringify(this.ngbForm.value))
-         let url  = this.inset ? Application.ubold_sm_insert : Application.ubold_sm_modfity;
-          this.httpService.http.post(url + this.dataViewModule.dataViewCode,this.ngbForm.value).subscribe(resp =>{
-                  let response = resp.json();
-                  if(GoldbalConstant.STATUS_CODE.SUCCESS == response.code){
-                        //关闭刷新
-                        this.activeModal.close(response.message);
-                  }else{
-                     this.toastr.error(response.message);
-                  }
-            });
+    columnfilter() {
+        let cols = new Array<ColumOptions>();
+        this.columns.forEach(col => {
+            if (this.colstatus(col)) {
+                cols.push(col);
+            }
+        });
+        this.columns = cols;
     }
 
-    normal(column){
-        if(this.isView){
+    onSubmit() {
+        console.info(JSON.stringify(this.ngbForm.value))
+        let url = this.inset ? Application.ubold_sm_insert : Application.ubold_sm_modfity;
+        this.httpService.http.post(url + this.dataViewModule.dataViewCode, this.ngbForm.value).subscribe(resp => {
+            let response = resp.json();
+            if (GoldbalConstant.STATUS_CODE.SUCCESS == response.code) {
+                this.activeModal.close(response.message);
+            } else {
+                this.toastr.error(response.message);
+            }
+        });
+    }
+
+    colstatus(column) {
+        if (this.isView) {
             return column.isView;
         }
         let result = this.inset ? column.inset : column.updateType != GoldbalConstant.MODIFTY_TYPES.hide;
         return result;
     }
-    
-    createFormGroup(){
+
+    createFormGroup() {
         let fg = {};
         this.columns.forEach(element => {
             // fg[element.field] = new FormControl(this.viewModel[element.field], <any>Validators.required),
@@ -78,5 +86,5 @@ export class DataViewCreateComponent implements OnInit {
         });
         return fg;
     }
- 
+
 }

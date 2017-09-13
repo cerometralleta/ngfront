@@ -8,8 +8,8 @@
 
 
     <div class="form-group row" *ngFor="let column of columns;">
-        <label class="col-sm-2 control-label" *ngIf="normal(column)">{{column.title}}</label>
-        <div class="col-sm-10" [ngSwitch]="column.fieldType" *ngIf="normal(column)">
+        <label class="col-sm-2 control-label">{{column.title}}</label>
+        <div class="col-sm-10" [ngSwitch]="column.fieldType">
             
             <!--text-->
             <input type="text" *ngSwitchCase="'text'"  class="form-control" placeholder="{{column.field}}" formControlName="{{column.field}}" />

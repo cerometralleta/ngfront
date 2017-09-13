@@ -10,6 +10,8 @@ export class GoldbalConstant {
         { value: "SELF", text: "当前节点" }
     ];
 
+    static NGB_BUTTON_ATTR = {_attr:"_attr",_value:"value"};
+
     static ERROR_MESSAGE = {
       'required': '为必填',
       'minlength': '长度不足',

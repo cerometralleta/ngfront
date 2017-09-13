@@ -22,6 +22,7 @@ import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { ToastrService } from "../../service/basic/toastr.service";
 import { Async } from "../../metadata/ngb/ngbTree/async.md";
 import { SelectorComponent } from "./selector.component";
+import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 declare var $: any;
 /**
  * 统一dataView
@@ -46,7 +47,7 @@ export class DataViewComponent extends SelectorComponent {
         renderer.listen(elementRef.nativeElement, 'click', ($event) => {
             if (this.ifListen($event.target)) {
                 this.onClickListenter($event.target);
-            }else if (this.ifListen($event.target.parentNode)) {
+            } else if (this.ifListen($event.target.parentNode)) {
                 this.onClickListenter($event.target.parentNode);
             }
         });
@@ -54,14 +55,18 @@ export class DataViewComponent extends SelectorComponent {
 
     onClickListenter($target) {
         // var child = this.elementRef.nativeElement.querySelectorAll('button');
-        // console.info(child);
-        var value = $target.getAttribute("value");
-        var option = $target.getAttribute("option");
+        var $value = $target.getAttribute(GoldbalConstant.NGB_BUTTON_ATTR._value);
+        var $buttonId = $target.getAttribute(GoldbalConstant.NGB_BUTTON_ATTR._attr);
+        let button =  this.buttons.forEach(btn => {
+            if(btn.id == $buttonId){
+                this.navClick(btn,$value);
+                return 
+            } 
+        });
     }
 
-
     ifListen($target) {
-        return $target && $target.nodeName == "BUTTON" && $target.hasAttribute("option");
+        return $target && $target.nodeName == "BUTTON" && $target.hasAttribute(GoldbalConstant.NGB_BUTTON_ATTR._attr);
     }
 
     ngOnInit() {
@@ -84,9 +89,40 @@ export class DataViewComponent extends SelectorComponent {
             }
             this.ztree = this.buildzTree();
             this.createDatafilter();
+            this.rowformart();
         });
     }
     ngAfterViewInit(): void { }
+
+    rowformart() {
+        if (!(this.buttons.length > 0)) {
+            return;
+        }
+        let column = new ColumOptions();
+        column.title = "操作";
+        column.field = "operate";
+        column.isInsert = false;
+        column.isView = false;
+        column.updateType = GoldbalConstant.MODIFTY_TYPES.hide;
+        var _self = this;
+        column.formatter = function (value, row, index) {
+            var html = "";
+            this.buttons.forEach(btn => {
+                if (btn.location = GoldbalConstant.LOCATION.row) {
+                    html += _self.createBtmHtml(row,btn);
+                }
+            });
+            return html;
+        }
+        this.options.columns.push(column);
+    }
+
+    createBtmHtml(row, btn) {
+        var $value = row[this.options.uniqueId];
+        return ' <button type="button" class="btn btn-default" value = "' + $value + 
+               '" '+GoldbalConstant.NGB_BUTTON_ATTR._attr+' = "'+btn.id+'" >' +
+               ' <span class="glyphicon glyphicon-plus" aria-hidden="true">' + btn.title + '</span></button>';
+    }
 
     componentFactory(componentName) {
         var factories = Array.from(this.componentFactoryResolver['_factories'].keys());
@@ -94,7 +130,19 @@ export class DataViewComponent extends SelectorComponent {
         return factoryClass;
     }
 
-    navClick(button: Button) {
+    idValue(button: Button,id?){
+        if(button.location ==  GoldbalConstant.LOCATION.row){
+            return id;
+        }else{
+            var selected = this.getSelections();
+            if (!selected) {
+                return;
+            }
+            return selected[0][this.options.uniqueId];
+        }
+    }
+
+    navClick(button: Button,id?) {
         switch (button.id) {
             case GoldbalConstant.CRUD.create:
                 const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
@@ -105,13 +153,12 @@ export class DataViewComponent extends SelectorComponent {
                 modalRef.componentInstance.dataViewModule = this.dataViewModule;
                 break;
             case GoldbalConstant.CRUD.update:
-                let selected = this.getSelections();
-                if (!selected) {
+                var  $idValue = this.idValue(button,id);
+                if (!$idValue) {
                     return;
                 }
-
                 this.httpService.http.post(Application.ubold_sql_fetch,
-                    { sqlId: this.dataViewModule.sqlId, id: selected[0][this.options.uniqueId] }).subscribe(result => {
+                    { sqlId: this.dataViewModule.sqlId, id: $idValue}).subscribe(result => {
                         let resp = result.json();
                         if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
                             const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
