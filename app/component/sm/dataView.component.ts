@@ -57,11 +57,11 @@ export class DataViewComponent extends SelectorComponent {
         // var child = this.elementRef.nativeElement.querySelectorAll('button');
         var $value = $target.getAttribute(GoldbalConstant.NGB_BUTTON_ATTR._value);
         var $buttonId = $target.getAttribute(GoldbalConstant.NGB_BUTTON_ATTR._attr);
-        let button =  this.buttons.forEach(btn => {
-            if(btn.id == $buttonId){
-                this.navClick(btn,$value);
-                return 
-            } 
+        let button = this.buttons.forEach(btn => {
+            if (btn.id == $buttonId) {
+                this.navClick(btn, $value);
+                return
+            }
         });
     }
 
@@ -100,7 +100,7 @@ export class DataViewComponent extends SelectorComponent {
         }
         let column = new ColumOptions();
         column.title = "操作";
-        column.field = "operate";
+        column.field = "_operate";
         column.isInsert = false;
         column.isView = false;
         column.updateType = GoldbalConstant.MODIFTY_TYPES.hide;
@@ -109,7 +109,7 @@ export class DataViewComponent extends SelectorComponent {
             var html = "";
             this.buttons.forEach(btn => {
                 if (btn.location = GoldbalConstant.LOCATION.row) {
-                    html += _self.createBtmHtml(row,btn);
+                    html += _self.createBtmHtml(row, btn);
                 }
             });
             return html;
@@ -119,9 +119,9 @@ export class DataViewComponent extends SelectorComponent {
 
     createBtmHtml(row, btn) {
         var $value = row[this.options.uniqueId];
-        return ' <button type="button" class="btn btn-default" value = "' + $value + 
-               '" '+GoldbalConstant.NGB_BUTTON_ATTR._attr+' = "'+btn.id+'" >' +
-               ' <span class="glyphicon glyphicon-plus" aria-hidden="true">' + btn.title + '</span></button>';
+        return ' <button type="button" class="btn btn-default" value = "' + $value +
+            '" ' + GoldbalConstant.NGB_BUTTON_ATTR._attr + ' = "' + btn.id + '" >' +
+            ' <span class="glyphicon glyphicon-plus" aria-hidden="true">' + btn.title + '</span></button>';
     }
 
     componentFactory(componentName) {
@@ -130,10 +130,10 @@ export class DataViewComponent extends SelectorComponent {
         return factoryClass;
     }
 
-    idValue(button: Button,id?){
-        if(button.location ==  GoldbalConstant.LOCATION.row){
+    getIdValue(button: Button, id?) {
+        if (button.location == GoldbalConstant.LOCATION.row) {
             return id;
-        }else{
+        } else {
             var selected = this.getSelections();
             if (!selected) {
                 return;
@@ -142,7 +142,7 @@ export class DataViewComponent extends SelectorComponent {
         }
     }
 
-    navClick(button: Button,id?) {
+    navClick(button: Button, id?) {
         switch (button.id) {
             case GoldbalConstant.CRUD.create:
                 const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
@@ -151,48 +151,102 @@ export class DataViewComponent extends SelectorComponent {
                     this.search();
                 }, (reason) => { });
                 modalRef.componentInstance.dataViewModule = this.dataViewModule;
-                break;
+                return;
             case GoldbalConstant.CRUD.update:
-                var  $idValue = this.idValue(button,id);
-                if (!$idValue) {
+                var _idValue = this.getIdValue(button, id);
+                if (!_idValue) {
                     return;
                 }
-                this.httpService.http.post(Application.ubold_sql_fetch,
-                    { sqlId: this.dataViewModule.sqlId, id: $idValue}).subscribe(result => {
-                        let resp = result.json();
-                        if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
-                            const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
-                            modalRef.componentInstance.dataViewModule = this.dataViewModule
-                            modalRef.componentInstance.viewModel = resp.result;
-                            modalRef.result.then((result) => {
-                                this.toastr.success(result);
-                                this.search();
-                            }, (reason) => { });;
-                        } else {
-                            this.toastr.error(resp.message);
-                        }
-                    });
-                break;
+                this.httpService.http.post(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
+                    let resp = result.json();
+                    if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
+                        const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
+                        modalRef.componentInstance.dataViewModule = this.dataViewModule
+                        modalRef.componentInstance.viewModel = resp.result;
+                        modalRef.result.then((result) => {
+                            this.toastr.success(result);
+                            this.search();
+                        }, (reason) => { });
+                    } else {
+                        this.toastr.error(resp.message);
+                    }
+                });
+                return;
             case GoldbalConstant.CRUD.retrieve:
-
-                break;
+                var _idValue = this.getIdValue(button, id);
+                if (!_idValue) {
+                    return;
+                }
+                this.httpService.http.post(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
+                    let resp = result.json();
+                    if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
+                        const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
+                        modalRef.componentInstance.dataViewModule = this.dataViewModule
+                        modalRef.componentInstance.viewModel = resp.result;
+                        modalRef.componentInstance.isView = true;
+                        modalRef.result.then((result) => {}, (reason) => {});
+                    } else {
+                        this.toastr.error(resp.message);
+                    }
+                });
+                return;
             case GoldbalConstant.CRUD.delete:
-
-                break;
+                var _idValue = this.getIdValue(button, id);
+                if (!_idValue) {
+                    return;
+                }
+                this.httpService.http.post(Application.ubold_sql_delete, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
+                    let resp = result.json();
+                    if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
+                        this.toastr.success(result);
+                        this.search();
+                    } else {
+                        this.toastr.error(resp.message);
+                    }
+                });
+                return;
             default:
                 break;
         }
+        this.unCrudClick(button, id);
+    }
 
+    //非CRUD操作
+    unCrudClick(button: Button, id?) {
+        var _idValue = this.getIdValue(button, id);
+        if (!_idValue) {
+            return;
+        }
         //根据按钮操作类型处理
         switch (button.option) {
             case GoldbalConstant.OPTIONS_BUTTON.service:
-
+                this.httpService.http.post(button.url, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
+                    let resp = result.json();
+                    if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
+                        this.toastr.success(result);
+                        this.search();
+                    } else {
+                        this.toastr.error(resp.message);
+                    }
+                });
                 break;
             case GoldbalConstant.OPTIONS_BUTTON.modal:
-                const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: button.size })
-                    .result.then((result) => { }, (reason) => { });
+                this.httpService.http.post(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
+                    let resp = result.json();
+                    if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
+                        const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: button.size });
+                        modalRef.componentInstance.dataViewModule = this.dataViewModule
+                        modalRef.componentInstance.viewModel = resp.result;
+                        modalRef.result.then((result) => {
+                            this.search();
+                        }, (reason) => { });
+                    } else {
+                        this.toastr.error(resp.message);
+                    }
+                });
                 break;
             case GoldbalConstant.OPTIONS_BUTTON.window:
+                //TODO..
                 break;
             default:
                 break;

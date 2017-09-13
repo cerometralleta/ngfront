@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '
 import { Options, BootstrapTableDefaults } from "../../metadata/ngb/ngbGrid/options.md";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 import { Application } from "../../metadata/constant/application.constant";
+import { GoldbalConstant } from '../../metadata/constant/global.constant';
 declare var $: any;
 
 /**
@@ -24,11 +25,11 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
         }
 
         //深度复制
-        let bootstrapOptions = JSON.parse(JSON.stringify(this.options));
-        bootstrapOptions.queryParams = this.options.queryParams;
-        this.createStatefield(bootstrapOptions);
-        this.columnsformart(bootstrapOptions.columns);
-        this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(bootstrapOptions);
+        // let bootstrapOptions = JSON.parse(JSON.stringify(this.options));
+        // bootstrapOptions.queryParams = this.options.queryParams;
+        this.createStatefield(this.options);
+        this.columnsformart(this.options.columns);
+        this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(this.options);
     }
     ngAfterViewInit(): void { }
     createStatefield(bootstrapOptions: BootstrapTableDefaults) {
@@ -39,6 +40,9 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
             options.title = "_state";
             options.field = "_state";
             options.checkbox = true;
+            options.isInsert = false;
+            options.isView = false;
+            options.updateType = GoldbalConstant.MODIFTY_TYPES.hide;
             bootstrapOptions.columns.splice(0, 0, options);
         }
     }
