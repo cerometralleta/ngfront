@@ -50,6 +50,9 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
     columnsformart(columnOptions: Array<ColumOptions>) {
         if (columnOptions) {
             columnOptions.forEach(co => {
+                 if(co.formatter instanceof Function){
+                    return;
+                 }
                  co.formatter =  null == co.formatter ? undefined : eval("("+co.formatter+")");
             })
         }

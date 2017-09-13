@@ -43,30 +43,19 @@ export class DataViewComponent extends SelectorComponent {
         , public elementRef: ElementRef, renderer: Renderer
     ) {
         super(logger, httpService, modalService, fb, toastr, null);
-
-        renderer.listen(elementRef.nativeElement, 'click', ($event) => {
-            if (this.ifListen($event.target)) {
-                this.onClickListenter($event.target);
-            } else if (this.ifListen($event.target.parentNode)) {
-                this.onClickListenter($event.target.parentNode);
-            }
-        });
     }
-
-    onClickListenter($target) {
-        // var child = this.elementRef.nativeElement.querySelectorAll('button');
-        var $value = $target.getAttribute(GoldbalConstant.NGB_BUTTON_ATTR._value);
-        var $buttonId = $target.getAttribute(GoldbalConstant.NGB_BUTTON_ATTR._attr);
-        let button = this.buttons.forEach(btn => {
-            if (btn.id == $buttonId) {
-                this.navClick(btn, $value);
-                return
-            }
-        });
-    }
-
-    ifListen($target) {
-        return $target && $target.nodeName == "BUTTON" && $target.hasAttribute(GoldbalConstant.NGB_BUTTON_ATTR._attr);
+    operateEvents = {
+        'click .RoleOfA': function (e, value, row, index) {
+            alert("A");
+        },
+        'click .RoleOfB': function (e, value, row, index) {
+            alert("B");
+        },
+        'click .RoleOfC': function (e, value, row, index) {
+            alert("C");
+        },
+        'click .RoleOfEdit': function (e, value, row, index) {
+        }
     }
 
     ngOnInit() {
@@ -103,25 +92,19 @@ export class DataViewComponent extends SelectorComponent {
         column.field = "_operate";
         column.isInsert = false;
         column.isView = false;
+        column.events = this.operateEvents;
         column.updateType = GoldbalConstant.MODIFTY_TYPES.hide;
         var _self = this;
         column.formatter = function (value, row, index) {
-            var html = "";
-            this.buttons.forEach(btn => {
-                if (btn.location = GoldbalConstant.LOCATION.row) {
-                    html += _self.createBtmHtml(row, btn);
-                }
-            });
-            return html;
+            return [
+                '<button type="button" class="RoleOfA btn btn-default  btn-sm" style="margin-right:15px;">A权限</button>',
+                '<button type="button" class="RoleOfB btn btn-default  btn-sm" style="margin-right:15px;">B权限</button>',
+                '<button type="button" class="RoleOfC btn btn-default  btn-sm" style="margin-right:15px;">C权限</button>',
+                '<button type="button" class="RoleOfD btn btn-default  btn-sm" style="margin-right:15px;">绑定D</button>',
+                '<button type="button" class="RoleOfEdit btn btn-default  btn-sm" style="margin-right:15px;">编辑</button>'
+            ].join('');
         }
         this.options.columns.push(column);
-    }
-
-    createBtmHtml(row, btn) {
-        var $value = row[this.options.uniqueId];
-        return ' <button type="button" class="btn btn-default" value = "' + $value +
-            '" ' + GoldbalConstant.NGB_BUTTON_ATTR._attr + ' = "' + btn.id + '" >' +
-            ' <span class="glyphicon glyphicon-plus" aria-hidden="true">' + btn.title + '</span></button>';
     }
 
     componentFactory(componentName) {
@@ -184,7 +167,7 @@ export class DataViewComponent extends SelectorComponent {
                         modalRef.componentInstance.dataViewModule = this.dataViewModule
                         modalRef.componentInstance.viewModel = resp.result;
                         modalRef.componentInstance.isView = true;
-                        modalRef.result.then((result) => {}, (reason) => {});
+                        modalRef.result.then((result) => { }, (reason) => { });
                     } else {
                         this.toastr.error(resp.message);
                     }

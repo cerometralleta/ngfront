@@ -30,7 +30,7 @@ export class ColumOptions extends Columns{
     halign:string;
     falign:string;
     valign:string;
-    width:number;
+    width:string;
     sortable:boolean;
     order:string;
     cardVisible:boolean;
@@ -46,4 +46,5 @@ export class ColumOptions extends Columns{
     searchFormatter:boolean;
     escape:boolean;
     pattern:string;//验证规则
+    events:any;
 }
