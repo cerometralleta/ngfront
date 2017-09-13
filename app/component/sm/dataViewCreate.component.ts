@@ -81,13 +81,16 @@ export class DataViewCreateComponent implements OnInit {
 
     createFormGroup() {
         let fg = {};
+        var array = [];
         this.columns.forEach(element => {
             // fg[element.field] = new FormControl(this.viewModel[element.field], <any>Validators.required),
-            if (element.pattern && "" != element.pattern) {
-                fg[element.field] = new FormControl(this.viewModel[element.field], [Validators.pattern(element.pattern)]);
-            } else {
-                fg[element.field] = new FormControl(this.viewModel[element.field]);
+            if (element.pattern) {
+                array.push(Validators.pattern(element.pattern));
             }
+            if(element.maxlength){
+                array.push(Validators.maxLength(element.maxlength));
+            }
+            fg[element.field] = new FormControl(this.viewModel[element.field],array);
         });
         return fg;
     }
