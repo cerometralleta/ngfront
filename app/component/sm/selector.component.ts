@@ -183,6 +183,7 @@ export class SelectorComponent implements OnInit , AfterViewInit{
         var self = this;
         treeModule.setting.callback = {
             onClick: function (event, treeId, treeNode) {
+                self.treeNode = treeNode;
                 self.search(treeNode[data.simpleData.idKey]);
             },
             onAsyncSuccess: function (event, treeId, treeNode, msg) {
@@ -195,5 +196,11 @@ export class SelectorComponent implements OnInit , AfterViewInit{
             }
         }
         this.treeModule = treeModule;
+    }
+
+    refreshNode(){
+        if(this.treeNode && null != this.treeNode){
+            this.ngbTreeComponent.reAsyncChildNodes(this.treeNode);
+        }
     }
 }

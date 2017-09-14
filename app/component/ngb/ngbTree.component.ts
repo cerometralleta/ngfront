@@ -32,4 +32,9 @@ export class NgbTreeComponent implements AfterViewInit {
         //Add 'implements AfterViewInit' to the class.
         this.ngbTree = $.fn.zTree.init($(this.erf.nativeElement), this.setting, this.znodes);
     }
+
+    reAsyncChildNodes(treeNode){
+         this.ngbTree.reAsyncChildNodes(treeNode, "refresh");
+    }
+   
 }

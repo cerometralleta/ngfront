@@ -131,6 +131,7 @@ export class DataViewComponent extends SelectorComponent {
                 modalRef.result.then((result) => {
                     this.toastr.success(result);
                     this.search();
+                    this.refreshNode();
                 }, (reason) => { });
                 modalRef.componentInstance.dataViewModule = this.dataViewModule;
                 return;
@@ -148,6 +149,7 @@ export class DataViewComponent extends SelectorComponent {
                         modalRef.result.then((result) => {
                             this.toastr.success(result);
                             this.search();
+                             this.refreshNode();
                         }, (reason) => { });
                     } else {
                         this.toastr.error(resp.message);
@@ -182,6 +184,7 @@ export class DataViewComponent extends SelectorComponent {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
                         this.toastr.success(resp.message);
                         this.search();
+                         this.refreshNode();
                     } else {
                         this.toastr.error(resp.message);
                     }
@@ -207,6 +210,7 @@ export class DataViewComponent extends SelectorComponent {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
                         this.toastr.success(result);
                         this.search();
+                         this.refreshNode();
                     } else {
                         this.toastr.error(resp.message);
                     }
