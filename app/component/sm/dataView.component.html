@@ -3,7 +3,7 @@
 	<!-- tree start-->
 	<div class="col-md-{{treeOptions.width}}" *ngIf="treeOptions.show">
 		<div class="card-box overflow">
-			<ng4b-tree [setting]="ztree.setting" [znodes]="ztree.znodes"></ng4b-tree>
+			<ng4b-tree [setting]="treeModule.setting" [znodes]="treeModule.znodes"></ng4b-tree>
 		</div>
 	</div>
 	<!-- tree end -->
@@ -14,15 +14,15 @@
 		<div class="row">
 			<div class="col-md-12">
 				
-				<div class="portlet" *ngIf="dataFilters.length > 0 || buttons.length > 0">
+				<div class="portlet" *ngIf="dataFilters.length > 0">
 					<div class="portlet-heading">
-						
+						<h4 class="portlet-title text-dark">条件查询</h4>
 						<!-- toolbar -->
-						<div class="btn-group vertical-middle" data-toggle="buttons" *ngIf="buttons.length > 0">
-							<button  *ngFor="let bt of buttons"  type="button" class="btn btn-default" (click)="navClick(bt)">
+						<!-- <div class="btn-group vertical-middle" data-toggle="_toolbar"  *ngIf="_toolbar.length > 0">
+							<button  *ngFor="let bt of _toolbar"  type="button" class="btn btn-default" (click)="navClick(bt)">
 										<span class="glyphicon glyphicon-plus" aria-hidden="true">{{bt.title}}</span>
 							</button>
-						</div>
+						</div> -->
 						<!-- toolbar -->
 					 
 						<div class="portlet-widgets" *ngIf="dataFilters.length > 0">
@@ -45,7 +45,7 @@
 									<label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5" >{{df.controls.title._value}}({{df.controls.expression._value}})</label>
 										 <input  type="text"  class="form-control" placeholder="{{df.controls.field._value}}"  formControlName="value">
 								</div>
-								<button class="btn btn-default waves-effect waves-light mt20" type="submit">搜索</button>
+								<button class="btn btn-default waves-effect waves-light mt20 ml10" type="submit">搜索</button>
 							 </form>
 
 							<!--<button type="reset" class="btn btn-default waves-effect waves-light input-sm mt20"><i class="md-restore m-r-5"></i>重置</button>-->
@@ -65,6 +65,10 @@
 				<div class="card-box overflow">
 
 					<!--GRID-->
+					<div class="btn-group vertical-middle" data-toggle="_toolbar" *ngIf="_toolbar.length > 0" id="toolbar_">
+						<a href="javascript:void(0);" class="btn btn-default btn-xs" (click)="navClick(_tb)"  *ngFor="let _tb of _toolbar" >
+							<i class="icon iconfont"></i>{{_tb.title}}</a>
+					</div>
 					<ng4b-grid [options]="options"></ng4b-grid>
 					<!--GRID-->
 				</div>

@@ -2,6 +2,9 @@
 .mt20{
   margin-top: 8px;
 }
+.ml10 {
+    margin-left: 10px;
+}
 .nowrap{
 	white-space:nowrap; 
 }

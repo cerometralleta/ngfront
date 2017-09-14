@@ -44,20 +44,8 @@ export class DataViewComponent extends SelectorComponent {
     ) {
         super(logger, httpService, modalService, fb, toastr, null);
     }
-    operateEvents = {
-        'click .RoleOfA': function (e, value, row, index) {
-            alert("A");
-        },
-        'click .RoleOfB': function (e, value, row, index) {
-            alert("B");
-        },
-        'click .RoleOfC': function (e, value, row, index) {
-            alert("C");
-        },
-        'click .RoleOfEdit': function (e, value, row, index) {
-        }
-    }
-
+    operateEvents: any;
+    _toolbar : Array<Button>;
     ngOnInit() {
         // Mock.createDataViewList(this.dataViewModule);
 
@@ -76,14 +64,23 @@ export class DataViewComponent extends SelectorComponent {
                 params.searchArray = self.searchForm.value.searchArray;
                 return params;
             }
-            this.ztree = this.buildzTree();
+            this.createTreeModule();
             this.createDatafilter();
-            this.rowformart();
+            this.operateformart();
+            this.createToolbar();
         });
     }
     ngAfterViewInit(): void { }
+    createToolbar(){
+        this._toolbar = new Array();
+        this.buttons.forEach(btn =>{
+            if(btn.location = GoldbalConstant.LOCATION.nav){
+                this._toolbar.push(btn);
+            }
+        });
+    }
 
-    rowformart() {
+    operateformart() {
         if (!(this.buttons.length > 0)) {
             return;
         }
@@ -96,13 +93,17 @@ export class DataViewComponent extends SelectorComponent {
         column.updateType = GoldbalConstant.MODIFTY_TYPES.hide;
         var _self = this;
         column.formatter = function (value, row, index) {
-            return [
-                '<button type="button" class="RoleOfA btn btn-default  btn-sm" style="margin-right:15px;">A权限</button>',
-                '<button type="button" class="RoleOfB btn btn-default  btn-sm" style="margin-right:15px;">B权限</button>',
-                '<button type="button" class="RoleOfC btn btn-default  btn-sm" style="margin-right:15px;">C权限</button>',
-                '<button type="button" class="RoleOfD btn btn-default  btn-sm" style="margin-right:15px;">绑定D</button>',
-                '<button type="button" class="RoleOfEdit btn btn-default  btn-sm" style="margin-right:15px;">编辑</button>'
-            ].join('');
+            var array = Array<string>();
+            _self.buttons.forEach(btn => {
+                if (btn.location == GoldbalConstant.LOCATION.row) {
+                    array.push('<button type="button" class="Role_' + btn.id + ' btn btn-default  btn-sm" style="margin-right:15px;">' + btn.title + '</button>');
+                    _self.operateEvents['click .Role_' + btn.id] = function (e, value, row, index) {
+                        _self.navClick(btn,row[_self.options.uniqueId]);
+                    }
+                }
+            });
+            array.join('');
+            return array;
         }
         this.options.columns.push(column);
     }

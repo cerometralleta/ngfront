@@ -27,8 +27,9 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
         //深度复制
         // let bootstrapOptions = JSON.parse(JSON.stringify(this.options));
         // bootstrapOptions.queryParams = this.options.queryParams;
+        this.options.toolbar="#toolbar_";
         this.createStatefield(this.options);
-        this.columnsformart(this.options.columns);
+        this.columnsformart(this.options);
         this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(this.options);
     }
     ngAfterViewInit(): void { }
@@ -47,9 +48,9 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
         }
     }
 
-    columnsformart(columnOptions: Array<ColumOptions>) {
-        if (columnOptions) {
-            columnOptions.forEach(co => {
+    columnsformart(bootstrapOptions: BootstrapTableDefaults) {
+        if (this.options.columns) {
+            this.options.columns.forEach(co => {
                  if(co.formatter instanceof Function){
                     return;
                  }

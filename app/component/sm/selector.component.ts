@@ -47,7 +47,7 @@ export class SelectorComponent implements OnInit , AfterViewInit{
     colContentWidth: number;
 
     // treeModule
-    ztree: DataModule;
+    treeModule: DataModule;
 
     //bootstrap table数据
     options: BootstrapTableDefaults;
@@ -74,16 +74,10 @@ export class SelectorComponent implements OnInit , AfterViewInit{
         var self = this;
         this.options.queryParams = function (params) {
             params.treeOptions = self.treeOptions;
+            params.searchArray = self.searchForm.value.searchArray;
             return params;
         }
-        this.options.onRefresh = function (params) {
-            params.treeOptions = self.treeOptions;
-            return params;
-        }
-
-        //构建树
-        this.ztree = this.buildzTree();
-        //构建查询过滤
+        this.createTreeModule();
         this.createDatafilter();
     }
 
@@ -143,8 +137,7 @@ export class SelectorComponent implements OnInit , AfterViewInit{
         this.ngbGridComponent.refresh();
     }
 
-    //构建ztree
-    buildzTree() {
+    createTreeModule() {
         this.zTreeRange();
         // ztree data
         let treeModule = new DataModule();
@@ -196,6 +189,6 @@ export class SelectorComponent implements OnInit , AfterViewInit{
                 }
             }
         }
-        return treeModule;
+        this.treeModule = treeModule;
     }
 }

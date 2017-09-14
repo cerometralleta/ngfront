@@ -13,19 +13,19 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				
+
 				<div class="portlet">
-					<div class="portlet-heading">
-						
+					<div class="portlet-heading portlet-default">
+							<h4 class="portlet-title text-dark">条件查询</h4>
 						<!-- toolbar -->
-						<div class="btn-group vertical-middle" data-toggle="buttons">
+						<!-- <div class="btn-group vertical-middle" data-toggle="buttons">
 							<button type="button" class="btn btn-default" (click)="insert()">
 										<span class="glyphicon glyphicon-plus" aria-hidden="true">增加</span>
 							</button>
 							<button type="button" class="btn btn-default" (click)="update()">
 										<span class="glyphicon glyphicon-plus" aria-hidden="true">修改</span>
 							</button>
-						</div>
+						</div> -->
 						<!-- toolbar -->
 
 						<div class="portlet-widgets">
@@ -40,20 +40,18 @@
 					<div id="bg-primary" class="panel-collapse collapse show" aria-expanded="true">
 
 						<!-- search -->
-						<div class="portlet-body"  [formGroup]="searchForm">
-							<form class="form-inline" formArrayName="searchArray" (ngSubmit)="search()"> 
-							  
-								 <div  class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 mt20 row nowrap"
-									*ngFor="let df of searchForm.controls.searchArray.controls; let idx=index" [formGroupName]="idx" >
-									<label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5" >{{df.controls.title._value}}({{df.controls.expression._value}})</label>
-										 <input  type="text"  class="form-control" placeholder="{{df.controls.field._value}}"  formControlName="value">
-								</div>
-								
-								<button class="btn btn-default waves-effect waves-light mt20" type="submit">搜索</button>
-							    <!--<button type="reset" class="btn btn-default waves-effect waves-light input-sm mt20"><i class="md-restore m-r-5"></i>重置</button>-->
-							 </form>
+						<div class="portlet-body" [formGroup]="searchForm">
+							<form class="form-inline" formArrayName="searchArray" (ngSubmit)="search()">
 
- 
+								<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 mt20 row nowrap" *ngFor="let df of searchForm.controls.searchArray.controls; let idx=index"
+								    [formGroupName]="idx">
+									<label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5">{{df.controls.title._value}}({{df.controls.expression._value}})</label>
+									<input type="text" class="form-control" placeholder="{{df.controls.field._value}}" formControlName="value">
+								</div>
+
+								<button class="btn btn-default waves-effect waves-light mt20 ml10" type="submit">搜索</button>
+								<!-- <button type="reset" class="btn btn-default waves-effect waves-light input-sm mt20 ml10"><i class="md-restore m-r-5"></i>重置</button> -->
+							</form>
 						</div>
 						<!-- search -->
 					</div>
@@ -69,6 +67,10 @@
 				<div class="card-box overflow">
 
 					<!--GRID-->
+					<div id="toolbar_">
+						<a href="javascript:void(0);" class="btn btn-primary btn-xs" (click)="insert()"><i class="icon iconfont"></i>新增</a>
+						<a href="javascript:void(0);" class="btn btn-danger btn-xs" (click)="update()"><i class="icon iconfont"></i>修改</a>
+					</div>
 					<ng4b-grid [options]="options"></ng4b-grid>
 					<!--GRID-->
 
