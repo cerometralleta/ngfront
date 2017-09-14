@@ -59,11 +59,7 @@ export class DataViewComponent extends SelectorComponent {
             this.options = resp.dataViewResolver.result.options;
             this.options.columns = resp.dataViewResolver.result.columns;
             var self = this;
-            this.options.queryParams = function (params) {
-                params.treeOptions = self.treeOptions;
-                params.searchArray = self.searchForm.value.searchArray;
-                return params;
-            }
+            this.createQueryParams(self);
             this.createTreeModule();
             this.createDatafilter();
             this.operateformart();

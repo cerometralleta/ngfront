@@ -55,6 +55,7 @@ export class SelectorComponent implements OnInit , AfterViewInit{
     //form group
     searchForm: FormGroup;
     buttons: Array<Button>;
+    treeNode:any;
     @ViewChild(NgbTreeComponent) ngbTreeComponent: NgbTreeComponent;//树组件
     @ViewChild(NgbGridComponent) ngbGridComponent: NgbGridComponent;//bootstrapTable
     constructor(
@@ -72,16 +73,20 @@ export class SelectorComponent implements OnInit , AfterViewInit{
         this.options = <BootstrapTableDefaults>this.dataViewModule.options;
         this.options.columns = this.dataViewModule.columns;
         var self = this;
-        this.options.queryParams = function (params) {
-            params.treeOptions = self.treeOptions;
-            params.searchArray = self.searchForm.value.searchArray;
-            return params;
-        }
+        this.createQueryParams(self);
         this.createTreeModule();
         this.createDatafilter();
     }
 
     ngAfterViewInit(): void { }
+
+    createQueryParams(self){
+         this.options.queryParams = function (params) {
+            params.treeOptions = self.treeOptions;
+            params.searchArray = self.searchForm.value.searchArray;
+            return params;
+        }
+    }
 
     //获取选中行
     getSelectionsAndShut() {
