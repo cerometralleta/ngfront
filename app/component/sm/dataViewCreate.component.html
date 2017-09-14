@@ -10,7 +10,7 @@
     <div class="form-group row" *ngFor="let column of columns;">
         <label class="col-sm-2 control-label">{{column.title}}</label>
         <div class="col-sm-10" [ngSwitch]="column.fieldType">
-            
+
             <!--text-->
             <input type="text" *ngSwitchCase="'text'"  class="form-control" placeholder="{{column.field}}" formControlName="{{column.field}}"/>
 
@@ -39,7 +39,7 @@
 </div>
 <div class="modal-footer" >
      <form (ngSubmit)="onSubmit()">
-         <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid" *ngIf="!this.isView">提交</button>
+         <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid" *ngIf="!this.isView">保存</button>
          <button type="button" class="btn w-sm btn-white waves-effect"  (click)="activeModal.dismiss('Cross click')" *ngIf="this.isView">关闭</button>
      </form>
 </div>

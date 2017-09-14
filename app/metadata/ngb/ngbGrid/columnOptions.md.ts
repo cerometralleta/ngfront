@@ -6,8 +6,8 @@ export class Columns {
     field:string;
     title:string;
     updateType:string;
-    isView:boolean;
-    isInsert:boolean;
+    view:boolean;
+    insert:boolean;
     visible:boolean;
     dataType:string;
     fieldType:string;

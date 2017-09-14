@@ -39,8 +39,8 @@ export class FormViewFieldEditComponent implements OnInit {
             title:[col.title,Validators.required],
             updateType:[col.updateType,Validators.required],
             fieldType:[col.fieldType,Validators.required],
-            isInsert:[col.isInsert],
-            isView:[col.isView],
+            isInsert:[col.insert],
+            isView:[col.view],
             maxlength:[col.maxlength],
             idx:[col.idx]
          });

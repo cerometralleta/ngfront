@@ -206,7 +206,7 @@ export class DataViewEditComponent implements OnInit {
         let resp = res.json();
         //TODO  查询sql define
         if (GoldbalConstant.STATUS_CODE.SUCCESS != resp.code) {
-          this.toastr.error("选择器数据获取异常,请检查视图编号:DV0000000000000001");
+          this.toastr.error("选择器数据获取异常,请检查视图编号:DV10000000000000");
           return;
         }
         const modalRef = this.modalService.open(SelectorComponent, { size: GoldbalConstant.modal_size_sm });
@@ -428,7 +428,7 @@ export class DataViewEditComponent implements OnInit {
       title: [columnOptions.title, [Validators.required, Validators.maxLength(50)]],
       updateType: [columnOptions.updateType, [Validators.required, Validators.maxLength(30)]],
       view: [columnOptions.view],
-      inset: [columnOptions.inset],
+      insert: [columnOptions.insert],
       visible: [columnOptions.visible],
       dataType: [columnOptions.dataType, [Validators.maxLength(10)]],
       fieldType: [columnOptions.fieldType, [Validators.required, Validators.maxLength(30)]],
@@ -557,7 +557,7 @@ export class DataViewEditComponent implements OnInit {
         let resp = res.json();
         //TODO  查询sql define
         if (GoldbalConstant.STATUS_CODE.SUCCESS != resp.code) {
-          this.toastr.error("选择器数据获取异常,请检查视图编号:DV0000000000000001");
+          this.toastr.error("选择器数据获取异常,请检查视图编号:DV10000000000000");
           return;
         }
         const modalRef = this.modalService.open(SelectorComponent, { size: GoldbalConstant.modal_size_lg });

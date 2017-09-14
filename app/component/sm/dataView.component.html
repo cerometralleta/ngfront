@@ -65,8 +65,8 @@
 				<div class="card-box overflow">
 
 					<!--GRID-->
-					<div class="btn-group vertical-middle" data-toggle="_toolbar" *ngIf="_toolbar.length > 0" id="toolbar_">
-						<a href="javascript:void(0);" class="btn btn-default btn-xs" (click)="navClick(_tb)"  *ngFor="let _tb of _toolbar" >
+					<div id="toolbar_" *ngIf="_toolbar.length > 0">
+						<a href="javascript:void(0);" class="btn btn-default btn-xs ml5" (click)="navClick(_tb)"  *ngFor="let _tb of _toolbar">
 							<i class="icon iconfont"></i>{{_tb.title}}</a>
 					</div>
 					<ng4b-grid [options]="options"></ng4b-grid>

@@ -44,7 +44,7 @@ export class DataViewComponent extends SelectorComponent {
     ) {
         super(logger, httpService, modalService, fb, toastr, null);
     }
-    operateEvents: any;
+    operateEvents: any = {};
     _toolbar : Array<Button>;
     ngOnInit() {
         // Mock.createDataViewList(this.dataViewModule);
@@ -74,7 +74,7 @@ export class DataViewComponent extends SelectorComponent {
     createToolbar(){
         this._toolbar = new Array();
         this.buttons.forEach(btn =>{
-            if(btn.location = GoldbalConstant.LOCATION.nav){
+            if(btn.location == GoldbalConstant.LOCATION.nav){
                 this._toolbar.push(btn);
             }
         });
@@ -87,23 +87,25 @@ export class DataViewComponent extends SelectorComponent {
         let column = new ColumOptions();
         column.title = "操作";
         column.field = "_operate";
-        column.isInsert = false;
-        column.isView = false;
+        column.insert = false;
+        column.view = false;
+        column.align ="center";
         column.events = this.operateEvents;
         column.updateType = GoldbalConstant.MODIFTY_TYPES.hide;
         var _self = this;
         column.formatter = function (value, row, index) {
-            var array = Array<string>();
+            var _array = [];
+            var idx = 0;
             _self.buttons.forEach(btn => {
                 if (btn.location == GoldbalConstant.LOCATION.row) {
-                    array.push('<button type="button" class="Role_' + btn.id + ' btn btn-default  btn-sm" style="margin-right:15px;">' + btn.title + '</button>');
+                    _array[idx] = '<button type="button" class="Role_' + btn.id + ' btn btn-default  btn-sm" style="margin-right:15px;">' + btn.title + '</button>';
                     _self.operateEvents['click .Role_' + btn.id] = function (e, value, row, index) {
                         _self.navClick(btn,row[_self.options.uniqueId]);
                     }
+                    idx++;
                 }
             });
-            array.join('');
-            return array;
+            return _array.join("");
         }
         this.options.columns.push(column);
     }
@@ -179,10 +181,10 @@ export class DataViewComponent extends SelectorComponent {
                 if (!_idValue) {
                     return;
                 }
-                this.httpService.http.post(Application.ubold_sql_delete, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
+                this.httpService.http.post(Application.ubold_sql_delete + this.dataViewModule.dataViewCode, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
                     let resp = result.json();
                     if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
-                        this.toastr.success(result);
+                        this.toastr.success(resp.message);
                         this.search();
                     } else {
                         this.toastr.error(resp.message);

@@ -27,7 +27,7 @@ export class DataViewCreateComponent implements OnInit {
     //视图数据
     @Input() viewModel: any;
     @Input() isView: boolean = false;
-    inset: boolean = false;
+    insert: boolean = false;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -40,7 +40,7 @@ export class DataViewCreateComponent implements OnInit {
         this.columns = this.dataViewModule.columns;
         // this.columns = Mock.createColumn();
         if (!this.viewModel) {
-            this.inset = true;
+            this.insert = true;
             this.viewModel = {};
         }
         this.columnfilter();
@@ -60,7 +60,7 @@ export class DataViewCreateComponent implements OnInit {
 
     onSubmit() {
         console.info(JSON.stringify(this.ngbForm.value))
-        let url = this.inset ? Application.ubold_sm_insert : Application.ubold_sm_modfity;
+        let url = this.insert ? Application.ubold_sm_insert : Application.ubold_sm_modfity;
         this.httpService.http.post(url + this.dataViewModule.dataViewCode, this.ngbForm.value).subscribe(resp => {
             let response = resp.json();
             if (GoldbalConstant.STATUS_CODE.SUCCESS == response.code) {
@@ -71,11 +71,11 @@ export class DataViewCreateComponent implements OnInit {
         });
     }
 
-    colstatus(column) {
+    colstatus(column:ColumOptions) {
         if (this.isView) {
-            return column.isView;
+            return column.view;
         }
-        let result = this.inset ? column.inset : column.updateType != GoldbalConstant.MODIFTY_TYPES.hide;
+        let result = this.insert ? column.insert : column.updateType != GoldbalConstant.MODIFTY_TYPES.hide;
         return result;
     }
 
