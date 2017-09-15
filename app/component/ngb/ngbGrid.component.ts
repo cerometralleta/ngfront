@@ -43,6 +43,7 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
             options.checkbox = true;
             options.insert = false;
             options.view = false;
+            options.title = "选择";
             options.updateType = GoldbalConstant.MODIFTY_TYPES.hide;
             bootstrapOptions.columns.splice(0, 0, options);
         }
