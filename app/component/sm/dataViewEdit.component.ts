@@ -275,6 +275,8 @@ export class DataViewEditComponent implements OnInit {
         this.formData.options.checkboxHeader = false;
         this.formData.options.maintainSelected = true;
         this.formData.options.exportDataType = "basic";
+        this.formData.options.version = "version";
+        this.formData.options.idField = "id";
 
         //tree
         this.formData.treeOptions = new TreeOptions();
@@ -372,6 +374,7 @@ export class DataViewEditComponent implements OnInit {
       showRefresh: [this.formData.options.showRefresh],
       showPaginationSwitch: [this.formData.options.showPaginationSwitch],
       idField: [this.formData.options.idField],
+      version:[this.formData.options.version],
       uniqueId: [this.formData.options.uniqueId],
       detailView: [this.formData.options.detailView],
       clickToSelect: [this.formData.options.clickToSelect],

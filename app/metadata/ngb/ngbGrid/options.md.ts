@@ -63,6 +63,7 @@ export class Options {
     showPaginationSwitch:boolean;
     minimumCountColumns:number;
     idField:string;
+    version:string;
     editView:boolean;
     uniqueId:string;
     cardView:boolean;

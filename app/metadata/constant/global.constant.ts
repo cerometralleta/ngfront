@@ -56,15 +56,17 @@ export class GoldbalConstant {
 
     /*数据字典控件类型*/
     static DICT_COMPONENTTYPE =
-    [{ value: "TEXT", text: "文本框" },
-    { value: "DROPDOWN", text: "下拉框" },
-    // {value:"SELECTOR",text:"选择器"},
-    { value: "TEXTAREA", text: "文本域" },
-    { value: "GENERATECODE", text: "自动编码" },
-    { value: "CHECKBOX", text: "单选框" },
-    { value: "DATEPICKER", text: "日期" },
-    { value: "VIEWSELECTOR", text: "视图选择器" }
-    ];
+    {
+        hidden:"hidden",
+        radio:"checkbox",
+        textarea:"textarea",
+        select:"select",
+        text:"text",
+        datetimepicker:"datetimepicker",
+        upload:"upload",
+        selector:"selector",
+        coder:"coder"
+    };
 
     /*表达式*/
     static DICT_EXPRESSION = [

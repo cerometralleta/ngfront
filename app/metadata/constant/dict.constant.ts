@@ -35,10 +35,9 @@ export class DictConstant {
 
   static createfieldTypes() {
     let fieldTypes = new Array<any>();
-    fieldTypes.push({ code: "text", text: "text" });
-    fieldTypes.push({ code: "radio", text: "radio" });
-    fieldTypes.push({ code: "select", text: "select" });
-    fieldTypes.push({ code: "textarea", text: "textarea" });
+    for (var type in GoldbalConstant.DICT_COMPONENTTYPE) {
+      fieldTypes.push(type,GoldbalConstant.DICT_COMPONENTTYPE[type]);
+    }
     return fieldTypes;
   }
 

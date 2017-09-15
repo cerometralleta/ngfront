@@ -51,7 +51,14 @@ export class DataViewCreateComponent implements OnInit {
     columnfilter() {
         let cols = new Array<ColumOptions>();
         this.columns.forEach(col => {
-            if (this.colstatus(col)) {
+            
+            //修改idfield,version默认hidden
+            if(!col.insert 
+                && (col.field == this.dataViewModule.options.idField
+                || col.field == this.dataViewModule.options.version)){
+                col.fieldType ==  GoldbalConstant.DICT_COMPONENTTYPE.hidden;
+                cols.push(col);
+            }else if(this.colstatus(col)) {
                 cols.push(col);
             }
         });
