@@ -20,3 +20,8 @@
     max-width: 800px;
 }
 
+/* Form validation */
+.ng-invalid {
+  border-color: #ef4554 !important; }
+
+

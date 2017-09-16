@@ -23,7 +23,7 @@ export class DataViewCreateComponent implements OnInit {
 
     //操作列
     columns: Array<ColumOptions>;
-
+    formgroups = {};
     //视图数据
     @Input() viewModel: any;
     @Input() isView: boolean = false;
@@ -44,21 +44,22 @@ export class DataViewCreateComponent implements OnInit {
             this.viewModel = {};
         }
         this.columnfilter();
-        this.ngbForm = new FormGroup(this.createFormGroup());
+        this.createFormGroup()
+        this.ngbForm = new FormGroup(this.formgroups);
         // this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
     }
     // onValueChanged(data?: any){ }
     columnfilter() {
         let cols = new Array<ColumOptions>();
         this.columns.forEach(col => {
-            
+
             //修改idfield,version默认hidden
-            if(!col.insert 
+            if (!col.insert
                 && (col.field == this.dataViewModule.options.idField
-                || col.field == this.dataViewModule.options.version)){
-                col.fieldType ==  GoldbalConstant.DICT_COMPONENTTYPE.hidden;
+                    || col.field == this.dataViewModule.options.version)) {
+                col.fieldType == GoldbalConstant.DICT_COMPONENTTYPE.hidden;
                 cols.push(col);
-            }else if(this.colstatus(col)) {
+            } else if (this.colstatus(col)) {
                 cols.push(col);
             }
         });
@@ -78,7 +79,7 @@ export class DataViewCreateComponent implements OnInit {
         });
     }
 
-    colstatus(column:ColumOptions) {
+    colstatus(column: ColumOptions) {
         if (this.isView) {
             return column.view;
         }
@@ -87,19 +88,52 @@ export class DataViewCreateComponent implements OnInit {
     }
 
     createFormGroup() {
-        let fg = {};
-        var array = [];
-        this.columns.forEach(element => {
+       this.columns.forEach(element => {
             // fg[element.field] = new FormControl(this.viewModel[element.field], <any>Validators.required),
-            if (element.pattern) {
-                array.push(Validators.pattern(element.pattern));
-            }
-            if(element.maxlength){
+            var array = this.createValidators(element);
+            if (element.maxlength) {
                 array.push(Validators.maxLength(element.maxlength));
             }
-            fg[element.field] = new FormControl(this.viewModel[element.field],array);
+            //errors 
+
+            this.formgroups[element.field] = new FormControl(this.viewModel[element.field],array);
         });
-        return fg;
+    }
+
+    createValidators(col) {
+        var validators = col.pattern;
+        var array = [];
+        if (validators) {
+            switch (validators) {
+                case "required":
+                    array.push(Validators.required);
+                    col.errors = GoldbalConstant.CHECK_REG[validators];
+                    break;
+                case "email":
+                    array.push(Validators.email);
+                     col.errors = GoldbalConstant.CHECK_REG[validators];
+                    break;
+                default:
+                    array.push(Validators.pattern(validators));
+                     col.errors = GoldbalConstant.CHECK_REG[validators];
+                    break;
+            }
+            // validators.forEach(validator => {
+            //     array.push(validator);
+            //     switch (validator) {
+            //         case "required":
+            //             array.push(Validators.required);
+            //             break;
+            //         case "email":
+            //             array.push(Validators.email);
+            //             break;
+            //         default:
+            //             array.push(Validators.pattern(validator));
+            //             break;
+            //     }
+            // });
+        }
+        return array;
     }
 
 }

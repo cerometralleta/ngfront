@@ -20,7 +20,7 @@
              </select>
 
             <!--textarea-->
-             <textarea *ngSwitchCase="'textarea'" rows="5" cols="20" class="form-control" placeholder="{{column.field}}" formControlName="remark"></textarea>
+             <textarea *ngSwitchCase="'textarea'" rows="5" cols="20" class="form-control" placeholder="{{column.field}}" formControlName="{{column.field}}"></textarea>
 
             <!--radio-->
             <div *ngSwitchCase="'radio'" class="checkbox checkbox-info">
@@ -37,7 +37,13 @@
 
             <!-- 编码器 -->
             <input type="input" *ngSwitchCase="'coder'" formControlName="{{column.field}}"> 
-
+            
+            <!--显示-->
+            <ul class="parsley-errors-list filled" *ngIf="formgroups[column.field].invalid">
+                <li class="parsley-required">
+                    {{column.errors}}
+                </li>
+            </ul>
         </div>  
     </div>
 
