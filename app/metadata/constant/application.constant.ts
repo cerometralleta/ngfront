@@ -23,6 +23,7 @@ export class Application {
      static ubold_sm_fetch:string = Application.baseContext + "/api/sm/view/fetch";
      static ubold_sql_fetch:string = Application.baseContext + "/api/sm/sql/fetch";
      static ubold_sql_delete:string = Application.baseContext + "/api/sm/sql/delete/";
+     static ubold_sql_get_code:string = Application.baseContext + "/api/sm/sql/getCode/";
      
      //dataViewList
     static ubold_sm_sql_dataList:string =Application.baseContext + "/api/sm/sql/bootstrap/SM10000000000001";

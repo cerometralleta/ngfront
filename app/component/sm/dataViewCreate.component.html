@@ -31,12 +31,14 @@
             <!--文件上传 upload-->
 
             <!--日期 datetimepicker-->
+         
 
             <!-- 隐藏表单域 -->
             <input type="hidden" *ngSwitchCase="'hidden'" formControlName="{{column.field}}"> 
 
             <!-- 编码器 -->
-            <input type="input" *ngSwitchCase="'coder'" formControlName="{{column.field}}"> 
+            <ng4b-coder  *ngSwitchCase="'coder'" placeholder="{{column.field}}" formControlName="{{column.field}}"   readonly="readonly" prefix="SM"></ng4b-coder>
+            <!--<input type="input" *ngSwitchCase="'coder'" formControlName="{{column.field}}"> -->
             
             <!--显示-->
             <ul class="parsley-errors-list filled" *ngIf="!isView && formgroups[column.field].invalid">

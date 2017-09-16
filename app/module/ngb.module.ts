@@ -7,7 +7,8 @@ import { LoggerService } from "../service/basic/logger.service";
 import { NgbTreeComponent } from "../component/ngb/ngbTree.component";
 import { HttpService } from "../service/basic/http.service";
 import { NgbGridComponent } from "../component/ngb/ngbGrid.component";
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCoderComponent } from "../component/ngb/ngbCoder.component";
  
 /**
  * 表单模块
@@ -15,9 +16,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
  */
 @NgModule({
     imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,NgbModule,NgbModule.forRoot()],
-    exports: [NgbTreeComponent,NgbGridComponent,NgbModule],
+    exports: [NgbTreeComponent,NgbGridComponent,NgbCoderComponent,NgbModule],
     declarations: [
-        NgbTreeComponent,NgbGridComponent
+        NgbTreeComponent,NgbGridComponent,NgbCoderComponent
     ],
     providers: [LoggerService,AppRoutingProviders,HttpService]
 })
