@@ -39,7 +39,7 @@
             <input type="input" *ngSwitchCase="'coder'" formControlName="{{column.field}}"> 
             
             <!--显示-->
-            <ul class="parsley-errors-list filled" *ngIf="formgroups[column.field].invalid">
+            <ul class="parsley-errors-list filled" *ngIf="!isView && formgroups[column.field].invalid">
                 <li class="parsley-required">
                     {{column.errors}}
                 </li>

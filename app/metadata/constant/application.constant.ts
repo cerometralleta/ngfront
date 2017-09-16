@@ -16,6 +16,9 @@ export class Application {
      //查询sqlDefine视图
      static ubold_sm_sqldefine:string = Application.baseContext + "/api/sm/view/find/DV10000000000000";
 
+     //SQL自定义选择器视图
+     static ubold_sm_sqldefine_selector:string = Application.baseContext + "/api/sm/view/find/DV10000000000001";
+
     //查询视图
      static ubold_sm_fetch:string = Application.baseContext + "/api/sm/view/fetch";
      static ubold_sql_fetch:string = Application.baseContext + "/api/sm/sql/fetch";

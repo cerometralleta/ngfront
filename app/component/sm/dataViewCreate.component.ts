@@ -54,10 +54,10 @@ export class DataViewCreateComponent implements OnInit {
         this.columns.forEach(col => {
 
             //修改idfield,version默认hidden
-            if (!col.insert
+            if (!this.insert
                 && (col.field == this.dataViewModule.options.idField
                     || col.field == this.dataViewModule.options.version)) {
-                col.fieldType == GoldbalConstant.DICT_COMPONENTTYPE.hidden;
+                col.fieldType = GoldbalConstant.DICT_COMPONENTTYPE.hidden;
                 cols.push(col);
             } else if (this.colstatus(col)) {
                 cols.push(col);

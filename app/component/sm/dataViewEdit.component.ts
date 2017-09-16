@@ -201,12 +201,12 @@ export class DataViewEditComponent implements OnInit {
   //ztree 数据源
   openZtreeSqlDefine() {
     //查询sqldefine
-    this.httpService.http.post(Application.ubold_sm_sqldefine, null)
+    this.httpService.http.post(Application.ubold_sm_sqldefine_selector, null)
       .subscribe(res => {
         let resp = res.json();
         //TODO  查询sql define
         if (GoldbalConstant.STATUS_CODE.SUCCESS != resp.code) {
-          this.toastr.error("选择器数据获取异常,请检查视图编号:DV10000000000000");
+          this.toastr.error("选择器数据获取异常,请检查视图编号:DV10000000000001");
           return;
         }
         const modalRef = this.modalService.open(SelectorComponent, { size: GoldbalConstant.modal_size_sm });
@@ -555,12 +555,12 @@ export class DataViewEditComponent implements OnInit {
   openSelector() {
 
     //查询sqldefine
-    this.httpService.http.post(Application.ubold_sm_sqldefine, null)
+    this.httpService.http.post(Application.ubold_sm_sqldefine_selector, null)
       .subscribe(res => {
         let resp = res.json();
         //TODO  查询sql define
         if (GoldbalConstant.STATUS_CODE.SUCCESS != resp.code) {
-          this.toastr.error("选择器数据获取异常,请检查视图编号:DV10000000000000");
+          this.toastr.error("选择器数据获取异常,请检查视图编号:DV10000000000001");
           return;
         }
         const modalRef = this.modalService.open(SelectorComponent, { size: GoldbalConstant.modal_size_lg });
