@@ -91,6 +91,9 @@ export class SelectorComponent implements OnInit , AfterViewInit{
     //获取选中行
     getSelectionsAndShut() {
         let selections = this.getSelections();
+        if(!selections){
+            return;
+        }
         this.activeModal.close(selections);
     }
 

@@ -23,16 +23,7 @@
 				
 				<div class="portlet" *ngIf="dataFilters.length > 0 || buttons.length > 0">
 					<div class="portlet-heading">
-						
-						<!-- toolbar -->
-						<div class="btn-group vertical-middle" data-toggle="buttons" *ngIf="buttons.length > 0">
-							<button  *ngFor="let bt of buttons"  type="button" class="btn btn-default" (click)="navClick(bt)">
-										<span class="glyphicon glyphicon-plus" aria-hidden="true">{{bt.title}}</span>
-							</button>
-						</div>
-						<!-- toolbar -->
-					 
-
+						<h4 class="portlet-title text-dark">条件查询</h4>
 						<div class="portlet-widgets" *ngIf="dataFilters.length > 0">
 							<!--<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>-->
 							<span class="divider"></span>
