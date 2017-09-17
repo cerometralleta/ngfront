@@ -127,7 +127,7 @@ export class DataViewComponent extends SelectorComponent {
     navClick(button: Button, id?) {
         switch (button.id) {
             case GoldbalConstant.CRUD.create:
-                const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
+                const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_lg });
                 modalRef.result.then((result) => {
                     this.toastr.success(result);
                     this.search();
@@ -143,7 +143,7 @@ export class DataViewComponent extends SelectorComponent {
                 this.httpService.http.post(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
                     let resp = result.json();
                     if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
-                        const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
+                        const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_lg });
                         modalRef.componentInstance.dataViewModule = this.dataViewModule
                         modalRef.componentInstance.viewModel = resp.result;
                         modalRef.result.then((result) => {
@@ -164,7 +164,7 @@ export class DataViewComponent extends SelectorComponent {
                 this.httpService.http.post(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
                     let resp = result.json();
                     if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
-                        const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_sm });
+                        const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_lg });
                         modalRef.componentInstance.dataViewModule = this.dataViewModule
                         modalRef.componentInstance.viewModel = resp.result;
                         modalRef.componentInstance.isView = true;

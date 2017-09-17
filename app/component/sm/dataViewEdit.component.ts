@@ -77,7 +77,7 @@ export class DataViewEditComponent implements OnInit {
   // 添加按钮
   openAdd() {
     // 弹出组件
-    const modalRef = this.modalService.open(ButtonDialogComponent, { size: GoldbalConstant.modal_size_sm });
+    const modalRef = this.modalService.open(ButtonDialogComponent, { size: GoldbalConstant.modal_size_lg });
     modalRef.result.then((result) => {
       let button = <Button>result;
       this.formData.buttons.push(button);
@@ -112,7 +112,7 @@ export class DataViewEditComponent implements OnInit {
     }
     button.option = GoldbalConstant.OPTIONS_BUTTON.service;
     button.sort = 0;
-    button.size = GoldbalConstant.modal_size_sm;
+    button.size = GoldbalConstant.modal_size_lg;
     this.formData.buttons.push(button);
     const controls = <FormArray>this.ngbForm.controls['buttons'];
     controls.push(this.fb.group({
@@ -186,7 +186,7 @@ export class DataViewEditComponent implements OnInit {
 
   //列更多设置
   openMore(content) {
-    this.modalService.open(content, { size: GoldbalConstant.modal_size_sm }).result.then((result) => {
+    this.modalService.open(content, { size: GoldbalConstant.modal_size_lg }).result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -210,7 +210,7 @@ export class DataViewEditComponent implements OnInit {
           this.toastr.error("选择器数据获取异常,请检查视图编号:DV10000000000001");
           return;
         }
-        const modalRef = this.modalService.open(SelectorComponent, { size: GoldbalConstant.modal_size_sm });
+        const modalRef = this.modalService.open(SelectorComponent, { size: GoldbalConstant.modal_size_lg });
         modalRef.componentInstance.dataViewModule = resp.result;
         modalRef.result.then((result) => {
           const _treeFormGroup = <FormGroup>this.ngbForm.controls['treeOptions'];
