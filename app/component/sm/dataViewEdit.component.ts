@@ -57,6 +57,7 @@ export class DataViewEditComponent implements OnInit {
 
   //当前对应SQLDEFINE,relationId字段
   currentSqlDefineFields: Array<any>;
+  insert:boolean = false;
 
   constructor(private logger: LoggerService,
     private httpService: HttpService,
@@ -252,6 +253,7 @@ export class DataViewEditComponent implements OnInit {
       if (resp.dataViewResolver) {
         this.formData = resp.dataViewResolver.result;
       } else {
+        this.insert = true;
         this.formData = new DataViewModule();
         this.formData.columns = new Array<any>();
         this.formData.dataFilters = new Array<any>();

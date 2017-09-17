@@ -18,7 +18,7 @@ export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'ng4b-coder',
     templateUrl: './app/component/ngb/ngbCoder.component.html',
-    providers: [INPUT_CONTROL_VALUE_ACCESSOR],
+    providers: [INPUT_CONTROL_VALUE_ACCESSOR]
 })
 
 /**
@@ -33,13 +33,15 @@ export class NgbCoderComponent implements OnInit, ControlValueAccessor {
     @Input() minlength: number;
     @Input() maxlength: number;
     @Input() disabled: any;
-    @Input() readonly: any;
+    @Input() readonly: any = true;
+    @Input() editable:boolean;
     formControlValue: string;
 
     // the method set in registerOnChange, it is just 
     // a placeholder for a method that takes one parameter, 
     // we use it to emit changes back to the form
     private propagateChange = (_: any) => { };
+    private onTouched = () => null;
     constructor(private logger: LoggerService
          , public httpService: HttpService
         , public toastr: ToastrService
@@ -75,9 +77,7 @@ export class NgbCoderComponent implements OnInit, ControlValueAccessor {
 
     //  设置当控件接收到 touched 事件后，调用的函数
     registerOnTouched(fn: any) {
+        this.onTouched = fn;
     }
-
-
-
 }
 
