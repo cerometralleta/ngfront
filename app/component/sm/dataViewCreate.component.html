@@ -53,7 +53,7 @@
 <div class="modal-footer" >
      <form (ngSubmit)="onSubmit()">
          <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid" *ngIf="!this.isView">保存</button>
-         <button type="button" class="btn w-sm btn-white waves-effect"  (click)="activeModal.dismiss('Cross click')" *ngIf="this.isView">关闭</button>
+         <button type="button" class="btn w-sm btn-white waves-effect" (click)="activeModal.dismiss()" >取消</button>
      </form>
 </div>
 
