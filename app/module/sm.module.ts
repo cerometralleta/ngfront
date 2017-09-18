@@ -21,7 +21,8 @@ import { ToastrService } from "../service/basic/toastr.service";
 import { SelectorComponent } from "../component/sm/selector.component";
 import { DataViewListComponent } from "../component/sm/dataViewList.component";
 import { FormVerifiyService } from "../service/sm/formVerifiy.service";
- 
+import { ConfirmComponent } from '../component/ngb/confirm.component';
+
 /**
  * SQL MANAGE模块
  * ningzk
@@ -29,14 +30,14 @@ import { FormVerifiyService } from "../service/sm/formVerifiy.service";
 @NgModule({
     imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,Ngb2Module,ReactiveFormsModule],
     exports: [DataViewComponent,DataViewEditComponent,DataViewCreateComponent,FormViewCreateComponent
-        ,FormViewEditComponent,FormViewComponent,SelectorComponent,DataViewListComponent
+        ,FormViewEditComponent,FormViewComponent,SelectorComponent,DataViewListComponent,ConfirmComponent
     ],
     declarations: [
         DataViewComponent,DataViewEditComponent,ButtonDialogComponent,TypeFilterPipe,DataViewCreateComponent
         ,FormViewCreateComponent ,FormViewEditComponent,FormViewFieldEditComponent,FormViewComponent,
-        SelectorComponent,DataViewListComponent
+        SelectorComponent,DataViewListComponent,ConfirmComponent
     ],
-    entryComponents:[ButtonDialogComponent,FormViewFieldEditComponent,FormViewComponent,SelectorComponent],
+    entryComponents:[ButtonDialogComponent,FormViewFieldEditComponent,FormViewComponent,SelectorComponent,ConfirmComponent],
     providers: [LoggerService,AppRoutingProviders,HttpService,ToastrService,FormVerifiyService]
 })
 export class SmModule { }

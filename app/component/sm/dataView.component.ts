@@ -23,6 +23,7 @@ import { ToastrService } from "../../service/basic/toastr.service";
 import { Async } from "../../metadata/ngb/ngbTree/async.md";
 import { SelectorComponent } from "./selector.component";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
+import { ConfirmService } from '../../service/basic/confirm.service';
 declare var $: any;
 /**
  * 统一dataView
@@ -40,7 +41,9 @@ export class DataViewComponent extends SelectorComponent {
         , public fb: FormBuilder
         , public toastr: ToastrService
         , public componentFactoryResolver: ComponentFactoryResolver
-        , public elementRef: ElementRef, renderer: Renderer
+        , public elementRef: ElementRef
+        , public renderer: Renderer
+        , public confirmService :ConfirmService
     ) {
         super(logger, httpService, modalService, fb, toastr, null);
     }
@@ -179,16 +182,18 @@ export class DataViewComponent extends SelectorComponent {
                 if (!_idValue) {
                     return;
                 }
-                this.httpService.http.post(Application.ubold_sql_delete + this.dataViewModule.dataViewCode, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
-                    let resp = result.json();
-                    if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
-                        this.toastr.success(resp.message);
-                        this.search();
-                         this.refreshNode();
-                    } else {
-                        this.toastr.error(resp.message);
-                    }
-                });
+                this.confirmService.confirm("确认","确定要删除吗?").then((result) => { 
+                    this.httpService.http.post(Application.ubold_sql_delete + this.dataViewModule.dataViewCode, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
+                        let resp = result.json();
+                        if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
+                            this.toastr.success(resp.message);
+                            this.search();
+                             this.refreshNode();
+                        } else {
+                            this.toastr.error(resp.message);
+                        }
+                    });
+                }, (reason) => { });
                 return;
             default:
                 break;

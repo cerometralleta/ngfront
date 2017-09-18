@@ -9,7 +9,8 @@ import { HttpService } from "../service/basic/http.service";
 import { NgbGridComponent } from "../component/ngb/ngbGrid.component";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCoderComponent } from "../component/ngb/ngbCoder.component";
- 
+import { ConfirmService } from '../service/basic/confirm.service';
+
 /**
  * 表单模块
  * ningzk
@@ -20,6 +21,6 @@ import { NgbCoderComponent } from "../component/ngb/ngbCoder.component";
     declarations: [
         NgbTreeComponent,NgbGridComponent,NgbCoderComponent
     ],
-    providers: [LoggerService,AppRoutingProviders,HttpService]
+    providers: [LoggerService,AppRoutingProviders,HttpService,ConfirmService]
 })
 export class Ngb2Module { }
