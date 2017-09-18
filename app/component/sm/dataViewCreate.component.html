@@ -31,7 +31,7 @@
             <!--文件上传 upload-->
 
             <!--日期 datetimepicker-->
-         
+            <ng4b-datetimepicker *ngSwitchCase="'datetimepicker'" formControlName="{{column.field}}" placeholder="{{column.field}}"></ng4b-datetimepicker>
 
             <!-- 隐藏表单域 -->
             <input type="hidden" *ngSwitchCase="'hidden'" formControlName="{{column.field}}"> 

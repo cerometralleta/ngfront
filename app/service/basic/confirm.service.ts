@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgbModal } from '../../../node_modules/._@ng-bootstrap_ng-bootstrap@1.0.0-beta.4@@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ConfirmComponent } from '../../component/ngb/confirm.component';
 import { GoldbalConstant } from '../../metadata/constant/global.constant';
 

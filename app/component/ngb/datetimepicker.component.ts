@@ -11,8 +11,11 @@ export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
     selector: 'ng4b-datetimepicker',
-    template: `
-                <input type="text" #ngbDatetimepicker 
+    providers: [INPUT_CONTROL_VALUE_ACCESSOR],
+    template: ` 
+                <div class="input-group">
+                <input type="text" class="form-control" 
+                #ngbDatetimepicker 
                 [placeholder]="placeholder"
                 [ngModel]="formControlValue"
                 [minlength]="minlength"
@@ -20,7 +23,9 @@ export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
                 [readonly]="readonly"
                 [disabled]="disabled"
                 >
-              `
+                <span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span>
+                </div>
+                `
 })
 export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
     @Input() format: string;
@@ -48,20 +53,14 @@ export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
         if(this.format){
             this.$defaultformart = this.format;
         }
-        $(this.erf.nativeElement).datetimepicker({
-            format: this.$defaultformart,
+        $(this.erf.nativeElement).datepicker({
+            // format: this.$defaultformart,
             autoclose: true,
-            todayBtn: true,
-            language: "zh-CN",
-            clearBtn: true,//清除按钮
-            startView: 2,  
-            maxViewMode: 2,
-            minViewMode:2
-            // pickerPosition: "bottom-left"
+            todayHighlight: true
         });
 
-        $(this.erf.nativeElement).datetimepicker().on('changeDate', function(ev){
-            this._onChange(ev.date.valueOf());
-        });
+        // $(this.erf.nativeElement).datepicker().on('changeDate', function(ev){
+        //     this._onChange(ev.date.valueOf());
+        // });
     }
   }
