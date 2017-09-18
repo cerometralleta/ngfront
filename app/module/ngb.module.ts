@@ -10,6 +10,7 @@ import { NgbGridComponent } from "../component/ngb/ngbGrid.component";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCoderComponent } from "../component/ngb/ngbCoder.component";
 import { ConfirmService } from '../service/basic/confirm.service';
+import { DatetimepickerComponent } from '../component/ngb/datetimepicker.component';
 
 /**
  * 表单模块
@@ -17,9 +18,9 @@ import { ConfirmService } from '../service/basic/confirm.service';
  */
 @NgModule({
     imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,NgbModule,NgbModule.forRoot()],
-    exports: [NgbTreeComponent,NgbGridComponent,NgbCoderComponent,NgbModule],
+    exports: [NgbTreeComponent,NgbGridComponent,NgbCoderComponent,NgbModule,NgbCoderComponent,DatetimepickerComponent],
     declarations: [
-        NgbTreeComponent,NgbGridComponent,NgbCoderComponent
+        NgbTreeComponent,NgbGridComponent,NgbCoderComponent,DatetimepickerComponent
     ],
     providers: [LoggerService,AppRoutingProviders,HttpService,ConfirmService]
 })
