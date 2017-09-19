@@ -99,20 +99,11 @@ export class DataViewEditComponent implements OnInit {
   }
 
   //添加功能
-  addButton(id, title, type) {
-    let button = new Button();
-    if (id) {
-      button.id = id;
-    } else {
+  addButton(button:Button) {
+    // let button = new Button();
+    if (!button.id) {
       button.id = GUID.createGUIDString();
-    }
-    button.title = title;
-    if (type != undefined) {
-      button.location = type;
-    } else {
-      button.location = GoldbalConstant.LOCATION.nav;
-    }
-    button.option = GoldbalConstant.OPTIONS_BUTTON.service;
+    } 
     button.sort = 0;
     button.size = GoldbalConstant.modal_size_lg;
     this.formData.buttons.push(button);
@@ -144,22 +135,38 @@ export class DataViewEditComponent implements OnInit {
       }
     }
 
+    let btn = new Button();
+    btn.id = id;
+    btn.btnsize = "btn-xs";
     switch (id) {
       case GoldbalConstant.CRUD.create:
-        this.addButton(id, "增加", GoldbalConstant.LOCATION.nav);
+        btn.title ="增加";
+        btn.color = "btn-default";
+        btn.location =  GoldbalConstant.LOCATION.nav;
+        btn.option = GoldbalConstant.OPTIONS_BUTTON.modal;
         break;
       case GoldbalConstant.CRUD.delete:
-        this.addButton(id, "删除", GoldbalConstant.LOCATION.row);
+        btn.title ="删除";
+        btn.color = "btn-danger";
+        btn.location =  GoldbalConstant.LOCATION.row;
+        btn.option = GoldbalConstant.OPTIONS_BUTTON.service;
         break;
       case GoldbalConstant.CRUD.update:
-        this.addButton(id, "修改", GoldbalConstant.LOCATION.row);
+        btn.title ="修改";
+        btn.color = "btn-warning";
+        btn.location =  GoldbalConstant.LOCATION.row;
+        btn.option = GoldbalConstant.OPTIONS_BUTTON.modal;
         break;
       case GoldbalConstant.CRUD.retrieve:
-        this.addButton(id, "查看", GoldbalConstant.LOCATION.row);
+        btn.title ="查看";
+        btn.color = "btn-info";
+        btn.location =  GoldbalConstant.LOCATION.row;
+        btn.option = GoldbalConstant.OPTIONS_BUTTON.modal;
         break;
       default:
         break;
     }
+    this.addButton(btn);
   }
 
   //判断是否选中
@@ -417,14 +424,16 @@ export class DataViewEditComponent implements OnInit {
     let formArray = new Array<any>();
     this.formData.buttons.forEach(button => {
       formArray.push(this.fb.group({
-        id: [button.id],
-        option: [button.option, [Validators.required]],
-        modal: [button.modal],
-        size: [button.size],
-        icon: [button.icon],
-        title: [button.title, [Validators.required, Validators.maxLength(10)]],
-        url: [button.url],
-        location: [button.location, [Validators.required]]
+          id: [button.id],
+          option: [button.option, [Validators.required]],
+          modal: [button.modal],
+          size: [button.size],
+          icon: [button.icon],
+          title: [button.title, [Validators.required, Validators.maxLength(10)]],
+          url: [button.url],
+          location: [button.location, [Validators.required]],
+          btnsize: [button.btnsize],
+          color:[button.color]
         })
       )
     });

@@ -12,19 +12,7 @@ export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     selector: 'ng4b-iconpicker',
     providers: [INPUT_CONTROL_VALUE_ACCESSOR],
     template: `
-              <div class="input-group" >
-                  <input type="text" class="form-control" 
-                  [placeholder]="placeholder"
-                  [ngModel]="formControlValue"
-                  [minlength]="minlength"
-                  [maxlength]="maxlength"
-                  [readonly]="readonly"
-                  [disabled]="disabled"
-                  >
-                  <span class="input-group-btn">
-                      <button class="btn btn-primary" role="iconpicker" data-icon="glyphicon-map-marker" #ngbIconpicker></button>
-                  </span>
-              </div>
+          <input type="text" class="icon-picker"  #ngbIconpicker/>
               `
 })
 export class IconpickerComponent implements OnInit, ControlValueAccessor {
@@ -38,26 +26,7 @@ export class IconpickerComponent implements OnInit, ControlValueAccessor {
         this._onTouched = fn;
     }
     ngOnInit(): void {
-      $(this.erf.nativeElement).iconpicker()
-      .iconpicker('setAlign', 'center')
-      .iconpicker('setArrowClass', 'btn-success')
-      .iconpicker('setArrowPrevIconClass', 'glyphicon glyphicon-chevron-left')
-      .iconpicker('setArrowNextIconClass', 'glyphicon glyphicon-chevron-right')
-      .iconpicker('setCols', 9)
-      .iconpicker('setFooter', true)
-      .iconpicker('setHeader', true)
-      .iconpicker('setIcon', 'glyphicon-pause')
-      .iconpicker('setIconset', 'weathericon')
-      .iconpicker('setLabelHeader', '{0} of {1} pages')
-      .iconpicker('setLabelFooter', '{0} - {1} of {2} icons')
-      .iconpicker('setPlacement', 'bottom')
-      .iconpicker('setRows', 0)
-      .iconpicker('setSearch', true)
-      .iconpicker('setSearchText', 'Type text')
-      .iconpicker('setSelectedClass', 'btn-danger')
-      .iconpicker('setUnselectedClass', 'btn-primary');
-      
-      
+      $(this.erf.nativeElement).iconPicker();
     }
     @ViewChild("ngbIconpicker") erf: ElementRef;
     @Input() placeholder: string = null;

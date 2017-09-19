@@ -12,8 +12,8 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
                     <p>{{message || 'Are you sure?'}}</p>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn w-sm btn-default waves-effect waves-light" (click)="activeModal.close()">确定</button>
-                    <button type="button" class="btn w-sm btn-white waves-effect" (click)="activeModal.dismiss()">取消</button>
+                    <button type="button" class="btn btn-default  btn-xs" (click)="activeModal.close()">确定</button>
+                    <button type="button" class="btn btn-white  btn-xs" (click)="activeModal.dismiss()">取消</button>
                   </div>
               `
 })
