@@ -21,6 +21,7 @@ import { NgbGridComponent } from "../ngb/ngbGrid.component";
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { ToastrService } from "../../service/basic/toastr.service";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
+import { ConfirmService } from '../../service/basic/confirm.service';
 
 /**
  * 自定义的DataViewList列表页面
@@ -59,6 +60,7 @@ export class DataViewListComponent implements OnInit {
         , private modalService: NgbModal
         , private fb: FormBuilder
         , private toastr: ToastrService
+        , private confirmService :ConfirmService
     ) { }
     ngOnInit() {
 

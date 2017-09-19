@@ -1,62 +1,128 @@
 <div class="modal-header">
     <h4 class="modal-title"></h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+            <span aria-hidden="true">&times;</span>
+          </button>
 </div>
 <div class="modal-body" [formGroup]="ngbForm">
-    <div class="form-group row">
-        <label class="col-sm-2 control-label">title</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="title" formControlName="title" />
-        </div>
-    </div>
+    <div class="row" style="padding-bottom: 5px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label for="btn-text" class="col-sm-2 control-label">Title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Title" formControlName="title" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="btn-color" class="col-sm-2 control-label">Color</label>
+                    <div class="col-sm-10">
+                        <button name="color" type="button" class="btn btn-default" (click)="_setColor('btn-default')">Default</button>
+                        <button name="color" type="button" class="btn btn-primary" (click)="_setColor('btn-primary')">Primary</button>
+                        <button name="color" type="button" class="btn btn-info" (click)="_setColor('btn-info')">Info</button>
+                        <button name="color" type="button" class="btn btn-success" (click)="_setColor('btn-success')">Success</button>
+                        <button name="color" type="button" class="btn btn-warning" (click)="_setColor('btn-warning')">Warning</button>
+                        <button name="color" type="button" class="btn btn-inverse" (click)="_setColor('btn-inverse')">inverse</button>
+                        <button name="color" type="button" class="btn btn-danger" (click)="_setColor('btn-danger')">Danger</button>
+                        <button name="color" type="button" class="btn btn-purple" (click)="_setColor('btn-purple')">purple</button>
+                        <button name="color" type="button" class="btn btn-pink" (click)="_setColor('btn-pink')">pink</button>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="btn-color" class="col-sm-2 control-label">Button Size</label>
+                    <div class="col-sm-10">
+                        <!-- <button class="btn btn-xs btn-white" value="btn-xs" type="button" (click)="_setButtonSize('btn-xs')">Mini</button> -->
+                        <button class="btn btn-sm btn-white" value="btn-sm" type="button" (click)="_setButtonSize('btn-sm')">Small</button>
+                        <button class="btn btn-white" value="btn-default" type="button" (click)="_setButtonSize('btn-default')">Default</button>
+                        <button class="btn btn-white btn-lg" value="btn-lg" type="button" (click)="_setButtonSize('btn-lg')">Large</button>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="btn-color" class="col-sm-2 control-label">Icon</label>
+                    <div class="col-sm-10">
+                        <!-- TODO...  -->
+                        <div class="input-group">
+                                <input type="text" class="form-control" value="My house">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" data-icon="glyphicon-home" role="iconpicker"></button>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label for="btn-color" class="col-sm-2 control-label">Icon position: </label>
+                    <div class="col-sm-10">
+                        <div id="btn-icon-positions" class="btn-group">
+                            <button class="btn btn-default" value="left" type="button"><span class="glyphicon glyphicon-arrow-left"></span> Left</button>
+                            <button class="btn btn-default" value="right" type="button">Right <span class="glyphicon glyphicon-arrow-right"></span></button>
+                        </div>
+                    </div>
+                </div> -->
+                
+                 <!-- 预览 -->
+                 <div class="form-group row">
+                        <label for="btn-text" class="col-sm-2 control-label">PreView</label>
+                        <div class="col-sm-10">
+                            <button type="button" class="btn {{ngbForm.controls.btnsize._value}} {{ngbForm.controls.color._value}}"><i class="{{ngbForm.controls.icon._value}}"></i> {{ngbForm.controls.title._value}}</button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="btn-text" class="col-sm-2 control-label">Code</label>
+                        <div class="col-sm-10">
+                            <span class="form-control" style="font-size:1em;">
+                                &lt;button class="btn {{ngbForm.controls.btnsize._value}} {{ngbForm.controls.color._value}}"&gt;&lt;i class="{{ngbForm.controls.icon._value}}"&gt;&lt;/i&gt; {{ngbForm.controls.title._value}}&lt;/button&gt;
+                            </span>
+                        </div>
+                    </div>
+                <!-- 预览 -->
 
-    <div class="form-group row">
-        <label class="col-sm-2 control-label">url</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="url" formControlName="url" />
-        </div>
-    </div>
+                <div class="form-group row">
+                    <label for="btn-color" class="col-sm-2 control-label">Url</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="url" formControlName="url" />
+                    </div>
+                </div>
 
-    <div class="form-group row">
-        <label class="col-sm-2 control-label">nav/row</label>
-        <div class="col-sm-10">
-            <select class="form-control" formControlName="location" placeholder="location">
-                <option *ngFor="let location of locations" [value]="location.code">{{location.text}}</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 control-label">option</label>
-        <div class="col-sm-10">
-            <select class="form-control" formControlName="option" placeholder="option">
-                <option *ngFor="let fcb of buttons" [value]="fcb.code">{{fcb.text}}</option>
-            </select>
-        </div>
-    </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 control-label">Nav/Row</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" formControlName="location" placeholder="location">
+                                            <option *ngFor="let location of locations" [value]="location.code">{{location.text}}</option>
+                                        </select>
+                    </div>
+                </div>
 
-    <div class="form-group row">
-        <label class="col-sm-2 control-label">modal</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="modal" formControlName="modal" />
-        </div>
-    </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 control-label">Option</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" formControlName="option" placeholder="option">
+                                            <option *ngFor="let fcb of buttons" [value]="fcb.code">{{fcb.text}}</option>
+                                        </select>
+                    </div>
+                </div>
 
-    <div class="form-group row">
-        <label class="col-sm-2 control-label">size</label>
-        <div class="col-sm-10">
-            <!--<input type="text" class="form-control" placeholder="size" formControlName="size" />-->
-             <select class="form-control" formControlName="size" placeholder="size">
-                <option *ngFor="let size of modalsizes" [value]="size.code">{{size.text}}</option>
-            </select>
+                <div class="form-group row">
+                    <label class="col-sm-2 control-label">Modal</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="modal" formControlName="modal" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 control-label">Modal size</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" formControlName="size" placeholder="size">
+                                                <option *ngFor="let size of modalsizes" [value]="size.code">{{size.text}}</option>
+                                            </select>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div class="modal-footer" >
+<div class="modal-footer">
     <!--<button type="button" class="btn btn-secondary" (click)="close()">确定</button>-->
-     <form (ngSubmit)="onSubmit()">
-         <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">保存</button>
-     </form>
+    <form (ngSubmit)="onSubmit()">
+        <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">确定</button>
+    </form>
 </div>
-

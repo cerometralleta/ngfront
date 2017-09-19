@@ -89,8 +89,10 @@ export class DataViewEditComponent implements OnInit {
         size: [button.size],
         icon: [button.icon],
         title: [button.title, [Validators.required, Validators.maxLength(10)]],
-        url: [button.url, [Validators.required]],
-        location: [button.location, [Validators.required]]
+        url: [button.url],
+        location: [button.location, [Validators.required]],
+        btnsize:[button.btnsize],
+        color:[button.color]
       }));
     }
     );
@@ -123,7 +125,9 @@ export class DataViewEditComponent implements OnInit {
       icon: [button.icon],
       title: [button.title, [Validators.required, Validators.maxLength(10)]],
       url: [button.url],
-      location: [button.location, [Validators.required]]
+      location: [button.location, [Validators.required]],
+      btnsize:[button.btnsize],
+      color:[button.color]
     }));
   }
 
@@ -145,13 +149,13 @@ export class DataViewEditComponent implements OnInit {
         this.addButton(id, "增加", GoldbalConstant.LOCATION.nav);
         break;
       case GoldbalConstant.CRUD.delete:
-        this.addButton(id, "删除", GoldbalConstant.LOCATION.nav);
+        this.addButton(id, "删除", GoldbalConstant.LOCATION.row);
         break;
       case GoldbalConstant.CRUD.update:
-        this.addButton(id, "修改", GoldbalConstant.LOCATION.nav);
+        this.addButton(id, "修改", GoldbalConstant.LOCATION.row);
         break;
       case GoldbalConstant.CRUD.retrieve:
-        this.addButton(id, "查看", GoldbalConstant.LOCATION.nav);
+        this.addButton(id, "查看", GoldbalConstant.LOCATION.row);
         break;
       default:
         break;
@@ -177,7 +181,9 @@ export class DataViewEditComponent implements OnInit {
 
   // 设置按钮类型
   openOption(content) {
-    this.modalService.open(content, { size: GoldbalConstant.modal_size_lg }).result.then((result) => {
+    const modalRef =  this.modalService.open(ButtonDialogComponent, { size: GoldbalConstant.modal_size_lg });
+    modalRef.componentInstance.formGroup = content;
+    modalRef.result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -507,7 +513,7 @@ export class DataViewEditComponent implements OnInit {
     }
   }
 
-  showTreeCheck() {
+ showTreeCheck() {
     // this.treeFromGroup.controls.url.setValidators(Validators.required);
     this.formData = this.ngbForm.value;
     if (!this.formData.treeOptions.show) {
