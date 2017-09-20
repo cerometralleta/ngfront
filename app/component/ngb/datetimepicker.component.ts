@@ -33,8 +33,8 @@ export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
     @Input() readonly: any = false;
     @Input() minlength: number;
     @Input() maxlength: number;
-    @Input() timepicker:boolean;
-
+    @Input() timepicker:boolean = false;
+    formControlValue: string;
     @ViewChild("ngbDatetimepicker") erf: ElementRef;
     private _onChange = (_: any) => { };
     private _onTouched = () => null;
@@ -42,6 +42,7 @@ export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
     
     $defaultformart:string = "Y-m-d H:i:s";
     writeValue(obj: any): void {
+        this.formControlValue = obj;
     }
     registerOnChange(fn: any): void {
         this._onChange = fn;
@@ -54,12 +55,17 @@ export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
             this.$defaultformart = this.format;
         }
         $.datetimepicker.setLocale('ch');//设置中文
+        var self = this;
         $(this.erf.nativeElement).datetimepicker({
             format: this.$defaultformart,
-            timepicker:false,    //关闭时间选项
+            timepicker:this.timepicker,    //显示时间选项
             yearStart:2000,     //设置最小年份
             yearEnd:2050,        //设置最大年份
-            todayButton:false    //关闭选择今天按钮
+            todayButton:true,    //显示选择今天按钮
+            onChangeDateTime:function(current_time,$input){
+                self.formControlValue = $input.val();
+                self._onChange(self.formControlValue);
+            }
         });
     }
   }
