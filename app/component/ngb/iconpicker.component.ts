@@ -27,7 +27,7 @@ export class IconpickerComponent implements OnInit, ControlValueAccessor {
     formControlValue: string;
     modalRef:NgbModalRef;
     writeValue(obj: any): void {
-      if(this.formControlValue){
+      if(obj){
         this.formControlValue = obj;
       }
     }
@@ -48,7 +48,7 @@ export class IconpickerComponent implements OnInit, ControlValueAccessor {
         this.formControlValue = icon;
         this._onChange(icon);
         if(this.modalRef){
-          this.modalRef.close();
+          this.modalRef.dismiss();
         }
       }
     }
@@ -56,5 +56,11 @@ export class IconpickerComponent implements OnInit, ControlValueAccessor {
     openIcon(content){
       this.modalRef = this.modalService.open(content, { size: GoldbalConstant.modal_size_lg });
       this.modalRef.result.then((result) => {}, (reason) => {});
+    }
+
+    _textChange($event){
+      if($event.target.value){
+        this._onChange($event.target.value);
+      }
     }
   }

@@ -6,6 +6,7 @@
         [maxlength]="maxlength"
         [readonly]="readonly"
         [disabled]="disabled"
+        (keyup)="_textChange($event)"
         >
         <span class="group-span-filestyle input-group-btn" tabindex="0" (click)="openIcon(content)" *ngIf="editable">
             <label for="filestyle-4" class="btn btn-primary ">

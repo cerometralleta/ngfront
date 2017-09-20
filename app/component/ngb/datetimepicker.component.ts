@@ -13,9 +13,8 @@ export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     selector: 'ng4b-datetimepicker',
     providers: [INPUT_CONTROL_VALUE_ACCESSOR],
     template: ` 
-                <div class="input-group">
-                <input type="text" class="form-control" 
-                #ngbDatetimepicker 
+                <div class="input-group" >
+                <input type="text" class="form-control" #ngbDatetimepicker  
                 [placeholder]="placeholder"
                 [ngModel]="formControlValue"
                 [minlength]="minlength"
@@ -30,17 +29,18 @@ export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
     @Input() format: string;
     @Input() placeholder: string = null;
-    @Input() disabled: any;
-    @Input() readonly: any = true;
+    @Input() disabled: any = false;
+    @Input() readonly: any = false;
     @Input() minlength: number;
     @Input() maxlength: number;
+    @Input() timepicker:boolean;
 
     @ViewChild("ngbDatetimepicker") erf: ElementRef;
     private _onChange = (_: any) => { };
     private _onTouched = () => null;
     constructor() {}
     
-    $defaultformart:string = "yyyy-mm-dd hh:ii:ss";
+    $defaultformart:string = "Y-m-d H:i:s";
     writeValue(obj: any): void {
     }
     registerOnChange(fn: any): void {
@@ -53,17 +53,13 @@ export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
         if(this.format){
             this.$defaultformart = this.format;
         }
-        $(this.erf.nativeElement).datepicker({
-            language: "zh-CN",
+        $.datetimepicker.setLocale('ch');//设置中文
+        $(this.erf.nativeElement).datetimepicker({
             format: this.$defaultformart,
-            autoclose: true,
-            clearBtn: true,
-            todayHighlight: true,
-            toggleActive: true
+            timepicker:false,    //关闭时间选项
+            yearStart:2000,     //设置最小年份
+            yearEnd:2050,        //设置最大年份
+            todayButton:false    //关闭选择今天按钮
         });
-
-        // $(this.erf.nativeElement).datepicker().on('changeDate', function(ev){
-        //     this._onChange(ev.date.valueOf());
-        // });
     }
   }
