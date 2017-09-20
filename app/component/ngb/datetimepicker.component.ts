@@ -54,9 +54,12 @@ export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
             this.$defaultformart = this.format;
         }
         $(this.erf.nativeElement).datepicker({
-            // format: this.$defaultformart,
+            language: "zh-CN",
+            format: this.$defaultformart,
             autoclose: true,
-            todayHighlight: true
+            clearBtn: true,
+            todayHighlight: true,
+            toggleActive: true
         });
 
         // $(this.erf.nativeElement).datepicker().on('changeDate', function(ev){

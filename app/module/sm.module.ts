@@ -23,6 +23,8 @@ import { DataViewListComponent } from "../component/sm/dataViewList.component";
 import { FormVerifiyService } from "../service/sm/formVerifiy.service";
 import { ConfirmComponent } from '../component/ngb/confirm.component';
 import { IconpickerComponent } from '../component/ngb/iconpicker.component';
+import { ServerURLInterceptor } from '../service/sm/ServerURLInterceptor';
+import { provideInterceptorService } from '../../node_modules/._ng2-interceptors@1.3.0-1@ng2-interceptors';
 
 /**
  * SQL MANAGE模块
@@ -39,6 +41,9 @@ import { IconpickerComponent } from '../component/ngb/iconpicker.component';
         SelectorComponent,DataViewListComponent,ConfirmComponent,IconpickerComponent
     ],
     entryComponents:[ButtonDialogComponent,FormViewFieldEditComponent,FormViewComponent,SelectorComponent,ConfirmComponent],
-    providers: [LoggerService,AppRoutingProviders,HttpService,ToastrService,FormVerifiyService]
+    providers: [LoggerService,AppRoutingProviders,HttpService,ToastrService,FormVerifiyService,ServerURLInterceptor, 
+        provideInterceptorService([
+          ServerURLInterceptor
+        ])]
 })
 export class SmModule { }

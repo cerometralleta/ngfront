@@ -5,7 +5,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     selector: 'ng4b-confirm',
     template: `
                 <div class="modal-header">
-                    <h4 class="modal-title">{{title || 'Confirm'}}</h4>
+                    <h5 class="modal-title">{{title || 'Confirm'}}</h5>
                     <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" ></button>
                   </div>
                   <div class="modal-body">

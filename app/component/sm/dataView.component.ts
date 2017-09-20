@@ -98,7 +98,7 @@ export class DataViewComponent extends SelectorComponent {
             _self.buttons.forEach(btn => {
                 if (btn.location == GoldbalConstant.LOCATION.row) {
                     _array[idx] = '<button type="button" class="Role_' + btn.id + ' btn '+btn.color+' '+btn.btnsize+ '" style="margin-right:15px;">'+ 
-                    '<i class="'+btn.icon+'"></i>'+
+                    '<i class="'+btn.icon+' m-r-5"></i>'+
                      btn.title + '</button>';
                     _self.operateEvents['click .Role_' + btn.id] = function (e, value, row, index) {
                         _self.navClick(btn,row[_self.options.idField]);

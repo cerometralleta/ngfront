@@ -79,23 +79,22 @@ export class DataViewEditComponent implements OnInit {
     // 弹出组件
     const modalRef = this.modalService.open(ButtonDialogComponent, { size: GoldbalConstant.modal_size_lg });
     modalRef.result.then((result) => {
-      let button = <Button>result;
-      this.formData.buttons.push(button);
-      const controls = <FormArray>this.ngbForm.controls['buttons'];
-      controls.push(this.fb.group({
-        id: [button.id],
-        option: [button.option],
-        modal: [button.modal],
-        size: [button.size],
-        icon: [button.icon],
-        title: [button.title, [Validators.required, Validators.maxLength(10)]],
-        url: [button.url],
-        location: [button.location, [Validators.required]],
-        btnsize:[button.btnsize],
-        color:[button.color]
-      }));
-    }
-    );
+        let button = <Button>result;
+        this.formData.buttons.push(button);
+        const controls = <FormArray>this.ngbForm.controls['buttons'];
+        controls.push(this.fb.group({
+          id: [button.id],
+          option: [button.option],
+          modal: [button.modal],
+          size: [button.size],
+          icon: [button.icon],
+          title: [button.title, [Validators.required, Validators.maxLength(10)]],
+          url: [button.url],
+          location: [button.location, [Validators.required]],
+          btnsize:[button.btnsize],
+          color:[button.color]
+        }));
+      }, (reason) => {});
   }
 
   //添加功能
