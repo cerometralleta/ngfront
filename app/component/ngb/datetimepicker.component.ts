@@ -21,6 +21,7 @@ export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
                 [maxlength]="maxlength"
                 [readonly]="readonly"
                 [disabled]="disabled"
+                (keyup)="_textChange($event)"
                 >
                 <span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span>
                 </div>
@@ -68,4 +69,10 @@ export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
             }
         });
     }
+
+    _textChange($event){
+        if($event.target.value){
+          this._onChange($event.target.value);
+        }
+      }
   }
