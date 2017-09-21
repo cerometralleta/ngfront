@@ -69,8 +69,7 @@ export class DataViewCreateComponent implements OnInit {
     onSubmit() {
         console.info(JSON.stringify(this.ngbForm.value))
         let url = this.insert ? Application.ubold_sm_insert : Application.ubold_sm_modfity;
-        this.httpService.http.post(url + this.dataViewModule.dataViewCode, this.ngbForm.value).subscribe(resp => {
-            let response = resp.json();
+        this.httpService.doPost(url + this.dataViewModule.dataViewCode, this.ngbForm.value).subscribe(response => {
             if (GoldbalConstant.STATUS_CODE.SUCCESS == response.code) {
                 this.activeModal.close(response.message);
             } else {

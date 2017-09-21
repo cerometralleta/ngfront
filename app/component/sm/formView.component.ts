@@ -66,11 +66,11 @@ export class FormViewComponent implements OnInit {
             this.formViewModel.url.indexOf("http://") >= 0 ){
                 url = this.formViewModel.url;
         }
-        this.httpService.http.post(url, this.ngbForm.value)
+        this.httpService.doPost(url, this.ngbForm.value)
         .subscribe(res => {
 
             //处理响应
-            alert(JSON.stringify(res.json()));
+            alert(JSON.stringify(res));
         });
     }
 }

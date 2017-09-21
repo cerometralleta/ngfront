@@ -51,8 +51,7 @@ export class NgbCoderComponent implements OnInit, ControlValueAccessor {
     
     getCode() {
         //默认时间
-        this.httpService.http.post(Application.ubold_sql_get_code + this.prefix, {}).subscribe(result => {
-            let resp = result.json();
+        this.httpService.doPost(Application.ubold_sql_get_code + this.prefix, {}).subscribe(resp => {
             if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
                 // this.formControlValue = resp.result;
                 this.writeValue(resp.result);

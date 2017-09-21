@@ -99,11 +99,11 @@ export class FormViewCreateComponent implements OnInit {
         this.formViewModel.columns = this.columns;
         console.info(JSON.stringify(this.formViewModel));
         // this.activeModal.close(this.ngbForm.value);
-        this.httpService.http.post(Application.ubold_form_persistent, this.formViewModel)
+        this.httpService.doPost(Application.ubold_form_persistent, this.formViewModel)
         .subscribe(res => {
 
             //处理响应
-            alert(JSON.stringify(res.json()));
+            alert(JSON.stringify(res));
         });
     }
 

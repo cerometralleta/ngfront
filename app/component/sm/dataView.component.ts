@@ -24,6 +24,7 @@ import { Async } from "../../metadata/ngb/ngbTree/async.md";
 import { SelectorComponent } from "./selector.component";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 import { ConfirmService } from '../../service/basic/confirm.service';
+import { CommonUtils } from '../../utils/common.util';
 declare var $: any;
 /**
  * 统一dataView
@@ -145,8 +146,8 @@ export class DataViewComponent extends SelectorComponent {
                 if (!_idValue) {
                     return;
                 }
-                this.httpService.http.post(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
-                    let resp = result.json();
+                
+                this.httpService.doPost(CommonUtils.urlConvert(button.url,Application.ubold_sql_fetch), { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
                         const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_lg });
                         modalRef.componentInstance.dataViewModule = this.dataViewModule
@@ -166,8 +167,7 @@ export class DataViewComponent extends SelectorComponent {
                 if (!_idValue) {
                     return;
                 }
-                this.httpService.http.post(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
-                    let resp = result.json();
+                this.httpService.doPost(CommonUtils.urlConvert(button.url,Application.ubold_sql_fetch), { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
                         const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_lg });
                         modalRef.componentInstance.dataViewModule = this.dataViewModule
@@ -185,8 +185,7 @@ export class DataViewComponent extends SelectorComponent {
                     return;
                 }
                 this.confirmService.confirm("确认","确定要删除吗?").then((result) => { 
-                    this.httpService.http.post(Application.ubold_sql_delete + this.dataViewModule.dataViewCode, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
-                        let resp = result.json();
+                    this.httpService.doPost(CommonUtils.urlConvert(button.url,Application.ubold_sql_delete) + this.dataViewModule.dataViewCode, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                         if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
                             this.toastr.success(resp.message);
                             this.search();
@@ -212,20 +211,18 @@ export class DataViewComponent extends SelectorComponent {
         //根据按钮操作类型处理
         switch (button.option) {
             case GoldbalConstant.OPTIONS_BUTTON.service:
-                this.httpService.http.post(button.url, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
-                    let resp = result.json();
+                this.httpService.doPost(button.url, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
-                        this.toastr.success(result);
+                        this.toastr.success(resp.message);
                         this.search();
-                         this.refreshNode();
+                        this.refreshNode();
                     } else {
                         this.toastr.error(resp.message);
                     }
                 });
                 break;
             case GoldbalConstant.OPTIONS_BUTTON.modal:
-                this.httpService.http.post(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(result => {
-                    let resp = result.json();
+                this.httpService.doPost(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS == resp.code) {
                         const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: button.size });
                         modalRef.componentInstance.dataViewModule = this.dataViewModule
