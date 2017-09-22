@@ -22,6 +22,7 @@ import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { ToastrService } from "../../service/basic/toastr.service";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 import { ConfirmService } from '../../service/basic/confirm.service';
+import { BaseComponent } from '../base.component';
 
 /**
  * 自定义的DataViewList列表页面
@@ -30,7 +31,7 @@ import { ConfirmService } from '../../service/basic/confirm.service';
     selector: 'sm-dataViewList',
     templateUrl: './app/component/sm/dataViewList.component.html'
 })
-export class DataViewListComponent implements OnInit {
+export class DataViewListComponent extends BaseComponent implements OnInit {
 
 
     // treeModule
@@ -61,7 +62,9 @@ export class DataViewListComponent implements OnInit {
         , private fb: FormBuilder
         , private toastr: ToastrService
         , private confirmService :ConfirmService
-    ) { }
+    ) {
+        super();
+     }
     ngOnInit() {
 
         //构建bootstrap table

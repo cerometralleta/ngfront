@@ -289,7 +289,7 @@ export class DataViewEditComponent implements OnInit {
         this.formData.options.maintainSelected = true;
         this.formData.options.exportDataType = "basic";
         this.formData.options.version = "version";
-        this.formData.options.idField = "id";
+        // this.formData.options.idField = "id";
 
         //tree
         this.formData.treeOptions = new TreeOptions();

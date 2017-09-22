@@ -21,6 +21,7 @@ import { NgbGridComponent } from "../ngb/ngbGrid.component";
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { ToastrService } from "../../service/basic/toastr.service";
 import { Async } from "../../metadata/ngb/ngbTree/async.md";
+import { BaseComponent } from '../base.component';
 declare var $: any;
 //Error: ExpressionChangedAfterItHasBeenCheckedError: 
 //Expression has changed after it was checked. Previous value: 'true'. Current value: 'false'
@@ -32,7 +33,7 @@ enableProdMode();
     selector: 'sm-selector',
     templateUrl: './app/component/sm/selector.component.html'
 })
-export class SelectorComponent implements OnInit , AfterViewInit{
+export class SelectorComponent extends BaseComponent implements OnInit{
 
     //页面数据
     @Input() dataViewModule: DataViewModule;
@@ -65,7 +66,9 @@ export class SelectorComponent implements OnInit , AfterViewInit{
         , public fb: FormBuilder
         , public toastr: ToastrService
         , public activeModal: NgbActiveModal
-    ) { }
+    ) { 
+        super();
+    }
     ngOnInit() {
         this.buttons = new Array<Button>();
         this.dataFilters = this.dataViewModule.dataFilters;
@@ -78,7 +81,7 @@ export class SelectorComponent implements OnInit , AfterViewInit{
         this.createDatafilter();
     }
 
-    ngAfterViewInit(): void { }
+ 
 
     createQueryParams(self){
          this.options.queryParams = function (params) {
