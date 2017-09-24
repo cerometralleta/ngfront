@@ -463,6 +463,7 @@ export class DataViewEditComponent implements OnInit {
       order: [columnOptions.order],
       cardVisible: [columnOptions.cardVisible],
       switchable: [columnOptions.switchable],
+      uniqueCheck: [columnOptions.uniqueCheck],
       clickToSelect: [columnOptions.clickToSelect],
       formatter: [columnOptions.formatter],
       // footerFormatter: [columnOptions.footerFormatter],
