@@ -19,6 +19,7 @@ import { ToastrService } from "../../service/basic/toastr.service";
 import { DataViewComponent } from "./dataView.component";
 import { SelectorComponent } from "./selector.component";
 import { FormVerifiyService } from "../../service/sm/formVerifiy.service";
+import { PatternComponent } from './pattern.component';
 declare var $: any;
 
 @Component({
@@ -629,5 +630,14 @@ export class DataViewEditComponent implements OnInit {
     if (!this.ngbForm) { return; }
     this.formErrors = this.formVerifiyService.formVerifiy(this.ngbForm, data);
 
+  }
+
+  //表单校验设置
+  formCheckRule(){
+      const modalRef = this.modalService.open(PatternComponent, { size: GoldbalConstant.modal_size_lg });
+      modalRef.componentInstance.dataViewModule = null;
+      modalRef.result.then((result) => {
+        
+      }, (reason) => {})
   }
 }

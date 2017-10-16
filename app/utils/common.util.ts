@@ -14,4 +14,18 @@ export class CommonUtils {
         }
         return backupUrl;
     }
+
+    /**
+     * 判断json array的元素是否包含elementKey
+     * @param elementKey 
+     * @param list 
+     */
+    static comprise(elementKey:string,list:Array<any>){
+        list.forEach(data => {
+            if(data.hasOwnProperty(elementKey)){
+                return true;
+            }   
+        });
+        return false;
+    }
 }

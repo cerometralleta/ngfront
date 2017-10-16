@@ -25,6 +25,7 @@ import { ConfirmComponent } from '../component/ngb/confirm.component';
 import { IconpickerComponent } from '../component/ngb/iconpicker.component';
 import { ServerURLInterceptor } from '../service/sm/ServerURLInterceptor';
 import { provideInterceptorService } from '../../node_modules/._ng2-interceptors@1.3.0-1@ng2-interceptors';
+import { PatternComponent } from '../component/sm/pattern.component';
 
 /**
  * SQL MANAGE模块
@@ -33,14 +34,14 @@ import { provideInterceptorService } from '../../node_modules/._ng2-interceptors
 @NgModule({
     imports: [BrowserModule,FormsModule,Routing,HttpModule,JsonpModule,Ngb2Module,ReactiveFormsModule],
     exports: [DataViewComponent,DataViewEditComponent,DataViewCreateComponent,FormViewCreateComponent
-        ,FormViewEditComponent,FormViewComponent,SelectorComponent,DataViewListComponent,ConfirmComponent,IconpickerComponent
+        ,FormViewEditComponent,FormViewComponent,SelectorComponent,DataViewListComponent,ConfirmComponent,IconpickerComponent,PatternComponent
     ],
     declarations: [
         DataViewComponent,DataViewEditComponent,ButtonDialogComponent,TypeFilterPipe,DataViewCreateComponent
         ,FormViewCreateComponent ,FormViewEditComponent,FormViewFieldEditComponent,FormViewComponent,
-        SelectorComponent,DataViewListComponent,ConfirmComponent,IconpickerComponent
+        SelectorComponent,DataViewListComponent,ConfirmComponent,IconpickerComponent,PatternComponent
     ],
-    entryComponents:[ButtonDialogComponent,FormViewFieldEditComponent,FormViewComponent,SelectorComponent,ConfirmComponent],
+    entryComponents:[ButtonDialogComponent,FormViewFieldEditComponent,FormViewComponent,SelectorComponent,ConfirmComponent,PatternComponent],
     providers: [LoggerService,AppRoutingProviders,HttpService,ToastrService,FormVerifiyService,ServerURLInterceptor, 
         provideInterceptorService([
           ServerURLInterceptor
