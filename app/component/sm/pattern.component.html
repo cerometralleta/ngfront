@@ -7,16 +7,38 @@
 <div class="modal-body" [formGroup]="ngbForm">
         <div class="form-group row" formArrayName="defaultPatterns">
 
-            <div class="checkbox checkbox-primary checkbox-inline" style="padding-left: 35px;" *ngFor="let pt of patternsControls.controls">
-                <input type="checkbox" id="rule_{{rule}}" formControlName="tip" >
-                <label for="rule_{{rule}}"> {{tip}} </label>
+            <div class="checkbox checkbox-primary checkbox-inline" style="padding-left: 35px;" *ngFor="let pt of patternsControls.controls;let idx=index"  [formGroupName]="idx">
+                <input type="checkbox" id="rule_{{pt.controls.tip.value}}" formControlName="checked" >
+                <label for="rule_{{pt.controls.tip.value}}"> {{pt.controls.tip.value}} </label>
             </div>
         </div>
 
-   
+        <div class="card-box">
+            <button type="button" class="btn btn-info waves-effect waves-light" (click)="addRule()"><i class="fa fa-plus m-r-5"></i>添加</button>
+        </div>
+
+        <div class="card-box"  formArrayName="definePatterns">
+            <div class="form-group row" *ngFor="let fbt of definePatternsControls.controls; let idx=index" [formGroupName]="idx">
+                
+                <!-- 自定义规则 -->
+                <label for="btn-color" class="col-sm-2 control-label">tip: </label>
+                <div class="col-sm-4">
+                        <input type="text" class="form-control" placeholder="tip" formControlName="tip" />
+                </div>
+
+                <label for="btn-color" class="col-sm-2 control-label">rule: </label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="rule" formControlName="rule" />
+
+                    <!-- 删除 -->
+                    <a class="table-action-btn" (click)="removeControls(definePatternsControls,idx)">
+                        <p><i class="md md-clear"></i></p>
+                        </a>
+                </div>
+            </div>
+        </div>
 </div>
 <div class="modal-footer">
-    <!--<button type="button" class="btn btn-secondary" (click)="close()">确定</button>-->
     <form (ngSubmit)="onSubmit()">
         <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">确定</button>
         <button type="button" class="btn w-sm btn-white waves-effect waves-light" (click)="activeModal.dismiss()">取消</button>

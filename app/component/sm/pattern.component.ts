@@ -22,16 +22,23 @@ export class PatternComponent implements OnInit {
     
     //规则
     patterns:Array<Pattern> = [];
+    selectedPatterns:Array<Pattern> = [];
 
     //自定义规则
     definePatterns:Array<Pattern> = [];
     @Input() formGroup:any;
     ngOnInit() {
-        if(this.formGroup){}
         
         //初始化默认规则
         this.defaultPatterns();
-
+        if(this.formGroup){
+            let test = '[{"tip":"Email","rule":"email"},{"tip":"只能填整数","rule":"[0-9]+"},{"tip":"只能填英文","rule":"[A-Za-z]+"},{"tip":"日日日","rule":"333"},{"tip":"暂住证","rule":"444"}]'
+            let rules =  JSON.parse(test);;
+            rules.forEach(item => {
+                this.checkboxSelected(item);
+            });
+        }
+        
         //默认规则
         let patternfa = new Array<FormGroup>(); 
         this.patterns.forEach(pattern => {
@@ -47,8 +54,8 @@ export class PatternComponent implements OnInit {
         let definePatternsfa = new Array<FormGroup>(); 
         this.definePatterns.forEach(pattern => {
             definePatternsfa.push(this.fb.group({
-                tip: [pattern.tip],
-                rule: [pattern.rule],
+                tip: [pattern.tip,Validators.required],
+                rule: [pattern.rule,Validators.required],
                 checked:[pattern.checked]
             })
           )
@@ -58,13 +65,13 @@ export class PatternComponent implements OnInit {
             definePatterns:this.fb.array(definePatternsfa)
         });
 
-        //默认patterns 
+        //默认defaultPatterns
         this.patternsControls.valueChanges.subscribe(values => {
             let selects: Array<Pattern> = [];
             values.forEach((selected: Pattern ,i: number) => {
               selected.checked === true && selects.push(this.patterns[i])
             });
-            this.patterns = selects;
+            this.selectedPatterns = selects;
           });
     }
 
@@ -72,19 +79,54 @@ export class PatternComponent implements OnInit {
         return this.ngbForm.get("defaultPatterns");
     }
 
+    get definePatternsControls () {
+        return <FormArray>this.ngbForm.get("definePatterns");
+    }
+
     defaultPatterns(){
-        this.patterns.push(new Pattern("required","required",false));
-        this.patterns.push(new Pattern("email","email",false));
-        this.patterns.push(new Pattern("数字","[0-9]+",false));
-        this.patterns.push(new Pattern("字母","[A-Za-z]+",false));
+        this.patterns.push(new Pattern("必填","required",false));
+        this.patterns.push(new Pattern("Email","email",false));
+        this.patterns.push(new Pattern("只能填整数","[0-9]+",false));
+        this.patterns.push(new Pattern("只能填英文","[A-Za-z]+",false));
     }
 
-    checkboxSelected(value:string){
-       return CommonUtils.comprise(value,this.patterns);
+    addRule(){
+        this.addDefinePatternsControls(new Pattern(null,null,false));
     }
 
-    confirm(){
+    addDefinePatternsControls(pattern){
+        this.definePatternsControls.push(this.fb.group({
+            tip: [pattern.tip, [Validators.required]],
+            rule: [pattern.rule, [Validators.required]]
+          }));
+    }
 
+    removeControls(controls, idx) {
+        controls.removeAt(idx);
+    }
+    
+    checkboxSelected(rule){
+        for(let item of this.patterns){
+            if(item.rule == rule["rule"]){
+                item.checked = true;
+                this.selectedPatterns.push(new Pattern(item.tip, item.rule,true));
+                return;
+            }
+        }
+
+        //不匹配归类自定义
+        this.definePatterns.push(new Pattern(rule["tip"], rule["rule"],false));
+    }
+
+    onSubmit(){
+        let lastPatterns = [];
+        this.selectedPatterns.forEach(item => {
+            lastPatterns.push({tip:item.tip,rule:item.rule});
+        });
+        this.definePatternsControls.controls.forEach((item:FormGroup) => {
+            lastPatterns.push({tip:item.controls.tip.value,rule:item.controls.rule.value});
+        });
+        this.logger.debug(JSON.stringify(lastPatterns));
     }
 }
 
