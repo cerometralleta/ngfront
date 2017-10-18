@@ -23,6 +23,7 @@ import { ToastrService } from "../../service/basic/toastr.service";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 import { ConfirmService } from '../../service/basic/confirm.service';
 import { BaseComponent } from '../base.component';
+import { FormVerifiyService } from '../../service/sm/formVerifiy.service';
 
 /**
  * 自定义的DataViewList列表页面
@@ -62,8 +63,9 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         , private fb: FormBuilder
         , private toastr: ToastrService
         , private confirmService :ConfirmService
+        , formVerifiyService: FormVerifiyService
     ) {
-        super();
+        super(formVerifiyService);
      }
     ngOnInit() {
 

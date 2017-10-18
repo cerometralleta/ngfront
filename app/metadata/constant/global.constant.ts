@@ -15,7 +15,8 @@ export class GoldbalConstant {
     static ERROR_MESSAGE = {
         'required': '为必填',
         'minlength': '长度不足',
-        'maxlength': '长度超出范围'
+        'maxlength': '长度超出范围',
+        'pattern':'格式不正确'
     };
 
     static CHECK_REG = {

@@ -44,3 +44,10 @@
         <button type="button" class="btn w-sm btn-white waves-effect waves-light" (click)="activeModal.dismiss()">取消</button>
     </form>
 </div>
+<div class="row">
+    <div class="col-sm-12">
+      <div *ngIf="formErrors && formErrors.length > 0" class="alert alert-warning">
+        <p *ngFor="let error of formErrors">{{ error }} <br></p>
+      </div>
+    </div>
+</div>

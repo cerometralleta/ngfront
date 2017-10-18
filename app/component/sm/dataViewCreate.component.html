@@ -24,8 +24,8 @@
 
             <!--radio-->
             <div *ngSwitchCase="'radio'" class="checkbox checkbox-info">
-                <input id="{{column.field}}radio" type="checkbox" formControlName="{{column.field}}">
-                <label for="{{column.field}}radio"></label>
+                <input id="{{column.field}}_radio" type="checkbox" formControlName="{{column.field}}">
+                <label for="{{column.field}}_radio"></label>
             </div>
 
             <!--文件上传 upload-->
@@ -43,7 +43,7 @@
             <!--显示-->
             <ul class="parsley-errors-list filled" *ngIf="!isView && formgroups[column.field].invalid">
                 <li class="parsley-required">
-                    {{column.errors}}
+                    {{getErrorMessage(column)}}
                 </li>
             </ul>
         </div>  

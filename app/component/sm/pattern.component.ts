@@ -9,16 +9,21 @@ import { FormArray, FormGroup, FormBuilder, Validators, FormControl } from "@ang
 import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { Pattern } from '../../metadata/sm/pattern.md';
 import { CommonUtils } from '../../utils/common.util';
+import { BaseComponent } from '../base.component';
+import { FormVerifiyService } from '../../service/sm/formVerifiy.service';
 @Component({
     selector: 'sm-pattern',
     templateUrl: './app/component/sm/pattern.component.html'
     // styleUrls: ['./name.component.css']
 })
-export class PatternComponent implements OnInit {
-    ngbForm: FormGroup;
+export class PatternComponent extends BaseComponent {
     constructor(public activeModal: NgbActiveModal
         , private fb: FormBuilder
-        , private logger: LoggerService, private httpService: HttpService) { }
+        , private logger: LoggerService
+        , private httpService: HttpService
+        , formVerifiyService: FormVerifiyService) {
+            super(formVerifiyService);
+         }
     
     //规则
     patterns:Array<Pattern> = [];
@@ -33,7 +38,7 @@ export class PatternComponent implements OnInit {
         this.defaultPatterns();
         if(this.formGroup){
             let test = '[{"tip":"Email","rule":"email"},{"tip":"只能填整数","rule":"[0-9]+"},{"tip":"只能填英文","rule":"[A-Za-z]+"},{"tip":"日日日","rule":"333"},{"tip":"暂住证","rule":"444"}]'
-            let rules =  JSON.parse(test);;
+            let rules =  JSON.parse(test);
             rules.forEach(item => {
                 this.checkboxSelected(item);
             });
@@ -73,7 +78,9 @@ export class PatternComponent implements OnInit {
             });
             this.selectedPatterns = selects;
           });
+          this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
     }
+    
 
     get patternsControls () {
         return this.ngbForm.get("defaultPatterns");
@@ -97,7 +104,7 @@ export class PatternComponent implements OnInit {
     addDefinePatternsControls(pattern){
         this.definePatternsControls.push(this.fb.group({
             tip: [pattern.tip, [Validators.required]],
-            rule: [pattern.rule, [Validators.required]]
+            rule: [pattern.rule, [Validators.required,Validators.pattern("[0-9]+")]]
           }));
     }
 

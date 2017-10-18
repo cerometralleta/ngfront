@@ -25,6 +25,7 @@ import { SelectorComponent } from "./selector.component";
 import { ColumOptions } from "../../metadata/ngb/ngbGrid/columnOptions.md";
 import { ConfirmService } from '../../service/basic/confirm.service';
 import { CommonUtils } from '../../utils/common.util';
+import { FormVerifiyService } from '../../service/sm/formVerifiy.service';
 declare var $: any;
 /**
  * 统一dataView
@@ -45,8 +46,9 @@ export class DataViewComponent extends SelectorComponent {
         , public elementRef: ElementRef
         , public renderer: Renderer
         , public confirmService :ConfirmService
+        , formVerifiyService: FormVerifiyService
     ) {
-        super(logger, httpService, modalService, fb, toastr, null);
+        super(logger, httpService, modalService, fb, toastr, null,formVerifiyService);
     }
     operateEvents: any = {};
     _toolbar : Array<Button>;

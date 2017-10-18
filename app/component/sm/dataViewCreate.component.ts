@@ -89,50 +89,69 @@ export class DataViewCreateComponent implements OnInit {
     createFormGroup() {
        this.columns.forEach(element => {
             // fg[element.field] = new FormControl(this.viewModel[element.field], <any>Validators.required),
+
+            //表单验证
             var array = this.createValidators(element);
             if (element.maxlength) {
                 array.push(Validators.maxLength(element.maxlength));
             }
             //errors 
-
             this.formgroups[element.field] = new FormControl(this.viewModel[element.field],array);
         });
     }
 
-    createValidators(col) {
-        var validators = col.pattern;
-        var array = [];
-        if (validators) {
-            switch (validators) {
-                case "required":
-                    array.push(Validators.required);
-                    col.errors = GoldbalConstant.CHECK_REG[validators];
-                    break;
-                case "email":
-                    array.push(Validators.email);
-                     col.errors = GoldbalConstant.CHECK_REG[validators];
-                    break;
-                default:
-                    array.push(Validators.pattern(validators));
-                     col.errors = GoldbalConstant.CHECK_REG[validators];
-                    break;
-            }
-            // validators.forEach(validator => {
-            //     array.push(validator);
-            //     switch (validator) {
-            //         case "required":
-            //             array.push(Validators.required);
-            //             break;
-            //         case "email":
-            //             array.push(Validators.email);
-            //             break;
-            //         default:
-            //             array.push(Validators.pattern(validator));
-            //             break;
-            //     }
-            // });
+    getErrorMessage(column){
+        if(!column.errors){
+            return;
         }
-        return array;
+        let control = this.formgroups[column.field];
+        let validators = JSON.parse(column.pattern);
+        if(control.errors.required){
+            return this.matchPattern(validators,"required");
+        }else if(control.errors.email){
+            return this.matchPattern(validators,"email");
+        }else{
+            return this.matchPattern(validators,control.errors.pattern.requiredPattern);
+        }
     }
 
+    //匹配提示
+    matchPattern(validators,error){
+        for(let pattern of validators){
+            switch (pattern.rule) {
+                case "required":
+                case "email":
+                    if(pattern.rule == error)
+                    return pattern.tip;
+                default:
+                    let r = '^'+pattern.rule+'$';
+                    if(r == error){
+                        return pattern.tip;
+                    }   
+            }
+        }
+    }
+
+    createValidators(col) {
+        let array = [];
+        if(!col.pattern){
+            return array;
+        }
+        let validators =  JSON.parse(col.pattern);
+        validators.forEach(validator => {
+                let pattern = validator['rule'];
+                switch (pattern) {
+                    case "required":
+                        array.push(Validators.required);
+                        break;
+                    case "email":
+                        array.push(Validators.email);
+                        break;
+                    default:
+                        array.push(Validators.pattern(pattern));
+                        break;
+                }
+            });
+        return array;
+    }
 }

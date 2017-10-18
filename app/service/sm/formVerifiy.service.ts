@@ -20,20 +20,19 @@ export class FormVerifiyService {
 
         //是否清空message ??
         let formErrors = new Array<string>();
-
         for (let key in ngbForm.controls) {
             let control = ngbForm.controls[key]
 
             if (control instanceof FormGroup) {
-                Array.prototype.push.apply(formErrors,this.formGroupErrors(control));
+                Array.prototype.push.apply(formErrors,this.formGroupErrors(control,data));
             }
 
             if (control instanceof FormArray) {
-                Array.prototype.push.apply(formErrors, this.formArrayErrors(control));
+                Array.prototype.push.apply(formErrors, this.formArrayErrors(control,data));
             }
 
             if (control instanceof FormControl) {
-                let errors = this.formControlErrors(key, control);
+                let errors = this.formControlErrors(key, control,data);
                 if(errors)
                     formErrors.push(errors)
             }
@@ -41,20 +40,20 @@ export class FormVerifiyService {
         return formErrors;
     }
 
-    formArrayErrors(formArray) {
+    formArrayErrors(formArray, data?: any) {
         let formErrors = new Array<string>();
         formArray.controls.forEach(element => {
-            let errors = this.formGroupErrors(element);
+            let errors = this.formGroupErrors(element,data);
             if(errors.length > 0)
                 Array.prototype.push.apply(formErrors,errors);
         });
         return formErrors;
     }
 
-    formGroupErrors(formGrop) {
+    formGroupErrors(formGrop, data?: any) {
         let formErrors = new Array<string>();
         for (let name in formGrop.controls) {
-            let errors = this.formControlErrors(name, formGrop.controls[name]);
+            let errors = this.formControlErrors(name, formGrop.controls[name],data);
             if(errors){
                 formErrors.push(errors);
             }
@@ -63,7 +62,7 @@ export class FormVerifiyService {
     }
 
     //获取错误信息
-    formControlErrors(name, control) {
+    formControlErrors(name, control, data?: any) {
         if (!control.valid) {
 
             //control.errors required,minlength

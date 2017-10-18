@@ -629,7 +629,6 @@ export class DataViewEditComponent implements OnInit {
   onValueChanged(data?: any) {
     if (!this.ngbForm) { return; }
     this.formErrors = this.formVerifiyService.formVerifiy(this.ngbForm, data);
-
   }
 
   //表单校验设置

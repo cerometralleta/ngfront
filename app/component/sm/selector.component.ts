@@ -22,6 +22,7 @@ import { GoldbalConstant } from "../../metadata/constant/global.constant";
 import { ToastrService } from "../../service/basic/toastr.service";
 import { Async } from "../../metadata/ngb/ngbTree/async.md";
 import { BaseComponent } from '../base.component';
+import { FormVerifiyService } from '../../service/sm/formVerifiy.service';
 declare var $: any;
 //Error: ExpressionChangedAfterItHasBeenCheckedError: 
 //Expression has changed after it was checked. Previous value: 'true'. Current value: 'false'
@@ -66,8 +67,9 @@ export class SelectorComponent extends BaseComponent implements OnInit{
         , public fb: FormBuilder
         , public toastr: ToastrService
         , public activeModal: NgbActiveModal
+        , formVerifiyService: FormVerifiyService
     ) { 
-        super();
+        super(formVerifiyService);
     }
     ngOnInit() {
         this.buttons = new Array<Button>();
