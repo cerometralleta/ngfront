@@ -112,11 +112,5 @@ export class DictConstant {
     return exportDataType;
   }
 
-  static createPatterns() {
-    let pattern = new Array<any>();
-    for (var rule in GoldbalConstant.CHECK_REG) {
-      pattern.push({ code: rule, text: GoldbalConstant.CHECK_REG[rule] });
-    }
-    return pattern;
-  }
+  
 }

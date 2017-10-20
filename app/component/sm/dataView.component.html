@@ -42,8 +42,8 @@
 							
 								 <div  class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 mt20 row nowrap"
 									*ngFor="let df of searchForm.controls.searchArray.controls; let idx=index" [formGroupName]="idx" >
-									<label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5" >{{df.controls.title._value}}({{df.controls.expression._value}})</label>
-										 <input  type="text"  class="form-control" placeholder="{{df.controls.field._value}}"  formControlName="value">
+									<label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5" >{{df.controls.title.value}}({{df.controls.expression.value}})</label>
+										 <input  type="text"  class="form-control" placeholder="{{df.controls.field.value}}"  formControlName="value">
 								</div>
 								<button class="btn btn-default waves-effect waves-light mt20 ml10" type="submit">搜索</button>
 							 </form>

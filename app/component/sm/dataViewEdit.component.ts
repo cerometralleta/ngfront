@@ -48,7 +48,7 @@ export class DataViewEditComponent implements OnInit {
   sidePaginations: Array<any> = DictConstant.createSidePagination();
   createQueryParamsTypes: Array<any> = DictConstant.createQueryParamsType();
   exportDataType: Array<any> = DictConstant.createExportDataType();
-  patterns :Array<any> = DictConstant.createPatterns();
+
 
   //SQL 定义
   sqlDefines: Array<any> = this.createSqlDefines();
@@ -543,10 +543,10 @@ export class DataViewEditComponent implements OnInit {
     let datafilter = new DataFilter();
     // datafilter.id = GUID.createGUIDString();
     let control = column.controls;
-    datafilter.dataType = control.dataType._value;
-    datafilter.fieldType = control.fieldType._value;
-    datafilter.field = control.field._value;
-    datafilter.title = control.title._value;
+    datafilter.dataType = control.dataType.value;
+    datafilter.fieldType = control.fieldType.value;
+    datafilter.field = control.field.value;
+    datafilter.title = control.title.value;
     datafilter.expression = '=';
     const controls = <FormArray>this.ngbForm.controls['dataFilters'];
     controls.push(this.fb.group({

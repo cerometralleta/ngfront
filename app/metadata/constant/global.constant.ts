@@ -19,22 +19,6 @@ export class GoldbalConstant {
         'pattern':' format is incorrect '
     };
 
-    static CHECK_REG = {
-        'required': '必填',
-        'email':'EMAIL',
-        // '[a-zA-Z]+': '英文字母',
-        '[-+]?\d*': '整数',
-        '[0-9]+': '正整数',
-        '[-\+]?\d+(\.\d+)?': '保留两位小数',
-        '[a-zA-Z0-9_]+': '非特殊字符'
-        // '[\u0391-\uFFE5]+': '请输入中文',
-        // '\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*': 'EMAIL',
-        // '\d{6}': '邮编(只能为六位)',
-        // '((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?': '电话号码',
-        // '((\(\d{2,3}\))|(\d{3}\-))?13\d{9}': '手机号码',
-        // '\d{15}(\d{2}[A-Za-z0-9])?': '身份证'
-    };
-
     static CRUD = { create: "create", update: "update", delete: "delete", retrieve: "retrieve" };
     static LOCATION = { nav: "nav", row: "row" };
 
