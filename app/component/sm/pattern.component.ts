@@ -37,11 +37,11 @@ export class PatternComponent extends BaseComponent {
         //初始化默认规则
         this.defaultPatterns();
         if(this.formGroup){
-            let test = '[{"tip":"Email","rule":"email"},{"tip":"只能填整数","rule":"[0-9]+"},{"tip":"只能填英文","rule":"[A-Za-z]+"},{"tip":"日日日","rule":"333"},{"tip":"暂住证","rule":"444"}]'
-            let rules =  JSON.parse(test);
-            rules.forEach(item => {
-                this.checkboxSelected(item);
-            });
+            let testJson = '{"email":"Email格式不正确","[0-9]+":"只能填整数","[A-Za-z]+":"只能填英文","ABC":"ABC TIP"}';
+            let rules =  JSON.parse(testJson);
+            for(let item in rules){
+                this.checkboxSelected(item,rules[item]);
+            }
         }
         
         //默认规则
@@ -112,28 +112,28 @@ export class PatternComponent extends BaseComponent {
         controls.removeAt(idx);
     }
     
-    checkboxSelected(rule){
+    checkboxSelected(ruleItem,tipItem){
         for(let item of this.patterns){
-            if(item.rule == rule["rule"]){
+            if(item.rule == ruleItem){
                 item.checked = true;
-                this.selectedPatterns.push(new Pattern(item.tip, item.rule,true));
+                this.selectedPatterns.push(new Pattern(tipItem,ruleItem,true));
                 return;
             }
         }
 
         //不匹配归类自定义
-        this.definePatterns.push(new Pattern(rule["tip"], rule["rule"],false));
+        this.definePatterns.push(new Pattern(tipItem,ruleItem,false));
     }
 
     onSubmit(){
-        let lastPatterns = [];
+        let lastPatternJson = {};
         this.selectedPatterns.forEach(item => {
-            lastPatterns.push({tip:item.tip,rule:item.rule});
+            lastPatternJson[item.rule] = item.tip;
         });
         this.definePatternsControls.controls.forEach((item:FormGroup) => {
-            lastPatterns.push({tip:item.controls.tip.value,rule:item.controls.rule.value});
+            lastPatternJson[item.controls.rule.value] = item.controls.tip.value;
         });
-        this.logger.debug(JSON.stringify(lastPatterns));
+        this.logger.debug(JSON.stringify(lastPatternJson));
     }
 }
 

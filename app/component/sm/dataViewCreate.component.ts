@@ -87,7 +87,7 @@ export class DataViewCreateComponent implements OnInit {
     }
 
     createFormGroup() {
-       this.columns.forEach(element => {
+        this.columns.forEach(element => {
             // fg[element.field] = new FormControl(this.viewModel[element.field], <any>Validators.required),
 
             //表单验证
@@ -96,62 +96,48 @@ export class DataViewCreateComponent implements OnInit {
                 array.push(Validators.maxLength(element.maxlength));
             }
             //errors 
-            this.formgroups[element.field] = new FormControl(this.viewModel[element.field],array);
+            this.formgroups[element.field] = new FormControl(this.viewModel[element.field], array);
         });
     }
 
-    getErrorMessage(column){
-        if(!column.errors){
+    //获取错误信息
+    getErrorMessage(column) {
+        if (!column.errors) {
             return;
         }
         let control = this.formgroups[column.field];
         let validators = JSON.parse(column.pattern);
-        if(control.errors.required){
-            return this.matchPattern(validators,"required");
-        }else if(control.errors.email){
-            return this.matchPattern(validators,"email");
-        }else{
-            return this.matchPattern(validators,control.errors.pattern.requiredPattern);
+        if (control.errors.required) {
+            return validators[control.errors.required];
+        } else if (control.errors.email) {
+            return validators[control.errors.email];
+        } else {
+            //requiredPattern 默认添加 ^,$
+            let pattern = control.errors.pattern.requiredPattern;
+            return validators[pattern.substring(1,pattern.length - 1)];
         }
     }
 
-    //匹配提示
-    matchPattern(validators,error){
-        for(let pattern of validators){
-            switch (pattern.rule) {
-                case "required":
-                case "email":
-                    if(pattern.rule == error)
-                    return pattern.tip;
-                default:
-                    let r = '^'+pattern.rule+'$';
-                    if(r == error){
-                        return pattern.tip;
-                    }   
-            }
-        }
-    }
-
+    //创建表单验证
     createValidators(col) {
         let array = [];
-        if(!col.pattern){
+        if (!col.pattern) {
             return array;
         }
-        let validators =  JSON.parse(col.pattern);
-        validators.forEach(validator => {
-                let pattern = validator['rule'];
-                switch (pattern) {
-                    case "required":
-                        array.push(Validators.required);
-                        break;
-                    case "email":
-                        array.push(Validators.email);
-                        break;
-                    default:
-                        array.push(Validators.pattern(pattern));
-                        break;
-                }
-            });
+        let validators = JSON.parse(col.pattern);
+        for (let pattern in validators) {
+            switch (pattern) {
+                case "required":
+                    array.push(Validators.required);
+                    break;
+                case "email":
+                    array.push(Validators.email);
+                    break;
+                default:
+                    array.push(Validators.pattern(pattern));
+                    break;
+            }
+        }
         return array;
     }
 }
