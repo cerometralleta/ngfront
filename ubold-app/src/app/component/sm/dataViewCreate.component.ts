@@ -102,15 +102,15 @@ export class DataViewCreateComponent implements OnInit {
 
     // 获取错误信息
     getErrorMessage(column) {
-        if (!column.errors) {
+        if (!this.formgroups[column.field].errors) {
             return;
         }
         const control = this.formgroups[column.field];
         const validators = JSON.parse(column.pattern);
         if (control.errors.required) {
-            return validators[control.errors.required];
+            return validators['required'];
         } else if (control.errors.email) {
-            return validators[control.errors.email];
+            return validators['email'];
         } else {
             // requiredPattern 默认添加 ^,$
             const pattern = control.errors.pattern.requiredPattern;

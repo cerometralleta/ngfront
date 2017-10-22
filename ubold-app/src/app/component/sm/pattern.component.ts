@@ -30,13 +30,13 @@ export class PatternComponent extends BaseComponent {
 
     // 自定义规则
     definePatterns: Array<Pattern> = [];
-    @Input() formGroup: any;
+    @Input() formControl: FormControl;
     ngOnInit() {
         // 初始化默认规则
         this.defaultPatterns();
-        if (this.formGroup){
+        if (this.formControl && this.formControl.value){
             const testJson = '{"email":"Email格式不正确","[0-9]+":"只能填整数","[A-Za-z]+":"只能填英文","ABC":"ABC TIP"}';
-            const rules =  JSON.parse(testJson);
+            const rules =  JSON.parse(this.formControl.value);
             // tslint:disable-next-line:forin
             for (const item in rules){
                 this.checkboxSelected(item, rules[item]);
@@ -136,7 +136,10 @@ export class PatternComponent extends BaseComponent {
         for(const item of this.definePatternsByControls){
             lastPatternJson[item.value.rule] = item.value.tip;
         }
-        this.logger.debug(JSON.stringify(lastPatternJson));
+        if(lastPatternJson){
+            this.activeModal.close(JSON.stringify(lastPatternJson));
+        }
+        // this.logger.debug(JSON.stringify(lastPatternJson));
     }
 }
 

@@ -205,6 +205,14 @@ export class DataViewEditComponent implements OnInit {
     });
   }
 
+  openPattern(colOptions) {
+    const modalRef = this.modalService.open(PatternComponent, { size: GoldbalConstant.modal_size_lg })
+    modalRef.componentInstance.formControl = colOptions.controls.pattern;
+    modalRef.result.then((result) => {
+      colOptions.controls.pattern.setValue(result);
+    }, (reason) => {});
+  }
+
   // 初始化树设置数据源
   createSqlDefines() {
     const array = new Array<any>();

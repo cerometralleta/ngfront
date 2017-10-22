@@ -415,7 +415,7 @@
         <div class="col-sm-12">
           <div class="card-box">
             <button type="button" class="btn btn-info waves-effect waves-light" (click)="createColumnList()">生成列表</button>
-            <button type="button" class="btn btn-info waves-effect waves-light" (click)="formCheckRule()">表单校验</button>
+            <!-- <button type="button" class="btn btn-info waves-effect waves-light" (click)="formCheckRule()">表单校验</button> -->
           </div>
           <div class="card-box overflow">
             <table class="table table table-hover table-bordered m-0 table-actions-bar">
@@ -632,6 +632,7 @@
                       </div>
                     </ng-template>
                     <!--更多设置-->
+                    <button type="button" class="btn btn-default waves-effect waves-light btn-sm" (click)="openPattern(columOptions)"> <i class="md md-spellcheck"></i></button>
                     <button type="button" class="btn btn-default waves-effect waves-light btn-sm" (click)="openMore(content)"> <i class="fa fa-ellipsis-h"></i></button>
                   </td>
                 </tr>
