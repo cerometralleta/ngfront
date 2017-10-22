@@ -245,7 +245,7 @@ export class DataViewEditComponent implements OnInit {
 
   // ztree sqldefine 
   refreshZtreeSqlIdFields(sqlId) {
-    this.httpService.doPost(Application.ubold_sqldefine_createColumnList + sqlId, null)
+    this.httpService.doPost(Application.ubold_sqldefine_createColumnList + sqlId, {})
       .subscribe(resp => {
         if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
           // 刷新ztree关系字段
@@ -484,7 +484,7 @@ export class DataViewEditComponent implements OnInit {
 
   // 根据SQLID生成列
   createColumnList() {
-    this.httpService.doPost(Application.ubold_sqldefine_createColumnList + this.ngbForm.value.sqlId, null)
+    this.httpService.doPost(Application.ubold_sqldefine_createColumnList + this.ngbForm.value.sqlId, {})
       .subscribe(resp => {
         if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
           const dataList = resp.result;

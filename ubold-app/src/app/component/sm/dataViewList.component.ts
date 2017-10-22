@@ -131,12 +131,11 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         id.visible = false;
         this.options.columns.push(id);
 
-        let dataViewCode = new ColumOptions();
+        const dataViewCode = new ColumOptions();
         dataViewCode.field = 'dataViewCode';
         dataViewCode.title = '编号';
-        dataViewCode.sortable= true;
+        dataViewCode.sortable = true;
         this.options.columns.push(dataViewCode);
-        
         const dataViewName = new ColumOptions();
         dataViewName.field = 'dataViewName';
         dataViewName.title = '名称';
@@ -146,7 +145,7 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         const sqlId = new ColumOptions();
         sqlId.field = 'sqlId';
         sqlId.title = 'sqlId';
-        sqlId.sortable=true;
+        sqlId.sortable = true;
         this.options.columns.push(sqlId);
 
         const remark = new ColumOptions();
@@ -162,13 +161,13 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         const createTime = new ColumOptions();
         createTime.field = 'createTime';
         createTime.title = '创建时间';
-        createTime.sortable=true;
+        createTime.sortable = true;
         this.options.columns.push(createTime);
 
         const lastUpdateTime = new ColumOptions();
         lastUpdateTime.field = 'lastUpdateTime';
         lastUpdateTime.title = '更新时间';
-        lastUpdateTime.sortable=true;
+        lastUpdateTime.sortable = true;
         this.options.columns.push(lastUpdateTime);
     }
 
@@ -178,7 +177,7 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
 
         // dataViewCode
         const dataViewCode = new DataFilter();
-        dataViewCode.title='编号';
+        dataViewCode.title = '编号';
         dataViewCode.field = 'dataViewCode';
         dataViewCode.expression = 'like';
         this.dataFilters.push(dataViewCode);

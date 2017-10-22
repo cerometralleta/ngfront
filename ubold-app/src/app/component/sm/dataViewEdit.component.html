@@ -439,10 +439,10 @@
                 <tr class="tr-center" *ngFor="let columOptions of columnControls; let idx=index" [formGroupName]="idx">
                   <td><input type="text" class="form-control" placeholder="名称" formControlName="title" /></td>
                   <td>
-                    <label>{{columOptions.controls.field.value}}</label>
+                    <label>{{columOptions.value.field}}</label>
                   </td>
                   <td>
-                    <label>{{columOptions.controls.dataType.value}}</label>
+                    <label>{{columOptions.value.dataType}}</label>
                   </td>
                   <td>
                     <select class="form-control" formControlName="updateType" placeholder="修改方式">
@@ -451,20 +451,20 @@
                   </td>
                   <td>
                     <div class="checkbox checkbox-custom">
-                      <input id="{{columOptions.controls.field.value}}view" type="checkbox" formControlName="view">
-                      <label for="{{columOptions.controls.field.value}}view"></label>
+                      <input id="{{columOptions.value.field}}_view" type="checkbox" formControlName="view">
+                      <label for="{{columOptions.value.field}}_view"></label>
                     </div>
                   </td>
                   <td>
                     <div class="checkbox checkbox-primary">
-                      <input id="{{columOptions.controls.field.value}}insert" type="checkbox" formControlName="insert">
-                      <label for="{{columOptions.controls.field.value}}insert"></label>
+                      <input id="{{columOptions.value.field}}_insert" type="checkbox" formControlName="insert">
+                      <label for="{{columOptions.value.field}}_insert"></label>
                     </div>
                   </td>
                   <td>
                     <div class="checkbox checkbox-success">
-                      <input id="{{columOptions.controls.field.value}}visible" type="checkbox" formControlName="visible">
-                      <label for="{{columOptions.controls.field.value}}visible"></label>
+                      <input id="{{columOptions.value.field}}_visible" type="checkbox" formControlName="visible">
+                      <label for="{{columOptions.value.field}}_visible"></label>
                     </div>
                   </td>
                   <td>
@@ -472,7 +472,7 @@
                          <option *ngFor="let fieldType of fieldTypes" [value]="fieldType.code">{{fieldType.text}}</option>
                        </select>
                   </td>
-                  <td>{{maxlength}}</td>
+                  <td>{{columOptions.value.maxlength}}</td>
                   <td>
 
                     <!--更多设置-->
@@ -522,8 +522,8 @@
                           <label class="col-sm-2 control-label">radio</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-info">
-                              <input id="{{columOptions.controls.field.value}}radio" type="checkbox" formControlName="radio">
-                              <label for="{{columOptions.controls.field.value}}radio"></label>
+                              <input id="{{columOptions.value.field}}radio" type="checkbox" formControlName="radio">
+                              <label for="{{columOptions.value.field}}radio"></label>
                             </div>
                           </div>
                         </div>
@@ -532,8 +532,8 @@
                           <label class="col-sm-2 control-label">checkbox</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-warning">
-                              <input id="{{columOptions.controls.field.value}}checkbox" type="checkbox" formControlName="checkbox">
-                              <label for="{{columOptions.controls.field.value}}checkbox"></label>
+                              <input id="{{columOptions.value.field}}checkbox" type="checkbox" formControlName="checkbox">
+                              <label for="{{columOptions.value.field}}checkbox"></label>
                             </div>
                           </div>
                         </div>-->
@@ -542,8 +542,8 @@
                           <label class="col-sm-2 control-label">cardVisible</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-purple">
-                              <input id="{{columOptions.controls.field.value}}cardVisible" type="checkbox" formControlName="cardVisible">
-                              <label for="{{columOptions.controls.field.value}}cardVisible"></label>
+                              <input id="{{columOptions.value.field}}_cardVisible" type="checkbox" formControlName="cardVisible">
+                              <label for="{{columOptions.value.field}}_cardVisible"></label>
                             </div>
                           </div>
                         </div>
@@ -552,8 +552,8 @@
                           <label class="col-sm-2 control-label">switchable</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-warning">
-                              <input id="{{columOptions.controls.field.value}}switchable" type="checkbox" formControlName="switchable">
-                              <label for="{{columOptions.controls.field.value}}switchable"></label>
+                              <input id="{{columOptions.value.field}}switchable" type="checkbox" formControlName="switchable">
+                              <label for="{{columOptions.value.field}}switchable"></label>
                             </div>
                           </div>
                         </div>
@@ -562,8 +562,8 @@
                           <label class="col-sm-2 control-label">uniqueCheck</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-warning">
-                              <input id="{{columOptions.controls.field.value}}uniqueCheck" type="checkbox" formControlName="uniqueCheck">
-                              <label for="{{columOptions.controls.field.value}}uniqueCheck"></label>
+                              <input id="{{columOptions.value.field}}uniqueCheck" type="checkbox" formControlName="uniqueCheck">
+                              <label for="{{columOptions.value.field}}uniqueCheck"></label>
                             </div>
                           </div>
                         </div>
@@ -572,8 +572,8 @@
                           <label class="col-sm-2 control-label">clickToSelect</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-pink">
-                              <input id="{{columOptions.controls.field.value}}clickToSelect" type="checkbox" formControlName="clickToSelect">
-                              <label for="{{columOptions.controls.field.value}}clickToSelect"></label>
+                              <input id="{{columOptions.value.field}}clickToSelect" type="checkbox" formControlName="clickToSelect">
+                              <label for="{{columOptions.value.field}}clickToSelect"></label>
                             </div>
                           </div>
                         </div>-->
@@ -582,8 +582,8 @@
                           <label class="col-sm-2 control-label">sortable</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-pink">
-                              <input id="{{columOptions.controls.field.value}}sortable" type="checkbox" formControlName="sortable">
-                              <label for="{{columOptions.controls.field.value}}sortable"></label>
+                              <input id="{{columOptions.value.field}}sortable" type="checkbox" formControlName="sortable">
+                              <label for="{{columOptions.value.field}}sortable"></label>
                             </div>
                           </div>
                         </div>
@@ -592,8 +592,8 @@
                           <label class="col-sm-2 control-label">searchable</label>
                           <div class="col-sm-10">
                             <div class="checkbox checkbox-pink">
-                              <input id="{{columOptions.controls.field.value}}searchable" type="checkbox" formControlName="searchable">
-                              <label for="{{columOptions.controls.field.value}}searchable"></label>
+                              <input id="{{columOptions.value.field}}searchable" type="checkbox" formControlName="searchable">
+                              <label for="{{columOptions.value.field}}searchable"></label>
                             </div>
                           </div>
                         </div>
@@ -666,10 +666,10 @@
                 <!--<tr class="tr-center" *ngFor="let column of formData.columns; let idx=index" (click)="filterSelected(column)">-->
                 <tr class="tr-center" *ngFor="let columOptions of columnControls;" (click)="filterSelected(columOptions)">
                   <td>{{columOptions.controls.title.value}}</td>
-                  <td>{{columOptions.controls.field.value}}</td>
+                  <td>{{columOptions.value.field}}</td>
                   <td>{{columOptions.controls.dataType.value}}</td>
                   <!--<td>{{column.fieldType}}</td>-->
-                  <td>{{columOptions.controls.maxlength.value}}</td>
+                  <td>{{columOptions.value.maxlength}}</td>
                 </tr>
               </tbody>
             </table>
@@ -694,7 +694,7 @@
               <tbody formArrayName="dataFilters">
                 <tr class="tr-center" *ngFor="let datafilter of dataFiltersControls; let idx=index" [formGroupName]="idx">
                   <td>{{datafilter.controls.title.value}}</td>
-                  <td>{{datafilter.controls.field.value}}</td>
+                  <td>{{datafilter.value.field}}</td>
                   <td>{{datafilter.controls.dataType.value}}</td>
                   <td>
                     <select class="form-control" formControlName="expression" placeholder="表达式">

@@ -24,10 +24,10 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
             this.options.url = Application.ubold_sm_sql_bootstrap_dataList + this.options.url
         }
 
-        //深度复制
+        // 深度复制
         // let bootstrapOptions = JSON.parse(JSON.stringify(this.options));
         // bootstrapOptions.queryParams = this.options.queryParams;
-        this.options.toolbar='#toolbar_';
+        this.options.toolbar = '#toolbar_';
         this.createStatefield(this.options);
         this.columnsformart(this.options);
         this.ngbootstrapTable = $(this.erf.nativeElement).bootstrapTable(this.options);
@@ -52,11 +52,11 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
     columnsformart(bootstrapOptions: BootstrapTableDefaults) {
         if (this.options.columns) {
             this.options.columns.forEach(co => {
-                 if(co.formatter instanceof Function){
+                 if (co.formatter instanceof Function){
                     return;
                  }
-                 co.formatter =  null == co.formatter ? undefined : eval('('+co.formatter+')');
-            })
+                 co.formatter =  null == co.formatter ? undefined : eval('(' + co.formatter + ')');
+            });
         }
     }
 
