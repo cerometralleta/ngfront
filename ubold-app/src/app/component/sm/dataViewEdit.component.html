@@ -101,7 +101,7 @@
             </tr>
           </thead>
           <tbody formArrayName="buttons">
-            <tr class="tr-center" (click)="openOption(fbt)" *ngFor="let fbt of ngbForm.controls.buttons.controls; let idx=index"
+            <tr class="tr-center" (click)="openOption(fbt)" *ngFor="let fbt of buttonControls; let idx=index"
               [formGroupName]="idx">
               <td>{{fbt.controls.title.value}}</td>
               <td>{{fbt.controls.url.value}}</td>
@@ -436,7 +436,7 @@
                 </tr>
               </thead>
               <tbody formArrayName="columns">
-                <tr class="tr-center" *ngFor="let columOptions of ngbForm.controls.columns.controls; let idx=index" [formGroupName]="idx">
+                <tr class="tr-center" *ngFor="let columOptions of columnControls; let idx=index" [formGroupName]="idx">
                   <td><input type="text" class="form-control" placeholder="名称" formControlName="title" /></td>
                   <td>
                     <label>{{columOptions.controls.field.value}}</label>
@@ -664,7 +664,7 @@
               </thead>
               <tbody>
                 <!--<tr class="tr-center" *ngFor="let column of formData.columns; let idx=index" (click)="filterSelected(column)">-->
-                <tr class="tr-center" *ngFor="let columOptions of ngbForm.controls.columns.controls;" (click)="filterSelected(columOptions)">
+                <tr class="tr-center" *ngFor="let columOptions of columnControls;" (click)="filterSelected(columOptions)">
                   <td>{{columOptions.controls.title.value}}</td>
                   <td>{{columOptions.controls.field.value}}</td>
                   <td>{{columOptions.controls.dataType.value}}</td>
@@ -692,7 +692,7 @@
                 </tr>
               </thead>
               <tbody formArrayName="dataFilters">
-                <tr class="tr-center" *ngFor="let datafilter of ngbForm.controls.dataFilters.controls; let idx=index" [formGroupName]="idx">
+                <tr class="tr-center" *ngFor="let datafilter of dataFiltersControls; let idx=index" [formGroupName]="idx">
                   <td>{{datafilter.controls.title.value}}</td>
                   <td>{{datafilter.controls.field.value}}</td>
                   <td>{{datafilter.controls.dataType.value}}</td>

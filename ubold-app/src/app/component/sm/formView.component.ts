@@ -26,7 +26,7 @@ export class FormViewComponent implements OnInit {
         private formViewResolver:FormViewResolver,
         private route: ActivatedRoute,
         private modalService: NgbModal) { }
-    private formViewModel : FormViewModel;
+        formViewModel: FormViewModel;
     ngbForm: FormGroup;
 
     // 表单数据

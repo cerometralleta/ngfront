@@ -642,4 +642,20 @@ export class DataViewEditComponent implements OnInit {
 
       }, (reason) => {});
   }
+
+  //获取按钮formarray
+  get buttonControls(){
+    const formArray =  <FormArray>this.ngbForm.get('buttons');
+    return formArray.controls;
+  }
+
+  get columnControls(){
+    const formArray =  <FormArray>this.ngbForm.get('columns');
+    return formArray.controls;
+  }
+
+  get dataFiltersControls(){
+    const formArray =  <FormArray>this.ngbForm.get('dataFilters');
+    return formArray.controls;
+  }
 }

@@ -7,7 +7,7 @@
 <div class="modal-body" [formGroup]="ngbForm">
         <div class="form-group row" formArrayName="defaultPatterns">
 
-            <div class="checkbox checkbox-primary checkbox-inline" style="padding-left: 35px;" *ngFor="let pt of patternsControls.controls;let idx=index"  [formGroupName]="idx">
+            <div class="checkbox checkbox-primary checkbox-inline" style="padding-left: 35px;" *ngFor="let pt of patternsControlsByControls;let idx=index"  [formGroupName]="idx">
                 <input type="checkbox" id="rule_{{pt.controls.tip.value}}" formControlName="checked" >
                 <label for="rule_{{pt.controls.tip.value}}"> {{pt.controls.tip.value}} </label>
             </div>
@@ -18,7 +18,7 @@
         </div>
 
         <div class="card-box"  formArrayName="definePatterns">
-            <div class="form-group row" *ngFor="let fbt of definePatternsControls.controls; let idx=index" [formGroupName]="idx">
+            <div class="form-group row" *ngFor="let fbt of definePatternsByControls; let idx=index" [formGroupName]="idx">
                 
                 <!-- 自定义规则 -->
                 <label for="btn-color" class="col-sm-2 control-label">tip: </label>

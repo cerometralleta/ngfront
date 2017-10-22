@@ -48,10 +48,11 @@ export class FormViewCreateComponent implements OnInit {
         this.ngbForm = new FormGroup(this.createFormGroup());
     }
 
-    openField(content) {
+    openField() {
 
         // 打开新建窗口
-        this.modalService.open(FormViewFieldEditComponent,{ size: GoldbalConstant.modal_size_lg }).result.then((result) => {
+        this.modalService.open(FormViewFieldEditComponent, { size: GoldbalConstant.modal_size_lg }).result
+        .then((result) => {
             const column = <Columns>result;
             // const controls = <FormArray>this.ngbForm.controls['columns'];
              this.columns.push(column);

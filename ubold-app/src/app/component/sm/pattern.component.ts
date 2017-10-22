@@ -80,11 +80,19 @@ export class PatternComponent extends BaseComponent {
           this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
     }
     get patternsControls () {
-        return this.ngbForm.get('defaultPatterns');
+        return <FormArray>this.ngbForm.get('defaultPatterns');
+    }
+
+    get patternsControlsByControls () {
+        return this.patternsControls.controls;
     }
 
     get definePatternsControls () {
         return <FormArray>this.ngbForm.get('definePatterns');
+    }
+
+    get definePatternsByControls () {
+        return this.definePatternsControls.controls;
     }
 
     defaultPatterns(){
@@ -125,9 +133,9 @@ export class PatternComponent extends BaseComponent {
         this.selectedPatterns.forEach(item => {
             lastPatternJson[item.rule] = item.tip;
         });
-        this.definePatternsControls.controls.forEach((item: FormGroup) => {
-            lastPatternJson[item.controls.rule.value] = item.controls.tip.value;
-        });
+        for(const item of this.definePatternsByControls){
+            lastPatternJson[item.value.rule] = item.value.tip;
+        }
         this.logger.debug(JSON.stringify(lastPatternJson));
     }
 }

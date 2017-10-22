@@ -170,15 +170,6 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         lastUpdateTime.title = '更新时间';
         lastUpdateTime.sortable=true;
         this.options.columns.push(lastUpdateTime);
-
-        // let options = new ColumOptions();
-        // options.field = "id";
-        // options.title = "操作";
-        // options.formatter = function(value,row,index){
-        //         return ' <button type="button" class="btn btn-default" (click)="update()"> '
-		// 		 +'<span class="glyphicon glyphicon-plus" aria-hidden="true">修改</span></button>';
-        // }
-        // this.options.columns.push(options);
     }
 
     // 查询对象
@@ -235,5 +226,10 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         }
         this.router.navigate(['home', 'dataviewedit', _selected[0].dataViewCode]);
         // this.router.navigate(['home','dataviewedit',id]);
+    }
+
+    get searchArrayControls(){
+        const formArray =  <FormArray>this.searchForm.get('searchArray');
+        return formArray.controls;
     }
 }
