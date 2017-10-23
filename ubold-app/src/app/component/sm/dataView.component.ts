@@ -76,7 +76,7 @@ export class DataViewComponent extends SelectorComponent {
     createToolbar(){
         this._toolbar = new Array();
         this.buttons.forEach(btn => {
-            if(btn.location == GoldbalConstant.LOCATION.nav){
+            if(btn.location === GoldbalConstant.LOCATION.nav){
                 this._toolbar.push(btn);
             }
         });
@@ -94,14 +94,15 @@ export class DataViewComponent extends SelectorComponent {
         column.align = 'center';
         column.events = this.operateEvents;
         column.updateType = GoldbalConstant.MODIFTY_TYPES.hide;
-        var _self = this;
+        const _self = this;
         column.formatter = function (value, row, index) {
-            var _array = [];
-            var idx = 0;
+            const _array = [];
+            let idx = 0;
             _self.buttons.forEach(btn => {
-                if (btn.location == GoldbalConstant.LOCATION.row) {
-                    _array[idx] = '<button type="button" class="Role_' + btn.id + ' btn '+btn.color+' '+btn.btnsize+ '" style="margin-right:15px;">' +
-                    '<i class="' +btn.icon + ' m-r-5"></i>' +
+                if (btn.location === GoldbalConstant.LOCATION.row) {
+                    _array[idx] = '<button type="button" class="Role_' + btn.id + ' btn '+ btn.color + ' ' +
+                    btn.btnsize + '" style="margin-right:15px;">' +
+                    '<i class="' + btn.icon + ' m-r-5"></i>' +
                      btn.title + '</button>';
                     _self.operateEvents['click .Role_' + btn.id] = function (e, value, row, index) {
                         _self.navClick(btn, row[_self.options.idField]);
@@ -116,12 +117,12 @@ export class DataViewComponent extends SelectorComponent {
 
     componentFactory(componentName) {
         const factories = Array.from(this.componentFactoryResolver['_factories'].keys());
-        const factoryClass = <Type<any>>factories.find((x: any) => x.name == componentName);
+        const factoryClass = <Type<any>>factories.find((x: any) => x.name === componentName);
         return factoryClass;
     }
 
     getIdValue(button: Button, id?) {
-        if (button.location == GoldbalConstant.LOCATION.row) {
+        if (button.location === GoldbalConstant.LOCATION.row) {
             return id;
         } else {
             const selected = this.getSelections();
@@ -150,7 +151,7 @@ export class DataViewComponent extends SelectorComponent {
                 if (!_idValue) {
                     return;
                 }
-                this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_fetch), 
+                this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_fetch),
                 { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
                         const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_lg });
@@ -171,7 +172,7 @@ export class DataViewComponent extends SelectorComponent {
                 if (!_idValue) {
                     return;
                 }
-                this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_fetch), 
+                this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_fetch),
                 { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
                         modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_lg });
@@ -190,7 +191,9 @@ export class DataViewComponent extends SelectorComponent {
                     return;
                 }
                 this.confirmService.confirm('确认', '确定要删除吗?').then((result) => {
-                    this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_delete) + this.dataViewModule.dataViewCode, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
+                    this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_delete) + 
+                    this.dataViewModule.dataViewCode,
+                    { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                         if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
                             this.toastr.success(resp.message);
                             this.search();
