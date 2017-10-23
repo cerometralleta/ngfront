@@ -4,7 +4,7 @@ import { Application } from '../../metadata/constant/application.constant';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 import { FormViewModel } from '../../metadata/sm/formViewModel.md';
-import { Observable } from '../../../../node_modules/._rxjs@5.5.0@rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class FormViewResolver implements Resolve<FormViewModel> {

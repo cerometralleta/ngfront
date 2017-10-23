@@ -3,7 +3,7 @@ import { HttpService } from '../../service/basic/http.service';
 import { Application } from '../../metadata/constant/application.constant';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, RouterStateSnapshot, ActivatedRouteSnapshot,Resolve  } from '@angular/router';
-import { Observable } from '../../../../node_modules/._rxjs@5.5.0@rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DataViewResolver implements Resolve<DataViewModule> {
