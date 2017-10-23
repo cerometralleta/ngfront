@@ -51,7 +51,7 @@ export class Mock {
         formData.columns.push(co);
 
         formData.treeOptions = new TreeOptions();
-        formData.treeOptions.show = false;
+        formData.treeOptions.enabled = false;
         formData.treeOptions.scope = 'SELF';
         formData.treeOptions.width = 2;
         formData.buttons = Array<Button>();
@@ -61,7 +61,7 @@ export class Mock {
     static createDataViewList(dataViewModule){
          dataViewModule = new DataViewModule();
         dataViewModule.treeOptions = new TreeOptions();
-        dataViewModule.treeOptions.show = true;
+        dataViewModule.treeOptions.enabled = true;
         dataViewModule.treeOptions.width = 2;
         dataViewModule.treeOptions.idKey = 'id';
         dataViewModule.treeOptions.name = 'name';
