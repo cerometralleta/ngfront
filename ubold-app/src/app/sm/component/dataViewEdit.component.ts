@@ -299,7 +299,7 @@ export class DataViewEditComponent implements OnInit {
 
         // tree
         this.formData.treeOptions = new TreeOptions();
-        this.formData.treeOptions.enabled = false;
+        this.formData.treeOptions.show = false;
         this.formData.treeOptions.width = 2;
         this.formData.treeOptions.enable = true;
         this.formData.treeOptions.scope = GoldbalConstant.TREE_OPTIONS[0].value;
@@ -344,7 +344,7 @@ export class DataViewEditComponent implements OnInit {
   // 创建树
   createTreeGroup() {
     this.treeFromGroup = this.fb.group({
-      enabled: [this.formData.treeOptions.enabled],
+      show: [this.formData.treeOptions.show],
       sqlId: [this.formData.treeOptions.sqlId],
       idKey: [this.formData.treeOptions.idKey],
       name: [this.formData.treeOptions.name],
@@ -530,7 +530,7 @@ export class DataViewEditComponent implements OnInit {
  showTreeCheck() {
     // this.treeFromGroup.controls.url.setValidators(Validators.required);
     this.formData = this.ngbForm.value;
-    if (!this.formData.treeOptions.enabled) {
+    if (!this.formData.treeOptions.show) {
       for (const key in this.treeFromGroup.controls) {
         if(this.treeFromGroup.controls.hasOwnProperty(key)){
           this.treeFromGroup.controls[key].setValidators(Validators.required);

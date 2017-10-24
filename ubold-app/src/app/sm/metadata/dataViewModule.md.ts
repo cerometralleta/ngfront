@@ -29,7 +29,7 @@ export class DataViewModule {
 
 export class TreeOptions{
     constructor() {}
-    enabled: boolean;
+    show: boolean;
     sqlId: string;
     idKey: string;
     name: string;

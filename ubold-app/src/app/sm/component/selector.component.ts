@@ -127,7 +127,7 @@ export class SelectorComponent extends BaseComponent implements OnInit{
     // 计算内容宽度
     zTreeRange() {
         const maxWidth = 12;
-        if (this.treeOptions.enabled) {
+        if (this.treeOptions.show) {
             this.colContentWidth = maxWidth - this.treeOptions.width;
             return;
         }
