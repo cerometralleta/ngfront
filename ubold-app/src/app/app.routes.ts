@@ -1,16 +1,17 @@
 import { Component, OnInit, ModuleWithProviders } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
-import { DataViewComponent } from './component/sm/dataView.component';
-import { MainComponent } from './component/frame/main.component';
-import { HomeComponent } from './component/frame/home.componet';
-import { LoginComponent } from './component/frame/login.component';
-import { DataViewEditComponent } from './component/sm/dataViewEdit.component';
-import { DataViewCreateComponent } from './component/sm/dataViewCreate.component';
-import { FormViewCreateComponent } from './component/sm/formViewCreate.component';
-import { DataViewResolver } from './resolver/sm/dataViewResolver';
-import { FormViewComponent } from './component/sm/formView.component';
-import { FormViewResolver } from './resolver/sm/formViewResolver';
-import { DataViewListComponent } from './component/sm/dataViewList.component';
+import { HomeComponent } from './frame/component/home.componet';
+import { MainComponent } from './frame/component/main.component';
+import { DataViewComponent } from './sm/component/dataView.component';
+import { DataViewResolver } from './sm/resolver/dataViewResolver';
+import { DataViewEditComponent } from './sm/component/dataViewEdit.component';
+import { DataViewListComponent } from './sm/component/dataViewList.component';
+import { DataViewCreateComponent } from './sm/component/dataViewCreate.component';
+import { FormViewCreateComponent } from './sm/component/formViewCreate.component';
+import { FormViewComponent } from './sm/component/formView.component';
+import { FormViewResolver } from './sm/resolver/formViewResolver';
+import { LoginComponent } from './frame/component/login.component';
+
 
 
 const appRoutes: Routes = [
@@ -80,5 +81,4 @@ const appRoutes: Routes = [
 ];
 
 export const AppRoutingProviders: any[] = [];
-
 export const Routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

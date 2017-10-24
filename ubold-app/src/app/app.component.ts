@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoggerService } from './service/basic/logger.service';
+import { LoggerService } from './frame/service/logger.service';
+
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'ubold-app',
