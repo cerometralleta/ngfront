@@ -20,7 +20,7 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
     @ViewChild('ngbootstrapTable') erf: ElementRef;
     ngOnInit() {
         // console.info(JSON.stringify(this.options));
-        if (this.options.url.indexOf('http') < 0 && this.options.url.indexOf('https') < 0) {
+        if (this.options.url.indexOf('http://') < 0 && this.options.url.indexOf('https://') < 0) {
             this.options.url = Application.ubold_sm_sql_bootstrap_dataList + this.options.url;
         }
 

@@ -90,7 +90,7 @@ export class DataViewComponent extends SelectorComponent {
             let idx = 0;
             _self.buttons.forEach(btn => {
                 if (btn.location === GoldbalConstant.LOCATION.row) {
-                    _array[idx] = '<button type="button" class="Role_' + btn.id + ' btn '+ btn.color + ' ' +
+                    _array[idx] = '<button type="button" class="Role_' + btn.id + ' btn ' + btn.color + ' ' +
                     btn.btnsize + '" style="margin-right:15px;">' +
                     '<i class="' + btn.icon + ' m-r-5"></i>' +
                      btn.title + '</button>';
