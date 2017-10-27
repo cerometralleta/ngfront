@@ -23,6 +23,7 @@ import { LoggerService } from '../frame/service/logger.service';
 import { HttpService } from '../frame/service/http.service';
 import { ToastrService } from '../frame/service/toastr.service';
 import { FormVerifiyService } from '../frame/service/formVerifiy.service';
+import { FormatDatepickerComponent } from './component/format-datepicker/format-datepicker.component';
 
 
 /**
@@ -33,15 +34,15 @@ import { FormVerifiyService } from '../frame/service/formVerifiy.service';
     imports: [BrowserModule, FormsModule, Routing, HttpModule, JsonpModule, Ngb2Module, ReactiveFormsModule],
     exports: [DataViewComponent, DataViewEditComponent, DataViewCreateComponent, FormViewCreateComponent
         , FormViewEditComponent, FormViewComponent, SelectorComponent,
-        DataViewListComponent, ConfirmComponent, IconpickerComponent, PatternComponent
+        DataViewListComponent, ConfirmComponent, IconpickerComponent
     ],
     declarations: [
         DataViewComponent, DataViewEditComponent, ButtonDialogComponent, TypeFilterPipe, DataViewCreateComponent
         , FormViewCreateComponent , FormViewEditComponent, FormViewFieldEditComponent, FormViewComponent,
-        SelectorComponent, DataViewListComponent, ConfirmComponent, IconpickerComponent, PatternComponent
+        SelectorComponent, DataViewListComponent, ConfirmComponent, IconpickerComponent, PatternComponent, FormatDatepickerComponent
     ],
     entryComponents: [ButtonDialogComponent, FormViewFieldEditComponent,
-        FormViewComponent, SelectorComponent, ConfirmComponent, PatternComponent],
+        FormViewComponent, SelectorComponent, ConfirmComponent, PatternComponent,FormatDatepickerComponent],
     providers: [LoggerService, AppRoutingProviders, HttpService, ToastrService, FormVerifiyService]
 })
 export class SmModule { }

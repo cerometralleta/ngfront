@@ -11,11 +11,10 @@ import { Pattern } from '../metadata/pattern.md';
     templateUrl: './pattern.component.html'
     // styleUrls: ['./name.component.css']
 })
-export class PatternComponent extends BaseComponent {
+export class PatternComponent extends BaseComponent implements OnInit {
     constructor(public activeModal: NgbActiveModal
         , private fb: FormBuilder
         , private logger: LoggerService
-        , private httpService: HttpService
         , formVerifiyService: FormVerifiyService) {
             super(formVerifiyService);
          }
@@ -29,7 +28,7 @@ export class PatternComponent extends BaseComponent {
     ngOnInit() {
         // 初始化默认规则
         this.defaultPatterns();
-        if (this.formControl && this.formControl.value){
+        if (this.formControl && this.formControl.value) {
             const testJson = '{"email":"Email格式不正确","[0-9]+":"只能填整数","[A-Za-z]+":"只能填英文","ABC":"ABC TIP"}';
             const rules =  JSON.parse(this.formControl.value);
             // tslint:disable-next-line:forin
@@ -37,7 +36,7 @@ export class PatternComponent extends BaseComponent {
                 this.checkboxSelected(item, rules[item]);
             }
         }
-        //默认规则
+        // 默认规则
         const patternfa = new Array<FormGroup>(); 
         this.patterns.forEach(pattern => {
             patternfa.push(this.fb.group({
@@ -131,7 +130,7 @@ export class PatternComponent extends BaseComponent {
         for(const item of this.definePatternsByControls){
             lastPatternJson[item.value.rule] = item.value.tip;
         }
-        if(lastPatternJson){
+        if (lastPatternJson) {
             this.activeModal.close(JSON.stringify(lastPatternJson));
         }
         // this.logger.debug(JSON.stringify(lastPatternJson));

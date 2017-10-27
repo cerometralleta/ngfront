@@ -10,7 +10,8 @@ export class Columns {
     visible: boolean;
     dataType: string;
     fieldType: string;
-    rule: Array<string>;
+    pattern: string; // 验证规则
+    dataFormat: string; // 数据格式化
     maxlength: number;
     idx: number;
 }
@@ -45,6 +46,6 @@ export class ColumOptions extends Columns{
     searchable: boolean;
     searchFormatter: boolean;
     escape: boolean;
-    pattern: string; // 验证规则
     events: any;
+   
 }

@@ -60,7 +60,7 @@ export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
             timepicker:this.timepicker,    //显示时间选项
             yearStart:2000,     //设置最小年份
             yearEnd:2050,        //设置最大年份
-            todayButton:true,    //显示选择今天按钮
+            todayButton: true,    //显示选择今天按钮
             onChangeDateTime:function(current_time,$input){
                 self.formControlValue = $input.val();
                 self._onChange(self.formControlValue);
