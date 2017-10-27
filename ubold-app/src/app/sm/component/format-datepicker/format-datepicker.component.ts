@@ -20,12 +20,12 @@ export class FormatDatepickerComponent extends BaseComponent implements OnInit {
         }
   @Input() formControl: FormControl;
   ngOnInit() {
-    let dateFormat = {};
+    let dateFormat = {format: ''};
     if (this.formControl && this.formControl.value) {
        dateFormat =  JSON.parse(this.formControl.value);
     }
     this.ngbForm = this.fb.group({
-      format: [dateFormat, Validators.required]
+      format: [dateFormat.format, Validators.required]
     });
   }
 
