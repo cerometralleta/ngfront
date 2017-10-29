@@ -1,16 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
-import { LoggerService } from '../../../frame/service/logger.service';
-import { FormVerifiyService } from '../../../frame/service/formVerifiy.service';
-import { BaseComponent } from '../../../frame/component/base.component';
+import { BaseComponent } from '../../frame/component/base.component';
+import { LoggerService } from '../../frame/service/logger.service';
+import { FormVerifiyService } from '../../frame/service/formVerifiy.service';
 
 @Component({
-  selector: 'app-format-datepicker',
-  templateUrl: './format-datepicker.component.html',
-  styleUrls: ['./format-datepicker.component.css']
+  selector: 'app-format-Select',
+  templateUrl: './formatSelect.component.html',
 })
-export class FormatDatepickerComponent extends BaseComponent implements OnInit {
+export class FormatSelectComponent extends BaseComponent implements OnInit {
 
     constructor(public activeModal: NgbActiveModal
         , private fb: FormBuilder
@@ -20,12 +19,14 @@ export class FormatDatepickerComponent extends BaseComponent implements OnInit {
         }
   @Input() formControl: FormControl;
   ngOnInit() {
-    let dateFormat = {format: ''};
+    let dateFormat = {code: '',
+                      data: ''};
     if (this.formControl && this.formControl.value) {
        dateFormat =  JSON.parse(this.formControl.value);
     }
     this.ngbForm = this.fb.group({
-      format: [dateFormat.format, Validators.required]
+      code: [dateFormat.code],
+      data: [dateFormat.data]
     });
     this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
   }

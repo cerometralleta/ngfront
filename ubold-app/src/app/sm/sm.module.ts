@@ -24,6 +24,8 @@ import { HttpService } from '../frame/service/http.service';
 import { ToastrService } from '../frame/service/toastr.service';
 import { FormVerifiyService } from '../frame/service/formVerifiy.service';
 import { FormatDatepickerComponent } from './component/format-datepicker/format-datepicker.component';
+import { FormatCoderComponent } from './component/formatCoder.component';
+import { FormatSelectComponent } from './component/formatSelect.component';
 
 
 /**
@@ -39,10 +41,13 @@ import { FormatDatepickerComponent } from './component/format-datepicker/format-
     declarations: [
         DataViewComponent, DataViewEditComponent, ButtonDialogComponent, TypeFilterPipe, DataViewCreateComponent
         , FormViewCreateComponent , FormViewEditComponent, FormViewFieldEditComponent, FormViewComponent,
-        SelectorComponent, DataViewListComponent, ConfirmComponent, IconpickerComponent, PatternComponent, FormatDatepickerComponent
+        SelectorComponent, DataViewListComponent, ConfirmComponent, IconpickerComponent, 
+        PatternComponent, FormatDatepickerComponent, FormatCoderComponent, FormatSelectComponent
     ],
     entryComponents: [ButtonDialogComponent, FormViewFieldEditComponent,
-        FormViewComponent, SelectorComponent, ConfirmComponent, PatternComponent,FormatDatepickerComponent],
+        FormViewComponent, SelectorComponent, ConfirmComponent, PatternComponent,
+        // tslint:disable-next-line:whitespace
+        FormatDatepickerComponent,FormatCoderComponent, FormatSelectComponent],
     providers: [LoggerService, AppRoutingProviders, HttpService, ToastrService, FormVerifiyService]
 })
 export class SmModule { }

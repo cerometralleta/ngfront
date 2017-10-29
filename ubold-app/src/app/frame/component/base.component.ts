@@ -6,15 +6,13 @@ export class BaseComponent implements AfterViewInit {
 
     // form group
     ngbForm: FormGroup;
+    formErrors: Array<string>;
     constructor(private formVerifiyService: FormVerifiyService){
     }
 
     ngAfterViewInit(): void {
        this.jsPlugin();
     }
-
-    // error info
-    formErrors: Array<string>;
 
     // js插件初始化
     jsPlugin(){

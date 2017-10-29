@@ -19,6 +19,8 @@ import { Application } from '../constant/application.constant';
 import { Options } from '../../ngb/metadata/ngbGrid/options.md';
 import { ColumOptions } from '../../ngb/metadata/ngbGrid/columnOptions.md';
 import { FormatDatepickerComponent } from './format-datepicker/format-datepicker.component';
+import { FormatCoderComponent } from './formatCoder.component';
+import { FormatSelectComponent } from './formatSelect.component';
 declare var $: any;
 
 @Component({
@@ -209,13 +211,13 @@ export class DataViewEditComponent implements OnInit {
     const modalRef = this.modalService.open(PatternComponent, { size: GoldbalConstant.modal_size_lg })
     modalRef.componentInstance.formControl = colOptions.controls.pattern;
     modalRef.result.then((result) => {
-      colOptions.value.pattern.setValue(result);
+      colOptions.controls.pattern.setValue(result);
     }, (reason) => {});
   }
 
 
   // 数据格式化 TODO 切换类型清空dataformat
-  openFormat(colOptions: FormControl) {
+  openFormat(colOptions: FormGroup) {
       let formatComponent;
       switch (colOptions.value.fieldType) {
           case GoldbalConstant.DICT_COMPONENTTYPE.datetimepicker:
@@ -223,11 +225,14 @@ export class DataViewEditComponent implements OnInit {
           break;
           case GoldbalConstant.DICT_COMPONENTTYPE.select:
           // 字典编号,手动录入
+              formatComponent = FormatSelectComponent;
           break;
           case GoldbalConstant.DICT_COMPONENTTYPE.selector:
           // 数据源, 响应数据适配字段
           break;
           case GoldbalConstant.DICT_COMPONENTTYPE.coder:
+              formatComponent = FormatCoderComponent;
+          break;
           // 编码前缀
           case GoldbalConstant.DICT_COMPONENTTYPE.upload:
           // 上传目录
@@ -236,9 +241,9 @@ export class DataViewEditComponent implements OnInit {
           return;
         }
         const modalRef = this.modalService.open(formatComponent, { size: GoldbalConstant.modal_size_lg })
-        modalRef.componentInstance.formControl = colOptions.value.dataFormat;
+        modalRef.componentInstance.formControl = colOptions.controls.dataFormat;
         modalRef.result.then((result) => {
-          colOptions.value.dataFormat.setValue(result);
+          colOptions.controls.dataFormat.setValue(result);
         }, (reason) => {});
   }
 
@@ -506,7 +511,8 @@ export class DataViewEditComponent implements OnInit {
       // footerFormatter: [columnOptions.footerFormatter],
       sortName: [columnOptions.sortName],
       searchable: [columnOptions.searchable],
-      pattern: [columnOptions.pattern]
+      pattern: [columnOptions.pattern],
+      dataFormat:[columnOptions.dataFormat]
     });
   }
 
