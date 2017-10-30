@@ -90,7 +90,7 @@ export class DataViewCreateComponent implements OnInit {
         this.columns.forEach(element => {
             // fg[element.field] = new FormControl(this.viewModel[element.field], <any>Validators.required),
 
-            //表单验证
+            // 表单验证
             const array = this.createValidators(element);
             if (element.maxlength) {
                 array.push(Validators.maxLength(element.maxlength));

@@ -32,7 +32,7 @@ export class NgbCodeComponent implements OnInit, ControlValueAccessor {
     @Input() maxlength: number;
     @Input() disabled: any;
     @Input() readonly: any = true;
-    @Input() editable: boolean;
+    // @Input() editable = true;
     formControlValue: string;
 
     // the method set in registerOnChange, it is just 
@@ -47,12 +47,12 @@ export class NgbCodeComponent implements OnInit, ControlValueAccessor {
     ) {}
     ngOnInit() {}
     getCode() {
-        let prefixTemp = '';
+        let codePrefix = '';
         if (this.dataFormat) {
-            prefixTemp =  JSON.parse( this.dataFormat ).prefix;
+            codePrefix =  JSON.parse( this.dataFormat ).prefix;
         }
         // 默认时间
-        this.httpService.doPost(Application.ubold_sql_get_code + prefixTemp, {}).subscribe(resp => {
+        this.httpService.doPost(Application.ubold_sql_get_code + codePrefix, {}).subscribe(resp => {
             if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
                 // this.formControlValue = resp.result;
                 this.writeValue(resp.result);

@@ -37,7 +37,7 @@
             <input type="hidden" *ngSwitchCase="DICT_COMPONENTTYPE.hidden" formControlName="{{column.field}}"> 
 
             <!-- 编码器 -->
-            <ng4b-code  *ngSwitchCase="DICT_COMPONENTTYPE.code" placeholder="{{column.field}}" formControlName="{{column.field}}"  [editable]="insert"  dataFormat="{{column.dataFormat}}"></ng4b-code>
+            <ng4b-code  *ngSwitchCase="DICT_COMPONENTTYPE.code" placeholder="{{column.field}}" formControlName="{{column.field}}"  [disabled]="insert"  dataFormat="{{column.dataFormat}}"></ng4b-code>
             
             <!-- 选择器 -->
             <!-- <input type="text" *ngSwitchCase="DICT_COMPONENTTYPE.selector"  class="form-control" placeholder="{{column.field}}" formControlName="{{column.field}}" dataFormat="{{column.dataFormat}}"/> -->

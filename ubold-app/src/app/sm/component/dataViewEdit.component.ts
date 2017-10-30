@@ -51,6 +51,8 @@ export class DataViewEditComponent implements OnInit {
   createQueryParamsTypes: Array<any> = DictConstant.createQueryParamsType();
   exportDataType: Array<any> = DictConstant.createExportDataType();
 
+  // 生成编码前缀
+  codePrefix = '{"prefix":"DV"}';
 
   // SQL 定义
   sqlDefines: Array<any> = this.createSqlDefines();

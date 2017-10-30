@@ -5,9 +5,9 @@
     [minlength]="minlength"
     [maxlength]="maxlength"
     [readonly]="readonly"
-    [disabled]="disabled"
+    [disabled]="!disabled"
     >
-    <span class="group-span-filestyle input-group-btn" tabindex="0" (click)="getCode()" *ngIf="editable">
+    <span class="group-span-filestyle input-group-btn" tabindex="0" (click)="getCode()" *ngIf="disabled">
         <label for="filestyle-4" class="btn btn-primary ">
             <span class="icon-span-filestyle fa  fa-check-square-o"></span> 
 <span class="buttonText"></span></label></span>
