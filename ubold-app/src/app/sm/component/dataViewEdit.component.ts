@@ -19,8 +19,9 @@ import { Application } from '../constant/application.constant';
 import { Options } from '../../ngb/metadata/ngbGrid/options.md';
 import { ColumOptions } from '../../ngb/metadata/ngbGrid/columnOptions.md';
 import { FormatDatepickerComponent } from './format-datepicker/format-datepicker.component';
-import { FormatCoderComponent } from './formatCoder.component';
-import { FormatSelectComponent } from './formatSelect.component';
+import { FormatCodeComponent } from './formatCode.component';
+import { FormatDropdownComponent } from './formatDropdown.component';
+import { FormatSelectorComponent } from './formatSelector.component';
 declare var $: any;
 
 @Component({
@@ -223,15 +224,16 @@ export class DataViewEditComponent implements OnInit {
           case GoldbalConstant.DICT_COMPONENTTYPE.datetimepicker:
                formatComponent = FormatDatepickerComponent;
           break;
-          case GoldbalConstant.DICT_COMPONENTTYPE.select:
+          case GoldbalConstant.DICT_COMPONENTTYPE.dropdown:
           // 字典编号,手动录入
-              formatComponent = FormatSelectComponent;
+              formatComponent = FormatDropdownComponent;
           break;
           case GoldbalConstant.DICT_COMPONENTTYPE.selector:
           // 数据源, 响应数据适配字段
+              formatComponent = FormatSelectorComponent;
           break;
-          case GoldbalConstant.DICT_COMPONENTTYPE.coder:
-              formatComponent = FormatCoderComponent;
+          case GoldbalConstant.DICT_COMPONENTTYPE.code:
+              formatComponent = FormatCodeComponent;
           break;
           // 编码前缀
           case GoldbalConstant.DICT_COMPONENTTYPE.upload:

@@ -24,8 +24,9 @@ import { HttpService } from '../frame/service/http.service';
 import { ToastrService } from '../frame/service/toastr.service';
 import { FormVerifiyService } from '../frame/service/formVerifiy.service';
 import { FormatDatepickerComponent } from './component/format-datepicker/format-datepicker.component';
-import { FormatCoderComponent } from './component/formatCoder.component';
-import { FormatSelectComponent } from './component/formatSelect.component';
+import { FormatCodeComponent } from './component/formatCode.component';
+import { FormatDropdownComponent } from './component/formatDropdown.component';
+import { FormatSelectorComponent } from './component/formatSelector.component';
 
 
 /**
@@ -41,13 +42,13 @@ import { FormatSelectComponent } from './component/formatSelect.component';
     declarations: [
         DataViewComponent, DataViewEditComponent, ButtonDialogComponent, TypeFilterPipe, DataViewCreateComponent
         , FormViewCreateComponent , FormViewEditComponent, FormViewFieldEditComponent, FormViewComponent,
-        SelectorComponent, DataViewListComponent, ConfirmComponent, IconpickerComponent, 
-        PatternComponent, FormatDatepickerComponent, FormatCoderComponent, FormatSelectComponent
+        SelectorComponent, DataViewListComponent, ConfirmComponent, IconpickerComponent,
+        PatternComponent, FormatDatepickerComponent, FormatCodeComponent, FormatDropdownComponent, FormatSelectorComponent
     ],
     entryComponents: [ButtonDialogComponent, FormViewFieldEditComponent,
         FormViewComponent, SelectorComponent, ConfirmComponent, PatternComponent,
         // tslint:disable-next-line:whitespace
-        FormatDatepickerComponent,FormatCoderComponent, FormatSelectComponent],
+        FormatDatepickerComponent,FormatCodeComponent, FormatDropdownComponent, FormatSelectorComponent],
     providers: [LoggerService, AppRoutingProviders, HttpService, ToastrService, FormVerifiyService]
 })
 export class SmModule { }

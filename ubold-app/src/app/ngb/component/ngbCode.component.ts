@@ -9,22 +9,22 @@ import { LoggerService } from '../../frame/service/logger.service';
 // 要实现双向数据绑定，这个不可少
 export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => NgbCoderComponent),
+    useExisting: forwardRef(() => NgbCodeComponent),
     multi: true
 };
 
 @Component({
-    selector: 'ng4b-coder',
-    templateUrl: './ngbCoder.component.html',
+    selector: 'ng4b-code',
+    templateUrl: './ngbCode.component.html',
     providers: [INPUT_CONTROL_VALUE_ACCESSOR]
 })
 
 /**
  * datetimepicker
  */
-export class NgbCoderComponent implements OnInit, ControlValueAccessor {
+export class NgbCodeComponent implements OnInit, ControlValueAccessor {
     // @ViewChild("dateTimePicker") erf: ElementRef;
-    @Input() prefix: string;
+    @Input() dataFormat: string;
     // 外部传入属性
     // @Input() type: string = 'text';
     @Input() placeholder: string = null;
@@ -41,14 +41,18 @@ export class NgbCoderComponent implements OnInit, ControlValueAccessor {
     private propagateChange = (_: any) => { };
     private onTouched = () => null;
     constructor(private logger: LoggerService
-         , public httpService: HttpService
+        , public httpService: HttpService
         , public toastr: ToastrService
         , private changeDetectorRef: ChangeDetectorRef
     ) {}
     ngOnInit() {}
     getCode() {
+        let prefixTemp = '';
+        if (this.dataFormat) {
+            prefixTemp =  JSON.parse( this.dataFormat ).prefix;
+        }
         // 默认时间
-        this.httpService.doPost(Application.ubold_sql_get_code + this.prefix, {}).subscribe(resp => {
+        this.httpService.doPost(Application.ubold_sql_get_code + prefixTemp, {}).subscribe(resp => {
             if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
                 // this.formControlValue = resp.result;
                 this.writeValue(resp.result);

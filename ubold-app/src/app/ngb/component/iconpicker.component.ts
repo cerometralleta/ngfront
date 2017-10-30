@@ -15,19 +15,19 @@ export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     templateUrl: './Iconpicker.component.html'
 })
 export class IconpickerComponent implements OnInit, ControlValueAccessor {
-    // @ViewChild("ngbIconpicker") erf: ElementRef;
     @Input() placeholder: string = null;
     @Input() minlength: number;
     @Input() maxlength: number;
     @Input() disabled: any;
     @Input() readonly: any = false;
     @Input() editable = true;
-    private _onChange = (_: any) => { };
-    private _onTouched = () => null;
+
     formControlValue: string;
     modalRef: NgbModalRef;
+    private _onChange = (_: any) => { };
+    private _onTouched = () => null;
     writeValue(obj: any): void {
-      if (obj){
+      if (obj) {
         this.formControlValue = obj;
       }
     }

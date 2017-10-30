@@ -6,10 +6,10 @@ import { LoggerService } from '../../frame/service/logger.service';
 import { FormVerifiyService } from '../../frame/service/formVerifiy.service';
 
 @Component({
-  selector: 'app-format-coder',
-  templateUrl: './formatCoder.component.html',
+  selector: 'app-format-dropdown',
+  templateUrl: './formatDropdown.component.html',
 })
-export class FormatCoderComponent extends BaseComponent implements OnInit {
+export class FormatDropdownComponent extends BaseComponent implements OnInit {
 
     constructor(public activeModal: NgbActiveModal
         , private fb: FormBuilder
@@ -19,12 +19,14 @@ export class FormatCoderComponent extends BaseComponent implements OnInit {
         }
   @Input() formControl: FormControl;
   ngOnInit() {
-    let dateFormat = {prefix: ''};
+    let dateFormat = {code: '',
+                      data: ''};
     if (this.formControl && this.formControl.value) {
        dateFormat =  JSON.parse(this.formControl.value);
     }
     this.ngbForm = this.fb.group({
-      prefix: [dateFormat.prefix, Validators.required]
+      code: [dateFormat.code],
+      data: [dateFormat.data]
     });
     this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
   }

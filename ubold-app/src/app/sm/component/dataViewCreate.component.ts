@@ -11,7 +11,7 @@ import { Application } from '../constant/application.constant';
 
 
 @Component({
-    selector: 'sm-dataViewCreate',
+    selector: 'app-sm-dataview-create',
     templateUrl: './dataViewCreate.component.html'
 })
 // dataView create/update
@@ -28,7 +28,7 @@ export class DataViewCreateComponent implements OnInit {
     @Input() viewModel: any;
     @Input() isView = false;
     insert = false;
-
+    DICT_COMPONENTTYPE = GoldbalConstant.DICT_COMPONENTTYPE;
     constructor(
         public activeModal: NgbActiveModal,
         private fb: FormBuilder,
@@ -53,7 +53,7 @@ export class DataViewCreateComponent implements OnInit {
         const cols = new Array<ColumOptions>();
         this.columns.forEach(col => {
 
-            //修改idfield,version默认hidden
+            // 修改idfield,version默认hidden
             if (!this.insert
                 && (col.field === this.dataViewModule.options.idField
                     || col.field === this.dataViewModule.options.version)) {
@@ -67,7 +67,7 @@ export class DataViewCreateComponent implements OnInit {
     }
 
     onSubmit() {
-        console.info(JSON.stringify(this.ngbForm.value))
+        // console.info(JSON.stringify(this.ngbForm.value));
         const url = this.insert ? Application.ubold_sm_insert : Application.ubold_sm_modfity;
         this.httpService.doPost(url + this.dataViewModule.dataViewCode, this.ngbForm.value).subscribe(response => {
             if (GoldbalConstant.STATUS_CODE.SUCCESS === response.code) {
@@ -91,7 +91,7 @@ export class DataViewCreateComponent implements OnInit {
             // fg[element.field] = new FormControl(this.viewModel[element.field], <any>Validators.required),
 
             //表单验证
-            var array = this.createValidators(element);
+            const array = this.createValidators(element);
             if (element.maxlength) {
                 array.push(Validators.maxLength(element.maxlength));
             }

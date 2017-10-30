@@ -46,12 +46,12 @@ export class GoldbalConstant {
         hidden: 'hidden',
         radio: 'checkbox',
         textarea: 'textarea',
-        select: 'select',
+        dropdown: 'dropdown',
         text: 'text',
         datetimepicker: 'datetimepicker',
         upload: 'upload',
         selector: 'selector',
-        coder: 'coder'
+        code: 'code'
     };
 
     /*表达式*/

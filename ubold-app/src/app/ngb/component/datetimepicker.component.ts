@@ -27,19 +27,19 @@ export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
                 `
 })
 export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
-    @Input() format: string;
+    @Input() dataFormat: string;
     @Input() placeholder: string = null;
     @Input() disabled: any = false;
     @Input() readonly: any = false;
     @Input() minlength: number;
     @Input() maxlength: number;
-    @Input() timepicker:boolean = false;
+    @Input() timepicker = false;
     formControlValue: string;
+    $defaultformart = 'Y-m-d H:i:s';
     @ViewChild('ngbDatetimepicker') erf: ElementRef;
     private _onChange = (_: any) => { };
     private _onTouched = () => null;
     constructor() {}
-    $defaultformart = 'Y-m-d H:i:s';
     writeValue(obj: any): void {
         this.formControlValue = obj;
     }
@@ -50,18 +50,18 @@ export class DatetimepickerComponent implements OnInit, ControlValueAccessor {
         this._onTouched = fn;
     }
     ngOnInit(): void {
-        if(this.format){
-            this.$defaultformart = this.format;
+        if (this.dataFormat) {
+            this.$defaultformart =  JSON.parse( this.dataFormat ).format;
         }
-        $.datetimepicker.setLocale('ch');//设置中文
+        $.datetimepicker.setLocale('ch'); // 设置中文
         const self = this;
         $(this.erf.nativeElement).datetimepicker({
             format: this.$defaultformart,
-            timepicker:this.timepicker,    //显示时间选项
-            yearStart:2000,     //设置最小年份
-            yearEnd:2050,        //设置最大年份
-            todayButton: true,    //显示选择今天按钮
-            onChangeDateTime:function(current_time,$input){
+            timepicker: this.timepicker,    // 显示时间选项
+            yearStart: 2000,     // 设置最小年份
+            yearEnd: 2050,        // 设置最大年份
+            todayButton: true,    // 显示选择今天按钮
+            onChangeDateTime: function(current_time,$input){
                 self.formControlValue = $input.val();
                 self._onChange(self.formControlValue);
             }
