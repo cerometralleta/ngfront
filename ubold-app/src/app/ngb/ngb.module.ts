@@ -11,6 +11,7 @@ import { HttpService } from '../frame/service/http.service';
 import { ConfirmService } from '../frame/service/confirm.service';
 import { LoggerService } from '../frame/service/logger.service';
 import { NgbCodeComponent } from './component/ngbCode.component';
+import { NgbDropdownComponent } from './component/ngbDropdown.component';
 
 
 /**
@@ -19,9 +20,10 @@ import { NgbCodeComponent } from './component/ngbCode.component';
  */
 @NgModule({
     imports: [BrowserModule, FormsModule, Routing, HttpModule, JsonpModule, NgbModule, NgbModule.forRoot()],
-    exports: [NgbTreeComponent, NgbGridComponent, NgbCodeComponent, NgbModule, NgbCodeComponent, DatetimepickerComponent],
+    exports: [NgbTreeComponent, NgbGridComponent, NgbCodeComponent, NgbModule, NgbCodeComponent,
+        DatetimepickerComponent, NgbDropdownComponent],
     declarations: [
-        NgbTreeComponent, NgbGridComponent, NgbCodeComponent, DatetimepickerComponent
+        NgbTreeComponent, NgbGridComponent, NgbCodeComponent, DatetimepickerComponent, NgbDropdownComponent
     ],
     providers: [LoggerService, AppRoutingProviders, HttpService, ConfirmService]
 })

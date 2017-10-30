@@ -6,7 +6,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     template: `
                 <div class="modal-header">
                     <h5 class="modal-title">{{title || 'Confirm'}}</h5>
-                    <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" ></button>
+                    <button type="button" class="close" (click)="activeModal.dismiss()" ></button>
                   </div>
                   <div class="modal-body">
                     <p>{{message || 'Are you sure?'}}</p>

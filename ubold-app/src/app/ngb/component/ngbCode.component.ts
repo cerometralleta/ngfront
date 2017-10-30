@@ -23,16 +23,13 @@ export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
  * datetimepicker
  */
 export class NgbCodeComponent implements OnInit, ControlValueAccessor {
-    // @ViewChild("dateTimePicker") erf: ElementRef;
-    @Input() dataFormat: string;
     // 外部传入属性
-    // @Input() type: string = 'text';
+    @Input() dataFormat: string;
     @Input() placeholder: string = null;
     @Input() minlength: number;
     @Input() maxlength: number;
     @Input() disabled: any;
     @Input() readonly: any = true;
-    // @Input() editable = true;
     formControlValue: string;
 
     // the method set in registerOnChange, it is just 
