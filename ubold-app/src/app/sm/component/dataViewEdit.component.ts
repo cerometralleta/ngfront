@@ -362,10 +362,11 @@ export class DataViewEditComponent implements OnInit {
     this.formGroup = {
       id: [this.formData.id],
       version: [this.formData.version],
-      dataViewCode: [this.formData.dataViewCode, [
-        Validators.required,
-        Validators.maxLength(30)]
-      ],
+      // dataViewCode: [this.formData.dataViewCode, [
+      //   Validators.required,
+      //   Validators.maxLength(30)]
+      // ],
+      dataViewCode: new FormControl({value: this.formData.dataViewCode, disabled: !this.insert}),
       dataViewName: [this.formData.dataViewName, [
         Validators.required,
         Validators.maxLength(32)]

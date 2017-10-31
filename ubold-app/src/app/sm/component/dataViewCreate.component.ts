@@ -44,7 +44,7 @@ export class DataViewCreateComponent implements OnInit {
             this.viewModel = {};
         }
         this.columnfilter();
-        this.createFormGroup()
+        this.createFormGroup();
         this.ngbForm = new FormGroup(this.formgroups);
         // this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
     }
@@ -59,7 +59,7 @@ export class DataViewCreateComponent implements OnInit {
                     || col.field === this.dataViewModule.options.version)) {
                 col.fieldType = GoldbalConstant.DICT_COMPONENTTYPE.hidden;
                 cols.push(col);
-            } else if (this.colstatus(col)) {
+            } else if (this.elementVisible(col)) {
                 cols.push(col);
             }
         });
@@ -78,12 +78,21 @@ export class DataViewCreateComponent implements OnInit {
         });
     }
 
-    colstatus(column: ColumOptions) {
+    // 表单元素是否显示
+    elementVisible(column: ColumOptions) {
         if (this.isView) {
             return column.view;
         }
         const result = this.insert ? column.insert : column.updateType !== GoldbalConstant.MODIFTY_TYPES.hide;
         return result;
+    }
+
+    // 修改操作设置数据 disable
+    elementDisabled(el: ColumOptions){
+        if (this.insert) {
+            return false;
+        }
+        return el.updateType === GoldbalConstant.MODIFTY_TYPES.disable;
     }
 
     createFormGroup() {
@@ -95,8 +104,8 @@ export class DataViewCreateComponent implements OnInit {
             if (element.maxlength) {
                 array.push(Validators.maxLength(element.maxlength));
             }
-            // errors
-            this.formgroups[element.field] = new FormControl(this.viewModel[element.field], array);
+            this.formgroups[element.field] = new FormControl({value: this.viewModel[element.field],
+                disabled: this.elementDisabled(element) }, array);
         });
     }
 

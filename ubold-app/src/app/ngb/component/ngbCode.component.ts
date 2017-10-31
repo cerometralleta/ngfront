@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, forwardRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, forwardRef, ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, FormGroup, FormBuilder, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Application } from '../../sm/constant/application.constant';
 import { GoldbalConstant } from '../../sm/constant/global.constant';
@@ -28,10 +28,10 @@ export class NgbCodeComponent implements OnInit, ControlValueAccessor {
     @Input() placeholder: string = null;
     @Input() minlength: number;
     @Input() maxlength: number;
-    @Input() disabled: any;
     @Input() readonly: any = true;
+    @ViewChild('textInput') _elementRef: ElementRef;
+    disabled: any;
     formControlValue: string;
-
     // the method set in registerOnChange, it is just 
     // a placeholder for a method that takes one parameter, 
     // we use it to emit changes back to the form
@@ -41,6 +41,7 @@ export class NgbCodeComponent implements OnInit, ControlValueAccessor {
         , public httpService: HttpService
         , public toastr: ToastrService
         , private changeDetectorRef: ChangeDetectorRef
+        , private _renderer: Renderer2
     ) {}
     ngOnInit() {}
     getCode() {
@@ -75,6 +76,11 @@ export class NgbCodeComponent implements OnInit, ControlValueAccessor {
     //  设置当控件接收到 touched 事件后，调用的函数
     registerOnTouched(fn: any) {
         this.onTouched = fn;
+    }
+
+    setDisabledState(isDisabled: boolean) {
+        this.disabled = isDisabled;
+        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
     }
 }
 

@@ -1,11 +1,10 @@
 <div class="bootstrap-filestyle input-group">
-    <input type="text" class="form-control" 
+    <input type="text" class="form-control" #textInput 
     [placeholder]="placeholder"
     [ngModel]="formControlValue"
     [minlength]="minlength"
     [maxlength]="maxlength"
     [readonly]="readonly"
-    [disabled]="disabled"
     >
     <span class="group-span-filestyle input-group-btn" tabindex="0" (click)="getCode()" *ngIf="!disabled">
         <label for="filestyle-4" class="btn btn-primary ">
