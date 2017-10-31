@@ -366,7 +366,8 @@ export class DataViewEditComponent implements OnInit {
       //   Validators.required,
       //   Validators.maxLength(30)]
       // ],
-      dataViewCode: new FormControl({value: this.formData.dataViewCode, disabled: !this.insert}),
+      dataViewCode: new FormControl({value: this.formData.dataViewCode, disabled: !this.insert},
+        [Validators.required, Validators.maxLength(30)]),
       dataViewName: [this.formData.dataViewName, [
         Validators.required,
         Validators.maxLength(32)]
