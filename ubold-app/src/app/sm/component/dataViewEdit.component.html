@@ -468,7 +468,7 @@
                     </div>
                   </td>
                   <td>
-                    <select class="form-control" formControlName="fieldType" placeholder="字段类型">
+                    <select class="form-control" formControlName="fieldType" placeholder="字段类型" (change)="fieldTypeChange($event,columOptions)">
                          <option *ngFor="let fieldType of fieldTypes" [value]="fieldType.code">{{fieldType.text}}</option>
                        </select>
                   </td>

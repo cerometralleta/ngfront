@@ -217,8 +217,12 @@ export class DataViewEditComponent implements OnInit {
       colOptions.controls.pattern.setValue(result);
     }, (reason) => {});
   }
-
-
+  // 字段类型变更事件
+  fieldTypeChange($event, columOptions: FormGroup) {
+    if ($event.target.value !== columOptions.controls.fieldType.value){
+      columOptions.controls.dataFormat.setValue(null);
+    }
+  }
   // 数据格式化 TODO 切换类型清空dataformat
   openFormat(colOptions: FormGroup) {
       let formatComponent;
@@ -655,7 +659,6 @@ export class DataViewEditComponent implements OnInit {
         }, (reason) => { });
       });
   }
-
 
   // 提交表单
   onSubmit() {

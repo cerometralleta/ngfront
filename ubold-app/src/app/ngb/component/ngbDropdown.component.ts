@@ -3,7 +3,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpService } from '../../frame/service/http.service';
 import { GoldbalConstant } from '../../sm/constant/global.constant';
 import { Application } from '../../sm/constant/application.constant';
-import { ControlValueAccessor, FormGroup, FormBuilder, FormControl, NG_VALUE_ACCESSOR, SelectControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, FormGroup, FormBuilder, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -14,7 +14,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'ng4b-dropdown',
     template: ` <select class="form-control"
-                [ngModel]="formControlValue"
+                [ngModel]="_selectValue"
                 [minlength]="minlength"
                 [maxlength]="maxlength"
                 [disabled]="disabled"
@@ -23,16 +23,16 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
                 </select>
               `
 })
-export class NgbDropdownComponent implements OnInit{
+export class NgbDropdownComponent implements OnInit, ControlValueAccessor {
   @Input() dataFormat: string;
   @Input() minlength: number;
   @Input() maxlength: number;
   @Input() disabled: boolean;
   @Input() readonly = true;
   datalist = {};
-  formControlValue = [];
-  private propagateChange = (_: any) => { };
-  private onTouched = () => null;
+  private _selectValue: any = '';
+  private _onTouchedCallback: () => {};
+  private _onChangeCallback: (_: any) => {};
   constructor(public httpService: HttpService) {
   }
   ngOnInit(): void {
@@ -53,20 +53,27 @@ export class NgbDropdownComponent implements OnInit{
       //   }
       // }
     }
-
-     // 该方法用于将模型中的新值写入视图或 DOM 属性中。
-     writeValue(value: any) {
-      this.formControlValue = value;
+    get selectValue(): any {
+      return this._selectValue;
     }
-
-    // 设置当控件接收到 change 事件后，调用的函数
+    set selectValue(value: any) {
+      if (value !== this._selectValue) {
+        // this._inputValue = value;
+        this._onChangeCallback(value);
+      }
+      // this.hasValue = (value != null && value.length > 0)
+       this._onTouchedCallback();
+    }
+    // From ControlValueAccessor interface
+    writeValue(value: any) {
+      this._selectValue = value;
+    }
+    // From ControlValueAccessor interface
     registerOnChange(fn: any) {
-        this.propagateChange = fn;
+      this._onChangeCallback = fn;
     }
-
-    //  设置当控件接收到 touched 事件后，调用的函数
+    // From ControlValueAccessor interface
     registerOnTouched(fn: any) {
-        this.onTouched = fn;
+      this._onTouchedCallback = fn;
     }
-    setDisabledState(isDisabled: boolean): void {}
   }
