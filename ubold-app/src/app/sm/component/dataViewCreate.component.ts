@@ -89,7 +89,7 @@ export class DataViewCreateComponent implements OnInit {
 
     // 修改操作设置数据 disable
     elementDisabled(el: ColumOptions){
-        if (this.insert) {
+        if (this.insert || this.isView) {
             return false;
         }
         return el.updateType === GoldbalConstant.MODIFTY_TYPES.disable;
