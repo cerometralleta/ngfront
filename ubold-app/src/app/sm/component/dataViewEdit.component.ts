@@ -217,13 +217,11 @@ export class DataViewEditComponent implements OnInit {
       colOptions.controls.pattern.setValue(result);
     }, (reason) => {});
   }
-  // 字段类型变更事件
+  // 字段类型变更事件,TODO 切换类型清空dataformat
   fieldTypeChange($event, columOptions: FormGroup) {
-    if ($event.target.value !== columOptions.controls.fieldType.value){
-      columOptions.controls.dataFormat.setValue(null);
-    }
+    columOptions.controls.dataFormat.setValue(null);
   }
-  // 数据格式化 TODO 切换类型清空dataformat
+  // 数据格式化 
   openFormat(colOptions: FormGroup) {
       let formatComponent;
       switch (colOptions.value.fieldType) {
@@ -358,24 +356,13 @@ export class DataViewEditComponent implements OnInit {
   buildForm(): void {
     this.createTreeGroup();
     this.createOptionsFormGroup();
-
     this.formGroup = {
       id: [this.formData.id],
       version: [this.formData.version],
-      // dataViewCode: [this.formData.dataViewCode, [
-      //   Validators.required,
-      //   Validators.maxLength(30)]
-      // ],
-      dataViewCode: new FormControl({value: this.formData.dataViewCode, disabled: !this.insert},
-        [Validators.required, Validators.maxLength(30)]),
-      dataViewName: [this.formData.dataViewName, [
-        Validators.required,
-        Validators.maxLength(32)]
-      ],
-      sqlId: [this.formData.sqlId, [
-        Validators.required,
-        Validators.maxLength(50)]
-      ],
+      dataViewCode: [{value: this.formData.dataViewCode, disabled: false},
+        [Validators.required, Validators.maxLength(30)]],
+      dataViewName: [this.formData.dataViewName, [Validators.required, Validators.maxLength(32)]],
+      sqlId: [this.formData.sqlId, [Validators.required, Validators.maxLength(50)]],
       remark: [this.formData.remark, Validators.maxLength(250)],
       options: this.optionsFormGroup,
       columns: this.fb.array(this.createColumnsFormArray()),
