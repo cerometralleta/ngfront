@@ -351,7 +351,6 @@ export class DataViewEditComponent implements OnInit {
 
     });
   }
-
   // 创建form
   buildForm(): void {
     this.createTreeGroup();
@@ -359,7 +358,7 @@ export class DataViewEditComponent implements OnInit {
     this.formGroup = {
       id: [this.formData.id],
       version: [this.formData.version],
-      dataViewCode: [{value: this.formData.dataViewCode, disabled: false},
+      dataViewCode: [{value: this.formData.dataViewCode, disabled: !this.insert},
         [Validators.required, Validators.maxLength(30)]],
       dataViewName: [this.formData.dataViewName, [Validators.required, Validators.maxLength(32)]],
       sqlId: [this.formData.sqlId, [Validators.required, Validators.maxLength(50)]],
