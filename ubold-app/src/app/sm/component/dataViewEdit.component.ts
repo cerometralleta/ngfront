@@ -651,7 +651,7 @@ export class DataViewEditComponent implements OnInit {
 
   // 提交表单
   onSubmit() {
-    this.formData = this.ngbForm.value;
+    this.formData = this.ngbForm.getRawValue();
     this.httpService.doPost(Application.ubold_sm_persistent, this.formData)
       .subscribe(resp => {
         if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
