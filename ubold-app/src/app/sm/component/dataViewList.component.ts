@@ -127,19 +127,19 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         this.options.columns.push(id);
 
         const dataViewCode = new ColumOptions();
-        dataViewCode.field = 'dataViewCode';
+        dataViewCode.field = 'dataviewcode';
         dataViewCode.title = '编号';
         dataViewCode.sortable = true;
         this.options.columns.push(dataViewCode);
         const dataViewName = new ColumOptions();
-        dataViewName.field = 'dataViewName';
+        dataViewName.field = 'dataviewname';
         dataViewName.title = '名称';
-        dataViewName.sortable=true;
+        dataViewName.sortable = true;
         this.options.columns.push(dataViewName);
 
         const sqlId = new ColumOptions();
-        sqlId.field = 'sqlId';
-        sqlId.title = 'sqlId';
+        sqlId.field = 'sqlid';
+        sqlId.title = 'sqlid';
         sqlId.sortable = true;
         this.options.columns.push(sqlId);
 
@@ -154,13 +154,13 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         this.options.columns.push(version);
 
         const createTime = new ColumOptions();
-        createTime.field = 'createTime';
+        createTime.field = 'create_time';
         createTime.title = '创建时间';
         createTime.sortable = true;
         this.options.columns.push(createTime);
 
         const lastUpdateTime = new ColumOptions();
-        lastUpdateTime.field = 'lastUpdateTime';
+        lastUpdateTime.field = 'last_update_time';
         lastUpdateTime.title = '更新时间';
         lastUpdateTime.sortable = true;
         this.options.columns.push(lastUpdateTime);
@@ -218,7 +218,7 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
             this.toastr.warning('请选择要修改的记录!');
             return;
         }
-        this.router.navigate(['home', 'dataviewedit', _selected[0].dataViewCode]);
+        this.router.navigate(['home', 'dataviewedit', _selected[0].dataviewcode]);
         // this.router.navigate(['home','dataviewedit',id]);
     }
 
