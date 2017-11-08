@@ -273,7 +273,7 @@ export class DataViewEditComponent implements OnInit {
         modalRef.componentInstance.dataViewModule = resp.result;
         modalRef.result.then((result) => {
           const _treeFormGroup = <FormGroup>this.ngbForm.controls['treeOptions'];
-          const _selectedSqlId = result[0].sqlId;
+          const _selectedSqlId = result[0].sqlid;
 
           if (_selectedSqlId === _treeFormGroup.controls.sqlId.value) {
             return;
@@ -625,20 +625,20 @@ export class DataViewEditComponent implements OnInit {
         modalRef.componentInstance.dataViewModule = resp.result;
         modalRef.result.then((result) => {
           const _selectedValue = result[0];
-          if (_selectedValue.sqlId === this.ngbForm.controls.sqlId.value) {
+          if (_selectedValue.sqlid === this.ngbForm.controls.sqlId.value) {
             return;
           }
 
           // 返回的sqlId
-          this.ngbForm.controls.sqlId.setValue(_selectedValue.sqlId);
+          this.ngbForm.controls.sqlId.setValue(_selectedValue.sqlid);
 
           // 更新默认数据请求地址
-          this.optionsFormGroup.controls.url.setValue('/' + _selectedValue.sqlId);
+          this.optionsFormGroup.controls.url.setValue('/' + _selectedValue.sqlid);
 
           // 设置默认主键
-          if (_selectedValue.masterTableId) {
-            this.optionsFormGroup.controls.idField.setValue(_selectedValue.masterTableId);
-            this.optionsFormGroup.controls.uniqueId.setValue(_selectedValue.masterTableId);
+          if (_selectedValue.mastertableid) {
+            this.optionsFormGroup.controls.idField.setValue(_selectedValue.mastertableid);
+            this.optionsFormGroup.controls.uniqueId.setValue(_selectedValue.mastertableid);
           }
 
           // 清空生成的列
