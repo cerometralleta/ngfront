@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Application } from '../../sm/constant/application.constant';
+import { HttpService } from '../service/http.service';
+import { LoggerService } from '../service/logger.service';
+import { GoldbalConstant } from '../../sm/constant/global.constant';
+import { ToastrService } from '../service/toastr.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'login-app',
@@ -7,12 +13,28 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent implements OnInit {
-    constructor(private router:Router) { }
+    constructor(private logger: LoggerService,
+        private httpService: HttpService,
+        private router: Router,
+        private fb: FormBuilder,
+        private toastr: ToastrService) { }
+    ngbForm: FormGroup;
+    creadencials = {username: '', password: ''};
+    ngOnInit() {
+        this.ngbForm = this.fb.group({
+            username: [this.creadencials.username, Validators.required],
+            password: [this.creadencials.password, Validators.required]
+        });
+    }
 
-    ngOnInit() { }
-
-    login(username:string,pwd:string){
-        const creadencials = {'email': username, 'password': pwd};
-        this.router.navigate(['/home']);
+    onSubmit(username: string, pwd: string) {
+        this.httpService.doPost(Application.baseContext + '/login', this.ngbForm.value)
+        .subscribe(resp => {
+            if (GoldbalConstant.STATUS_CODE.SUCCESS !== resp.code) {
+                this.toastr.error('登录失败');
+                return;
+            }
+            this.router.navigate(['/home']);
+        });
     }
 }

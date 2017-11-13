@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpModule,JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routing, AppRoutingProviders } from '../app.routes';
 import { TopbarComponent } from './component/topbar.component';
 import { LoginComponent } from './component/login.component';
@@ -18,7 +18,7 @@ import { HttpService } from './service/http.service';
  * ningzk
  */
 @NgModule({
-    imports: [BrowserModule, FormsModule, Routing, HttpModule, JsonpModule],
+    imports: [BrowserModule, FormsModule, Routing, HttpModule, JsonpModule, ReactiveFormsModule],
     exports: [],
     declarations: [
         TopbarComponent,

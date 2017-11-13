@@ -8,17 +8,17 @@
 
 
         <div class="panel-body">
-            <form class="form-horizontal m-t-20">
+            <form class="form-horizontal m-t-20" role="form" [formGroup]="ngbForm" (ngSubmit)="onSubmit()">
 
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input class="form-control" type="text" required="" #username placeholder="Username">
+                        <input class="form-control" type="text" required="required" formControlName="username" placeholder="Username">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control" type="password" required="" #password placeholder="Password">
+                        <input class="form-control" type="password" required="required" formControlName="password" placeholder="Password">
                     </div>
                 </div>
 
@@ -36,7 +36,7 @@
 
                 <div class="form-group text-center m-t-40">
                     <div class="col-xs-12">
-                        <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" type="submit" (click)="login(username.value, password.value)">Log In</button>
+                        <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" type="submit" >Log In</button>
                     </div>
                 </div>
 
