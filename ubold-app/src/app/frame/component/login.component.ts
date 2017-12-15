@@ -6,6 +6,7 @@ import { LoggerService } from '../service/logger.service';
 import { GoldbalConstant } from '../../sm/constant/global.constant';
 import { ToastrService } from '../service/toastr.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Headers, RequestOptions } from '@angular/http';
 
 @Component({
     selector: 'login-app',
@@ -27,9 +28,12 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    onSubmit(username: string, pwd: string) {
-        this.httpService.doPost(Application.baseContext + '/login', this.ngbForm.value)
-        .subscribe(resp => {
+    onSubmit() {
+        const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
+        const requestOptions = new RequestOptions({headers: headers});
+        this.httpService.http.post(Application.baseContext + '/rabc/auth/api/permit/login', this.ngbForm.value)
+        .subscribe(result => {
+            const resp = result.json();
             if (GoldbalConstant.STATUS_CODE.SUCCESS !== resp.code) {
                 this.toastr.error('登录失败');
                 return;
