@@ -29,16 +29,17 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
-        const requestOptions = new RequestOptions({headers: headers});
-        this.httpService.http.post(Application.baseContext + '/rabc/auth/api/permit/login', this.ngbForm.value)
-        .subscribe(result => {
-            const resp = result.json();
-            if (GoldbalConstant.STATUS_CODE.SUCCESS !== resp.code) {
-                this.toastr.error('登录失败');
-                return;
-            }
-            this.router.navigate(['/home']);
-        });
+        // const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
+        // const requestOptions = new RequestOptions({headers: headers});
+        // this.httpService.http.post(Application.baseContext + '/rabc/auth/api/permit/login', this.ngbForm.value)
+        // .subscribe(result => {
+        //     const resp = result.json();
+        //     if (GoldbalConstant.STATUS_CODE.SUCCESS !== resp.code) {
+        //         this.toastr.error('登录失败');
+        //         return;
+        //     }
+        //     this.router.navigate(['/home']);
+        // });
+        this.router.navigate(['/home']);
     }
 }

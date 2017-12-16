@@ -11,13 +11,14 @@ import { SmModule } from './sm/sm.module';
 import { DataViewResolver } from './sm/resolver/dataViewResolver';
 import { FormViewResolver } from './sm/resolver/formViewResolver';
 import { CustomReuseStrategy } from './frame/service/customReuseStrategy.service';
+import { LocalStorage } from './frame/storage/LocalStorage';
 @NgModule({
     imports: [FrameModule, Routing, Ngb2Module, SmModule],
     exports: [],
     declarations: [
         AppComponent
     ],
-    providers: [AppRoutingProviders, DataViewResolver, FormViewResolver,
+    providers: [AppRoutingProviders, DataViewResolver, FormViewResolver, LocalStorage,
        { provide: LocationStrategy, useClass: HashLocationStrategy  },
        {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
     ],
