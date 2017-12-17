@@ -29,10 +29,9 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
+        const headers = new Headers({ 'Content-Type': 'application/json'});
         const requestOptions = new RequestOptions({headers: headers});
-        this.httpService.http.post(Application.baseContext + '/login',
-         'username=' + this.ngbForm.value.username + '&password=' + this.ngbForm.value.password , requestOptions)
+        this.httpService.http.post(Application.login,this.ngbForm.value , requestOptions)
         .subscribe(result => {
             const resp = result.json();
             if (GoldbalConstant.STATUS_CODE.SUCCESS !== resp.code) {

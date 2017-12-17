@@ -4,6 +4,9 @@
 export class Application {
     static baseContext = 'http://localhost:8090/ubold';
 
+    // 授权登陆
+    static login: string = Application.baseContext + '/rabc/auth/api/permit/doLogin';
+
     // 创建视图
     static ubold_sm_persistent: string = Application.baseContext + '/sm/view/api/persistent';
 
