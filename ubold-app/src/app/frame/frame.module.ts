@@ -11,6 +11,7 @@ import { RightSidebarComponent } from './component/rightSidebar.component';
 import { MainComponent } from './component/main.component';
 import { LoggerService } from './service/logger.service';
 import { HttpService } from './service/http.service';
+import { LocalStorage } from './storage/local.storage';
 
 
 /**
@@ -28,6 +29,6 @@ import { HttpService } from './service/http.service';
         RightSidebarComponent,
         MainComponent
     ],
-    providers: [LoggerService, AppRoutingProviders, HttpService]
+    providers: [LoggerService, AppRoutingProviders, HttpService, LocalStorage]
 })
 export class FrameModule { }
