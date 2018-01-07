@@ -1,5 +1,7 @@
 import { Component, OnInit ,AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { LoggerService } from '../../frame/service/logger.service';
+import { FrameConstants } from '../../frame/constants/FrameConstants';
+import { LocalStorage } from '../../frame/storage/local.storage';
 declare var $: any;
 @Component({
     selector: 'ng4b-tree',
@@ -23,10 +25,14 @@ export class NgbTreeComponent implements AfterViewInit {
      @Input() setting: any;
      @Input() znodes: Array<any>;
 
-    constructor(private logger: LoggerService) {
+    constructor(private logger: LoggerService, private ls: LocalStorage) {
      }
 
     ngAfterViewInit() {
+        $(document).ajaxSend(function(event, jqxhr, settings) {
+            const tokenKey = FrameConstants.Authorization;
+            jqxhr.setRequestHeader(tokenKey, this.ls.get(FrameConstants.Authorization));
+        });
         // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
         // Add 'implements AfterViewInit' to the class.
         this.ngbTree = $.fn.zTree.init($(this.erf.nativeElement), this.setting, this.znodes);
