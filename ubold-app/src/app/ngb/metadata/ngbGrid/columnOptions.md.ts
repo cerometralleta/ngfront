@@ -5,9 +5,9 @@ export class Columns {
     field: string;
     title: string;
     updateType: string;
-    view: boolean;
-    insert: boolean;
-    visible: boolean;
+    view = false;
+    insert = false;
+    visible = true;
     dataType: string;
     fieldType: string;
     pattern: string; // 验证规则
@@ -20,8 +20,8 @@ export class Columns {
  * bootstrap table ftr
  */
 export class ColumOptions extends Columns{
-    radio: boolean;
-    checkbox: boolean;
+    radio = false;
+    checkbox = false;
     titleTooltip: string;
     class: string;
     rowspan: number;
@@ -31,21 +31,20 @@ export class ColumOptions extends Columns{
     falign: string;
     valign: string;
     width: string;
-    sortable: boolean;
-    order: string;
-    cardVisible: boolean;
-    switchable: boolean;
-    uniqueCheck: boolean;
-    clickToSelect: boolean;
+    sortable = false;
+    order = 'asc';
+    cardVisible = true;
+    switchable = true;
+    uniqueCheck = false;
+    clickToSelect = true;
     formatter: any;
     footerFormatter: any;
     // events:any;
     // sorter:any;
     sortName: string;
     // cellStyle:any;
-    searchable: boolean;
-    searchFormatter: boolean;
-    escape: boolean;
+    searchable = true;
+    searchFormatter = true;
+    escape = false;
     events: any;
-   
 }
