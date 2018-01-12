@@ -13,81 +13,80 @@ export class Options {
     classes: string;
     sortClass: string;
     height: number;
-    undefinedText: string;
-    // 条纹
-    striped = true;
-    // sortName:string;
+    undefinedText = '-';
+    striped = false; // 设置为 true 会有隔行变色效果
+    // sortName:string; // 定义排序列,通过url方式获取数据填写字段名，否则填写下标
     sortOrder: string;
-    sortStable: boolean;
+    sortStable = false;
     iconsPrefix: string;
     iconSize: string;
     buttonsClass: string;
     // icons:any;
-    data: Array<any>;
+    data = [];
     dataField: string;
     totalField: string;
     ajax: any;
-    method: string;
+    method = 'get';
     url: string;
-    cache: boolean;
-    contentType: string;
-    dataType: string;
+    cache = true;
+    contentType = 'application/json';
+    dataType = 'json';
     ajaxOptions: any;
     queryParams: any;
-    queryParamsType: string;
+    queryParamsType = 'undefined';
     // responseHandler:any;
-    pagination: boolean;
-    paginationLoop: boolean;
-    onlyInfoPagination: boolean;
-    sidePagination: string;
-    pageNumber: number;
-    pageSize: number;
+    pagination = false; // 设置为 true 会在表格底部显示分页条
+    paginationLoop = true; // 设置为 true 启用分页条无限循环的功能。
+    onlyInfoPagination = false; // 设置为 true 只显示总数据数，而不显示分页按钮。需要 pagination='True'
+    sidePagination = 'server'; // 设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
+    pageNumber = 1;
+    pageSize = 10;
     // pageList:Array<number>;
     selectItemName: string;
-    smartDisplay: boolean;
-    escape: boolean;
-    search: boolean;
-    searchOnEnterKey: boolean;
-    strictSearch: boolean;
+    smartDisplay = true;
+    escape = false;
+    search = false;
+    searchOnEnterKey = false; // 设置为 true时，按回车触发搜索方法，否则自动触发搜索方法
+    strictSearch = false; // 设置为 true启用 全匹配搜索，否则为模糊搜索
     searchText: string;
-    searchTimeOut = 3;
-    trimOnSearch: number;
-    showHeader: boolean;
-    showFooter: boolean;
-    showColumns: boolean;
-    showRefresh: boolean;
-    showToggle: boolean;
-    showPaginationSwitch: boolean;
-    minimumCountColumns: number;
+    searchTimeOut = 500;
+    trimOnSearch = true; // 	设置为 true 将允许空字符搜索
+    showHeader = true; // 是否显示列头
+    showFooter = false;
+    showColumns = false; // 是否显示 内容列下拉框
+    showRefresh = false;
+    showToggle = false; // 是否显示 切换试图（table/card）按钮
+    showPaginationSwitch = false;
+    minimumCountColumns = 1; // 当列数小于此值时，将隐藏内容列下拉框。
     idField: string;
     version: string;
-    editView: boolean;
+  //  editView: boolean;
     uniqueId: string;
-    cardView: boolean;
-    detailView: boolean;
+    cardView = false; // 设置为 true将显示card视图，适用于移动设备。否则为table试图，适用于pc
+    detailView = false; // 设置为 true 可以显示详细页面模式。
     // detailFormatter:any;
-    searchAlign: string;
-    buttonsAlign: string;
-    toolbarAlign: string;
-    paginationVAlign: string;
-    paginationHAlign: string;
-    paginationDetailHAlign: string;
-    paginationPreText: string;
-    paginationNextText: string;
-    clickToSelect: boolean;
-    singleSelect: boolean;
+    searchAlign = 'right';
+    buttonsAlign = 'right';
+    toolbarAlign = 'left';
+    paginationVAlign = 'bottom';
+    paginationHAlign = 'right';
+    paginationDetailHAlign = 'left';
+    paginationPreText = '<';
+    paginationNextText = 	'>';
+    clickToSelect = false;
+    singleSelect = false; // 设置True 将禁止多选
     toolbar: string;
-    checkboxHeader: boolean;
-    maintainSelected: boolean;
-    sortable: boolean;
-    silentSort: boolean;
+    checkboxHeader = true;
+    maintainSelected = true; // 设置为 true 在点击分页按钮或搜索按钮时，将记住checkbox的选择项
+    sortable = true; // 设置为false 将禁止所有列的排序
+    silentSort = true; // 设置为 false 将在点击分页按钮时，自动记住排序项。仅在 sidePagination设置为 server时生效.
     // rowStyle:any;
     // rowAttributes:any;
     // customSearch:any;
     // customSort:any;
     locale: string;
     // footerStyle:any;
-    showExport: boolean;
+    showExport = false;
     exportDataType: string; // export data type, support: 'basic', 'all', 'selected'.
 
     // funcButtons:Array<FuncButton>;
