@@ -18,6 +18,9 @@ import { ConfirmService } from '../../frame/service/confirm.service';
 import { FormVerifiyService } from '../../frame/service/formVerifiy.service';
 import { Application } from '../constant/application.constant';
 import { ColumOptions } from '../../ngb/metadata/ngbGrid/columnOptions.md';
+import { LocalStorage } from '../../frame/storage/local.storage';
+import { CommonUtils } from '../../frame/utils/common.util';
+import { FrameConstants } from '../../frame/constants/FrameConstants';
 
 
 /**
@@ -53,11 +56,12 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         private logger: LoggerService
         , private httpService: HttpService
         , private activatedRoute: ActivatedRoute
-        , private router:Router
+        , private router: Router
         , private modalService: NgbModal
         , private fb: FormBuilder
         , private toastr: ToastrService
         , private confirmService: ConfirmService
+        , private ls: LocalStorage
         , formVerifiyService: FormVerifiyService
     ) {
         super(formVerifiyService);
@@ -80,6 +84,7 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         this.options.showColumns = true;
         this.options.showRefresh = true;
         this.options.showToggle = true;
+        this.options.ajaxOptions = CommonUtils.getAjaxTokenHeader(this.ls.get(FrameConstants.Authorization));
         const self = this;
         this.options.queryParams = function (params) {
             params.searchArray = self.searchForm.value.searchArray;

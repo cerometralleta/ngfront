@@ -1,4 +1,5 @@
 import { Application } from '../../sm/constant/application.constant';
+import { FrameConstants } from '../constants/FrameConstants';
 export class CommonUtils {
     constructor() {}
 
@@ -28,5 +29,11 @@ export class CommonUtils {
             }
         });
         return false;
+    }
+
+    // 返回一个bootatrap header token
+    static getAjaxTokenHeader(token) {
+         // 设置Authorization
+         return {headers: {'Authorization' : token}};
     }
 }

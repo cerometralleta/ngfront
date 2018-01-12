@@ -5,6 +5,7 @@ import { ColumOptions } from '../metadata/ngbGrid/columnOptions.md';
 import { GoldbalConstant } from '../../sm/constant/global.constant';
 import { LocalStorage } from '../../frame/storage/local.storage';
 import { FrameConstants } from '../../frame/constants/FrameConstants';
+import { CommonUtils } from '../../frame/utils/common.util';
 declare var $: any;
 
 /**
@@ -25,9 +26,8 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
         if (this.options.url.indexOf('http://') < 0 && this.options.url.indexOf('https://') < 0) {
             this.options.url = Application.ubold_sm_sql_bootstrap_dataList + this.options.url;
         }
-        //设置token
-        const tokenKey = FrameConstants.Authorization;
-        this.options.ajaxOptions = {tokenKey: this.ls.get(FrameConstants.Authorization)};
+        // 设置Authorization
+        this.options.ajaxOptions = CommonUtils.getAjaxTokenHeader(this.ls.get(FrameConstants.Authorization));
 
         // 深度复制
         // let bootstrapOptions = JSON.parse(JSON.stringify(this.options));
