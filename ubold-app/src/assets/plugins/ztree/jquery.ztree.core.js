@@ -97,6 +97,7 @@
 			contentType: "application/x-www-form-urlencoded",
 			type: "post",
 			dataType: "text",
+			headers: {},
 			url: "",
 			autoParam: [],
 			otherParam: [],
@@ -1003,6 +1004,7 @@
 				url: tools.apply(setting.async.url, [setting.treeId, node], setting.async.url),
 				data: tmpParam,
 				dataType: setting.async.dataType,
+				headers: setting.async.headers,
 				success: function(msg) {
 					if (_tmpV != data.getRoot(setting)._ver) {
 						return;
