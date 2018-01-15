@@ -44,11 +44,11 @@ export class Application {
 
      // 生成视图列
     // tslint:disable-next-line:member-ordering
-    static ubold_sqldefine_createColumnList: string = Application.baseContext + '/sm/sql/api/createColumnList/';
+    static ubold_sqldefine_createColumnList: string = Application.baseContext + '/sm/sql/createColumnList/';
 
     // 创建表单视图
     // tslint:disable-next-line:member-ordering
-    static ubold_form_persistent: string = Application.baseContext + '/sm/form/api/persistent';
+    static ubold_form_persistent: string = Application.baseContext + '/sm/form/persistent';
     // tslint:disable-next-line:member-ordering
-    static ubold_form_query: string = Application.baseContext + '/sm/form/api/find/';
+    static ubold_form_query: string = Application.baseContext + '/sm/form/find/';
 }

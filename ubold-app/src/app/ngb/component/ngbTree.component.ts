@@ -32,7 +32,7 @@ export class NgbTreeComponent implements AfterViewInit {
     ngAfterViewInit() {
 
         // 设置ztree ajax header
-        this.setting.async.headers = CommonUtils.getAjaxTokenHeader(this.ls.get(FrameConstants.Authorization));
+        this.setting.async.headers = CommonUtils.getAjaxToken2Header(this.ls.get(FrameConstants.Authorization));
         // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
         // Add 'implements AfterViewInit' to the class.
         this.ngbTree = $.fn.zTree.init($(this.erf.nativeElement), this.setting, this.znodes);

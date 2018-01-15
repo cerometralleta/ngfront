@@ -36,4 +36,9 @@ export class CommonUtils {
          // 设置Authorization
          return {headers: {'Authorization' : token}};
     }
+
+    static getAjaxToken2Header(token) {
+        // 设置Authorization
+        return  {'Authorization' : token};
+   }
 }
