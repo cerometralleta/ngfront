@@ -97,7 +97,7 @@
               <th>url</th>
               <th>option</th>
               <th>location</th>
-              <th>remove</th>
+              <th style="text-align: center">remove</th>
             </tr>
           </thead>
           <tbody formArrayName="buttons">
@@ -108,9 +108,13 @@
               </td>
               <!-- <td>{{fbt.controls.title.value}}</td> -->
               <td>{{fbt.controls.url.value}}</td>
-              <td>{{fbt.controls.option.value}}</td>
-              <td>{{fbt.controls.location.value}}</td>
               <td>
+                  <span class="label label-warning">{{fbt.controls.option.value}}</span>
+              </td>
+              <td>
+                  <span class="label label-info">{{fbt.controls.location.value}}</span>
+              </td>
+              <td style="text-align: center">
                 <a class="table-action-btn" (click)="removeControls(ngbForm.controls.buttons,idx)">
                   <p><i class="md md-clear"></i></p>
                 </a>
