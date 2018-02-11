@@ -92,7 +92,8 @@
           <!--formGroupName 作用域-->
           <thead>
             <tr class="trnowrap">
-              <th>title</th>
+              <th>preview</th>
+              <!-- <th>title</th> -->
               <th>url</th>
               <th>option</th>
               <th>location</th>
@@ -102,7 +103,10 @@
           <tbody formArrayName="buttons">
             <tr class="tr-center" (click)="openOption(fbt)" *ngFor="let fbt of buttonControls; let idx=index"
               [formGroupName]="idx">
-              <td>{{fbt.controls.title.value}}</td>
+              <td>
+                  <button type="button" class="btn {{fbt.controls.btnsize.value}} {{fbt.controls.color.value}}"><i class="{{fbt.controls.icon.value}} m-r-5"></i> {{fbt.controls.title.value}}</button>
+              </td>
+              <!-- <td>{{fbt.controls.title.value}}</td> -->
               <td>{{fbt.controls.url.value}}</td>
               <td>{{fbt.controls.option.value}}</td>
               <td>{{fbt.controls.location.value}}</td>
