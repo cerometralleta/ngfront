@@ -42,6 +42,7 @@ export class SqldefineEditComponent extends BaseComponent implements OnInit {
       mastertableid: [data.mastertableid, Validators.required],
       selectsql: [data.selectsql, Validators.required],
       sqlexpand: [data.sqlexpand],
+      table: [data.table],
       sqldesc: [data.sqldesc]
     });
     // this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));

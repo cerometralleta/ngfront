@@ -23,6 +23,32 @@
             <input type="text"  class="form-control" placeholder="数据表" formControlName="table" />
         </div>
     </div>
+
+    <div class="form-group row">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td>tb_sm_sqldefine</td>
+                            <td>SQL自定义</td>
+                        </tr>
+                        <tr>
+                            <td>tb_rbac_permission</td>
+                            <td>权限管理</td>
+                        </tr>
+                        <tr>
+                            <td>tb_rbac_permission_func</td>
+                            <td>权限功能</td>
+                        </tr>
+                        <tr>
+                            <td>tb_rbac_user_group</td>
+                            <td>权限用户组</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
     
     <div class="form-group row">
         <label class="col-sm-2 control-label">主表</label>
@@ -39,6 +65,20 @@
     </div>
 
     <div class="form-group row">
+        <label class="col-sm-2 control-label">SQL</label>
+        <div class="col-sm-10">
+            <textarea rows="5" cols="20" class="form-control" placeholder="SQL" formControlName="selectsql"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 control-label">子查询</label>
+        <div class="col-sm-10">
+            <textarea rows="5" cols="20" class="form-control" placeholder="子查询" formControlName="sqlexpand"></textarea>
+        </div>
+    </div>
+    
+    <div class="form-group row">
         <label class="col-sm-2 control-label">状态</label>
         <div class="col-sm-10">
             <select class="form-control" formControlName="status" placeholder="状态">
@@ -46,30 +86,18 @@
             </select>
         </div>
     </div>
-
-    <div class="form-group row">
-        <label class="col-sm-2 control-label">Query SQL</label>
-        <div class="col-sm-10">
-            <textarea rows="5" cols="20" class="form-control" placeholder="Query SQL" formControlName="selectsql"></textarea>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-sm-2 control-label">SQL expand</label>
-        <div class="col-sm-10">
-            <textarea rows="5" cols="20" class="form-control" placeholder="sqlexpand" formControlName="sqlexpand"></textarea>
-        </div>
-    </div>
-
+    
     <div class="form-group row">
         <label class="col-sm-2 control-label">备注</label>
         <div class="col-sm-10">
-            <textarea rows="5" cols="20" class="form-control" placeholder="sqldesc" formControlName="sqldesc"></textarea>
+            <textarea rows="5" cols="20" class="form-control" placeholder="备注" formControlName="sqldesc"></textarea>
         </div>
     </div>
+
 </div>
 <div class="modal-footer">
       <form (ngSubmit)="onSubmit()">
         <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">确定</button>
-      </form>
+        <button type="button" class="btn w-sm btn-white waves-effect" (click)="activeModal.dismiss()" >取消</button>
+    </form>
 </div>
