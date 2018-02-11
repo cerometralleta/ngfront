@@ -109,5 +109,11 @@ export class DictConstant {
     return exportDataType;
   }
 
+  static createStatusList() {
+    const status = new Array<any>();
+    status.push({ code: '1', text: '已发布' });
+    status.push({ code: '0', text: '待发布' });
+    return status;
+  }
 
 }

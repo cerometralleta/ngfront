@@ -27,6 +27,7 @@ import { FormatDatepickerComponent } from './component/format-datepicker/format-
 import { FormatCodeComponent } from './component/formatCode.component';
 import { FormatDropdownComponent } from './component/formatDropdown.component';
 import { FormatSelectorComponent } from './component/formatSelector.component';
+import { SqldefineEditComponent } from './component/sqldefineEdit.component';
 
 
 /**
@@ -43,7 +44,8 @@ import { FormatSelectorComponent } from './component/formatSelector.component';
         DataViewComponent, DataViewEditComponent, ButtonDialogComponent, TypeFilterPipe, DataViewCreateComponent
         , FormViewCreateComponent , FormViewEditComponent, FormViewFieldEditComponent, FormViewComponent,
         SelectorComponent, DataViewListComponent, ConfirmComponent, IconpickerComponent,
-        PatternComponent, FormatDatepickerComponent, FormatCodeComponent, FormatDropdownComponent, FormatSelectorComponent
+        PatternComponent, FormatDatepickerComponent, FormatCodeComponent, FormatDropdownComponent, 
+        FormatSelectorComponent,SqldefineEditComponent
     ],
     entryComponents: [ButtonDialogComponent, FormViewFieldEditComponent,
         FormViewComponent, SelectorComponent, ConfirmComponent, PatternComponent,
