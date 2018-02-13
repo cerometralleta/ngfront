@@ -116,4 +116,10 @@ export class DictConstant {
     return status;
   }
 
+  static createTypeList() {
+    const type = new Array<any>();
+    type.push({ code: '1', text: '菜单' });
+    type.push({ code: '0', text: '功能' });
+    return type;
+  }
 }

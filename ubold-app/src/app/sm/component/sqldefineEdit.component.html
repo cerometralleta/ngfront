@@ -1,6 +1,6 @@
 <!--新增列表单模板-->
 <div class="modal-header">
-    <h4 class="modal-title">SQL自定义</h4>
+    <h5 class="modal-title">SQL自定义</h5>
 </div>
 <div class="modal-body" [formGroup]="ngbForm">
     <div class="form-group row">
@@ -20,7 +20,7 @@
     <div class="form-group row">
         <label class="col-sm-2 control-label">数据表</label>
         <div class="col-sm-10">
-            <input type="text"  class="form-control" placeholder="数据表" formControlName="table" />
+            <input type="text" (change)="queryTable()"  class="form-control" placeholder="数据表"  formControlName="table" />
         </div>
     </div>
 
@@ -29,29 +29,9 @@
             <div class="col-sm-10">
                 <table class="table table-bordered table-striped">
                     <tbody>
-                        <tr>
-                            <td>tb_sm_sqldefine</td>
-                            <td>SQL自定义</td>
-                        </tr>
-                        <tr>
-                            <td>tb_rbac_permission</td>
-                            <td>权限管理</td>
-                        </tr>
-                        <tr>
-                            <td>tb_rbac_permission_func</td>
-                            <td>权限功能</td>
-                        </tr>
-                        <tr>
-                            <td>tb_rbac_user_group</td>
-                            <td>权限用户组</td>
-                        </tr>
-                        <tr>
-                            <td>tb_user_info</td>
-                            <td>用户信息</td>
-                        </tr>
-                        <tr>
-                            <td>tb_user_dict</td>
-                            <td>数据字典</td>
+                        <tr *ngFor="let tb of tableList;">
+                            <td (click)="querytableInfo(tb.tableName)">{{tb.tableName}}</td>
+                            <td>{{tb.remark}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -66,9 +46,9 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-2 control-label">主表ID</label>
+        <label class="col-sm-2 control-label">主键</label>
         <div class="col-sm-10">
-            <input type="text" readonly class="form-control" placeholder="主表ID" formControlName="mastertableid" />
+            <input type="text" readonly class="form-control" placeholder="主键" formControlName="mastertableid" />
         </div>
     </div>
 
@@ -105,7 +85,7 @@
 </div>
 <div class="modal-footer">
       <form (ngSubmit)="onSubmit()">
-        <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">确定</button>
+        <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">保存</button>
         <button type="button" class="btn w-sm btn-white waves-effect" (click)="activeModal.dismiss()" >取消</button>
     </form>
 </div>

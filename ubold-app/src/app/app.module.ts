@@ -11,8 +11,9 @@ import { SmModule } from './sm/sm.module';
 import { DataViewResolver } from './sm/resolver/dataViewResolver';
 import { FormViewResolver } from './sm/resolver/formViewResolver';
 import { CustomReuseStrategy } from './frame/service/customReuseStrategy.service';
+import { RabcModule } from './rabc/rabc.module';
 @NgModule({
-    imports: [FrameModule, Routing, Ngb2Module, SmModule],
+    imports: [FrameModule, Routing, Ngb2Module, SmModule, RabcModule],
     exports: [],
     declarations: [
         AppComponent

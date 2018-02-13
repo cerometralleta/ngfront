@@ -50,7 +50,7 @@ import { SqldefineEditComponent } from './component/sqldefineEdit.component';
     entryComponents: [ButtonDialogComponent, FormViewFieldEditComponent,
         FormViewComponent, SelectorComponent, ConfirmComponent, PatternComponent,
         // tslint:disable-next-line:whitespace
-        FormatDatepickerComponent,FormatCodeComponent, FormatDropdownComponent, FormatSelectorComponent],
+        FormatDatepickerComponent,FormatCodeComponent, FormatDropdownComponent, FormatSelectorComponent,SqldefineEditComponent],
     providers: [LoggerService, AppRoutingProviders, HttpService, ToastrService, FormVerifiyService]
 })
 export class SmModule { }

@@ -108,11 +108,14 @@
               </td>
               <!-- <td>{{fbt.controls.title.value}}</td> -->
               <td>{{fbt.controls.url.value}}</td>
-              <td style="text-align: center">
-                  <span class="label label-warning">{{fbt.controls.option.value}}</span>
+              <td style="text-align: center" [ngSwitch]="fbt.controls.option.value">
+                  <span class="label label-warning" *ngSwitchCase="'service'" >{{fbt.controls.option.value}}</span>
+                  <span class="label label-purple" *ngSwitchCase="'modal'" >{{fbt.controls.option.value}}</span>
+                  <span class="label label-danger" *ngSwitchCase="'window'" >{{fbt.controls.option.value}}</span>
               </td>
-              <td style="text-align: center">
-                  <span class="label label-info">{{fbt.controls.location.value}}</span>
+              <td style="text-align: center" [ngSwitch]="fbt.controls.location.value">
+                  <span class="label label-info" *ngSwitchCase="'nav'" >{{fbt.controls.location.value}}</span>
+                  <span class="label label-purple" *ngSwitchCase="'row'" >{{fbt.controls.location.value}}</span>
               </td>
               <td style="text-align: center">
                 <a class="table-action-btn" (click)="removeControls(ngbForm.controls.buttons,idx)">

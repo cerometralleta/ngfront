@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h5 class="modal-title">菜单编辑</h5>
+</div>
+<div class="modal-body" [formGroup]="ngbForm">
+    <div class="form-group row">
+        <label class="col-sm-2 control-label">名称</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="名称" formControlName="name" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+            <label class="col-sm-2 control-label">父级菜单</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="父级菜单" formControlName="parent" />
+            </div>
+        </div>
+
+    <div class="form-group row">
+            <label class="col-sm-2 control-label">类型</label>
+            <div class="col-sm-10">
+                <select class="form-control" formControlName="type" placeholder="类型">
+                    <option *ngFor="let type of typeList" [value]="type.code">{{type.text}}</option>
+                </select>
+            </div>
+        </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 control-label">URL</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="URL" formControlName="link" />
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label class="col-sm-2 control-label">备注</label>
+        <div class="col-sm-10">
+            <textarea rows="5" cols="20" class="form-control" placeholder="备注" formControlName="remark"></textarea>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+      <form (ngSubmit)="onSubmit()">
+        <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">保存</button>
+        <button type="button" class="btn w-sm btn-white waves-effect" (click)="activeModal.dismiss()" >取消</button>
+    </form>
+</div>
