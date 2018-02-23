@@ -323,20 +323,11 @@ export class DataViewEditComponent implements OnInit {
         this.formData.options.method = 'post';
         this.formData.options.pagination = true;
         this.formData.options.pageSize = 50;
-        this.formData.options.sortable = true;
         this.formData.options.showToggle = true;
-        this.formData.options.smartDisplay = true;
-        this.formData.options.searchTimeOut = 3;
-        this.formData.options.showHeader = true;
         this.formData.options.showColumns = true;
         this.formData.options.showRefresh = true;
-        this.formData.options.sidePagination = 'server';
-        this.formData.options.queryParamsType = 'undefined';
         this.formData.options.pageNumber = 1;
         this.formData.options.checkboxHeader = false;
-        this.formData.options.maintainSelected = true;
-        this.formData.options.exportDataType = 'basic';
-        this.formData.options.version = 'version';
         // this.formData.options.idField = "id";
 
         // tree

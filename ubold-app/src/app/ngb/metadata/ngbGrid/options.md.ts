@@ -59,7 +59,7 @@ export class Options {
     showPaginationSwitch = false;
     minimumCountColumns = 1; // 当列数小于此值时，将隐藏内容列下拉框。
     idField: string;
-    version: string;
+    version = 'version';
   //  editView: boolean;
     uniqueId: string;
     cardView = false; // 设置为 true将显示card视图，适用于移动设备。否则为table试图，适用于pc
@@ -87,7 +87,7 @@ export class Options {
     locale: string;
     // footerStyle:any;
     showExport = false;
-    exportDataType: string; // export data type, support: 'basic', 'all', 'selected'.
+    exportDataType = 'basic'; // export data type, support: 'basic', 'all', 'selected'.
 
     // funcButtons:Array<FuncButton>;
 }

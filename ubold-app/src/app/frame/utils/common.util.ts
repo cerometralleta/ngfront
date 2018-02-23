@@ -34,7 +34,7 @@ export class CommonUtils {
     // 返回一个bootatrap header token
     static getAjaxTokenHeader(token) {
          // 设置Authorization
-         return {headers: {'Authorization' : token}};
+         return {headers: this.getAjaxToken2Header(token)};
     }
 
     static getAjaxToken2Header(token) {
