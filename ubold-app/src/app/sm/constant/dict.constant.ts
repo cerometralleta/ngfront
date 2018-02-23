@@ -109,6 +109,7 @@ export class DictConstant {
     return exportDataType;
   }
 
+<<<<<<< HEAD
   // sqldefine status
   static createSqlDefineStatus() {
     const status = new Array<any>();
@@ -117,5 +118,19 @@ export class DictConstant {
     return status;
   }
 
+=======
+  static createStatusList() {
+    const status = new Array<any>();
+    status.push({ code: '1', text: '已发布' });
+    status.push({ code: '0', text: '待发布' });
+    return status;
+  }
+>>>>>>> 45cbb03949ecb40b89ca7ab6b6138e5f3647bca5
 
+  static createTypeList() {
+    const type = new Array<any>();
+    type.push({ code: '1', text: '菜单' });
+    type.push({ code: '0', text: '功能' });
+    return type;
+  }
 }

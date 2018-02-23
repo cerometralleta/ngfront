@@ -29,6 +29,7 @@ import { FormatDropdownComponent } from './component/formatDropdown.component';
 import { FormatSelectorComponent } from './component/formatSelector.component';
 import { SmSqldefineEditComponent } from './component/sm-sqldefine-edit/sm-sqldefine-edit.component';
 import { SqldefineEditComponent } from './component/sqldefine-edit/sqldefine-edit.component';
+import { SqldefineEditComponent } from './component/sqldefineEdit.component';
 
 
 /**
@@ -46,11 +47,13 @@ import { SqldefineEditComponent } from './component/sqldefine-edit/sqldefine-edi
         , FormViewCreateComponent , FormViewEditComponent, FormViewFieldEditComponent, FormViewComponent,
         SelectorComponent, DataViewListComponent, ConfirmComponent, IconpickerComponent,
         PatternComponent, FormatDatepickerComponent, FormatCodeComponent, FormatDropdownComponent, FormatSelectorCompo, SmSqldefineEditComponent, SqldefineEditComponentnent
+        PatternComponent, FormatDatepickerComponent, FormatCodeComponent, FormatDropdownComponent, 
+        FormatSelectorComponent,SqldefineEditComponent
     ],
     entryComponents: [ButtonDialogComponent, FormViewFieldEditComponent,
         FormViewComponent, SelectorComponent, ConfirmComponent, PatternComponent,
         // tslint:disable-next-line:whitespace
-        FormatDatepickerComponent,FormatCodeComponent, FormatDropdownComponent, FormatSelectorComponent],
+        FormatDatepickerComponent,FormatCodeComponent, FormatDropdownComponent, FormatSelectorComponent,SqldefineEditComponent],
     providers: [LoggerService, AppRoutingProviders, HttpService, ToastrService, FormVerifiyService]
 })
 export class SmModule { }

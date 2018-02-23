@@ -51,4 +51,8 @@ export class Application {
     static ubold_form_persistent: string = Application.baseContext + '/sm/form/persistent';
     // tslint:disable-next-line:member-ordering
     static ubold_form_query: string = Application.baseContext + '/sm/form/find/';
+
+    // 查询所有数据表
+    static ubold_query_tables: string = Application.baseContext + '/sm/view/querytables/';
+    static ubold_query_querytableInfo: string = Application.baseContext + '/sm/view/querytableInfo/';
 }

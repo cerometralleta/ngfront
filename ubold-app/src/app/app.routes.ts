@@ -11,6 +11,8 @@ import { FormViewCreateComponent } from './sm/component/formViewCreate.component
 import { FormViewComponent } from './sm/component/formView.component';
 import { FormViewResolver } from './sm/resolver/formViewResolver';
 import { LoginComponent } from './frame/component/login.component';
+import { SqldefineEditComponent } from './sm/component/sqldefineEdit.component';
+import { MenuEditComponent } from './rabc/component/MenuEdit.component';
 
 
 
@@ -62,6 +64,14 @@ const appRoutes: Routes = [
             {
                 path: 'formviewcreate',
                 component: FormViewCreateComponent
+            },
+            {
+                path: 'sqldefineedit',
+                component: SqldefineEditComponent
+            },
+            {
+                path: 'menuedit',
+                component: MenuEditComponent
             },
             {
                 path: 'formview/:sqlid',
