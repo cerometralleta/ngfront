@@ -109,23 +109,12 @@ export class DictConstant {
     return exportDataType;
   }
 
-<<<<<<< HEAD
-  // sqldefine status
-  static createSqlDefineStatus() {
-    const status = new Array<any>();
-    status.push({ code: '1', text: '启用' });
-    status.push({ code: '0', text: '禁用' });
-    return status;
-  }
-
-=======
   static createStatusList() {
     const status = new Array<any>();
     status.push({ code: '1', text: '已发布' });
     status.push({ code: '0', text: '待发布' });
     return status;
   }
->>>>>>> 45cbb03949ecb40b89ca7ab6b6138e5f3647bca5
 
   static createTypeList() {
     const type = new Array<any>();
