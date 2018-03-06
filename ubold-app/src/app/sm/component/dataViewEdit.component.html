@@ -442,7 +442,7 @@
                   <th>字段类型</th>
                   <th>长度</th>
                   <!--<th>序号</th>-->
-                  <th>更多</th>
+                  <th>操作</th>
                 </tr>
               </thead>
               <tbody formArrayName="columns">
@@ -642,9 +642,12 @@
                       </div>
                     </ng-template>
                     <!--更多设置-->
-                    <button type="button" class="btn btn-default waves-effect waves-light btn-sm" (click)="openFormat(columOptions)"> <i class="md md-format-color-text"></i></button>
-                    <button type="button" class="btn btn-default waves-effect waves-light btn-sm" (click)="openPattern(columOptions)"> <i class="md md-spellcheck"></i></button>
-                    <button type="button" class="btn btn-default waves-effect waves-light btn-sm" (click)="openMore(content)"> <i class="fa fa-ellipsis-h"></i></button>
+                    <a  (click)="openFormat(columOptions)">控件设置</a>
+                    <a  (click)="openPattern(columOptions)">表单校验</a>
+                    <a  (click)="openMore(content)">更多设置</a>
+                    <!-- <button type="button" class="btn btn-default waves-effect waves-light btn-sm" (click)="openFormat(columOptions)"> <i class="md md-format-color-text"></i></button> -->
+                    <!-- <button type="button" class="btn btn-default waves-effect waves-light btn-sm" (click)="openPattern(columOptions)"> <i class="md md-spellcheck"></i></button> -->
+                    <!-- <button type="button" class="btn btn-default waves-effect waves-light btn-sm" (click)="openMore(content)"> <i class="fa fa-ellipsis-h"></i></button> -->
                   </td>
                 </tr>
               </tbody>
