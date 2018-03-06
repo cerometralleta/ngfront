@@ -28,6 +28,10 @@
             <label class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
                 <table class="table table-bordered table-striped">
+                    <thead>
+                        <th>名称</th>
+                        <th>说明</th>
+                    </thead>
                     <tbody>
                         <tr *ngFor="let tb of tableList;">
                             <td (click)="querytableInfo(tb.tableName)">{{tb.tableName}}</td>
