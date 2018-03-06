@@ -8,6 +8,7 @@ import { FormVerifiyService } from '../../frame/service/formVerifiy.service';
 import { GoldbalConstant } from '../constant/global.constant';
 import { Application } from '../constant/application.constant';
 import { HttpService } from '../../frame/service/http.service';
+import { SqlDefine } from '../metadata/sqlDefine.md';
 
 @Component({
   selector: 'sqldefine-edit',
@@ -19,7 +20,7 @@ export class SqldefineEditComponent extends BaseComponent implements OnInit {
         // public activeModal: NgbActiveModal,
          private fb: FormBuilder
         , private logger: LoggerService
-        ,private httpService: HttpService
+        , private httpService: HttpService
         , formVerifiyService: FormVerifiyService) {
             super(formVerifiyService);
         }
@@ -27,17 +28,7 @@ export class SqldefineEditComponent extends BaseComponent implements OnInit {
   codePrefix = '{"prefix":"SM"}';
   statusList: Array<any> = DictConstant.createStatusList();
   tableList: Array<any>;
-  data = {
-      sqlId: '',
-      sqlName: '',
-      status: 0,
-      mastertable: '',
-      mastertableid: '',
-      selectsql: '',
-      sqlexpand: '',
-      table: '',
-      sqldesc: ''
-  };
+  data = new SqlDefine();
   ngOnInit() {
 
     // 更新操作不查询
@@ -53,7 +44,7 @@ export class SqldefineEditComponent extends BaseComponent implements OnInit {
       table: [this.data.table],
       sqldesc: [this.data.sqldesc]
     });
-    // this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
+    this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
   }
 
   queryTable(){

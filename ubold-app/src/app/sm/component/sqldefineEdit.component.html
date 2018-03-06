@@ -85,11 +85,18 @@
             <textarea rows="5" cols="20" class="form-control" placeholder="备注" formControlName="sqldesc"></textarea>
         </div>
     </div>
-
+    
 </div>
 <div class="modal-footer">
       <form (ngSubmit)="onSubmit()">
         <button type="submit" class="btn w-sm btn-default waves-effect waves-light" [disabled]="!ngbForm.valid">保存</button>
         <button type="button" class="btn w-sm btn-white waves-effect" (click)="activeModal.dismiss()" >取消</button>
     </form>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div *ngIf="formErrors && formErrors.length > 0" class="alert alert-danger">
+            <p *ngFor="let error of formErrors">{{ error }} <br></p>
+        </div>
+    </div>
 </div>

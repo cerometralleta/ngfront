@@ -661,7 +661,7 @@
       <div class="form-group row">
 
         <!--列表数据-->
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <div class="card-box overflow">
             <table class="table table table-hover table-bordered m-0 table-actions-bar">
               <!--formGroupName 作用域-->
@@ -669,9 +669,9 @@
                 <tr class="trnowrap">
                   <th>名称</th>
                   <th>字段</th>
-                  <th>数据类型</th>
+                  <!-- <th>数据类型</th> -->
                   <!--<th>字段类型</th>-->
-                  <th>长度</th>
+                  <!-- <th>长度</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -679,9 +679,9 @@
                 <tr class="tr-center" *ngFor="let columOptions of columnControls;" (click)="filterSelected(columOptions)">
                   <td>{{columOptions.controls.title.value}}</td>
                   <td>{{columOptions.value.field}}</td>
-                  <td>{{columOptions.controls.dataType.value}}</td>
+                  <!-- <td>{{columOptions.controls.dataType.value}}</td> -->
                   <!--<td>{{column.fieldType}}</td>-->
-                  <td>{{columOptions.value.maxlength}}</td>
+                  <!-- <td>{{columOptions.value.maxlength}}</td> -->
                 </tr>
               </tbody>
             </table>
@@ -689,7 +689,7 @@
         </div>
         <!--列表字段-->
 
-        <div class="col-sm-6">
+        <div class="col-sm-8">
           <div class="card-box overflow">
             <table class="table table table-hover table-bordered m-0 table-actions-bar">
               <!--formGroupName 作用域-->
