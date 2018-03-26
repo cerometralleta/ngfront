@@ -25,8 +25,8 @@ export class ButtonDialogComponent implements OnInit {
 
     @Input() formGroup:FormGroup;
     ngOnInit() {
-        let btn = new Button();
-        btn.location = GoldbalConstant.LOCATION.nav;
+        const btn = new Button();
+        btn.position = GoldbalConstant.LOCATION.nav;
         btn.option = GoldbalConstant.OPTIONS_BUTTON.service;
         btn.size = GoldbalConstant.modal_size_lg;
         btn.btnsize = '';
@@ -47,7 +47,7 @@ export class ButtonDialogComponent implements OnInit {
             icon: [btn.icon],
             title: [btn.title, Validators.required],
             url: [btn.url],
-            location: [btn.location, Validators.required],
+            position: [btn.position, Validators.required],
             sort: [btn.sort],
             btnsize: [btn.btnsize],
             color: [btn.color]

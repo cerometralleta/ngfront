@@ -69,10 +69,10 @@ export class Mock {
         dataViewModule.treeOptions.pIdKey = 'pId';
         dataViewModule.buttons = new Array<Button>();
         const button = new Button();
-        button.location = 'row';
+        button.position = 'row';
         button.title = '增加';
         const button1 = new Button();
-        button1.location = 'nav';
+        button1.position = 'nav';
         button1.title = '增加';
         dataViewModule.buttons.push(button);
         dataViewModule.buttons.push(button1);

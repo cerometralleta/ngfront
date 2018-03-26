@@ -95,7 +95,7 @@ export class DataViewEditComponent implements OnInit {
           icon: [button.icon],
           title: [button.title, [Validators.required, Validators.maxLength(10)]],
           url: [button.url],
-          location: [button.location, [Validators.required]],
+          position: [button.position, [Validators.required]],
           btnsize: [button.btnsize],
           color:[button.color]
         }));
@@ -120,7 +120,7 @@ export class DataViewEditComponent implements OnInit {
       icon: [button.icon],
       title: [button.title, [Validators.required, Validators.maxLength(10)]],
       url: [button.url],
-      location: [button.location, [Validators.required]],
+      position: [button.position, [Validators.required]],
       btnsize:[button.btnsize],
       color:[button.color]
     }));
@@ -146,25 +146,25 @@ export class DataViewEditComponent implements OnInit {
       case GoldbalConstant.CRUD.create:
         btn.title = '增加';
         btn.color = 'btn-default';
-        btn.location =  GoldbalConstant.LOCATION.nav;
+        btn.position =  GoldbalConstant.LOCATION.nav;
         btn.option = GoldbalConstant.OPTIONS_BUTTON.modal;
         break;
       case GoldbalConstant.CRUD.delete:
         btn.title = '删除';
         btn.color = 'btn-danger';
-        btn.location =  GoldbalConstant.LOCATION.row;
+        btn.position =  GoldbalConstant.LOCATION.row;
         btn.option = GoldbalConstant.OPTIONS_BUTTON.service;
         break;
       case GoldbalConstant.CRUD.update:
         btn.title = '修改';
         btn.color = 'btn-warning';
-        btn.location =  GoldbalConstant.LOCATION.row;
+        btn.position =  GoldbalConstant.LOCATION.row;
         btn.option = GoldbalConstant.OPTIONS_BUTTON.modal;
         break;
       case GoldbalConstant.CRUD.retrieve:
         btn.title = '查看';
         btn.color = 'btn-info';
-        btn.location =  GoldbalConstant.LOCATION.row;
+        btn.position =  GoldbalConstant.LOCATION.row;
         btn.option = GoldbalConstant.OPTIONS_BUTTON.modal;
         break;
       default:
@@ -458,7 +458,7 @@ export class DataViewEditComponent implements OnInit {
           icon: [button.icon],
           title: [button.title, [Validators.required, Validators.maxLength(10)]],
           url: [button.url],
-          location: [button.location, [Validators.required]],
+          position: [button.position, [Validators.required]],
           btnsize: [button.btnsize],
           color: [button.color]
         })

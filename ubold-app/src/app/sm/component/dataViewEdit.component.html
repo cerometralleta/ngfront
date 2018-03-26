@@ -96,7 +96,7 @@
               <!-- <th>title</th> -->
               <th style="text-align: center">url</th>
               <th style="text-align: center">option</th>
-              <th style="text-align: center">location</th>
+              <th style="text-align: center">position</th>
               <th style="text-align: center">remove</th>
             </tr>
           </thead>
@@ -113,9 +113,9 @@
                   <span class="label label-purple" *ngSwitchCase="'modal'" >{{fbt.controls.option.value}}</span>
                   <span class="label label-danger" *ngSwitchCase="'window'" >{{fbt.controls.option.value}}</span>
               </td>
-              <td style="text-align: center" [ngSwitch]="fbt.controls.location.value">
-                  <span class="label label-info" *ngSwitchCase="'nav'" >{{fbt.controls.location.value}}</span>
-                  <span class="label label-purple" *ngSwitchCase="'row'" >{{fbt.controls.location.value}}</span>
+              <td style="text-align: center" [ngSwitch]="fbt.controls.position.value">
+                  <span class="label label-info" *ngSwitchCase="'nav'" >{{fbt.controls.position.value}}</span>
+                  <span class="label label-purple" *ngSwitchCase="'row'" >{{fbt.controls.position.value}}</span>
               </td>
               <td style="text-align: center">
                 <a class="table-action-btn" (click)="removeControls(ngbForm.controls.buttons,idx)">

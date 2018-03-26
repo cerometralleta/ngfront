@@ -67,7 +67,7 @@ export class Button {
     icon: string;
     title: string;
     url: string;
-    location: string; // 导航按钮 nav:导航按钮,row:行内按钮
+    position: string; // 导航按钮 nav:导航按钮,row:行内按钮
     sort: number;
     btnsize: string;
     color: string;

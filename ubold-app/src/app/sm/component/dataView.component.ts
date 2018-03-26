@@ -66,7 +66,7 @@ export class DataViewComponent extends SelectorComponent {
     createToolbar(){
         this._toolbar = new Array();
         this.buttons.forEach(btn => {
-            if(btn.location === GoldbalConstant.LOCATION.nav){
+            if(btn.position === GoldbalConstant.LOCATION.nav){
                 this._toolbar.push(btn);
             }
         });
@@ -89,7 +89,7 @@ export class DataViewComponent extends SelectorComponent {
             const _array = [];
             let idx = 0;
             _self.buttons.forEach(btn => {
-                if (btn.location === GoldbalConstant.LOCATION.row) {
+                if (btn.position === GoldbalConstant.LOCATION.row) {
                     _array[idx] = '<button type="button" class="Role_' + btn.id + ' btn ' + btn.color + ' ' +
                     btn.btnsize + '" style="margin-right:15px;">' +
                     '<i class="' + btn.icon + ' m-r-5"></i>' +
@@ -112,7 +112,7 @@ export class DataViewComponent extends SelectorComponent {
     }
 
     getIdValue(button: Button, id?) {
-        if (button.location === GoldbalConstant.LOCATION.row) {
+        if (button.position === GoldbalConstant.LOCATION.row) {
             return id;
         } else {
             const selected = this.getSelections();
