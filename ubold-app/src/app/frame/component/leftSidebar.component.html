@@ -16,21 +16,11 @@
 
                 <li class="text-muted menu-title">Navigation</li>
 
-                <li class="has_sub">
-                    <a  routerLink="main" class="waves-effect"><i class="md md-dashboard"></i> <span> 首页 </span><span class="menu-arrow"></span></a>
-                </li>
-
-                <li class="has_sub">
-                    <a  class="waves-effect" ><i class="md md-group-work"></i> <span> SQL管理 </span> <span class="menu-arrow"></span></a>
-                    <ul class="list-unstyled">
-                        <li><a routerLink="dataview/DV10000000000000">SQLDEFINE LIST</a></li>
-                        <li><a routerLink="dataviewlist">DATAVIEW LIST</a></li>
-                        <li><a routerLink="dataview/DV20171028203619">DATA DICT</a></li>
-                        <!--<li><a routerLink="dataviewedit/DV10000000000000">DataView Edit</a></li>-->
-                        <!--<li><a routerLink="dataviewcreate">DataView Create</a></li>-->
-                        <li><a routerLink="formviewcreate">FormView Create</a></li>
-                        <li><a routerLink="sqldefineedit">SQL DEFINE</a></li>
-                        <li><a routerLink="menuedit">MENU EDIT</a></li>
+                <li class="has_sub" *ngFor="let res of resources">
+                    <a  *ngIf="res.childs" class="waves-effect"><i class="{{res.icon}}"></i> <span> {{res.name}} </span><span class="menu-arrow"></span></a>
+                    <a  *ngIf="!res.childs" class="waves-effect" routerLink="{{res.link}}" ><i class="{{res.icon}}"></i> <span> {{res.name}} </span><span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" >
+                        <li><a routerLink="{{child.link}}" *ngFor="let child of res.childs">{{child.name}}</a></li>
                     </ul>
                 </li>
             </ul>

@@ -20,7 +20,7 @@ export class FormViewEditComponent implements OnInit {
     ngbForm: FormGroup;
 
     // 操作列
-    columns:Array<ColumOptions>;
+    columns: Array<ColumOptions>;
     // 视图数据
     viewModel: any;
     constructor(

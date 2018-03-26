@@ -8,12 +8,12 @@ import { FrameConstants } from '../constants/FrameConstants';
 @Injectable()
 export class HttpService {
 
-    constructor(public http: Http, public jsonp: Jsonp, private ls: LocalStorage) { }
+    constructor(public http: Http, public jsonp: Jsonp, private localStorage: LocalStorage) { }
 
     addRequestOptions(params?) {
         const headers = new Headers({
             'Content-Type': 'application/json',
-            'Authorization': this.ls.get(FrameConstants.Authorization)
+            'Authorization': this.localStorage.get(FrameConstants.Authorization)
          });
         const requestOptions = new RequestOptions({headers: headers});
         requestOptions.params = params;

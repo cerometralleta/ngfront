@@ -61,7 +61,7 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         , private fb: FormBuilder
         , private toastr: ToastrService
         , private confirmService: ConfirmService
-        , private ls: LocalStorage
+        , private localStorage: LocalStorage
         , formVerifiyService: FormVerifiyService
     ) {
         super(formVerifiyService);
@@ -84,7 +84,7 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         this.options.showColumns = true;
         this.options.showRefresh = true;
         this.options.showToggle = true;
-        this.options.ajaxOptions = CommonUtils.getAjaxTokenHeader(this.ls.get(FrameConstants.Authorization));
+        this.options.ajaxOptions = CommonUtils.getAjaxTokenHeader(this.localStorage.get(FrameConstants.Authorization));
         const self = this;
         this.options.queryParams = function (params) {
             params.searchArray = self.searchForm.value.searchArray;

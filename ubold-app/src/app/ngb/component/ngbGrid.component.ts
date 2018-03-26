@@ -18,7 +18,7 @@ declare var $: any;
 })
 export class NgbGridComponent implements OnInit, AfterViewInit {
     @Input() options: BootstrapTableDefaults;
-    constructor(private ls: LocalStorage) { }
+    constructor(private localStorage: LocalStorage) { }
     private ngbootstrapTable: any;
     @ViewChild('ngbootstrapTable') erf: ElementRef;
     ngOnInit() {
@@ -27,7 +27,7 @@ export class NgbGridComponent implements OnInit, AfterViewInit {
             this.options.url = Application.ubold_sm_sql_bootstrap_dataList + this.options.url;
         }
         // 设置Authorization
-        this.options.ajaxOptions = CommonUtils.getAjaxTokenHeader(this.ls.get(FrameConstants.Authorization));
+        this.options.ajaxOptions = CommonUtils.getAjaxTokenHeader(this.localStorage.get(FrameConstants.Authorization));
 
         // 深度复制
         // let bootstrapOptions = JSON.parse(JSON.stringify(this.options));

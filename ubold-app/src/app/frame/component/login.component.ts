@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
         private httpService: HttpService,
         private router: Router,
         private fb: FormBuilder,
-        private ls: LocalStorage,
+        private localStorage: LocalStorage,
         private toastr: ToastrService) { }
     ngbForm: FormGroup;
     creadencials = {username: '', password: ''};
@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
         .subscribe(result => {
             const resp = result.json();
             if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
-                this.ls.set(FrameConstants.Authorization, resp.result);
+                this.localStorage.set(FrameConstants.Authorization, resp.result.tokenId);
+                this.localStorage.set(FrameConstants.RESOURCES, JSON.stringify(resp.result.resources));
                 this.router.navigate(['/home']);
             }else{
                 this.toastr.error('登录失败');

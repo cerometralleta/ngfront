@@ -26,13 +26,13 @@ export class NgbTreeComponent implements AfterViewInit {
      @Input() setting: any;
      @Input() znodes: Array<any>;
 
-    constructor(private logger: LoggerService, private ls: LocalStorage) {
+    constructor(private logger: LoggerService, private localStorage: LocalStorage) {
      }
 
     ngAfterViewInit() {
 
         // 设置ztree ajax header
-        this.setting.async.headers = CommonUtils.getAjaxToken2Header(this.ls.get(FrameConstants.Authorization));
+        this.setting.async.headers = CommonUtils.getAjaxToken2Header(this.localStorage.get(FrameConstants.Authorization));
         // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
         // Add 'implements AfterViewInit' to the class.
         this.ngbTree = $.fn.zTree.init($(this.erf.nativeElement), this.setting, this.znodes);
