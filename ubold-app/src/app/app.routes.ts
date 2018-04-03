@@ -13,6 +13,7 @@ import { FormViewResolver } from './sm/resolver/formViewResolver';
 import { LoginComponent } from './frame/component/login.component';
 import { SqldefineEditComponent } from './sm/component/sqldefineEdit.component';
 import { MenuEditComponent } from './rabc/component/MenuEdit.component';
+import { GuardService } from './rabc/guard/GuardService';
 
 
 
@@ -38,6 +39,7 @@ const appRoutes: Routes = [
                 path: 'dataview/:code',
                 component: DataViewComponent,
                 pathMatch: 'prefix',
+                canActivate: [ GuardService ],
                 resolve: {
 
                     // define dataViewResolver

@@ -12,6 +12,7 @@ import { PermissionMenuComponent } from './component/permissionMenu.component';
 import { MenuEditComponent } from './component/MenuEdit.component';
 import { Ngb2Module } from '../ngb/ngb.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GuardService } from './guard/GuardService';
 
 /**
  * 表单模块
@@ -23,6 +24,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     declarations: [
         PermissionFuncComponent, PermissionMenuComponent, MenuEditComponent
     ],
-    providers: [LoggerService, AppRoutingProviders, HttpService, ConfirmService]
+    providers: [LoggerService, AppRoutingProviders, HttpService, ConfirmService, GuardService]
 })
 export class RabcModule { }
