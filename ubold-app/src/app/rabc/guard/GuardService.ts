@@ -13,7 +13,6 @@ export class GuardService implements CanActivate {
     constructor (private localStorage: LocalStorage, private toastr: ToastrService){
     }
     authority: any;
-    homePath = '/home/';
     canActivate( route: ActivatedRouteSnapshot , state: RouterStateSnapshot) {
         this.authority = JSON.parse(this.localStorage.get(FrameConstants.AUTHORITY));
         const url = this.getUrl(route);
