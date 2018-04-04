@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
             if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
                 this.localStorage.set(FrameConstants.Authorization, resp.result.tokenId);
                 this.localStorage.set(FrameConstants.RESOURCES, JSON.stringify(resp.result.resources));
+                this.localStorage.set(FrameConstants.AUTHORITY, JSON.stringify(resp.result.authority));
                 this.router.navigate(['/home']);
             }else{
                 this.toastr.error('登录失败');

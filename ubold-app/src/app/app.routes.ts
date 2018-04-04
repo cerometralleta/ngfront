@@ -33,6 +33,7 @@ const appRoutes: Routes = [
             },
             {
                 path: 'main',
+                canActivate: [ GuardService ],
                 component: MainComponent
             },
             {
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
             {
                 path: 'dataviewedit/:code',
                 component: DataViewEditComponent,
+                canActivate: [ GuardService ],
                 resolve: {
 
                     // define dataViewResolver
@@ -57,28 +59,34 @@ const appRoutes: Routes = [
             },
             {
                 path: 'dataviewlist',
+                canActivate: [ GuardService ],
                 component: DataViewListComponent
             },
             {
                 path: 'dataviewcreate',
+                canActivate: [ GuardService ],
                 component: DataViewCreateComponent
             },
             {
                 path: 'formviewcreate',
+                canActivate: [ GuardService ],
                 component: FormViewCreateComponent
             },
             {
                 path: 'sqldefineedit',
+                canActivate: [ GuardService ],
                 component: SqldefineEditComponent
             },
             {
                 path: 'menuedit',
+                canActivate: [ GuardService ],
                 component: MenuEditComponent
             },
             {
                 path: 'formview/:sqlid',
                 component: FormViewComponent,
                 pathMatch: 'prefix',
+                canActivate: [ GuardService ],
                 resolve: {
 
                     // define formViewResolver
