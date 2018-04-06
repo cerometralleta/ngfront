@@ -12,6 +12,7 @@ import { ConfirmService } from '../frame/service/confirm.service';
 import { LoggerService } from '../frame/service/logger.service';
 import { NgbCodeComponent } from './component/ngbCode.component';
 import { NgbDropdownComponent } from './component/ngbDropdown.component';
+import { AuthorityDirective } from './directive/authority.directive';
 
 
 /**
@@ -21,9 +22,9 @@ import { NgbDropdownComponent } from './component/ngbDropdown.component';
 @NgModule({
     imports: [BrowserModule, FormsModule, Routing, HttpModule, JsonpModule, NgbModule, NgbModule.forRoot()],
     exports: [NgbTreeComponent, NgbGridComponent, NgbCodeComponent, NgbModule, NgbCodeComponent,
-        DatetimepickerComponent, NgbDropdownComponent],
+        DatetimepickerComponent, NgbDropdownComponent, AuthorityDirective],
     declarations: [
-        NgbTreeComponent, NgbGridComponent, NgbCodeComponent, DatetimepickerComponent, NgbDropdownComponent
+        NgbTreeComponent, NgbGridComponent, NgbCodeComponent, DatetimepickerComponent, NgbDropdownComponent, AuthorityDirective
     ],
     providers: [LoggerService, AppRoutingProviders, HttpService, ConfirmService]
 })

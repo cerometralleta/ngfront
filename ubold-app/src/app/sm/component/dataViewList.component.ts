@@ -84,6 +84,8 @@ export class DataViewListComponent extends BaseComponent implements OnInit {
         this.options.showColumns = true;
         this.options.showRefresh = true;
         this.options.showToggle = true;
+        this.options.singleSelect = true;
+        // this.options.checkboxHeader = false;
         this.options.ajaxOptions = CommonUtils.getAjaxTokenHeader(this.localStorage.get(FrameConstants.Authorization));
         const self = this;
         this.options.queryParams = function (params) {
