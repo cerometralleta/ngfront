@@ -38,7 +38,6 @@ export class DataViewCreateComponent implements OnInit {
 
     ngOnInit() {
         this.columns = this.dataViewModule.columns;
-        // this.columns = Mock.createColumn();
         if (!this.viewModel) {
             this.insert = true;
             this.viewModel = {};
@@ -117,9 +116,9 @@ export class DataViewCreateComponent implements OnInit {
         const control = this.formgroups[column.field];
         const validators = JSON.parse(column.pattern);
         if (control.errors.required) {
-            return validators['required'];
+            return validators[GoldbalConstant.VALIDATORS.required];
         } else if (control.errors.email) {
-            return validators['email'];
+            return validators[GoldbalConstant.VALIDATORS.email];
         } else {
             // requiredPattern 默认添加 ^,$
             const pattern = control.errors.pattern.requiredPattern;
@@ -137,10 +136,10 @@ export class DataViewCreateComponent implements OnInit {
         for (const pattern in validators) {
             if (validators.hasOwnProperty(pattern)) {
                 switch (pattern) {
-                    case 'required':
+                    case GoldbalConstant.VALIDATORS.required:
                         array.push(Validators.required);
                         break;
-                    case 'email':
+                    case GoldbalConstant.VALIDATORS.email:
                         array.push(Validators.email);
                         break;
                     default:

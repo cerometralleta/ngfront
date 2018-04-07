@@ -43,8 +43,6 @@ export class DataViewComponent extends SelectorComponent {
     operateEvents: any = {};
     _toolbar: Array<Button>;
     ngOnInit() {
-        // Mock.createDataViewList(this.dataViewModule);
-
         // 监控路由守卫获取初始化数据
         this.route.data.subscribe(resp => {
             this.dataViewModule = resp.dataViewResolver.result;
@@ -114,13 +112,8 @@ export class DataViewComponent extends SelectorComponent {
     getIdValue(button: Button, id?) {
         if (button.position === GoldbalConstant.LOCATION.row) {
             return id;
-        } else {
-            const selected = this.getSelections();
-            if (!selected) {
-                return;
-            }
-            return selected[0][this.options.idField];
         }
+        return this.getSelections()[0][this.options.idField];
     }
 
     navClick(button: Button, id?) {
@@ -138,9 +131,6 @@ export class DataViewComponent extends SelectorComponent {
                 return;
             case GoldbalConstant.CRUD.update:
                  _idValue = this.getIdValue(button, id);
-                if (!_idValue) {
-                    return;
-                }
                 this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_fetch),
                 { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
@@ -159,9 +149,6 @@ export class DataViewComponent extends SelectorComponent {
                 return;
             case GoldbalConstant.CRUD.retrieve:
                  _idValue = this.getIdValue(button, id);
-                if (!_idValue) {
-                    return;
-                }
                 this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_fetch),
                 { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
@@ -177,9 +164,6 @@ export class DataViewComponent extends SelectorComponent {
                 return;
             case GoldbalConstant.CRUD.delete:
                  _idValue = this.getIdValue(button, id);
-                if (!_idValue) {
-                    return;
-                }
                 this.confirmService.confirm('确认', '确定要删除吗?').then((result) => {
                     this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_delete) + 
                     this.dataViewModule.dataViewCode,
@@ -202,14 +186,14 @@ export class DataViewComponent extends SelectorComponent {
 
     // 非CRUD操作
     unCrudClick(button: Button, id?) {
-        const _idValue = this.getIdValue(button, id);
-        if (!_idValue) {
-            return;
-        }
         // 根据按钮操作类型处理
         switch (button.option) {
             case GoldbalConstant.OPTIONS_BUTTON.service:
-                this.httpService.doPost(button.url, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
+                 const _idValues = new Array();
+                 this.getSelections().forEach(function(currentValue, index, arr){
+                    _idValues.push(currentValue[this.options.idField]);
+                }, this);
+                this.httpService.doPost(button.url, { sqlId: this.dataViewModule.sqlId, id: _idValues }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
                         this.toastr.success(resp.message);
                         this.search();
@@ -220,7 +204,7 @@ export class DataViewComponent extends SelectorComponent {
                 });
                 break;
             case GoldbalConstant.OPTIONS_BUTTON.modal:
-                this.httpService.doPost(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
+                this.httpService.doPost(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: id }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
                         const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: button.size });
                         modalRef.componentInstance.dataViewModule = this.dataViewModule;

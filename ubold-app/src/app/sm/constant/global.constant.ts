@@ -21,6 +21,7 @@ export class GoldbalConstant {
 
     static CRUD = { create: 'create', update: 'update', delete: 'delete', retrieve: 'retrieve' };
     static LOCATION = { nav: 'nav', row: 'row' };
+    static VALIDATORS = {required: 'required', email: 'email'};
 
     /*修改类型*/
     static MODIFTY_TYPES = { hide: 'hide', enable: 'enable', disable: 'disable' };

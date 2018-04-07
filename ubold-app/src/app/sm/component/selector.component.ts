@@ -76,9 +76,6 @@ export class SelectorComponent extends BaseComponent implements OnInit{
         this.createTreeModule();
         this.createDatafilter();
     }
-
- 
-
     createQueryParams(self){
          this.options.queryParams = function (params) {
             params.treeOptions = self.treeOptions;
@@ -86,9 +83,8 @@ export class SelectorComponent extends BaseComponent implements OnInit{
             return params;
         }
     }
-
-    //获取选中行
-    getSelectionsAndShut() {
+    // 获取选中行
+    getSelectionsAndClose() {
         const selections = this.getSelections();
         if (!selections){
             return;
