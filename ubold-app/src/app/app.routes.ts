@@ -50,7 +50,7 @@ const appRoutes: Routes = [
             {
                 path: 'dataviewedit/:code',
                 component: DataViewEditComponent,
-                canActivate: [ GuardService ],
+                // canActivate: [ GuardService ],
                 resolve: {
 
                     // define dataViewResolver
