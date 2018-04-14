@@ -4,7 +4,7 @@ import { GoldbalConstant } from './global.constant';
  * 字典
  */
 export class DictConstant {
-  // 修改方式
+  // 更新类型
   static createUpdateTypes() {
     const updateTypes = new Array<any>();
     updateTypes.push({ code: 'hide', text: 'hide' });

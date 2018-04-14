@@ -20,7 +20,7 @@
         <div class="form-group row">
             <label class="col-sm-2 control-label">updateType</label>
             <div class="col-sm-10">
-                <select class="form-control" formControlName="updateType" placeholder="修改方式">
+                <select class="form-control" formControlName="updateType" placeholder="更新类型">
                     <option *ngFor="let updateType of updateTypes" [value]="updateType.code">{{updateType.text}}</option>
                 </select>
             </div>

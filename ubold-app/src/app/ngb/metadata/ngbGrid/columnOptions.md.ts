@@ -35,7 +35,7 @@ export class ColumOptions extends Columns{
     order = 'asc';
     cardVisible = true;
     switchable = true;
-    uniqueCheck = false;
+    unduplicated = false;
     clickToSelect = true;
     formatter: any;
     footerFormatter: any;
