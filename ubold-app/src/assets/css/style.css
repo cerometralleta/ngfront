@@ -5720,7 +5720,7 @@ ul.ColVis_collection {
    Accounts pages
 ============= */
 .account-pages {
-  background: url("../images/bg.png");
+  /* background: url("../images/bg.png"); */
   position: absolute;
   background-size: cover;
   height: 100%;
