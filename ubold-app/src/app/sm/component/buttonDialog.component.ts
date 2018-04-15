@@ -23,7 +23,7 @@ export class ButtonDialogComponent implements OnInit {
         , private logger: LoggerService, private httpService: HttpService) { }
     modalsizes: Array<any> = DictConstant.createModalsize();
 
-    @Input() formGroup:FormGroup;
+    @Input() formGroup: FormGroup;
     ngOnInit() {
         const btn = new Button();
         btn.position = GoldbalConstant.LOCATION.nav;

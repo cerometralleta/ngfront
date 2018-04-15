@@ -8,49 +8,51 @@ import { FormVerifiyService } from '../../frame/service/formVerifiy.service';
 import { GoldbalConstant } from '../constant/global.constant';
 import { Application } from '../constant/application.constant';
 import { HttpService } from '../../frame/service/http.service';
-import { SqlDefine } from '../metadata/sqlDefine.md';
+import { ToastrService } from '../../frame/service/toastr.service';
+import { DataViewEditParentComponent } from './DataViewEditParent.component';
 
 @Component({
   selector: 'sqldefine-edit',
   templateUrl: './sqldefineEdit.component.html'
 })
-export class SqldefineEditComponent extends BaseComponent implements OnInit {
-
+export class SqldefineEditComponent extends DataViewEditParentComponent implements OnInit {
     constructor(
-        // public activeModal: NgbActiveModal,
-         private fb: FormBuilder
-        , private logger: LoggerService
-        , private httpService: HttpService
-        , formVerifiyService: FormVerifiyService) {
-            super(formVerifiyService);
+        activeModal: NgbActiveModal,
+        toastr: ToastrService,
+        private fb: FormBuilder,
+        logger: LoggerService,
+        httpService: HttpService,
+        formVerifiyService: FormVerifiyService) {
+          super(activeModal, logger, httpService, toastr, formVerifiyService);
         }
   @Input() formControl: FormControl;
   codePrefix = '{"prefix":"SM"}';
   statusList: Array<any> = DictConstant.createStatusList();
   tableList: Array<any>;
-  data = new SqlDefine();
+  // data = {sqlId: '', status: 0, sqlName: '', mastertable: '',
+  // mastertableid: '', selectsql: '', sqlexpand: '', table: '', sqldesc: ''};
   ngOnInit() {
-
-    // 更新操作不查询
-
+    this.setInsertOptions();
     this.ngbForm = this.fb.group({
-      sqlId: [this.data.sqlId, Validators.required],
-      sqlName: [this.data.sqlId, Validators.required],
-      status: [this.data.status, Validators.required],
-      mastertable: [this.data.mastertable, Validators.required],
-      mastertableid: [this.data.mastertableid, Validators.required],
-      selectsql: [this.data.selectsql, Validators.required],
-      sqlexpand: [this.data.sqlexpand],
-      table: [this.data.table],
-      sqldesc: [this.data.sqldesc]
+      id: [this.viewModel.id],
+      version: [this.viewModel.version],
+      sqlid: [{value: this.viewModel.sqlid, disabled: !this.insertOptions}, [Validators.required]],
+      sqlname: [this.viewModel.sqlname, Validators.required],
+      status: [this.viewModel.status, Validators.required],
+      mastertable: [this.viewModel.mastertable, Validators.required],
+      mastertableid: [this.viewModel.mastertableid, Validators.required],
+      selectsql: [this.viewModel.selectsql, Validators.required],
+      sqlexpand: [this.viewModel.sqlexpand],
+      tablename: [this.viewModel.table],
+      sqldesc: [this.viewModel.sqldesc]
     });
-    this.ngbForm.valueChanges.subscribe(data => this.onValueChanged(data));
+    this.ngbForm.valueChanges.subscribe(viewModel => this.onValueChanged(viewModel));
   }
 
-  queryTable(){
-
-     //  查询数据表
-     this.httpService.doPost(Application.ubold_query_tables, {tableName: 'table_name'})
+  queryTableschemas() {
+     this.httpService
+     .doPost(Application.ubold_query_queryTableschemas,
+      {tablename: this.ngbForm.controls.tablename.value, tableschema: 'ubold'})
      .subscribe(resp => {
        if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
           this.tableList = resp.result;
@@ -58,18 +60,27 @@ export class SqldefineEditComponent extends BaseComponent implements OnInit {
       });
   }
 
-  querytableInfo(tableName){
-    this.httpService.doPost(Application.ubold_query_querytableInfo, {tableName: 'table_name'})
+  queryTableschemaInfo(tableName, tableComment) {
+    this.httpService.doPost(Application.ubold_query_queryTableschemaInfo,
+      {tablename: tableName, tableschema: 'ubold'})
     .subscribe(resp => {
       if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
          this.ngbForm.controls.mastertable.setValue(resp.result.masterTable);
          this.ngbForm.controls.mastertableid.setValue(resp.result.masterTableId);
          this.ngbForm.controls.selectsql.setValue(resp.result.selectSql);
+         this.ngbForm.controls.sqlname.setValue(tableComment);
        }
      });
   }
 
   onSubmit() {
-    //  this.activeModal.close(JSON.stringify(this.ngbForm.value));
+    this.httpService.doPost(this.getDefaultCrudUrl(), this.ngbForm.getRawValue())
+      .subscribe(response => {
+        if (GoldbalConstant.STATUS_CODE.SUCCESS === response.code) {
+          this.activeModal.close(response.message);
+        } else{
+            this.toastr.error(response.message);
+        }
+      });
   }
 }

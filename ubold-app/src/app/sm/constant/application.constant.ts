@@ -35,11 +35,11 @@ export class Application {
     static ubold_sm_sql_bootstrap_ztree: string = Application.baseContext + '/sm/sql/ztree';
     // 视图保存
     // tslint:disable-next-line:member-ordering
-    static ubold_sm_insert: string = Application.baseContext + '/sm/sql/create/';
+    static ubold_sm_insert = '/sm/sql/create/';
     // tslint:disable-next-line:member-ordering
-    static ubold_sm_modfity: string = Application.baseContext + '/sm/sql/modfity/';
+    static ubold_sm_modfity = '/sm/sql/modfity/';
     // tslint:disable-next-line:member-ordering
-    static ubold_sm_delete: string = Application.baseContext + '/sm/sql/delete/';
+    static ubold_sm_delete = '/sm/sql/delete/';
 
 
      // 生成视图列
@@ -53,6 +53,6 @@ export class Application {
     static ubold_form_query: string = Application.baseContext + '/sm/form/find/';
 
     // 查询所有数据表
-    static ubold_query_tables: string = Application.baseContext + '/sm/view/querytables/';
-    static ubold_query_querytableInfo: string = Application.baseContext + '/sm/view/querytableInfo/';
+    static ubold_query_queryTableschemas: string = Application.baseContext + '/sm/view/queryTableschemas';
+    static ubold_query_queryTableschemaInfo: string = Application.baseContext + '/sm/view/queryTableschemaInfo/';
 }

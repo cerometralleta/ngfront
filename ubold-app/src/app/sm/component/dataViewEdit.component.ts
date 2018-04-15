@@ -148,24 +148,30 @@ export class DataViewEditComponent implements OnInit {
         btn.color = 'btn-default';
         btn.position =  GoldbalConstant.LOCATION.nav;
         btn.option = GoldbalConstant.OPTIONS_BUTTON.modal;
+        btn.url = Application.ubold_sm_insert + this.formData.dataViewCode;
+        btn.modal = GoldbalConstant.CRUD_NGBMODAL_REF;
         break;
       case GoldbalConstant.CRUD.delete:
         btn.title = '删除';
         btn.color = 'btn-danger';
         btn.position =  GoldbalConstant.LOCATION.row;
         btn.option = GoldbalConstant.OPTIONS_BUTTON.service;
+        btn.url = Application.ubold_sm_delete + this.formData.dataViewCode;
         break;
       case GoldbalConstant.CRUD.update:
         btn.title = '修改';
         btn.color = 'btn-warning';
         btn.position =  GoldbalConstant.LOCATION.row;
         btn.option = GoldbalConstant.OPTIONS_BUTTON.modal;
+        btn.url = Application.ubold_sm_modfity + this.formData.dataViewCode;
+        btn.modal = GoldbalConstant.CRUD_NGBMODAL_REF;
         break;
       case GoldbalConstant.CRUD.retrieve:
         btn.title = '查看';
         btn.color = 'btn-info';
         btn.position =  GoldbalConstant.LOCATION.row;
         btn.option = GoldbalConstant.OPTIONS_BUTTON.modal;
+        btn.modal = GoldbalConstant.CRUD_NGBMODAL_REF;
         break;
       default:
         break;
@@ -349,8 +355,7 @@ export class DataViewEditComponent implements OnInit {
     this.formGroup = {
       id: [this.formData.id],
       version: [this.formData.version],
-      dataViewCode: [{value: this.formData.dataViewCode, disabled: !this.insert},
-        [Validators.required, Validators.maxLength(30)]],
+      dataViewCode: [{value: this.formData.dataViewCode, disabled: !this.insert}, [Validators.required, Validators.maxLength(30)]],
       dataViewName: [this.formData.dataViewName, [Validators.required, Validators.maxLength(32)]],
       sqlId: [this.formData.sqlId, [Validators.required, Validators.maxLength(50)]],
       remark: [this.formData.remark, Validators.maxLength(250)],

@@ -1,13 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { DataViewModule } from '../metadata/dataViewModule.md';
+import { DataViewModule, Button } from '../metadata/dataViewModule.md';
 import { ColumOptions } from '../../ngb/metadata/ngbGrid/columnOptions.md';
 import { LoggerService } from '../../frame/service/logger.service';
 import { HttpService } from '../../frame/service/http.service';
 import { ToastrService } from '../../frame/service/toastr.service';
 import { GoldbalConstant } from '../constant/global.constant';
 import { Application } from '../constant/application.constant';
+import { CommonUtils } from '../../frame/utils/common.util';
+import { DataViewEditParentComponent } from './DataViewEditParent.component';
+import { FormVerifiyService } from '../../frame/service/formVerifiy.service';
 
 
 @Component({
@@ -15,33 +18,25 @@ import { Application } from '../constant/application.constant';
     templateUrl: './dataViewCreate.component.html'
 })
 // dataView create/update
-export class DataViewCreateComponent implements OnInit {
-
-    // 将列表dataViewModule透传
-    @Input() dataViewModule: DataViewModule;
-    ngbForm: FormGroup;
+export class DataViewCreateComponent extends DataViewEditParentComponent implements OnInit {
 
     // 操作列
     columns: Array<ColumOptions>;
     formgroups = {};
     // 视图数据
-    @Input() viewModel: any;
     @Input() isView = false;
-    insert = false;
     DICT_COMPONENTTYPE = GoldbalConstant.DICT_COMPONENTTYPE;
     constructor(
-        public activeModal: NgbActiveModal,
-        private fb: FormBuilder,
-        private logger: LoggerService,
-        private httpService: HttpService,
-        private toastr: ToastrService) { }
+         activeModal: NgbActiveModal,
+         logger: LoggerService,
+         httpService: HttpService,
+         toastr: ToastrService, formVerifiyService: FormVerifiyService, private fb: FormBuilder) {
+            super(activeModal, logger, httpService, toastr, formVerifiyService);
+    }
 
     ngOnInit() {
         this.columns = this.dataViewModule.columns;
-        if (!this.viewModel) {
-            this.insert = true;
-            this.viewModel = {};
-        }
+        this.setInsertOptions();
         this.columnfilter();
         this.createFormGroup();
         this.ngbForm = new FormGroup(this.formgroups);
@@ -53,7 +48,7 @@ export class DataViewCreateComponent implements OnInit {
         this.columns.forEach(col => {
 
             // 修改idfield,version默认hidden
-            if (!this.insert
+            if (!this.insertOptions
                 && (col.field === this.dataViewModule.options.idField
                     || col.field === this.dataViewModule.options.version)) {
                 col.fieldType = GoldbalConstant.DICT_COMPONENTTYPE.hidden;
@@ -66,9 +61,9 @@ export class DataViewCreateComponent implements OnInit {
     }
 
     onSubmit() {
-        // console.info(JSON.stringify(this.ngbForm.value));
-        const url = this.insert ? Application.ubold_sm_insert : Application.ubold_sm_modfity;
-        this.httpService.doPost(url + this.dataViewModule.dataViewCode, this.ngbForm.value).subscribe(response => {
+        this.httpService.doPost(CommonUtils.urlconvert(this.button.url),
+        this.ngbForm.value)
+        .subscribe(response => {
             if (GoldbalConstant.STATUS_CODE.SUCCESS === response.code) {
                 this.activeModal.close(response.message);
             } else {
@@ -82,13 +77,13 @@ export class DataViewCreateComponent implements OnInit {
         if (this.isView) {
             return column.view;
         }
-        const result = this.insert ? column.insert : column.updateType !== GoldbalConstant.MODIFTY_TYPES.hide;
+        const result = this.insertOptions ? column.insert : column.updateType !== GoldbalConstant.MODIFTY_TYPES.hide;
         return result;
     }
 
     // 修改操作设置数据 disable
     elementDisabled(el: ColumOptions){
-        if (this.insert || this.isView) {
+        if (this.insertOptions || this.isView) {
             return false;
         }
         return el.updateType === GoldbalConstant.MODIFTY_TYPES.disable;

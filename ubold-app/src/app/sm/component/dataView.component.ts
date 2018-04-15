@@ -116,32 +116,45 @@ export class DataViewComponent extends SelectorComponent {
         return this.getSelections()[0][this.options.idField];
     }
 
+    getNgbModalRef(button: Button){
+        let modalRef = DataViewCreateComponent;
+        if (GoldbalConstant.OPTIONS_BUTTON.modal === button.option && 
+            button.modal !== ''){
+                modalRef = this.componentFactory(button.modal);
+        }
+        const ngbModalRef =  this.modalService.open(modalRef, { size: GoldbalConstant.modal_size_lg });
+        ngbModalRef.componentInstance.dataViewModule = this.dataViewModule;
+        ngbModalRef.componentInstance.button = button;
+        return ngbModalRef;
+    }
+
+    ngbModalRefClose(ngbModalRef){
+        ngbModalRef.result.then((result) => {
+            this.toastr.success(result);
+            this.refreshParentModel();
+        }, (reason) => { });
+    }
+    refreshParentModel(){
+        this.search();
+        this.refreshNode();
+    }
+
     navClick(button: Button, id?) {
         let _idValue;
         let modalRef;
         switch (button.id) {
             case GoldbalConstant.CRUD.create:
-                modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_lg });
-                modalRef.result.then((result) => {
-                    this.toastr.success(result);
-                    this.search();
-                    this.refreshNode();
-                }, (reason) => { });
-                modalRef.componentInstance.dataViewModule = this.dataViewModule;
+                modalRef = this.getNgbModalRef(button);
+                this.ngbModalRefClose(modalRef);
                 return;
             case GoldbalConstant.CRUD.update:
                  _idValue = this.getIdValue(button, id);
-                this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_fetch),
+                this.httpService.doPost(Application.ubold_sql_fetch,
                 { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
-                        const modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_lg });
-                        modalRef.componentInstance.dataViewModule = this.dataViewModule;
+                        modalRef = this.getNgbModalRef(button);
                         modalRef.componentInstance.viewModel = resp.result;
-                        modalRef.result.then((result) => {
-                            this.toastr.success(result);
-                            this.search();
-                             this.refreshNode();
-                        }, (reason) => { });
+                        this.ngbModalRefClose(modalRef);
                     } else {
                         this.toastr.error(resp.message);
                     }
@@ -149,14 +162,12 @@ export class DataViewComponent extends SelectorComponent {
                 return;
             case GoldbalConstant.CRUD.retrieve:
                  _idValue = this.getIdValue(button, id);
-                this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_fetch),
+                this.httpService.doPost(Application.ubold_sql_fetch,
                 { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
-                        modalRef = this.modalService.open(DataViewCreateComponent, { size: GoldbalConstant.modal_size_lg });
-                        modalRef.componentInstance.dataViewModule = this.dataViewModule;
+                        modalRef = this.getNgbModalRef(button);
                         modalRef.componentInstance.viewModel = resp.result;
                         modalRef.componentInstance.isView = true;
-                        modalRef.result.then((result) => { }, (reason) => { });
                     } else {
                         this.toastr.error(resp.message);
                     }
@@ -165,15 +176,13 @@ export class DataViewComponent extends SelectorComponent {
             case GoldbalConstant.CRUD.delete:
                  _idValue = this.getIdValue(button, id);
                 this.confirmService.confirm('确认', '确定要删除吗?').then((result) => {
-                    this.httpService.doPost(CommonUtils.urlConvert(button.url, Application.ubold_sql_delete) + 
-                    this.dataViewModule.dataViewCode,
+                    this.httpService.doPost(CommonUtils.urlconvert(button.url),
                     { sqlId: this.dataViewModule.sqlId, id: _idValue }).subscribe(resp => {
                         if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
                             this.toastr.success(resp.message);
-                            this.search();
-                             this.refreshNode();
+                            this.refreshParentModel();
                         } else {
-                            this.toastr.error(resp.message);
+                             this.toastr.error(resp.message);
                         }
                     });
                 }, (reason) => { });
@@ -190,28 +199,39 @@ export class DataViewComponent extends SelectorComponent {
         switch (button.option) {
             case GoldbalConstant.OPTIONS_BUTTON.service:
                  const _idValues = new Array();
-                 this.getSelections().forEach(function(currentValue, index, arr){
-                    _idValues.push(currentValue[this.options.idField]);
-                }, this);
-                this.httpService.doPost(button.url, { sqlId: this.dataViewModule.sqlId, id: _idValues }).subscribe(resp => {
-                    if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
-                        this.toastr.success(resp.message);
-                        this.search();
-                        this.refreshNode();
-                    } else {
-                        this.toastr.error(resp.message);
-                    }
-                });
+                 if (id){
+                    _idValues.push(id);
+                 }else{
+                    this.getSelections().forEach(function(currentValue, index, arr){
+                        _idValues.push(currentValue[this.options.idField]);
+                    }, this);
+                 }
+                this.confirmService.confirm('确认', '确定要' + button.title + '吗?').then((result) => {
+                    this.httpService.doPost(button.url, { sqlId: this.dataViewModule.sqlId, ids: _idValues }).subscribe(resp => {
+                        if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
+                            this.toastr.success(resp.message);
+                            this.refreshParentModel();
+                        } else {
+                            this.toastr.error(resp.message);
+                        }
+                    });
+                }, (reason) => { });
                 break;
             case GoldbalConstant.OPTIONS_BUTTON.modal:
+                if(GoldbalConstant.LOCATION.nav === button.position){
+                    const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: button.size });
+                    modalRef.componentInstance.dataViewModule = this.dataViewModule;
+                    modalRef.componentInstance.button = button;
+                    this.ngbModalRefClose(modalRef);
+                    return;
+                }
                 this.httpService.doPost(Application.ubold_sql_fetch, { sqlId: this.dataViewModule.sqlId, id: id }).subscribe(resp => {
                     if (GoldbalConstant.STATUS_CODE.SUCCESS === resp.code) {
                         const modalRef = this.modalService.open(this.componentFactory(button.modal), { size: button.size });
                         modalRef.componentInstance.dataViewModule = this.dataViewModule;
+                        modalRef.componentInstance.button = button;
                         modalRef.componentInstance.viewModel = resp.result;
-                        modalRef.result.then((result) => {
-                            this.search();
-                        }, (reason) => { });
+                        this.ngbModalRefClose(modalRef);
                     } else {
                         this.toastr.error(resp.message);
                     }

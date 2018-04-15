@@ -7,7 +7,7 @@ export class BaseComponent implements AfterViewInit {
     // form group
     ngbForm: FormGroup;
     formErrors: Array<string>;
-    constructor(private formVerifiyService: FormVerifiyService){
+    constructor(public formVerifiyService: FormVerifiyService){
     }
 
     ngAfterViewInit(): void {

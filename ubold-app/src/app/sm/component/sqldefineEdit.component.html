@@ -6,25 +6,25 @@
     <div class="form-group row">
         <label class="col-sm-2 control-label">sqlId</label>
         <div class="col-sm-10">
-            <ng4b-code placeholder="sqlId" formControlName="sqlId" [dataFormat]="codePrefix"></ng4b-code>
+            <ng4b-code placeholder="sqlid" formControlName="sqlid" [dataFormat]="codePrefix"></ng4b-code>
         </div>
     </div>
 
     <div class="form-group row">
         <label class="col-sm-2 control-label">别名</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="别名" formControlName="sqlName" />
+            <input type="text" class="form-control" placeholder="别名" formControlName="sqlname" />
         </div>
     </div>
 
-    <div class="form-group row">
-        <label class="col-sm-2 control-label">数据表</label>
+    <div class="form-group row"  *ngIf="this.insertOptions">
+        <label class="col-sm-2 control-label">搜索</label>
         <div class="col-sm-10">
-            <input type="text" (change)="queryTable()"  class="form-control" placeholder="数据表"  formControlName="table" />
+            <input type="text" (change)="queryTableschemas()"  class="form-control" placeholder="搜索"  formControlName="tablename" />
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row"  *ngIf="this.insertOptions">
             <label class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
                 <table class="table table-bordered table-striped">
@@ -34,8 +34,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let tb of tableList;">
-                            <td (click)="querytableInfo(tb.tableName)">{{tb.tableName}}</td>
-                            <td>{{tb.remark}}</td>
+                            <td (click)="queryTableschemaInfo(tb.tableName,tb.tableComment)">{{tb.tableName}}</td>
+                            <td>{{tb.tableComment}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -59,14 +59,14 @@
     <div class="form-group row">
         <label class="col-sm-2 control-label">SQL</label>
         <div class="col-sm-10">
-            <textarea rows="5" cols="20" class="form-control" placeholder="SQL" formControlName="selectsql"></textarea>
+            <textarea style="min-height: 160px;" class="form-control" placeholder="SQL" formControlName="selectsql"></textarea>
         </div>
     </div>
 
     <div class="form-group row">
         <label class="col-sm-2 control-label">子查询</label>
         <div class="col-sm-10">
-            <textarea rows="5" cols="20" class="form-control" placeholder="子查询" formControlName="sqlexpand"></textarea>
+            <textarea  class="form-control" placeholder="子查询" formControlName="sqlexpand"></textarea>
         </div>
     </div>
     

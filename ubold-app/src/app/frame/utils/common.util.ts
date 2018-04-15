@@ -5,7 +5,7 @@ export class CommonUtils {
 
     // 优先处理url
     // tslint:disable-next-line:member-ordering
-    static urlConvert(url: string, backupUrl: string): string{
+    static urlconvert(url: string): string{
         if (url) {
             if (url.indexOf('http') < 0 && url.indexOf('https') < 0){
                 url = Application.baseContext +  url;
@@ -13,7 +13,7 @@ export class CommonUtils {
                 return url;
             }
         }
-        return backupUrl;
+        return url;
     }
 
     /**
